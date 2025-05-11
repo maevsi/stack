@@ -1,3 +1,9 @@
+## [13.4.5](https://github.com/maevsi/stack/compare/13.4.4...13.4.5) (2025-05-11)
+
+### Bug Fixes
+
+* **reccoom:** disable routing for production ([97a949b](https://github.com/maevsi/stack/commit/97a949bcfbbd2a7a28f0e7d6ec937cb5d0637981))
+
 ## [13.4.4](https://github.com/maevsi/stack/compare/13.4.3...13.4.4) (2025-05-11)
 
 ### Bug Fixes
