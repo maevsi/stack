@@ -337,8 +337,8 @@ services:
         - traefik.http.routers.reccoom.entryPoints=web
         - traefik.http.routers.reccoom.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.reccoom.rule=Host(`reccoom.${STACK_DOMAIN}`)
-        - traefik.http.routers.reccoom_secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom_secure.entryPoints=web-secure
+        - traefik.http.routers.reccoom_secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.reccoom.loadbalancer.server.port=8001
     image: maevsi/reccoom:dev
