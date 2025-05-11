@@ -382,6 +382,7 @@ services:
       - --api=true
       - --entryPoints.web.address=:80
       - --entryPoints.web-secure.address=:443
+      - --entryPoints.nuxt-content-websocket.address=:4000 #DARGSTACK-REMOVE
       - --providers.swarm=true
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --providers.swarm.exposedByDefault=false
@@ -413,6 +414,10 @@ services:
         protocol: tcp #DARGSTACK-REMOVE
         published: 443 #DARGSTACK-REMOVE
         target: 443 #DARGSTACK-REMOVE
+      - mode: host #DARGSTACK-REMOVE
+        protocol: tcp #DARGSTACK-REMOVE
+        published: 4000 #DARGSTACK-REMOVE
+        target: 4000 #DARGSTACK-REMOVE
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certificates/:/etc/traefik/acme/
@@ -449,11 +454,18 @@ services:
         - traefik.http.routers.vibetype.entryPoints=web
         - traefik.http.routers.vibetype.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)
+        - traefik.http.routers.vibetype.service=vibetype #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.entryPoints=nuxt-content-websocket #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.service=vibetype_content #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_secure.entryPoints=web-secure
         - traefik.http.routers.vibetype_secure.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)
+        - traefik.http.routers.vibetype_secure.service=vibetype #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
+        - traefik.http.services.vibetype_content.loadbalancer.server.port=4000 #DARGSTACK-REMOVE
     environment:
       AWS_REGION: ${VIBETYPE_AWS_REGION}
       CONSOLA_LEVEL: 4 # debug #DARGSTACK-REMOVE
