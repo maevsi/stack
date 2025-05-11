@@ -1,3 +1,9 @@
+## [13.4.3](https://github.com/maevsi/stack/compare/13.4.2...13.4.3) (2025-05-11)
+
+### Bug Fixes
+
+* **traefik:** specify router entrypoints ([eeab9f7](https://github.com/maevsi/stack/commit/eeab9f7320e141bd4eaacbc08a1927996920e77d))
+
 ## [13.4.2](https://github.com/maevsi/stack/compare/13.4.1...13.4.2) (2025-05-09)
 
 ### Bug Fixes
