@@ -1,3 +1,9 @@
+## [13.4.4](https://github.com/maevsi/stack/compare/13.4.3...13.4.4) (2025-05-11)
+
+### Bug Fixes
+
+* **vibetype:** account for nuxt content's websocket ([96b63f4](https://github.com/maevsi/stack/commit/96b63f49a3fbeb7d151195e058d4e4ac3ae4f961))
+
 ## [13.4.3](https://github.com/maevsi/stack/compare/13.4.2...13.4.3) (2025-05-11)
 
 ### Bug Fixes
