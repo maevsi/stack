@@ -1,3 +1,16 @@
+## [14.0.0-beta.3](https://github.com/maevsi/stack/compare/14.0.0-beta.2...14.0.0-beta.3) (2025-05-12)
+
+### ⚠ BREAKING CHANGES
+
+* **debezium-postgres-connector:** whitelist tables
+* **tusd:** adapt new vibetype api for uploads
+
+### Features
+
+* **debezium-postgres-connector:** whitelist tables ([e31e93d](https://github.com/maevsi/stack/commit/e31e93db09c74a9c42ca06328257385c6836fd9a))
+* **tusd:** adapt new vibetype api for uploads ([2ac49d1](https://github.com/maevsi/stack/commit/2ac49d1be6704c115c7dc5d782dc10ca84b5ff5f))
+* **vibetype:** exclude internal api path from traefik routing ([bc90f8f](https://github.com/maevsi/stack/commit/bc90f8f9eedf95d5eb6dcd4ad362dbfd10f47a24))
+
 ## [14.0.0-beta.2](https://github.com/maevsi/stack/compare/14.0.0-beta.1...14.0.0-beta.2) (2025-05-12)
 
 ### Features
