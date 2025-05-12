@@ -99,8 +99,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.adminer.entryPoints=web
         - traefik.http.routers.adminer.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.adminer.rule=Host(`adminer.${STACK_DOMAIN}`)
+        - traefik.http.routers.adminer_secure.entryPoints=web-secure
         - traefik.http.routers.adminer_secure.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.adminer.loadbalancer.server.port=8080
@@ -148,8 +150,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.grafana.entryPoints=web
         - traefik.http.routers.grafana.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.grafana.rule=Host(`grafana.${STACK_DOMAIN}`)
+        - traefik.http.routers.grafana_secure.entryPoints=web-secure
         - traefik.http.routers.grafana_secure.rule=Host(`grafana.${STACK_DOMAIN}`)
         - traefik.http.routers.grafana_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.grafana.loadbalancer.server.port=3000
@@ -189,18 +193,22 @@ services:
       labels: #DARGSTACK-REMOVE
         - traefik.enable=true #DARGSTACK-REMOVE
         # Minio Console
+        - traefik.http.routers.minio.entryPoints=web #DARGSTACK-REMOVE
         - traefik.http.routers.minio.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.minio.rule=Host(`minio.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
         - traefik.http.routers.minio.service=minio #DARGSTACK-REMOVE
+        - traefik.http.routers.minio_secure.entryPoints=web-secure #DARGSTACK-REMOVE
         - traefik.http.routers.minio_secure.rule=Host(`minio.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
         - traefik.http.routers.minio_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.minio_secure.service=minio #DARGSTACK-REMOVE
         - traefik.http.services.minio.loadbalancer.server.port=9001 #DARGSTACK-REMOVE
         - traefik.http.services.minio.loadbalancer.passhostheader=true #DARGSTACK-REMOVE
         # Minio itself
+        - traefik.http.routers.s3.entryPoints=web #DARGSTACK-REMOVE
         - traefik.http.routers.s3.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.s3.rule=Host(`s3.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
         - traefik.http.routers.s3.service=s3 #DARGSTACK-REMOVE
+        - traefik.http.routers.s3_secure.entryPoints=web-secure #DARGSTACK-REMOVE
         - traefik.http.routers.s3_secure.rule=Host(`s3.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
         - traefik.http.routers.s3_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.s3_secure.service=s3 #DARGSTACK-REMOVE
@@ -219,8 +227,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.portainer.entryPoints=web
         - traefik.http.routers.portainer.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.portainer.rule=Host(`portainer.${STACK_DOMAIN}`)
+        - traefik.http.routers.portainer_secure.entryPoints=web-secure
         - traefik.http.routers.portainer_secure.rule=Host(`portainer.${STACK_DOMAIN}`)
         - traefik.http.routers.portainer_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.portainer.loadbalancer.server.port=9000
@@ -250,15 +260,18 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/auth-proxy
+        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/service/traefik/authentication
         - traefik.http.middlewares.postgraphile_auth.forwardauth.forwardBody=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowHeaders=authorization,baggage,content-type,sentry-trace,x-turnstile-key
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=*
+        - traefik.http.routers.postgraphile.entryPoints=web
         - traefik.http.routers.postgraphile.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
+        - traefik.http.routers.postgraphile_secure.entryPoints=web-secure
         - traefik.http.routers.postgraphile_secure.middlewares=postgraphile_auth,postgraphile_cors
         - traefik.http.routers.postgraphile_secure.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
+        - traefik.http.routers.postgraphile_secure_graphiql.entryPoints=web-secure
         - traefik.http.routers.postgraphile_secure_graphiql.rule=Host(`postgraphile.${STACK_DOMAIN}`) && Path(`/graphiql`)
         - traefik.http.routers.postgraphile_secure_graphiql.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.postgraphile.loadbalancer.server.port=5000
@@ -305,8 +318,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.prometheus.entryPoints=web
         - traefik.http.routers.prometheus.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.prometheus.rule=Host(`prometheus.${STACK_DOMAIN}`)
+        - traefik.http.routers.prometheus_secure.entryPoints=web-secure
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
@@ -319,8 +334,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.reccoom.entryPoints=web
         - traefik.http.routers.reccoom.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.reccoom.rule=Host(`reccoom.${STACK_DOMAIN}`)
+        - traefik.http.routers.reccoom_secure.entryPoints=web-secure
         - traefik.http.routers.reccoom_secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.reccoom.loadbalancer.server.port=8001
@@ -347,7 +364,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v25.1.3
+    image: redpandadata/redpanda:v25.1.4
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
@@ -355,8 +372,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.redpanda.entryPoints=web
         - traefik.http.routers.redpanda.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.redpanda.rule=Host(`redpanda.${STACK_DOMAIN}`)
+        - traefik.http.routers.redpanda_secure.entryPoints=web-secure
         - traefik.http.routers.redpanda_secure.rule=Host(`redpanda.${STACK_DOMAIN}`)
         - traefik.http.routers.redpanda_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
@@ -382,6 +401,7 @@ services:
       - --api=true
       - --entryPoints.web.address=:80
       - --entryPoints.web-secure.address=:443
+      - --entryPoints.nuxt-content-websocket.address=:4000 #DARGSTACK-REMOVE
       - --providers.swarm=true
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --providers.swarm.exposedByDefault=false
@@ -392,9 +412,11 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https #DARGSTACK-REMOVE
+        - traefik.http.routers.traefik.entryPoints=web
         - traefik.http.routers.traefik.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.traefik.rule=Host(`traefik.${STACK_DOMAIN}`)
         - traefik.http.routers.traefik.service=api@internal
+        - traefik.http.routers.traefik_secure.entryPoints=web-secure
         - traefik.http.routers.traefik_secure.rule=Host(`traefik.${STACK_DOMAIN}`)
         - traefik.http.routers.traefik_secure.service=api@internal
         - traefik.http.routers.traefik_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
@@ -413,19 +435,25 @@ services:
         protocol: tcp #DARGSTACK-REMOVE
         published: 443 #DARGSTACK-REMOVE
         target: 443 #DARGSTACK-REMOVE
+      - mode: host #DARGSTACK-REMOVE
+        protocol: tcp #DARGSTACK-REMOVE
+        published: 4000 #DARGSTACK-REMOVE
+        target: 4000 #DARGSTACK-REMOVE
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certificates/:/etc/traefik/acme/
       - ./configurations/traefik/dynamic.yml:/dynamic.yml:ro #DARGSTACK-REMOVE
   tusd:
     # You can access the upload service at [tusd.localhost](https://tusd.localhost/).
-    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,post-terminate --hooks-http http://vibetype:3000/api/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
+    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,post-terminate --hooks-http http://vibetype:3000/api/service/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.middlewares.tusd_cors.headers.customresponseheaders.Cross-Origin-Resource-Policy=cross-origin
+        - traefik.http.routers.tusd.entryPoints=web
         - traefik.http.routers.tusd.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.tusd.rule=Host(`tusd.${STACK_DOMAIN}`)
-        - traefik.http.middlewares.tusd_cors.headers.customresponseheaders.Cross-Origin-Resource-Policy=cross-origin
+        - traefik.http.routers.tusd_secure.entryPoints=web-secure
         - traefik.http.routers.tusd_secure.middlewares=tusd_cors
         - traefik.http.routers.tusd_secure.rule=Host(`tusd.${STACK_DOMAIN}`) && (Method(`GET`) || Method(`HEAD`) || Method(`OPTIONS`) || Method(`POST`) || Method(`PUT`) || Method(`PATCH`))
         - traefik.http.routers.tusd_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
@@ -449,11 +477,18 @@ services:
         - traefik.http.routers.vibetype.entryPoints=web
         - traefik.http.routers.vibetype.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)
+        - traefik.http.routers.vibetype.service=vibetype #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.entryPoints=nuxt-content-websocket #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.service=vibetype_content #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_secure.entryPoints=web-secure
         - traefik.http.routers.vibetype_secure.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)
+        - traefik.http.routers.vibetype_secure.service=vibetype #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
+        - traefik.http.services.vibetype_content.loadbalancer.server.port=4000 #DARGSTACK-REMOVE
     environment:
       AWS_REGION: ${VIBETYPE_AWS_REGION}
       CONSOLA_LEVEL: 4 # debug #DARGSTACK-REMOVE

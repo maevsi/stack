@@ -8,6 +8,42 @@
 
 * **vibetype-beta:** disable ([f46055e](https://github.com/maevsi/stack/commit/f46055e588a14c7750acd754b0a9326925d5d0da))
 
+## [13.4.5](https://github.com/maevsi/stack/compare/13.4.4...13.4.5) (2025-05-11)
+
+### Bug Fixes
+
+* **reccoom:** disable routing for production ([97a949b](https://github.com/maevsi/stack/commit/97a949bcfbbd2a7a28f0e7d6ec937cb5d0637981))
+
+## [13.4.4](https://github.com/maevsi/stack/compare/13.4.3...13.4.4) (2025-05-11)
+
+### Bug Fixes
+
+* **vibetype:** account for nuxt content's websocket ([96b63f4](https://github.com/maevsi/stack/commit/96b63f49a3fbeb7d151195e058d4e4ac3ae4f961))
+
+## [13.4.3](https://github.com/maevsi/stack/compare/13.4.2...13.4.3) (2025-05-11)
+
+### Bug Fixes
+
+* **traefik:** specify router entrypoints ([eeab9f7](https://github.com/maevsi/stack/commit/eeab9f7320e141bd4eaacbc08a1927996920e77d))
+
+## [13.4.2](https://github.com/maevsi/stack/compare/13.4.1...13.4.2) (2025-05-09)
+
+### Bug Fixes
+
+* **vibetype:** upgrade to v11.0.0-beta.2 ([2dba24a](https://github.com/maevsi/stack/commit/2dba24a3a1d4cd6e77cc7c3c78c57ab98ee9b4dd))
+
+## [13.4.1](https://github.com/maevsi/stack/compare/13.4.0...13.4.1) (2025-05-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.19.0 ([4a04e9e](https://github.com/maevsi/stack/commit/4a04e9e01d006777b06cb96a2d2c598d5730fc3a))
+
+## [13.4.0](https://github.com/maevsi/stack/compare/13.3.0...13.4.0) (2025-05-08)
+
+### Features
+
+* **vibetype:** upgrade to v11.0.0-beta.1 ([601660a](https://github.com/maevsi/stack/commit/601660a4c9b52d829c938f5b9fb84b8df662f673))
+
 ## [13.3.0](https://github.com/maevsi/stack/compare/13.2.1...13.3.0) (2025-05-08)
 
 ### Features
