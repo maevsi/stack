@@ -445,7 +445,7 @@ services:
       - ./configurations/traefik/dynamic.yml:/dynamic.yml:ro #DARGSTACK-REMOVE
   tusd:
     # You can access the upload service at [tusd.localhost](https://tusd.localhost/).
-    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,post-terminate --hooks-http http://vibetype:3000/api/service/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
+    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,pre-terminate --hooks-http http://vibetype:3000/api/internal/service/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
     deploy:
       labels:
         - traefik.enable=true
@@ -476,15 +476,15 @@ services:
         - traefik.http.middlewares.vibetype_redirectregex.redirectregex.replacement=https://${STACK_DOMAIN}/$${2}
         - traefik.http.routers.vibetype.entryPoints=web
         - traefik.http.routers.vibetype.middlewares=redirectscheme #DARGSTACK-REMOVE
-        - traefik.http.routers.vibetype.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)
+        - traefik.http.routers.vibetype.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype.service=vibetype #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_content_secure.entryPoints=nuxt-content-websocket #DARGSTACK-REMOVE
-        - traefik.http.routers.vibetype_content_secure.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`) #DARGSTACK-REMOVE
+        - traefik.http.routers.vibetype_content_secure.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`) #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_content_secure.service=vibetype_content #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_content_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_secure.entryPoints=web-secure
         - traefik.http.routers.vibetype_secure.middlewares=vibetype_cors,vibetype_redirectregex
-        - traefik.http.routers.vibetype_secure.rule=Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)
+        - traefik.http.routers.vibetype_secure.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype_secure.service=vibetype #DARGSTACK-REMOVE
         - traefik.http.routers.vibetype_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
