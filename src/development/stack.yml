@@ -260,7 +260,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/service/traefik/authentication
+        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/auth-proxy
         - traefik.http.middlewares.postgraphile_auth.forwardauth.forwardBody=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowHeaders=authorization,baggage,content-type,sentry-trace,x-turnstile-key
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=*
@@ -445,7 +445,7 @@ services:
       - ./configurations/traefik/dynamic.yml:/dynamic.yml:ro #DARGSTACK-REMOVE
   tusd:
     # You can access the upload service at [tusd.localhost](https://tusd.localhost/).
-    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,post-terminate --hooks-http http://vibetype:3000/api/service/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
+    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,post-terminate --hooks-http http://vibetype:3000/api/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
     deploy:
       labels:
         - traefik.enable=true
