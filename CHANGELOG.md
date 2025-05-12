@@ -1,3 +1,17 @@
+## [14.0.0-beta.2](https://github.com/maevsi/stack/compare/14.0.0-beta.1...14.0.0-beta.2) (2025-05-12)
+
+### Features
+
+* **vibetype:** upgrade to v11.0.0-beta.1 ([601660a](https://github.com/maevsi/stack/commit/601660a4c9b52d829c938f5b9fb84b8df662f673))
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.19.0 ([4a04e9e](https://github.com/maevsi/stack/commit/4a04e9e01d006777b06cb96a2d2c598d5730fc3a))
+* **reccoom:** disable routing for production ([97a949b](https://github.com/maevsi/stack/commit/97a949bcfbbd2a7a28f0e7d6ec937cb5d0637981))
+* **traefik:** specify router entrypoints ([eeab9f7](https://github.com/maevsi/stack/commit/eeab9f7320e141bd4eaacbc08a1927996920e77d))
+* **vibetype:** account for nuxt content's websocket ([96b63f4](https://github.com/maevsi/stack/commit/96b63f49a3fbeb7d151195e058d4e4ac3ae4f961))
+* **vibetype:** upgrade to v11.0.0-beta.2 ([2dba24a](https://github.com/maevsi/stack/commit/2dba24a3a1d4cd6e77cc7c3c78c57ab98ee9b4dd))
+
 ## [14.0.0-beta.1](https://github.com/maevsi/stack/compare/13.3.0...14.0.0-beta.1) (2025-05-08)
 
 ### ⚠ BREAKING CHANGES
