@@ -35,6 +35,12 @@
 
 * **vibetype-beta:** disable ([f46055e](https://github.com/maevsi/stack/commit/f46055e588a14c7750acd754b0a9326925d5d0da))
 
+## [13.4.6](https://github.com/maevsi/stack/compare/13.4.5...13.4.6) (2025-05-12)
+
+### Bug Fixes
+
+* revert "feat(vibetype): upgrade to v11.0.0-beta.1" ([c7fc2e0](https://github.com/maevsi/stack/commit/c7fc2e0c198a785b984dc67d804970801c719acd))
+
 ## [13.4.5](https://github.com/maevsi/stack/compare/13.4.4...13.4.5) (2025-05-11)
 
 ### Bug Fixes

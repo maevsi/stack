@@ -152,7 +152,7 @@ services:
   #     NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
   #     NUXT_PUBLIC_VIO_ENVIRONMENT: beta
   #     PGHOST: ${VIBETYPE_PGHOST}
-  #   image: ghcr.io/maevsi/vibetype:10.19.2
+  #   image: ghcr.io/maevsi/vibetype:10.20.0
   #   secrets:
   #     - source: vibetype_api-notification-secret
   #       target: /run/environment-variables/NUXT_PRIVATE_API_NOTIFICATION_SECRET
