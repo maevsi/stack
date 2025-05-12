@@ -1,7 +1,7 @@
 {
   "name": "@maevsi/stack",
   "private": true,
-  "version": "14.0.0-beta.3",
+  "version": "14.0.0-beta.4",
   "description": "Dargstack configuration for Vibetype.",
   "repository": "https://github.com/maevsi/stack.git",
   "author": "Jonas Thelemann <e-mail+maevsi_stack@jonas-thelemann.de>",

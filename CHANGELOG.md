@@ -1,3 +1,9 @@
+## [14.0.0-beta.4](https://github.com/maevsi/stack/compare/14.0.0-beta.3...14.0.0-beta.4) (2025-05-12)
+
+### Bug Fixes
+
+* revert "feat(vibetype): upgrade to v11.0.0-beta.1" ([c7fc2e0](https://github.com/maevsi/stack/commit/c7fc2e0c198a785b984dc67d804970801c719acd))
+
 ## [14.0.0-beta.3](https://github.com/maevsi/stack/compare/14.0.0-beta.2...14.0.0-beta.3) (2025-05-12)
 
 ### ⚠ BREAKING CHANGES
