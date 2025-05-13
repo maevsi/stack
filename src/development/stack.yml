@@ -292,7 +292,6 @@ services:
     # You can access the database via `adminer`.
     command: -c vibetype.jwt_expiry_duration='1 month' -c wal_level=logical
     environment:
-      POSTGRES_ADDITIONAL_DBS: grafana
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
@@ -302,8 +301,6 @@ services:
     secrets:
       - postgres_db
       - postgres_password
-      - postgres_role_service_grafana_password
-      - postgres_role_service_grafana_username
       - postgres_user
     # sysctls:
     #   # Prevent Docker Swarm from killing connections (https://github.com/moby/moby/issues/31208)
@@ -312,7 +309,6 @@ services:
     #   - net.ipv4.tcp_keepalive_probes=10
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-      - ../production/configurations/postgres/docker-entrypoint-initdb.d/additional-databases.sh:/docker-entrypoint-initdb.d/additional-databases.sh:ro
   prometheus:
     # You can access the metrics monitoring at [prometheus.localhost](https://prometheus.localhost/).
     deploy:
@@ -388,6 +384,8 @@ services:
     # You cannot access the database migrations directly.
     image: maevsi/sqitch:dev
     secrets:
+      - postgres_role_service_grafana_password
+      - postgres_role_service_grafana_username
       - postgres_role_service_postgraphile_password
       - postgres_role_service_postgraphile_username
       - postgres_role_service_vibetype_password
