@@ -1,3 +1,13 @@
+## [14.0.0-beta.5](https://github.com/maevsi/stack/compare/14.0.0-beta.4...14.0.0-beta.5) (2025-05-13)
+
+### ⚠ BREAKING CHANGES
+
+* **postgres:** drop database and role creation entrypoint
+
+### Features
+
+* **postgres:** drop database and role creation entrypoint ([96c9d88](https://github.com/maevsi/stack/commit/96c9d885fd9080e40574ebfee9df60b849ce6128))
+
 ## [14.0.0-beta.4](https://github.com/maevsi/stack/compare/14.0.0-beta.3...14.0.0-beta.4) (2025-05-12)
 
 ### Bug Fixes
