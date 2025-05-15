@@ -1,3 +1,20 @@
+## [14.0.0](https://github.com/maevsi/stack/compare/13.4.9...14.0.0) (2025-05-15)
+
+### ⚠ BREAKING CHANGES
+
+* **postgres:** drop database and role creation entrypoint
+* **debezium-postgres-connector:** whitelist tables
+* **tusd:** adapt new vibetype api for uploads
+* **vibetype-beta:** disable
+
+### Features
+
+* **debezium-postgres-connector:** whitelist tables ([e31e93d](https://github.com/maevsi/stack/commit/e31e93db09c74a9c42ca06328257385c6836fd9a))
+* **postgres:** drop database and role creation entrypoint ([96c9d88](https://github.com/maevsi/stack/commit/96c9d885fd9080e40574ebfee9df60b849ce6128))
+* **tusd:** adapt new vibetype api for uploads ([2ac49d1](https://github.com/maevsi/stack/commit/2ac49d1be6704c115c7dc5d782dc10ca84b5ff5f))
+* **vibetype-beta:** disable ([f46055e](https://github.com/maevsi/stack/commit/f46055e588a14c7750acd754b0a9326925d5d0da))
+* **vibetype:** exclude internal api path from traefik routing ([bc90f8f](https://github.com/maevsi/stack/commit/bc90f8f9eedf95d5eb6dcd4ad362dbfd10f47a24))
+
 ## [14.0.0-beta.6](https://github.com/maevsi/stack/compare/14.0.0-beta.5...14.0.0-beta.6) (2025-05-15)
 
 ### Bug Fixes
