@@ -128,7 +128,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:11.0.1
+    image: ghcr.io/maevsi/vibetype:11.0.2
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.localhost](https://beta.localhost/).
@@ -152,7 +152,7 @@ services:
   #     NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
   #     NUXT_PUBLIC_VIO_ENVIRONMENT: beta
   #     PGHOST: ${VIBETYPE_PGHOST}
-  #   image: ghcr.io/maevsi/vibetype:11.0.1
+  #   image: ghcr.io/maevsi/vibetype:11.0.2
   #   secrets:
   #     - source: vibetype_api-notification-secret
   #       target: /run/environment-variables/NUXT_PRIVATE_API_NOTIFICATION_SECRET
