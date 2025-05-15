@@ -51,6 +51,24 @@
 
 * **vibetype-beta:** disable ([f46055e](https://github.com/maevsi/stack/commit/f46055e588a14c7750acd754b0a9326925d5d0da))
 
+## [13.4.9](https://github.com/maevsi/stack/compare/13.4.8...13.4.9) (2025-05-14)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v10.21.0 ([737f1cd](https://github.com/maevsi/stack/commit/737f1cd67bf52e3f485275d4e04e5e38711db7a9))
+
+## [13.4.8](https://github.com/maevsi/stack/compare/13.4.7...13.4.8) (2025-05-14)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.20.2 ([fb444d4](https://github.com/maevsi/stack/commit/fb444d430fe105650f7e3c1dbb368bf920a7820d))
+
+## [13.4.7](https://github.com/maevsi/stack/compare/13.4.6...13.4.7) (2025-05-13)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.20.1 ([778cf65](https://github.com/maevsi/stack/commit/778cf651a68085e03e7a2c0850a29b16ff403037))
+
 ## [13.4.6](https://github.com/maevsi/stack/compare/13.4.5...13.4.6) (2025-05-12)
 
 ### Bug Fixes
