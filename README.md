@@ -250,10 +250,6 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You can access the main project's frontend at [localhost](https://localhost/).
     
- - ### `vibetype_beta` ![production](https://img.shields.io/badge/-production-informational.svg?style=flat-square)
-    
-    You can access the main project frontend's beta version at [beta.localhost](https://beta.localhost/).
-    
 
 ## volumes
 

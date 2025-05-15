@@ -33,10 +33,9 @@ elif [ "$HTTP_STATUS" -eq 404 ]; then
             "database.dbname": "'"$POSTGRES_DB"'",
             "database.hostname": "postgres",
             "database.password": "'"$POSTGRES_PASSWORD"'",
-            "database.port": "5432",
-            "database.server.name": "postgres",
             "database.user": "'"$POSTGRES_USER"'",
             "plugin.name": "pgoutput",
+            "table.include.list": "vibetype.upload,vibetype_private.notification",
             "topic.prefix" : "vibetype"
         }
     }'

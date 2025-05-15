@@ -1,3 +1,64 @@
+## [14.0.0-beta.6](https://github.com/maevsi/stack/compare/14.0.0-beta.5...14.0.0-beta.6) (2025-05-15)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.20.1 ([778cf65](https://github.com/maevsi/stack/commit/778cf651a68085e03e7a2c0850a29b16ff403037))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.20.2 ([fb444d4](https://github.com/maevsi/stack/commit/fb444d430fe105650f7e3c1dbb368bf920a7820d))
+* **deps:** update ghcr.io/maevsi/vibetype to v10.21.0 ([737f1cd](https://github.com/maevsi/stack/commit/737f1cd67bf52e3f485275d4e04e5e38711db7a9))
+
+## [14.0.0-beta.5](https://github.com/maevsi/stack/compare/14.0.0-beta.4...14.0.0-beta.5) (2025-05-13)
+
+### ⚠ BREAKING CHANGES
+
+* **postgres:** drop database and role creation entrypoint
+
+### Features
+
+* **postgres:** drop database and role creation entrypoint ([96c9d88](https://github.com/maevsi/stack/commit/96c9d885fd9080e40574ebfee9df60b849ce6128))
+
+## [14.0.0-beta.4](https://github.com/maevsi/stack/compare/14.0.0-beta.3...14.0.0-beta.4) (2025-05-12)
+
+### Bug Fixes
+
+* revert "feat(vibetype): upgrade to v11.0.0-beta.1" ([c7fc2e0](https://github.com/maevsi/stack/commit/c7fc2e0c198a785b984dc67d804970801c719acd))
+
+## [14.0.0-beta.3](https://github.com/maevsi/stack/compare/14.0.0-beta.2...14.0.0-beta.3) (2025-05-12)
+
+### ⚠ BREAKING CHANGES
+
+* **debezium-postgres-connector:** whitelist tables
+* **tusd:** adapt new vibetype api for uploads
+
+### Features
+
+* **debezium-postgres-connector:** whitelist tables ([e31e93d](https://github.com/maevsi/stack/commit/e31e93db09c74a9c42ca06328257385c6836fd9a))
+* **tusd:** adapt new vibetype api for uploads ([2ac49d1](https://github.com/maevsi/stack/commit/2ac49d1be6704c115c7dc5d782dc10ca84b5ff5f))
+* **vibetype:** exclude internal api path from traefik routing ([bc90f8f](https://github.com/maevsi/stack/commit/bc90f8f9eedf95d5eb6dcd4ad362dbfd10f47a24))
+
+## [14.0.0-beta.2](https://github.com/maevsi/stack/compare/14.0.0-beta.1...14.0.0-beta.2) (2025-05-12)
+
+### Features
+
+* **vibetype:** upgrade to v11.0.0-beta.1 ([601660a](https://github.com/maevsi/stack/commit/601660a4c9b52d829c938f5b9fb84b8df662f673))
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v10.19.0 ([4a04e9e](https://github.com/maevsi/stack/commit/4a04e9e01d006777b06cb96a2d2c598d5730fc3a))
+* **reccoom:** disable routing for production ([97a949b](https://github.com/maevsi/stack/commit/97a949bcfbbd2a7a28f0e7d6ec937cb5d0637981))
+* **traefik:** specify router entrypoints ([eeab9f7](https://github.com/maevsi/stack/commit/eeab9f7320e141bd4eaacbc08a1927996920e77d))
+* **vibetype:** account for nuxt content's websocket ([96b63f4](https://github.com/maevsi/stack/commit/96b63f49a3fbeb7d151195e058d4e4ac3ae4f961))
+* **vibetype:** upgrade to v11.0.0-beta.2 ([2dba24a](https://github.com/maevsi/stack/commit/2dba24a3a1d4cd6e77cc7c3c78c57ab98ee9b4dd))
+
+## [14.0.0-beta.1](https://github.com/maevsi/stack/compare/13.3.0...14.0.0-beta.1) (2025-05-08)
+
+### ⚠ BREAKING CHANGES
+
+* **vibetype-beta:** disable
+
+### Features
+
+* **vibetype-beta:** disable ([f46055e](https://github.com/maevsi/stack/commit/f46055e588a14c7750acd754b0a9326925d5d0da))
+
 ## [13.4.9](https://github.com/maevsi/stack/compare/13.4.8...13.4.9) (2025-05-14)
 
 ### Bug Fixes
