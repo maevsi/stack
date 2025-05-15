@@ -82,7 +82,7 @@ services:
     image: ghcr.io/maevsi/reccoom:0.1.0
     volumes: (( prune ))
   sqitch:
-    image: ghcr.io/maevsi/sqitch:8.0.0-beta.9
+    image: ghcr.io/maevsi/sqitch:8.0.0
     volumes: (( prune ))
   traefik:
     command:
