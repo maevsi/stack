@@ -1,3 +1,9 @@
+## [14.0.1](https://github.com/maevsi/stack/compare/14.0.0...14.0.1) (2025-05-15)
+
+### Bug Fixes
+
+* **deps:** hotfix versions ([2afb160](https://github.com/maevsi/stack/commit/2afb1600e62c1441c1450b34a7bdb6b439926186))
+
 ## [14.0.0](https://github.com/maevsi/stack/compare/13.4.9...14.0.0) (2025-05-15)
 
 ### ⚠ BREAKING CHANGES
