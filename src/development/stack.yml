@@ -157,7 +157,7 @@ services:
         - traefik.http.routers.grafana_secure.rule=Host(`grafana.${STACK_DOMAIN}`)
         - traefik.http.routers.grafana_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.grafana.loadbalancer.server.port=3000
-    image: grafana/grafana:12.0.0
+    image: grafana/grafana:12.0.1
     secrets:
       - postgres_db
       - postgres_role_service_grafana_password
