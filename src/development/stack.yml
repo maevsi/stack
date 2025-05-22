@@ -201,6 +201,8 @@ services:
       - /dev/disk/:/dev/disk:ro
   debezium:
     # You can see how changes in the database end up in the event stream using `redpanda-console`.
+    deploy:
+      replicas: 0
     environment:
       BOOTSTRAP_SERVERS: redpanda:9092
       CONFIG_STORAGE_TOPIC: connect_configs
@@ -222,6 +224,7 @@ services:
     # You can check the database connector's setup logs using `portainer`.
     command: /entrypoint.sh
     deploy:
+      replicas: 0
       restart_policy:
         condition: on-failure
     entrypoint: sh
@@ -271,6 +274,8 @@ services:
       - elasticsearch_data:/usr/share/elasticsearch/data
   geoip:
     # You cannot access the ip geolocator via a web interface.
+    deploy:
+      replicas: 0
     healthcheck:
       test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8080/actuator/health"]
       interval: 30s
@@ -290,6 +295,7 @@ services:
         - traefik.http.routers.grafana_secure.rule=Host(`grafana.${STACK_DOMAIN}`)
         - traefik.http.routers.grafana_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.grafana.loadbalancer.server.port=3000
+      replicas: 0
     environment:
       GF_DATABASE_HOST: postgres:5432
       GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres_role_service_grafana_password
@@ -320,6 +326,8 @@ services:
       - grafana_data:/var/lib/grafana
   jobber:
     # You cannot access the jobber via a web interface.
+    deploy:
+      replicas: 0
     environment:
       AWS_SHARED_CREDENTIALS_FILE: /run/secrets/jobber_aws-credentials
     image: ghcr.io/dargmuesli/jobber-aws-msmtp:1.3.0
@@ -521,6 +529,7 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
+      replicas: 0
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9090/-/healthy"]
       interval: 30s
@@ -609,6 +618,8 @@ services:
       - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
       - --advertise-pandaproxy-addr internal://redpanda:8082,external://localhost:18082
       - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+    deploy:
+      replicas: 0
     healthcheck:
       test: ["CMD", "rpk", "cluster", "health", "--exit-when-healthy"]
       interval: 30s
@@ -630,6 +641,7 @@ services:
         - traefik.http.routers.redpanda_secure.rule=Host(`redpanda.${STACK_DOMAIN}`)
         - traefik.http.routers.redpanda_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
+      replicas: 0
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
     healthcheck:
