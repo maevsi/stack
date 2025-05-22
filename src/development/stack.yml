@@ -404,6 +404,148 @@ services:
       - postgres_user
     volumes:
       - reccoom_postgres_data:/var/lib/postgresql/
+  zammad-elasticsearch:
+    image: zammad/zammad-docker-compose:latest
+    restart: always
+    volumes:
+      - zammad_elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+
+  zammad-init:
+    image: zammad/zammad-docker-compose:latest
+    restart: on-failure
+    depends_on:
+      - postgres
+      - zammad-elasticsearch
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_USER=${POSTGRES_USER}
+      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_DB=zammad
+      - ELASTICSEARCH_HOST=zammad-elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ZAMMAD_RAILSSERVER_HOST=zammad-railsserver
+      - ZAMMAD_WEBSOCKET_HOST=zammad-websocket
+      - NGINX_SERVER_NAME=zammad.${STACK_DOMAIN}
+      - REDIS_URL=redis://zammad-redis:6379
+    secrets:
+      - source: postgres_user
+        target: POSTGRESQL_USER
+      - source: postgres_password
+        target: POSTGRESQL_PASS
+    command: ["zammad-init"]
+
+  zammad-railsserver:
+    image: zammad/zammad-docker-compose:latest
+    restart: always
+    depends_on:
+      - zammad-init
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_USER=${POSTGRES_USER}
+      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_DB=zammad
+      - ELASTICSEARCH_HOST=zammad-elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ZAMMAD_RAILSSERVER_HOST=zammad-railsserver
+      - ZAMMAD_WEBSOCKET_HOST=zammad-websocket
+      - REDIS_URL=redis://zammad-redis:6379
+    secrets:
+      - source: postgres_user
+        target: POSTGRESQL_USER
+      - source: postgres_password
+        target: POSTGRESQL_PASS
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.zammad-railsserver.entryPoints=web
+        - traefik.http.routers.zammad-railsserver.middlewares=redirectscheme
+        - traefik.http.routers.zammad-railsserver.rule=Host(`zammad.${STACK_DOMAIN}`) && PathPrefix(`/api`)
+        - traefik.http.routers.zammad-railsserver_secure.entryPoints=web-secure
+        - traefik.http.routers.zammad-railsserver_secure.rule=Host(`zammad.${STACK_DOMAIN}`) && PathPrefix(`/api`)
+        - traefik.http.routers.zammad-railsserver_secure.tls.options=mintls13@file
+        - traefik.http.services.zammad-railsserver.loadbalancer.server.port=3000
+
+  zammad-scheduler:
+    image: zammad/zammad-docker-compose:latest
+    restart: always
+    depends_on:
+      - zammad-init
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_USER=${POSTGRES_USER}
+      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_DB=zammad
+      - ELASTICSEARCH_HOST=zammad-elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ZAMMAD_RAILSSERVER_HOST=zammad-railsserver
+      - ZAMMAD_WEBSOCKET_HOST=zammad-websocket
+      - REDIS_URL=redis://zammad-redis:6379
+
+    secrets:
+      - source: postgres_user
+        target: POSTGRESQL_USER
+      - source: postgres_password
+        target: POSTGRESQL_PASS
+    command: ["zammad-scheduler"]
+
+  zammad-redis:
+    image: redis:7-alpine
+    restart: always
+
+  zammad-websocket:
+    image: zammad/zammad-docker-compose:latest
+    restart: always
+    depends_on:
+      - zammad-init
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_USER=${POSTGRES_USER}
+      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_DB=zammad
+      - ELASTICSEARCH_HOST=zammad-elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ZAMMAD_RAILSSERVER_HOST=zammad-railsserver
+      - ZAMMAD_WEBSOCKET_HOST=zammad-websocket
+      - REDIS_URL=redis://zammad-redis:6379
+    secrets:
+      - source: postgres_user
+        target: POSTGRESQL_USER
+      - source: postgres_password
+        target: POSTGRESQL_PASS
+    command: ["zammad-websocket"]
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.zammad-websocket.entryPoints=web
+        - traefik.http.routers.zammad-websocket.middlewares=redirectscheme
+        - traefik.http.routers.zammad-websocket.rule=Host(`zammad.${STACK_DOMAIN}`) && PathPrefix(`/ws`)
+        - traefik.http.routers.zammad-websocket_secure.entryPoints=web-secure
+        - traefik.http.routers.zammad-websocket_secure.rule=Host(`zammad.${STACK_DOMAIN}`) && PathPrefix(`/ws`)
+        - traefik.http.routers.zammad-websocket_secure.tls.options=mintls13@file
+        - traefik.http.services.zammad-websocket.loadbalancer.server.port=6042
+
+  zammad-nginx:
+    image: zammad/zammad-docker-compose:latest
+    restart: always
+    depends_on:
+      - zammad-railsserver
+      - zammad-websocket
+    environment:
+      - NGINX_SERVER_NAME=zammad.${STACK_DOMAIN}
+      - REDIS_URL=redis://zammad-redis:6379
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.zammad.entryPoints=web
+        - traefik.http.routers.zammad.middlewares=redirectscheme
+        - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.entryPoints=web-secure
+        - traefik.http.routers.zammad_secure.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.tls.options=mintls13@file
+        - traefik.http.services.zammad.loadbalancer.server.port=80
+
   redpanda:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
     command:
@@ -611,3 +753,4 @@ volumes:
   vibetype_data:
     # The frontend's data.
     {}
+  zammad_elasticsearch_data: {}

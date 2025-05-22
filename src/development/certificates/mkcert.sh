@@ -39,4 +39,5 @@ create "traefik" \
     `# redpanda` "redpanda.app.localhost" \
     `# traefik` "traefik.app.localhost" \
     `# tusd` "tusd.app.localhost" \
-    `# vibetype` "app.localhost" "www.app.localhost" "127.0.0.1" "0.0.0.0"
+    `# vibetype` "app.localhost" "www.app.localhost" "127.0.0.1" "0.0.0.0" \
+    `# zammad` "zammad.app.localhost"
