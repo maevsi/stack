@@ -1,3 +1,9 @@
+## [14.0.3](https://github.com/maevsi/stack/compare/14.0.2...14.0.3) (2025-05-23)
+
+### Bug Fixes
+
+* **redpanda-console:** add certificate resolver ([1cdc432](https://github.com/maevsi/stack/commit/1cdc4324bb44521e823edff517d5fc9011b4cc51))
+
 ## [14.0.2](https://github.com/maevsi/stack/compare/14.0.1...14.0.2) (2025-05-15)
 
 ### Bug Fixes
