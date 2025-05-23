@@ -81,6 +81,11 @@ services:
     deploy: (( prune ))
     image: ghcr.io/maevsi/reccoom:0.1.0
     volumes: (( prune ))
+  redpanda-console:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
     image: ghcr.io/maevsi/sqitch:8.2.0
     volumes: (( prune ))
