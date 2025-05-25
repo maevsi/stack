@@ -106,6 +106,14 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The `tusd` database role's password.
     
+ - ### `postgres_role_service_zammad_password`
+    
+    The password of the customer service database role.
+    
+ - ### `postgres_role_service_zammad_username`
+    
+    The username of the customer service database role.
+    
  - ### `postgres_user`
     
     The database's default user.
