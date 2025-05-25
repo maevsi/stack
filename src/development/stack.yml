@@ -55,6 +55,12 @@ secrets:
   postgres_role_service_vibetype_username:
     # The `tusd` database role's password.
     file: ./secrets/postgres/role_service_vibetype_username.secret
+  postgres_role_service_zammad_password:
+    # The password of the customer service database role.
+    file: ./secrets/postgres/role_service_zammad_password.secret
+  postgres_role_service_zammad_username:
+    # The username of the customer service database role.
+    file: ./secrets/postgres/role_service_zammad_username.secret
   postgres_user:
     # The database's default user.
     file: ./secrets/postgres/user.secret
@@ -533,6 +539,8 @@ services:
       - postgres_role_service_postgraphile_username
       - postgres_role_service_vibetype_password
       - postgres_role_service_vibetype_username
+      - postgres_role_service_zammad_username
+      - postgres_role_service_zammad_password
       - sqitch_target
     volumes:
       - ../../../sqitch/:/srv/app/
