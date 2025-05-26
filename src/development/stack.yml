@@ -333,7 +333,7 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
-    image: postgis/postgis:18-3.6-alpine
+    image: imresamu/postgis:18-3.6-alpine
     ports: #DARGSTACK-REMOVE
       - 5432:5432 #DARGSTACK-REMOVE
     secrets:
@@ -405,7 +405,7 @@ services:
     volumes:
       - reccoom_postgres_data:/var/lib/postgresql/
   zammad-elasticsearch:
-    image: zammad/zammad-docker-compose:latest
+    image: bitnami/elasticsearch:${ELASTICSEARCH_VERSION:-8.18.0}
     restart: always
     volumes:
       - zammad_elasticsearch_data:/usr/share/elasticsearch/data
@@ -418,10 +418,13 @@ services:
     depends_on:
       - postgres
       - zammad-elasticsearch
+    volumes:
+      - zammad_storage:/opt/zammad/storage
     environment:
+      - POSTGRESQL_DB_CREATE=false
       - POSTGRESQL_HOST=postgres
-      - POSTGRESQL_USER=${POSTGRES_USER}
-      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_USER_FILE=/run/secrets/POSTGRESQL_USER
+      - POSTGRESQL_PASS_FILE=/run/secrets/POSTGRESQL_PASS
       - POSTGRESQL_DB=zammad
       - ELASTICSEARCH_HOST=zammad-elasticsearch
       - ELASTICSEARCH_PORT=9200
@@ -430,9 +433,9 @@ services:
       - NGINX_SERVER_NAME=zammad.${STACK_DOMAIN}
       - REDIS_URL=redis://zammad-redis:6379
     secrets:
-      - source: postgres_user
+      - source: postgres_role_service_zammad_username
         target: POSTGRESQL_USER
-      - source: postgres_password
+      - source: postgres_role_service_zammad_password
         target: POSTGRESQL_PASS
     command: ["zammad-init"]
 
@@ -443,8 +446,8 @@ services:
       - zammad-init
     environment:
       - POSTGRESQL_HOST=postgres
-      - POSTGRESQL_USER=${POSTGRES_USER}
-      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_USER_FILE=/run/secrets/POSTGRESQL_USER
+      - POSTGRESQL_PASS_FILE=/run/secrets/POSTGRESQL_PASS
       - POSTGRESQL_DB=zammad
       - ELASTICSEARCH_HOST=zammad-elasticsearch
       - ELASTICSEARCH_PORT=9200
@@ -452,10 +455,12 @@ services:
       - ZAMMAD_WEBSOCKET_HOST=zammad-websocket
       - REDIS_URL=redis://zammad-redis:6379
     secrets:
-      - source: postgres_user
+      - source: postgres_role_service_zammad_username
         target: POSTGRESQL_USER
-      - source: postgres_password
+      - source: postgres_role_service_zammad_password
         target: POSTGRESQL_PASS
+    volumes:
+      - zammad_storage:/opt/zammad/storage
     deploy:
       labels:
         - traefik.enable=true
@@ -466,6 +471,7 @@ services:
         - traefik.http.routers.zammad-railsserver_secure.rule=Host(`zammad.${STACK_DOMAIN}`) && PathPrefix(`/api`)
         - traefik.http.routers.zammad-railsserver_secure.tls.options=mintls13@file
         - traefik.http.services.zammad-railsserver.loadbalancer.server.port=3000
+    command: ["zammad-railsserver"]
 
   zammad-scheduler:
     image: zammad/zammad-docker-compose:latest
@@ -474,8 +480,8 @@ services:
       - zammad-init
     environment:
       - POSTGRESQL_HOST=postgres
-      - POSTGRESQL_USER=${POSTGRES_USER}
-      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_USER_FILE=/run/secrets/POSTGRESQL_USER
+      - POSTGRESQL_PASS_FILE=/run/secrets/POSTGRESQL_PASS
       - POSTGRESQL_DB=zammad
       - ELASTICSEARCH_HOST=zammad-elasticsearch
       - ELASTICSEARCH_PORT=9200
@@ -484,9 +490,9 @@ services:
       - REDIS_URL=redis://zammad-redis:6379
 
     secrets:
-      - source: postgres_user
+      - source: postgres_role_service_zammad_username
         target: POSTGRESQL_USER
-      - source: postgres_password
+      - source: postgres_role_service_zammad_password
         target: POSTGRESQL_PASS
     command: ["zammad-scheduler"]
 
@@ -501,8 +507,8 @@ services:
       - zammad-init
     environment:
       - POSTGRESQL_HOST=postgres
-      - POSTGRESQL_USER=${POSTGRES_USER}
-      - POSTGRESQL_PASS=${POSTGRES_PASSWORD}
+      - POSTGRESQL_USER_FILE=/run/secrets/POSTGRESQL_USER
+      - POSTGRESQL_PASS_FILE=/run/secrets/POSTGRESQL_PASS
       - POSTGRESQL_DB=zammad
       - ELASTICSEARCH_HOST=zammad-elasticsearch
       - ELASTICSEARCH_PORT=9200
@@ -510,9 +516,9 @@ services:
       - ZAMMAD_WEBSOCKET_HOST=zammad-websocket
       - REDIS_URL=redis://zammad-redis:6379
     secrets:
-      - source: postgres_user
+      - source: postgres_role_service_zammad_username
         target: POSTGRESQL_USER
-      - source: postgres_password
+      - source: postgres_role_service_zammad_password
         target: POSTGRESQL_PASS
     command: ["zammad-websocket"]
     deploy:
@@ -530,21 +536,28 @@ services:
     image: zammad/zammad-docker-compose:latest
     restart: always
     depends_on:
+      - zammad-init
       - zammad-railsserver
       - zammad-websocket
     environment:
       - NGINX_SERVER_NAME=zammad.${STACK_DOMAIN}
       - REDIS_URL=redis://zammad-redis:6379
+    volumes:
+      - zammad_storage:/opt/zammad/storage
+
     deploy:
       labels:
         - traefik.enable=true
+        - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
         - traefik.http.routers.zammad.entryPoints=web
         - traefik.http.routers.zammad.middlewares=redirectscheme
-        - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
-        - traefik.http.routers.zammad_secure.entryPoints=web-secure
         - traefik.http.routers.zammad_secure.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.entryPoints=web-secure
+        - traefik.http.routers.zammad_secure.tls=true
         - traefik.http.routers.zammad_secure.tls.options=mintls13@file
         - traefik.http.services.zammad.loadbalancer.server.port=80
+    command: ["zammad-nginx"]
+    command: ["sh", "-c", "sleep 60 && zammad-nginx"]
 
   redpanda:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
@@ -754,3 +767,4 @@ volumes:
     # The frontend's data.
     {}
   zammad_elasticsearch_data: {}
+  zammad_storage: {}
