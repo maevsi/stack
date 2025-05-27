@@ -17,7 +17,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "conventional-changelog-conventionalcommits": "8.0.0",
+    "conventional-changelog-conventionalcommits": "9.0.0",
     "dargstack": "2.5.1",
     "dargstack_rgen": "0.9.63",
     "husky": "9.1.7"
