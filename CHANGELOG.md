@@ -1,3 +1,9 @@
+## [14.0.5](https://github.com/maevsi/stack/compare/14.0.4...14.0.5) (2025-05-27)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([8bbd4a6](https://github.com/maevsi/stack/commit/8bbd4a64a7e2b1c8a3936e15b9ceea9e8bf5b663))
+
 ## [14.0.4](https://github.com/maevsi/stack/compare/14.0.3...14.0.4) (2025-05-24)
 
 ### Bug Fixes
