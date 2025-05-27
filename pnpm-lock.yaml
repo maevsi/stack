@@ -21,8 +21,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       dargstack_rgen:
-        specifier: 0.9.62
-        version: 0.9.62
+        specifier: 0.9.63
+        version: 0.9.63
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -197,8 +197,8 @@ packages:
     resolution: {integrity: sha512-E+G0++n9MDgQu8B4BDQjvCE+ALdwT9Z373Wx4Oi7z3hpxtVjVO9eK/Ml6nk7BU1v3HZvTmVVCwY8q5Zl7i/JZQ==}
     engines: {node: '22'}
 
-  dargstack_rgen@0.9.62:
-    resolution: {integrity: sha512-8zl1/1BExSV5y8hOmW43MIYiwiG/eFAjAKwLqckyQvv+yV02cGJ3uIkGqIkrw01EUMm3xAdZzl6IJfJERF3sRA==}
+  dargstack_rgen@0.9.63:
+    resolution: {integrity: sha512-tJe3U7NrwHJ579fRndbEM6Qo3C2fujTMmxuWj6adlYU13fUh8xxbu+XSmQv03miGpzBiUwuqX0hiaMu/iE0ziA==}
     engines: {node: '22'}
     hasBin: true
 
@@ -206,8 +206,8 @@ packages:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
 
-  diff@8.0.0:
-    resolution: {integrity: sha512-DJkPOAHudnz8swaqtm8cYmR9YfHLVDmoIH02+MqJiI/V9PxCf0WG+TBMduL7FZfnO53LhUXaPMo8Iw/uUJXLRA==}
+  diff@8.0.2:
+    resolution: {integrity: sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg==}
     engines: {node: '>=0.3.1'}
 
   dot-prop@5.3.0:
@@ -436,9 +436,9 @@ packages:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
 
-  yaml@2.7.1:
-    resolution: {integrity: sha512-10ULxpnOCQXxJvBgxsn9ptjq6uviG/htZKk9veJGhlqn3w/DxQ631zFF+nlQXLwmImeS5amR2dl2U8sg6U9jsQ==}
-    engines: {node: '>= 14'}
+  yaml@2.8.0:
+    resolution: {integrity: sha512-4lLa/EcQCB0cJkyts+FpIRx5G/llPxfP6VQU5KByHEhLxY3IJCH0f0Hy1MHI8sClTvsIb8qwRJ6R/ZdlDJ/leQ==}
+    engines: {node: '>= 14.6'}
     hasBin: true
 
   yargs-parser@21.1.1:
@@ -663,17 +663,17 @@ snapshots:
 
   dargstack@2.5.1: {}
 
-  dargstack_rgen@0.9.62:
+  dargstack_rgen@0.9.63:
     dependencies:
       deepmerge: 4.3.1
-      diff: 8.0.0
+      diff: 8.0.2
       json2md: 2.0.3
-      yaml: 2.7.1
+      yaml: 2.8.0
       yargs: 17.7.2
 
   deepmerge@4.3.1: {}
 
-  diff@8.0.0: {}
+  diff@8.0.2: {}
 
   dot-prop@5.3.0:
     dependencies:
@@ -845,7 +845,7 @@ snapshots:
 
   y18n@5.0.8: {}
 
-  yaml@2.7.1: {}
+  yaml@2.8.0: {}
 
   yargs-parser@21.1.1: {}
 
