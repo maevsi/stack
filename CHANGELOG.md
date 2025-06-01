@@ -1,3 +1,9 @@
+## [14.0.6](https://github.com/maevsi/stack/compare/14.0.5...14.0.6) (2025-06-01)
+
+### Bug Fixes
+
+* **grafana:** set root url ([e575150](https://github.com/maevsi/stack/commit/e575150eb4261077ec236cfc7a5a593749865e00))
+
 ## [14.0.5](https://github.com/maevsi/stack/compare/14.0.4...14.0.5) (2025-05-27)
 
 ### Bug Fixes
