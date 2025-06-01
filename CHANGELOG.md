@@ -1,3 +1,10 @@
+## [14.1.0](https://github.com/maevsi/stack/compare/14.0.6...14.1.0) (2025-06-01)
+
+### Features
+
+* **grafana:** disable dashboard deletion ([56b4121](https://github.com/maevsi/stack/commit/56b4121ab668768813edd6cd5a560df654d3301d))
+* **grafana:** move dashboards into folders ([63bb227](https://github.com/maevsi/stack/commit/63bb227dc7d31997839a929a0471c445d673d7ce))
+
 ## [14.0.6](https://github.com/maevsi/stack/compare/14.0.5...14.0.6) (2025-06-01)
 
 ### Bug Fixes
