@@ -1,3 +1,9 @@
+## [14.2.0](https://github.com/maevsi/stack/compare/14.1.0...14.2.0) (2025-06-02)
+
+### Features
+
+* **grafana:** alert for unsent notifications ([4a6b08f](https://github.com/maevsi/stack/commit/4a6b08fa62e7059204cd0278a043715d48b50382))
+
 ## [14.1.0](https://github.com/maevsi/stack/compare/14.0.6...14.1.0) (2025-06-01)
 
 ### Features
