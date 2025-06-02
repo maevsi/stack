@@ -4,6 +4,15 @@
 # https://github.com/maevsi/vibetype/
 ---
 secrets:
+  grafana_admin_email:
+    # The observation dashboard's admin email.
+    file: ./secrets/grafana/admin_email.secret
+  grafana_admin_password:
+    # The observation dashboard's admin password.
+    file: ./secrets/grafana/admin_password.secret
+  grafana_admin_user:
+    # The observation dashboard's admin user.
+    file: ./secrets/grafana/admin_user.secret
   grafana_discord_webhook:
     # The observation dashboard's contact point for Discord.
     file: ./secrets/grafana/discord_webhook.secret
@@ -161,15 +170,24 @@ services:
         - traefik.http.routers.grafana_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.grafana.loadbalancer.server.port=3000
     environment:
+      GF_DATABASE_HOST: postgres:5432
+      GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres_role_service_grafana_password
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_USER__FILE: /run/secrets/postgres_role_service_grafana_username
+      GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana_admin_email
+      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
+      GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
     image: grafana/grafana:12.0.1
     secrets:
+      - grafana_admin_email
+      - grafana_admin_password
+      - grafana_admin_user
       - grafana_discord_webhook
       - postgres_db
       - postgres_role_service_grafana_password
       - postgres_role_service_grafana_username
     volumes:
-      - ./configurations/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ../production/configurations/grafana/dashboards:/var/lib/grafana/dashboards:ro
       - ../production/configurations/grafana/provisioning:/etc/grafana/provisioning:ro
       - grafana_data:/var/lib/grafana
