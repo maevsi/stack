@@ -18,15 +18,15 @@ This project is deployed in accordance to the [DargStack template](https://githu
 ## secrets
 
 
- - ### `grafana_admin_email` ![production](https://img.shields.io/badge/-production-informational.svg?style=flat-square)
+ - ### `grafana_admin_email`
     
     The observation dashboard's admin email.
     
- - ### `grafana_admin_password` ![production](https://img.shields.io/badge/-production-informational.svg?style=flat-square)
+ - ### `grafana_admin_password`
     
     The observation dashboard's admin password.
     
- - ### `grafana_admin_user` ![production](https://img.shields.io/badge/-production-informational.svg?style=flat-square)
+ - ### `grafana_admin_user`
     
     The observation dashboard's admin user.
     

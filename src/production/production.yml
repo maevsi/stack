@@ -1,13 +1,4 @@
 secrets:
-  grafana_admin_email:
-    # The observation dashboard's admin email.
-    external: true
-  grafana_admin_password:
-    # The observation dashboard's admin password.
-    external: true
-  grafana_admin_user:
-    # The observation dashboard's admin user.
-    external: true
   postgres-backup_db:
     # The database's name.
     external: true
