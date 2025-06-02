@@ -20,15 +20,10 @@ contactPoints:
             🔗 [Alert rule]({{ .GeneratorURL }}){{ end }}{{ if .DashboardURL }}
             📊 [Dashboard]({{ .DashboardURL }}){{ end }}{{ if .PanelURL }}
             📈 [Panel]({{ .PanelURL }}){{ end }}{{ if .SilenceURL }}
-            🔕 [Silence this alert]({{ .SilenceURL }}){{ end }}{{ end }}{{ end }}
-            {{ define "default.message_custom" }}
-            {{ if .Alerts.Firing }}
-            ## 🚨 **Firing Alerts**
-            {{ template "__alert_details" .Alerts.Firing }}{{ end }}
-            {{ if .Alerts.Resolved }}
-            ## ✅ **Resolved Alerts**
-            {{ template "__alert_details" .Alerts.Resolved }}{{ end }}{{ end }}
-            {{ template "default.message_custom" . }}
+            🔕 [Silence this alert]({{ .SilenceURL }}){{ end }}{{ end }}{{ end }}{{ define "default.message_custom" }}{{ if .Alerts.Firing }}## 🚨 **Firing Alerts**
+            {{ template "__alert_details" .Alerts.Firing }}{{ end }}{{ if .Alerts.Resolved }}## ✅ **Resolved Alerts**
+            {{ template "__alert_details" .Alerts.Resolved }}{{ end }}{{ end }}{{ template "default.message_custom" . }}
+
             <@&1377144332154572831>
           url: $__file{/run/secrets/grafana_discord_webhook}
           use_discord_username: false
