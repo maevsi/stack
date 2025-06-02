@@ -4,6 +4,9 @@
 # https://github.com/maevsi/vibetype/
 ---
 secrets:
+  grafana_discord_webhook:
+    # The observation dashboard's contact point for Discord.
+    file: ./secrets/grafana/discord_webhook.secret
   jobber_aliases:
     # The job scheduler's SMTP client mail alias.
     file: ./secrets/jobber/aliases.secret
@@ -161,6 +164,7 @@ services:
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
     image: grafana/grafana:12.0.1
     secrets:
+      - grafana_discord_webhook
       - postgres_db
       - postgres_role_service_grafana_password
       - postgres_role_service_grafana_username

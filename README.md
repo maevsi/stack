@@ -30,6 +30,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The observation dashboard's admin user.
     
+ - ### `grafana_discord_webhook`
+    
+    The observation dashboard's contact point for Discord.
+    
  - ### `jobber_aliases`
     
     The job scheduler's SMTP client mail alias.
