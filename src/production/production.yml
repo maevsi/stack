@@ -25,11 +25,6 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.grafana_secure.tls.certresolver=default
-    secrets:
-      - (( append ))
-      - grafana_admin_email
-      - grafana_admin_password
-      - grafana_admin_user
   jobber:
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
