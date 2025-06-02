@@ -1,3 +1,9 @@
+## [14.2.1](https://github.com/maevsi/stack/compare/14.2.0...14.2.1) (2025-06-02)
+
+### Bug Fixes
+
+* **grafana:** correct discord secret's file name ([a1c8749](https://github.com/maevsi/stack/commit/a1c8749429994222bf4f01d696e5c70d19e41d3e))
+
 ## [14.2.0](https://github.com/maevsi/stack/compare/14.1.0...14.2.0) (2025-06-02)
 
 ### Features
