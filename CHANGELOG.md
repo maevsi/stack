@@ -1,3 +1,9 @@
+## [14.2.3](https://github.com/maevsi/stack/compare/14.2.2...14.2.3) (2025-06-02)
+
+### Bug Fixes
+
+* **grafana:** remove duplicate production secrets ([05d9387](https://github.com/maevsi/stack/commit/05d938791d1e1c046d49e521ea4eb608a9f27ec3))
+
 ## [14.2.2](https://github.com/maevsi/stack/compare/14.2.1...14.2.2) (2025-06-02)
 
 ### Bug Fixes
