@@ -1,3 +1,9 @@
+## [14.2.4](https://github.com/maevsi/stack/compare/14.2.3...14.2.4) (2025-06-02)
+
+### Bug Fixes
+
+* **grafana:** correct discord message line breaks ([e531a77](https://github.com/maevsi/stack/commit/e531a77cf04961498a3dc2890176513558466f38))
+
 ## [14.2.3](https://github.com/maevsi/stack/compare/14.2.2...14.2.3) (2025-06-02)
 
 ### Bug Fixes
