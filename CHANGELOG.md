@@ -1,3 +1,15 @@
+## [15.0.0](https://github.com/maevsi/stack/compare/14.3.0...15.0.0) (2025-06-06)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v12
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v9
+
+### Miscellaneous Chores
+
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v9 ([b5ac4d4](https://github.com/maevsi/stack/commit/b5ac4d42b99058b8120a522fbac5f39a47956f92))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v12 ([83bd37d](https://github.com/maevsi/stack/commit/83bd37d3d4aa38540c8a23900737459e9b01c62d))
+
 ## [14.3.0](https://github.com/maevsi/stack/compare/14.2.5...14.3.0) (2025-06-06)
 
 ### Features
