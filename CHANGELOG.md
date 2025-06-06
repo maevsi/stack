@@ -1,3 +1,9 @@
+## [14.3.0](https://github.com/maevsi/stack/compare/14.2.5...14.3.0) (2025-06-06)
+
+### Features
+
+* **sqitch:** add zammad secrets ([7780220](https://github.com/maevsi/stack/commit/77802205a9cb28b542664a92eb3207978d982faf))
+
 ## [14.2.5](https://github.com/maevsi/stack/compare/14.2.4...14.2.5) (2025-06-05)
 
 ### Bug Fixes
