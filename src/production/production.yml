@@ -1,13 +1,4 @@
 secrets:
-  grafana_admin_email:
-    # The observation dashboard's admin email.
-    external: true
-  grafana_admin_password:
-    # The observation dashboard's admin password.
-    external: true
-  grafana_admin_user:
-    # The observation dashboard's admin user.
-    external: true
   postgres-backup_db:
     # The database's name.
     external: true
@@ -34,11 +25,6 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.grafana_secure.tls.certresolver=default
-    secrets:
-      - (( append ))
-      - grafana_admin_email
-      - grafana_admin_password
-      - grafana_admin_user
   jobber:
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
@@ -81,8 +67,13 @@ services:
     deploy: (( prune ))
     image: ghcr.io/maevsi/reccoom:0.1.0
     volumes: (( prune ))
+  redpanda-console:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
-    image: ghcr.io/maevsi/sqitch:8.0.1
+    image: ghcr.io/maevsi/sqitch:9.0.0
     volumes: (( prune ))
   traefik:
     command:
@@ -128,7 +119,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:11.0.2
+    image: ghcr.io/maevsi/vibetype:12.0.0
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.localhost](https://beta.localhost/).

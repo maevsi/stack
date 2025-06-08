@@ -1,3 +1,88 @@
+## [15.0.0](https://github.com/maevsi/stack/compare/14.3.0...15.0.0) (2025-06-06)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v12
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v9
+
+### Miscellaneous Chores
+
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v9 ([b5ac4d4](https://github.com/maevsi/stack/commit/b5ac4d42b99058b8120a522fbac5f39a47956f92))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v12 ([83bd37d](https://github.com/maevsi/stack/commit/83bd37d3d4aa38540c8a23900737459e9b01c62d))
+
+## [14.3.0](https://github.com/maevsi/stack/compare/14.2.5...14.3.0) (2025-06-06)
+
+### Features
+
+* **sqitch:** add zammad secrets ([7780220](https://github.com/maevsi/stack/commit/77802205a9cb28b542664a92eb3207978d982faf))
+
+## [14.2.5](https://github.com/maevsi/stack/compare/14.2.4...14.2.5) (2025-06-05)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v11.8.0 ([50b37d9](https://github.com/maevsi/stack/commit/50b37d9f7681ae03b06fc404f118db2c09363d94))
+
+## [14.2.4](https://github.com/maevsi/stack/compare/14.2.3...14.2.4) (2025-06-02)
+
+### Bug Fixes
+
+* **grafana:** correct discord message line breaks ([e531a77](https://github.com/maevsi/stack/commit/e531a77cf04961498a3dc2890176513558466f38))
+
+## [14.2.3](https://github.com/maevsi/stack/compare/14.2.2...14.2.3) (2025-06-02)
+
+### Bug Fixes
+
+* **grafana:** remove duplicate production secrets ([05d9387](https://github.com/maevsi/stack/commit/05d938791d1e1c046d49e521ea4eb608a9f27ec3))
+
+## [14.2.2](https://github.com/maevsi/stack/compare/14.2.1...14.2.2) (2025-06-02)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v11.7.1 ([7952dcd](https://github.com/maevsi/stack/commit/7952dcd2c070df3cc1eadd3ab27789e8a52a5a60))
+
+## [14.2.1](https://github.com/maevsi/stack/compare/14.2.0...14.2.1) (2025-06-02)
+
+### Bug Fixes
+
+* **grafana:** correct discord secret's file name ([a1c8749](https://github.com/maevsi/stack/commit/a1c8749429994222bf4f01d696e5c70d19e41d3e))
+
+## [14.2.0](https://github.com/maevsi/stack/compare/14.1.0...14.2.0) (2025-06-02)
+
+### Features
+
+* **grafana:** alert for unsent notifications ([4a6b08f](https://github.com/maevsi/stack/commit/4a6b08fa62e7059204cd0278a043715d48b50382))
+
+## [14.1.0](https://github.com/maevsi/stack/compare/14.0.6...14.1.0) (2025-06-01)
+
+### Features
+
+* **grafana:** disable dashboard deletion ([56b4121](https://github.com/maevsi/stack/commit/56b4121ab668768813edd6cd5a560df654d3301d))
+* **grafana:** move dashboards into folders ([63bb227](https://github.com/maevsi/stack/commit/63bb227dc7d31997839a929a0471c445d673d7ce))
+
+## [14.0.6](https://github.com/maevsi/stack/compare/14.0.5...14.0.6) (2025-06-01)
+
+### Bug Fixes
+
+* **grafana:** set root url ([e575150](https://github.com/maevsi/stack/commit/e575150eb4261077ec236cfc7a5a593749865e00))
+
+## [14.0.5](https://github.com/maevsi/stack/compare/14.0.4...14.0.5) (2025-05-27)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([8bbd4a6](https://github.com/maevsi/stack/commit/8bbd4a64a7e2b1c8a3936e15b9ceea9e8bf5b663))
+
+## [14.0.4](https://github.com/maevsi/stack/compare/14.0.3...14.0.4) (2025-05-24)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v11.6.0 ([21aa7e7](https://github.com/maevsi/stack/commit/21aa7e7de2f521a74772bdfdbedf6b70f5a33ce9))
+
+## [14.0.3](https://github.com/maevsi/stack/compare/14.0.2...14.0.3) (2025-05-23)
+
+### Bug Fixes
+
+* **redpanda-console:** add certificate resolver ([1cdc432](https://github.com/maevsi/stack/commit/1cdc4324bb44521e823edff517d5fc9011b4cc51))
+
 ## [14.0.2](https://github.com/maevsi/stack/compare/14.0.1...14.0.2) (2025-05-15)
 
 ### Bug Fixes

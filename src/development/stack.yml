@@ -4,6 +4,18 @@
 # https://github.com/maevsi/vibetype/
 ---
 secrets:
+  grafana_admin_email:
+    # The observation dashboard's admin email.
+    file: ./secrets/grafana/admin_email.secret
+  grafana_admin_password:
+    # The observation dashboard's admin password.
+    file: ./secrets/grafana/admin_password.secret
+  grafana_admin_user:
+    # The observation dashboard's admin user.
+    file: ./secrets/grafana/admin_user.secret
+  grafana_discord_webhook:
+    # The observation dashboard's contact point for Discord.
+    file: ./secrets/grafana/discord_webhook.secret
   jobber_aliases:
     # The job scheduler's SMTP client mail alias.
     file: ./secrets/jobber/aliases.secret
@@ -112,7 +124,7 @@ services:
         - traefik.http.routers.adminer_secure.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.adminer.loadbalancer.server.port=8080
-    image: adminer:5.2.1-standalone
+    image: adminer:5.3.0-standalone
     volumes:
       - ../production/configurations/adminer/adminer.css:/var/www/html/adminer.css:ro
   debezium:
@@ -163,13 +175,25 @@ services:
         - traefik.http.routers.grafana_secure.rule=Host(`grafana.${STACK_DOMAIN}`)
         - traefik.http.routers.grafana_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.grafana.loadbalancer.server.port=3000
-    image: grafana/grafana:12.0.0
+    environment:
+      GF_DATABASE_HOST: postgres:5432
+      GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres_role_service_grafana_password
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_USER__FILE: /run/secrets/postgres_role_service_grafana_username
+      GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana_admin_email
+      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
+      GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
+      GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
+    image: grafana/grafana:12.0.1
     secrets:
+      - grafana_admin_email
+      - grafana_admin_password
+      - grafana_admin_user
+      - grafana_discord_webhook
       - postgres_db
       - postgres_role_service_grafana_password
       - postgres_role_service_grafana_username
     volumes:
-      - ./configurations/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ../production/configurations/grafana/dashboards:/var/lib/grafana/dashboards:ro
       - ../production/configurations/grafana/provisioning:/etc/grafana/provisioning:ro
       - grafana_data:/var/lib/grafana
@@ -245,7 +269,7 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
-    image: portainer/portainer-ce:2.30.0-alpine
+    image: portainer/portainer-ce:2.30.1-alpine
     secrets:
       - portainer_admin-password
     volumes:
@@ -257,7 +281,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.30.0
+    image: portainer/agent:2.30.1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -327,7 +351,7 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
-    image: prom/prometheus:v3.3.1
+    image: prom/prometheus:v3.4.1
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -539,7 +563,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.1.0
+    image: redpandadata/console:v3.1.1
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
@@ -587,7 +611,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.4.0
+    image: traefik:v3.4.1
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
