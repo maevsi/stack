@@ -3,6 +3,9 @@
 # Vibetype
 # https://github.com/maevsi/vibetype/
 ---
+
+#version: "3.7"
+
 secrets:
   grafana_admin_email:
     # The observation dashboard's admin email.
@@ -106,6 +109,69 @@ secrets:
   vibetype_turnstile-key:
     # The captcha provider's application key.
     file: ./secrets/vibetype/turnstile-key.secret
+
+x-shared:
+  zammad-service: &zammad-service
+    # shared environment, image, volumes
+    environment: &zammad-environment
+      MEMCACHE_SERVERS: ${MEMCACHE_SERVERS:-zammad-memcached:11211}
+      POSTGRESQL_DB: zammad
+      POSTGRESQL_HOST: postgres
+      POSTGRESQL_USER: zammad
+      POSTGRESQL_PASS: zammad
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_OPTIONS: ${POSTGRESQL_OPTIONS:-?pool=50}
+      POSTGRESQL_DB_CREATE: "false"
+      REDIS_URL: ${REDIS_URL:-redis://zammad-redis:6379}
+      S3_URL:
+      # Backup settings
+      BACKUP_DIR: "${BACKUP_DIR:-/var/tmp/zammad}"
+      BACKUP_TIME: "${BACKUP_TIME:-03:00}"
+      HOLD_DAYS: "${HOLD_DAYS:-10}"
+      TZ: "${TZ:-Europe/Berlin}"
+      # Allow passing in these variables via .env:
+      AUTOWIZARD_JSON:
+      AUTOWIZARD_RELATIVE_PATH:
+      ELASTICSEARCH_ENABLED:
+      ELASTICSEARCH_SCHEMA:
+      ELASTICSEARCH_HOST:
+      ELASTICSEARCH_PORT:
+      ELASTICSEARCH_USER: ${ELASTICSEARCH_USER:-elastic}
+      ELASTICSEARCH_PASS: ${ELASTICSEARCH_PASS:-zammad}
+      ELASTICSEARCH_NAMESPACE:
+      ELASTICSEARCH_REINDEX:
+      NGINX_PORT: 8080
+      NGINX_CLIENT_MAX_BODY_SIZE:
+      NGINX_SERVER_NAME: zammad.${STACK_DOMAIN}
+      NGINX_SERVER_SCHEME: https
+      RAILS_TRUSTED_PROXIES:
+      ZAMMAD_HTTP_TYPE:
+      ZAMMAD_FQDN:
+      ZAMMAD_WEB_CONCURRENCY:
+      ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS:
+      ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS:
+      ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS:
+      ZAMMAD_RAILSSERVER_HOST: zammad-railsserver
+      ZAMMAD_WEBSOCKET_HOST: zammad-websocket
+      # ZAMMAD_SESSION_JOBS_CONCURRENT is deprecated, please use ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS instead.
+      ZAMMAD_SESSION_JOBS_CONCURRENT:
+      # Variables used by ngingx-proxy container for reverse proxy creations
+      # for docs refer to https://github.com/nginx-proxy/nginx-proxy
+      VIRTUAL_HOST:
+      VIRTUAL_PORT:
+      # Variables used by acme-companion for retrieval of LetsEncrypt certificate
+      # for docs refer to https://github.com/nginx-proxy/acme-companion
+      LETSENCRYPT_HOST:
+      LETSENCRYPT_EMAIL:
+
+    image: ${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-89}
+    volumes:
+      - zammad-storage:/opt/zammad/storage
+    depends_on:
+      - zammad-memcached
+      - postgresql
+      - zammad-redis
+
 services:
   adminer:
     # You can access the database's frontend at [adminer.app.localhost](https://adminer.app.localhost/).
@@ -405,6 +471,7 @@ services:
     volumes:
       - reccoom_postgres_data:/var/lib/postgresql/
   zammad-elasticsearch:
+    # You cannot access the search engine via a web interface.
     image: bitnami/elasticsearch:${ELASTICSEARCH_VERSION:-8.18.0}
     restart: always
     volumes:
@@ -413,6 +480,7 @@ services:
       - discovery.type=single-node
 
   zammad-init:
+    # You cannot access the helpdesk initialization container via a web interface.
     image: zammad/zammad-docker-compose:latest
     restart: on-failure
     depends_on:
@@ -440,6 +508,7 @@ services:
     command: ["zammad-init"]
 
   zammad-railsserver:
+    # You can access the helpdesk's API at [zammad.app.localhost/api](https://zammad.app.localhost/api/).
     image: zammad/zammad-docker-compose:latest
     restart: always
     depends_on:
@@ -474,6 +543,7 @@ services:
     command: ["zammad-railsserver"]
 
   zammad-scheduler:
+    # You cannot access the helpdesk job scheduler via a web interface.
     image: zammad/zammad-docker-compose:latest
     restart: always
     depends_on:
@@ -497,10 +567,12 @@ services:
     command: ["zammad-scheduler"]
 
   zammad-redis:
+    # You cannot access the helpdesk's redis instance via a web interface.
     image: redis:7-alpine
     restart: always
 
   zammad-websocket:
+    # You cannot access the helpdesk's websocket server via a web interface.
     image: zammad/zammad-docker-compose:latest
     restart: always
     depends_on:
@@ -533,6 +605,7 @@ services:
         - traefik.http.services.zammad-websocket.loadbalancer.server.port=6042
 
   zammad-nginx:
+    # You can access the helpdesk's frontend at [zammad.app.localhost](https://zammad.app.localhost/).
     image: zammad/zammad-docker-compose:latest
     restart: always
     depends_on:
@@ -728,6 +801,78 @@ services:
       - ../../../vibetype/:/srv/app/ #DARGSTACK-REMOVE
       - vibetype_data:/srv/app/node_modules #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  zammad-backup:
+    # Zammad backup.
+    <<: *zammad-service
+    command: ["zammad-backup"]
+    volumes:
+      - zammad-backup:/var/tmp/zammad
+      - zammad-storage:/opt/zammad/storage:ro
+    user: 0:0
+
+  zammad-elasticsearch:
+    # Zammad Elastisearch.
+    image: bitnami/elasticsearch:${ELASTICSEARCH_VERSION:-8.18.0}
+    volumes:
+      - zammad-elasticsearch-data:/bitnami/elasticsearch/data
+    environment:
+      # Enable authorization without HTTPS. For external access with
+      #   SSL termination, use solutions like nginx-proxy-manager.
+      ELASTICSEARCH_ENABLE_SECURITY: 'true'
+      ELASTICSEARCH_SKIP_TRANSPORT_TLS: 'true'
+      ELASTICSEARCH_ENABLE_REST_TLS: 'false'
+      # ELASTICSEARCH_USER is hardcoded to 'elastic' in the container.
+      ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASS:-zammad}
+
+  zammad-init:
+    # Zammad initialization.
+    <<: *zammad-service
+    command: ["zammad-init"]
+    depends_on:
+      - postgresql
+    user: 0:0
+
+  zammad-memcached:
+    # Zammad memcached.
+    command: memcached -m 256M
+    image: memcached:${MEMCACHE_VERSION:-1.6.38-alpine}
+
+  zammad-nginx:
+    # You can access the Zammad frontend at [zammad.localhost](https://zammad.localhost/).
+    <<: *zammad-service
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.zammad.entryPoints=web
+        - traefik.http.routers.zammad.middlewares=redirectscheme #DARGSTACK-REMOVE
+        - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.entryPoints=web-secure
+        - traefik.http.routers.zammad_secure.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
+        - traefik.http.services.zammad.loadbalancer.server.port=8080
+    command: ["zammad-nginx"]
+
+  zammad-railsserver:
+    # Zammad railsserver.
+    <<: *zammad-service
+    command: ["zammad-railsserver"]
+
+  zammad-redis:
+    # Zammad redis.
+    image: redis:${REDIS_VERSION:-7.4.3-alpine}
+    volumes:
+      - zammad-redis-data:/data
+
+  zammad-scheduler:
+    # Zammad scheduler.
+    <<: *zammad-service
+    command: ["zammad-scheduler"]
+
+  zammad-websocket:
+    # Zammad websocket.
+    <<: *zammad-service
+    command: ["zammad-websocket"]
+
 version: "3.7"
 volumes:
   debezium_kafka_configuration:
@@ -766,5 +911,15 @@ volumes:
   vibetype_data:
     # The frontend's data.
     {}
-  zammad_elasticsearch_data: {}
-  zammad_storage: {}
+  zammad-elasticsearch-data:
+    # Zammad's elastisearch data
+    {}
+  zammad-redis-data:
+    # Zammad's redis data
+    {}
+  zammad-backup:
+    # Zammad's backup data
+    {}
+  zammad-storage:
+    # Zammad's storage data
+    {}
