@@ -292,6 +292,7 @@ services:
         - traefik.enable=true
         - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/service/traefik/authentication
         - traefik.http.middlewares.postgraphile_auth.forwardauth.forwardBody=true
+        - traefik.http.middlewares.postgraphile_auth.forwardauth.preserveRequestMethod=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowHeaders=authorization,baggage,content-type,sentry-trace,x-turnstile-key
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=*
         - traefik.http.routers.postgraphile.entryPoints=web
