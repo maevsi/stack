@@ -1,3 +1,9 @@
+## [15.0.7](https://github.com/maevsi/stack/compare/15.0.6...15.0.7) (2025-07-05)
+
+### Bug Fixes
+
+* **postgraphile:** preserve request method in forward authentication ([d8e3634](https://github.com/maevsi/stack/commit/d8e363471be51f5120eef2195acb2a134c2f18fb))
+
 ## [15.0.6](https://github.com/maevsi/stack/compare/15.0.5...15.0.6) (2025-07-01)
 
 ### Bug Fixes
