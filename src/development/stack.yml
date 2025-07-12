@@ -456,7 +456,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.4.3
+    image: traefik:v3.4.4
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
