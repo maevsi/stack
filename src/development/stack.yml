@@ -375,6 +375,21 @@ services:
       - postgres_user
     volumes:
       - ../../../reccoom/:/srv/app/
+  reccoom_postgres:
+    # You can access reccoom's database via `adminer`.
+    environment:
+      POSTGRES_DB_FILE: /run/secrets/postgres_db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+    image: pgvector/pgvector:0.8.0-pg17
+    ports: #DARGSTACK-REMOVE
+      - 5433:5432 #DARGSTACK-REMOVE
+    secrets:
+      - postgres_db
+      - postgres_password
+      - postgres_user
+    volumes:
+      - reccoom_postgres_data:/var/lib/postgresql/data/
   redpanda:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
     command:
@@ -580,6 +595,9 @@ volumes:
     {}
   prometheus_data:
     # The metrics monitoring's data.
+    {}
+  reccoom_postgres_data:
+    # The recommendation database's data.
     {}
   redpanda_data:
     # The message queue's data.
