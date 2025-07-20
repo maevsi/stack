@@ -234,6 +234,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You cannot access the recommendation service directly.
     
+ - ### `reccoom_postgres`
+    
+    You can access reccoom's database via `adminer`.
+    
  - ### `redpanda`
     
     You can access the event streaming platform's ui as described under `redpanda-console`.
@@ -301,6 +305,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `prometheus_data`
     
     The metrics monitoring's data.
+    
+ - ### `reccoom_postgres_data`
+    
+    The recommendation database's data.
     
  - ### `redpanda_data`
     
