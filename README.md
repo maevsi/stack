@@ -10,9 +10,11 @@ This project is deployed in accordance to the [DargStack template](https://githu
 
  1. [secrets](#secrets)
     
- 2. [services](#services)
+ 2. [x-shared](#x-shared)
     
- 3. [volumes](#volumes)
+ 3. [services](#services)
+    
+ 4. [volumes](#volumes)
     
 
 ## secrets
@@ -159,6 +161,14 @@ This project is deployed in accordance to the [DargStack template](https://githu
     The captcha provider's application key.
     
 
+## x-shared
+
+
+ - ### `zammad-service`
+    
+    shared environment, image, volumes
+    
+
 ## services
 
 
@@ -262,6 +272,42 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You can access the main project's frontend at [localhost](https://localhost/).
     
+ - ### `zammad-backup`
+    
+    Zammad backup.
+    
+ - ### `zammad-elasticsearch`
+    
+    Zammad Elastisearch.
+    
+ - ### `zammad-init`
+    
+    Zammad initialization.
+    
+ - ### `zammad-memcached`
+    
+    Zammad memcached.
+    
+ - ### `zammad-nginx`
+    
+    You can access the Zammad frontend at [zammad.localhost](https://zammad.localhost/).
+    
+ - ### `zammad-railsserver`
+    
+    Zammad railsserver.
+    
+ - ### `zammad-redis`
+    
+    Zammad redis.
+    
+ - ### `zammad-scheduler`
+    
+    Zammad scheduler.
+    
+ - ### `zammad-websocket`
+    
+    Zammad websocket.
+    
 
 ## volumes
 
@@ -305,5 +351,21 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `redpanda_data`
     
     The message queue's data.
+    
+ - ### `zammad-backup`
+    
+    Zammad's backup data
+    
+ - ### `zammad-elasticsearch-data`
+    
+    Zammad's elastisearch data
+    
+ - ### `zammad-redis-data`
+    
+    Zammad's redis data
+    
+ - ### `zammad-storage`
+    
+    Zammad's storage data
     
 
