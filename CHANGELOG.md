@@ -1,3 +1,9 @@
+## [15.1.0](https://github.com/maevsi/stack/compare/15.0.10...15.1.0) (2025-07-20)
+
+### Features
+
+* **reccoom:** add postgres ([9da8113](https://github.com/maevsi/stack/commit/9da8113f3753d80536ca78d26f664dedb410884a))
+
 ## [15.0.10](https://github.com/maevsi/stack/compare/15.0.9...15.0.10) (2025-07-20)
 
 ### Bug Fixes
