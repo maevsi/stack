@@ -18,7 +18,7 @@
   "private": true,
   "repository": "https://github.com/maevsi/stack.git",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky && ./src/development/certificates/mkcert.sh"
   },
   "type": "module",
   "version": "15.1.1"
