@@ -169,3 +169,4 @@ volumes:
     # The reverse proxy's certificate data.
     {}
   minio_data: (( prune ))
+  vibetype_data: (( prune ))
