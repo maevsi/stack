@@ -571,6 +571,7 @@ services:
       - ${PNPM_STORE_DIR}:/srv/.pnpm-store/ #DARGSTACK-REMOVE
       - ./certificates/:/srv/certificates/ #DARGSTACK-REMOVE
       - ../../../vibetype/:/srv/app/ #DARGSTACK-REMOVE
+      - vibetype_data:/srv/app/node_modules #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
 version: "3.7"
 volumes:
@@ -603,4 +604,7 @@ volumes:
     {}
   redpanda_data:
     # The message queue's data.
+    {}
+  vibetype_data:
+    # The frontend's data.
     {}

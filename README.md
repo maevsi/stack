@@ -314,4 +314,8 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The message queue's data.
     
+ - ### `vibetype_data`
+    
+    The frontend's data.
+    
 
