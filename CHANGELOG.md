@@ -1,3 +1,9 @@
+## [15.1.3](https://github.com/maevsi/stack/compare/15.1.2...15.1.3) (2025-07-24)
+
+### Performance Improvements
+
+* **vibetype:** add node modules volume ([5479e3e](https://github.com/maevsi/stack/commit/5479e3e977be1b9fc39f584a53e0ad78670c0bf6))
+
 ## [15.1.2](https://github.com/maevsi/stack/compare/15.1.1...15.1.2) (2025-07-24)
 
 ### Bug Fixes
