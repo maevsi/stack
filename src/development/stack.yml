@@ -367,7 +367,9 @@ services:
         - traefik.http.routers.reccoom_secure.entryPoints=web-secure
         - traefik.http.routers.reccoom_secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
-        - traefik.http.services.reccoom.loadbalancer.server.port=8001
+        - traefik.http.services.reccoom.loadbalancer.server.port=5245
+    environment:
+      POSTGRES_HOST: postgres
     image: maevsi/reccoom:dev
     secrets:
       - postgres_db
