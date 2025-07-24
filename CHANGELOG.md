@@ -1,3 +1,9 @@
+## [15.1.2](https://github.com/maevsi/stack/compare/15.1.1...15.1.2) (2025-07-24)
+
+### Bug Fixes
+
+* **reccoom:** add missing certificate ([e417f5e](https://github.com/maevsi/stack/commit/e417f5ea799388317e37578c57b25ecb19e3b102))
+
 ## [15.1.1](https://github.com/maevsi/stack/compare/15.1.0...15.1.1) (2025-07-24)
 
 ### Bug Fixes
