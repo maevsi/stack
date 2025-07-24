@@ -35,6 +35,7 @@ create "traefik" \
     `# portainer` "portainer.localhost" \
     `# postgraphile` "postgraphile.localhost" \
     `# prometheus` "prometheus.localhost" \
+    `# reccoom` "reccoom.localhost" \
     `# redpanda` "redpanda.localhost" \
     `# traefik` "traefik.localhost" \
     `# tusd` "tusd.localhost" \
