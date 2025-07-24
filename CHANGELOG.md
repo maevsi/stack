@@ -1,3 +1,9 @@
+## [15.1.1](https://github.com/maevsi/stack/compare/15.1.0...15.1.1) (2025-07-24)
+
+### Bug Fixes
+
+* **recoom:** upgrade to v0.4.0 ([fa4f600](https://github.com/maevsi/stack/commit/fa4f6001e77cd934408b6b3e891e957e7d4ce524))
+
 ## [15.1.0](https://github.com/maevsi/stack/compare/15.0.10...15.1.0) (2025-07-20)
 
 ### Features
