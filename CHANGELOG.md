@@ -1,3 +1,9 @@
+## [15.2.0](https://github.com/maevsi/stack/compare/15.1.5...15.2.0) (2025-07-31)
+
+### Features
+
+* **reccoom:** mount jwt public key ([e54c4fd](https://github.com/maevsi/stack/commit/e54c4fd3d6c121ea3eb5aca885f4b1ed492232f0))
+
 ## [15.1.5](https://github.com/maevsi/stack/compare/15.1.4...15.1.5) (2025-07-30)
 
 ### Bug Fixes
