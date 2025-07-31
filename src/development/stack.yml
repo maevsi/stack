@@ -376,7 +376,8 @@ services:
       - postgres_password
       - postgres_user
     volumes:
-      - ../../../reccoom/:/srv/app/
+      - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
+      - ./configurations/postgraphile/jwtRS256.key.pub:/run/configurations/jwtRS256.key.pub:ro
   reccoom_postgres:
     # You can access reccoom's database via `adminer`.
     environment:
