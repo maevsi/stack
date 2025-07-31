@@ -142,7 +142,7 @@ services:
   #     NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
   #     NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
   #     NUXT_PUBLIC_VIO_ENVIRONMENT: beta
-  #     PGHOST: ${VIBETYPE_PGHOST}
+  #     PGHOST: postgres
   #   image: ghcr.io/maevsi/vibetype:11.0.2
   #   secrets:
   #     - source: vibetype_api-notification-secret

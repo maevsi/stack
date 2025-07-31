@@ -545,7 +545,7 @@ services:
       NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
       NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
       NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
-      PGHOST: ${VIBETYPE_PGHOST}
+      PGHOST: postgres
     image: maevsi/vibetype:dev
     secrets:
       - source: vibetype_api-notification-secret
