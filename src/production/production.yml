@@ -65,7 +65,7 @@ services:
         - traefik.http.routers.prometheus_secure.tls.certresolver=default
   reccoom:
     deploy: (( prune ))
-    image: ghcr.io/maevsi/reccoom:0.5.0
+    image: ghcr.io/maevsi/reccoom:0.6.0
   redpanda-console:
     deploy:
       labels:
@@ -118,7 +118,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:12.23.1
+    image: ghcr.io/maevsi/vibetype:12.25.0
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.localhost](https://beta.localhost/).
