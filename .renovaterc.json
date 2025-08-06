@@ -5,7 +5,7 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/observabilitystack/geoip-api"],
-      "versioning": "loose"
+      "versioning": "regex:^(?<minor>\\d{4}-\\d{2})$"
     }
   ]
 }
