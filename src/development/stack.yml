@@ -141,7 +141,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 20s
-    image: quay.io/debezium/connect:3.2
+    image: quay.io/debezium/connect:3.3
     volumes:
       - debezium_kafka_configuration:/kafka/config
       - debezium_kafka_data:/kafka/data
