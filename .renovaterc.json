@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>dargmuesli/renovate-config"
+  "extends": ["github>dargmuesli/renovate-config"],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/observabilitystack/geoip-api"],
+      "versioning": "loose"
+    }
   ]
 }
