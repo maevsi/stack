@@ -118,6 +118,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The database's default user.
     
+ - ### `reccoom_openai-api-key`
+    
+    The AI provider's API key for the recommendation engine.
+    
  - ### `sqitch_target`
     
     The database change management application's database connection string.
@@ -152,7 +156,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `vibetype_openai-api-key`
     
-    The AI provider's API key.
+    The AI provider's API key for the frontend.
     
  - ### `vibetype_turnstile-key`
     
