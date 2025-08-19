@@ -1,3 +1,9 @@
+## [15.3.0](https://github.com/maevsi/stack/compare/15.2.5...15.3.0) (2025-08-19)
+
+### Features
+
+* **credentials:** add open ai api key placeholder ([e63dfea](https://github.com/maevsi/stack/commit/e63dfeade5069cbcb4ad99959e703dd80e29392d))
+
 ## [15.2.5](https://github.com/maevsi/stack/compare/15.2.4...15.2.5) (2025-08-10)
 
 ### Bug Fixes
