@@ -76,6 +76,9 @@ secrets:
   postgres_user:
     # The database's default user.
     file: ./secrets/postgres/user.secret
+  reccoom_openai-api-key:
+    # The AI provider's API key for the recommendation engine.
+    file: ./secrets/reccoom/openai-api-key.secret
   sqitch_target:
     # The database change management application's database connection string.
     file: ./secrets/sqitch/target.secret
@@ -95,7 +98,7 @@ secrets:
     # The project management software's configuration.
     file: ./secrets/vibetype/monday.secret
   vibetype_openai-api-key:
-    # The AI provider's API key.
+    # The AI provider's API key for the frontend.
     file: ./secrets/vibetype/openai-api-key.secret
   vibetype_turnstile-key:
     # The captcha provider's application key.
@@ -370,11 +373,13 @@ services:
         - traefik.http.services.reccoom.loadbalancer.server.port=5245
     environment:
       POSTGRES_HOST: postgres
+      RECCOOM_POSTGRES_HOST: reccoom_postgres
     image: maevsi/reccoom:dev
     secrets:
       - postgres_db
       - postgres_password
       - postgres_user
+      - reccoom_openai-api-key
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtRS256.key.pub:/run/configurations/jwtRS256.key.pub:ro
