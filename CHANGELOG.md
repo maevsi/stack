@@ -1,3 +1,9 @@
+## [15.3.1](https://github.com/maevsi/stack/compare/15.3.0...15.3.1) (2025-08-21)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([430b039](https://github.com/maevsi/stack/commit/430b039df31feec277c58ce82c22f194546f0e4c))
+
 ## [15.3.0](https://github.com/maevsi/stack/compare/15.2.5...15.3.0) (2025-08-19)
 
 ### Features
