@@ -431,7 +431,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.2.0
+    image: redpandadata/console:v3.2.1
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
@@ -479,7 +479,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.5.0
+    image: traefik:v3.5.1
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
