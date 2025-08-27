@@ -272,7 +272,7 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
-    image: portainer/portainer-ce:2.33.0-alpine
+    image: portainer/portainer-ce:2.33.1-alpine
     secrets:
       - portainer_admin-password
     volumes:
@@ -284,7 +284,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.33.0
+    image: portainer/agent:2.33.1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
