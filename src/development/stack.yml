@@ -389,7 +389,7 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
-    image: pgvector/pgvector:0.8.0-pg17
+    image: pgvector/pgvector:0.8.1-pg17
     ports: #DARGSTACK-REMOVE
       - 5433:5432 #DARGSTACK-REMOVE
     secrets:
