@@ -21,8 +21,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       dargstack_rgen:
-        specifier: 0.9.70
-        version: 0.9.70
+        specifier: 0.9.71
+        version: 0.9.71
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -209,8 +209,8 @@ packages:
     resolution: {integrity: sha512-E+G0++n9MDgQu8B4BDQjvCE+ALdwT9Z373Wx4Oi7z3hpxtVjVO9eK/Ml6nk7BU1v3HZvTmVVCwY8q5Zl7i/JZQ==}
     engines: {node: '22'}
 
-  dargstack_rgen@0.9.70:
-    resolution: {integrity: sha512-AE/aV29VqiTHuAU5kf3TSLrUfqOdwlsL7+0nFkR4gL0lyYo7Hmk6/4rgMrW5DGDhZnc8NLAUdfj+5KjFaNHRmg==}
+  dargstack_rgen@0.9.71:
+    resolution: {integrity: sha512-B3sM7J1m5VnLZ/IB00opeQRBdnV5ptM6KmwEGRyZPvLopTtEoXIcqJZv04otLtJzd2XBmwPyNqo0Xqteq8Okaw==}
     engines: {node: '22'}
     hasBin: true
 
@@ -712,7 +712,7 @@ snapshots:
 
   dargstack@2.5.1: {}
 
-  dargstack_rgen@0.9.70:
+  dargstack_rgen@0.9.71:
     dependencies:
       deepmerge: 4.3.1
       diff: 8.0.2
