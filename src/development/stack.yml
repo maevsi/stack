@@ -187,7 +187,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
-    image: grafana/grafana:12.1.1
+    image: grafana/grafana:12.2.0
     secrets:
       - grafana_admin_email
       - grafana_admin_password
