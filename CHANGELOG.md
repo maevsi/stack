@@ -1,3 +1,9 @@
+## [15.3.8](https://github.com/maevsi/stack/compare/15.3.7...15.3.8) (2025-10-05)
+
+### Bug Fixes
+
+* schedule release ([907d7f9](https://github.com/maevsi/stack/commit/907d7f9bdc4ea452714cc8534b8ce365822bf2cc))
+
 ## [15.3.7](https://github.com/maevsi/stack/compare/15.3.6...15.3.7) (2025-09-21)
 
 ### Bug Fixes
