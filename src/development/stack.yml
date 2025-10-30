@@ -314,7 +314,7 @@ services:
       POSTGRAPHILE_JWT_PUBLIC_KEY_FILE: /run/config/postgraphile_jwt-public-key
       POSTGRAPHILE_JWT_SECRET_KEY_FILE: /run/secrets/postgraphile_jwt-secret
       POSTGRAPHILE_OWNER_CONNECTION_FILE: /run/secrets/postgraphile_owner-connection
-    image: ghcr.io/maevsi/postgraphile:1.0.9
+    image: ghcr.io/maevsi/postgraphile:1.0.10
     secrets:
       - postgraphile_connection
       - postgraphile_jwt-secret
@@ -355,7 +355,7 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
-    image: prom/prometheus:v3.7.2
+    image: prom/prometheus:v3.7.3
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
