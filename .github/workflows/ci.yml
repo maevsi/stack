@@ -28,14 +28,14 @@ jobs:
   build:
     needs: prepare_jobs
     name: dargstack rgen
-    uses: dargmuesli/github-actions/.github/workflows/dargstack-rgen.yml@4e6e3d3fa4b81be372036d8ac7b14638d27be045 # 2.7.0
+    uses: dargmuesli/github-actions/.github/workflows/dargstack-rgen.yml@2b47b35b82df04152c34ae042bd011dd83f28ffd # 2.8.0
     if: needs.prepare_jobs.outputs.pr_found == 'false' || github.event_name == 'pull_request'
     with:
       APT_PACKAGES: mkcert
   release-semantic:
     needs: build
     name: Semantic Release
-    uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@4e6e3d3fa4b81be372036d8ac7b14638d27be045 # 2.7.0
+    uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@2b47b35b82df04152c34ae042bd011dd83f28ffd # 2.8.0
     permissions:
       contents: write
     secrets:
