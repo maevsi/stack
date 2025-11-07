@@ -22,6 +22,8 @@ jobs:
     if: needs.ci-optimization.outputs.continue == 'true'
     name: dargstack rgen
     uses: dargmuesli/github-actions/.github/workflows/dargstack-rgen.yml@a8900fcf9e9d1e7f4c1138484cb7bf8d7bd3f3cb # 3.0.0
+    permissions:
+      contents: read
     with:
       APT_PACKAGES: mkcert
   release-semantic:
