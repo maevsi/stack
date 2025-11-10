@@ -1,3 +1,9 @@
+## [15.4.0](https://github.com/maevsi/stack/compare/15.3.10...15.4.0) (2025-11-10)
+
+### Features
+
+* revert "fix(vibetype): account for nuxt content's websocket" ([b559f2d](https://github.com/maevsi/stack/commit/b559f2d682c240e6115df789eb5e7b29159084b3))
+
 ## [15.3.10](https://github.com/maevsi/stack/compare/15.3.9...15.3.10) (2025-11-02)
 
 ### Bug Fixes
