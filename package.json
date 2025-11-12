@@ -14,7 +14,7 @@
   },
   "license": "GPL-3.0-only",
   "name": "@maevsi/stack",
-  "packageManager": "pnpm@10.21.0",
+  "packageManager": "pnpm@10.22.0",
   "private": true,
   "repository": "https://github.com/maevsi/stack.git",
   "scripts": {
