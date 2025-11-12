@@ -1,3 +1,9 @@
+## [15.5.0](https://github.com/maevsi/stack/compare/15.4.0...15.5.0) (2025-11-12)
+
+### Features
+
+* **reccoom:** add ingest api key as an environment variable ([358ccba](https://github.com/maevsi/stack/commit/358ccba490d32eb8d73e542f6c5437815f80aed2))
+
 ## [15.4.0](https://github.com/maevsi/stack/compare/15.3.10...15.4.0) (2025-11-10)
 
 ### Features
