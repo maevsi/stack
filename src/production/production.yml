@@ -56,7 +56,7 @@ services:
       - postgres_password
       - postgres_user
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/
       - ../production/backups/postgres/:/backups/
   prometheus:
     deploy:
