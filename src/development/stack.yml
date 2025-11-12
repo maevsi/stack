@@ -76,6 +76,9 @@ secrets:
   postgres_user:
     # The database's default user.
     file: ./secrets/postgres/user.secret
+  reccoom_ingest-api-key:
+    # The AI provider's API key for the recommendation engine.
+    file: ./secrets/reccoom/ingest-api-key.secret
   reccoom_openai-api-key:
     # The AI provider's API key for the recommendation engine.
     file: ./secrets/reccoom/openai-api-key.secret
@@ -379,6 +382,8 @@ services:
       - postgres_db
       - postgres_password
       - postgres_user
+      - source: reccoom_ingest-api-key
+        target: /run/environment-variables/INGEST_API_KEY
       - reccoom_openai-api-key
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE

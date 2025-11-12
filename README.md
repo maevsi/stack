@@ -118,6 +118,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The database's default user.
     
+ - ### `reccoom_ingest-api-key`
+    
+    The AI provider's API key for the recommendation engine.
+    
  - ### `reccoom_openai-api-key`
     
     The AI provider's API key for the recommendation engine.
