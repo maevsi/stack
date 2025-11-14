@@ -50,13 +50,13 @@ services:
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
-    image: prodrigestivill/postgres-backup-local:17-alpine
+    image: prodrigestivill/postgres-backup-local:18-alpine
     secrets:
       - postgres-backup_db
       - postgres_password
       - postgres_user
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/
       - ../production/backups/postgres/:/backups/
   prometheus:
     deploy:
