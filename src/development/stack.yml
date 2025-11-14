@@ -419,7 +419,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v25.2.10
+    image: redpandadata/redpanda:v25.2.11
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
@@ -483,7 +483,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.6.0
+    image: traefik:v3.6.1
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
