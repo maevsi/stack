@@ -1,3 +1,9 @@
+## [15.5.2](https://github.com/maevsi/stack/compare/15.5.1...15.5.2) (2025-11-18)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([0064cd4](https://github.com/maevsi/stack/commit/0064cd428581c84d4a978bb30357ef78c647fd4d))
+
 ## [15.5.1](https://github.com/maevsi/stack/compare/15.5.0...15.5.1) (2025-11-18)
 
 ### Bug Fixes
