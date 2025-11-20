@@ -190,7 +190,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
-    image: grafana/grafana:12.2.1
+    image: grafana/grafana:12.3.0
     secrets:
       - grafana_admin_email
       - grafana_admin_password
@@ -419,7 +419,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v25.2.11
+    image: redpandadata/redpanda:v25.3.1
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
@@ -436,7 +436,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.2.2
+    image: redpandadata/console:v3.3.1
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
