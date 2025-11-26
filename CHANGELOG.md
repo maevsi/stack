@@ -1,3 +1,9 @@
+## [15.5.4](https://github.com/maevsi/stack/compare/15.5.3...15.5.4) (2025-11-26)
+
+### Performance Improvements
+
+* **vibetype:** add pnpm data volume ([a65b0a8](https://github.com/maevsi/stack/commit/a65b0a83d412d18229e09ee84466f10038dd4c4e))
+
 ## [15.5.3](https://github.com/maevsi/stack/compare/15.5.2...15.5.3) (2025-11-19)
 
 ### Bug Fixes
