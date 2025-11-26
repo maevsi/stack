@@ -567,7 +567,7 @@ services:
         target: /run/environment-variables/PGUSER
     user: node:node # files created inside a docker container, like node_modules by pnpm, gain correct permissions by setting the user to `node`
     volumes:
-      - ${PNPM_STORE_DIR}:/srv/.pnpm-store/ #DARGSTACK-REMOVE
+      - pnpm_data:/srv/.pnpm-store/ #DARGSTACK-REMOVE
       - ./certificates/:/srv/certificates/ #DARGSTACK-REMOVE
       - ../../../vibetype/:/srv/app/ #DARGSTACK-REMOVE
       - vibetype_data:/srv/app/node_modules #DARGSTACK-REMOVE
@@ -588,6 +588,9 @@ volumes:
     {}
   minio_data:
     # The s3 server's data.
+    {}
+  pnpm_data:
+  # The node package manager's data.
     {}
   portainer_data:
     # The container manager's data.
