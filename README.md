@@ -302,6 +302,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The s3 server's data.
     
+ - ### `pnpm_data`
+    
+    The node package manager's data.
+    
  - ### `portainer_data`
     
     The container manager's data.
