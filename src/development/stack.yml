@@ -358,7 +358,7 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
-    image: prom/prometheus:v3.7.3
+    image: prom/prometheus:v3.8.0
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
