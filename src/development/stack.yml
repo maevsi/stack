@@ -108,7 +108,7 @@ secrets:
     file: ./secrets/vibetype/turnstile-key.secret
 services:
   adminer:
-    # You can access the database's frontend at [adminer.localhost](https://adminer.localhost/).
+    # You can access the database's frontend at [adminer.app.localhost](https://adminer.app.localhost/).
     # This information is required for login:
     #
     # |          |                     |
@@ -170,7 +170,7 @@ services:
     # You cannot access the ip geolocator via a web interface.
     image: ghcr.io/observabilitystack/geoip-api:2025-31
   grafana:
-    # You can access the observation dashboard at [grafana.localhost](https://grafana.localhost/).
+    # You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
     deploy:
       labels:
         - traefik.enable=true
@@ -221,8 +221,8 @@ services:
       - ../production/backups/postgres/:/backups/
       - ./configurations/jobber/.jobber:/home/jobberuser/.jobber:ro
   minio: #DARGSTACK-REMOVE
-    # You can access the s3 console at [minio.localhost](https://minio.localhost/).
-    # You can access the s3 api service at [s3.localhost](https://s3.localhost/) if you want to access via cli from outside the stack.
+    # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
+    # You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
     entrypoint: /patched-entrypoint.sh #DARGSTACK-REMOVE
     command: server /data --console-address ":9001" #DARGSTACK-REMOVE
     deploy: #DARGSTACK-REMOVE
@@ -258,7 +258,7 @@ services:
       MINIO_ROOT_PASSWORD: s3password #DARGSTACK-REMOVE
       MINIO_ROOT_USER: s3user #DARGSTACK-REMOVE
   portainer:
-    # You can access the container manager's frontend at [portainer.localhost](https://portainer.localhost/).
+    # You can access the container manager's frontend at [portainer.app.localhost](https://portainer.app.localhost/).
     command: -H tcp://tasks.portainer-agent:9001 --tlsskipverify --admin-password-file '/run/secrets/portainer_admin-password'
     deploy:
       labels:
@@ -292,15 +292,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
   postgraphile:
-    # You can access the GraphQL API for the PostgreSQL database at [postgraphile.localhost](https://postgraphile.localhost/).
+    # You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
     deploy:
       labels:
         - traefik.enable=true
         - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/service/traefik/authentication
         - traefik.http.middlewares.postgraphile_auth.forwardauth.forwardBody=true
         - traefik.http.middlewares.postgraphile_auth.forwardauth.preserveRequestMethod=true
+        - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowCredentials=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowHeaders=authorization,baggage,content-type,sentry-trace,x-turnstile-key
-        - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=*
+        - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN}
         - traefik.http.routers.postgraphile.entryPoints=web
         - traefik.http.routers.postgraphile.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
@@ -347,7 +348,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   prometheus:
-    # You can access the metrics monitoring at [prometheus.localhost](https://prometheus.localhost/).
+    # You can access the metrics monitoring at [prometheus.app.localhost](https://prometheus.app.localhost/).
     deploy:
       labels:
         - traefik.enable=true
@@ -423,7 +424,7 @@ services:
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
-    # You can access the event streaming platform's ui at [redpanda.localhost](https://redpanda.localhost/).
+    # You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
     deploy:
       labels:
         - traefik.enable=true
@@ -455,7 +456,7 @@ services:
     volumes:
       - ../../../sqitch/:/srv/app/
   traefik:
-    # You can access the reverse proxy's dashboard at [traefik.localhost](https://traefik.localhost/).
+    # You can access the reverse proxy's dashboard at [traefik.app.localhost](https://traefik.app.localhost/).
     command:
       - --api=true
       - --entryPoints.web.address=:80
@@ -499,7 +500,7 @@ services:
       - ./certificates/:/etc/traefik/acme/
       - ./configurations/traefik/dynamic.yml:/dynamic.yml:ro #DARGSTACK-REMOVE
   tusd:
-    # You can access the upload service at [tusd.localhost](https://tusd.localhost/).
+    # You can access the upload service at [tusd.app.localhost](https://tusd.app.localhost/).
     command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,pre-terminate --hooks-http http://vibetype:3000/api/internal/service/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
     deploy:
       labels:
@@ -520,7 +521,7 @@ services:
       - source: tusd_aws
         target: /home/tusd/.aws/credentials
   vibetype:
-    # You can access the main project's frontend at [localhost](https://localhost/).
+    # You can access the main project's frontend at [app.localhost](https://app.localhost/).
     deploy:
       labels:
         - traefik.enable=true

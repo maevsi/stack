@@ -121,7 +121,7 @@ services:
     image: ghcr.io/maevsi/vibetype:12.37.0
     user: (( prune ))
   # vibetype_beta:
-  #   # You can access the main project frontend's beta version at [beta.localhost](https://beta.localhost/).
+  #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
   #   deploy:
   #     labels:
   #       - traefik.enable=true

@@ -29,14 +29,14 @@ done
 
 create "root"
 create "traefik" \
-    `# adminer` "adminer.localhost" \
-    `# grafana` "grafana.localhost" \
-    `# minio` "minio.localhost" \
-    `# portainer` "portainer.localhost" \
-    `# postgraphile` "postgraphile.localhost" \
-    `# prometheus` "prometheus.localhost" \
-    `# reccoom` "reccoom.localhost" \
-    `# redpanda` "redpanda.localhost" \
-    `# traefik` "traefik.localhost" \
-    `# tusd` "tusd.localhost" \
-    `# vibetype` "localhost" "www.localhost" "127.0.0.1" "0.0.0.0"
+    `# adminer` "adminer.app.localhost" \
+    `# grafana` "grafana.app.localhost" \
+    `# minio` "minio.app.localhost" \
+    `# portainer` "portainer.app.localhost" \
+    `# postgraphile` "postgraphile.app.localhost" \
+    `# prometheus` "prometheus.app.localhost" \
+    `# reccoom` "reccoom.app.localhost" \
+    `# redpanda` "redpanda.app.localhost" \
+    `# traefik` "traefik.app.localhost" \
+    `# tusd` "tusd.app.localhost" \
+    `# vibetype` "app.localhost" "www.app.localhost" "127.0.0.1" "0.0.0.0"
