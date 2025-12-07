@@ -1,3 +1,9 @@
+## [15.6.0](https://github.com/maevsi/stack/compare/15.5.6...15.6.0) (2025-12-07)
+
+### Features
+
+* **tusd:** allow uploads up to 10 mb per file ([ad6d2cf](https://github.com/maevsi/stack/commit/ad6d2cf1b38d194539506dd82a7e0564e420a236))
+
 ## [15.5.6](https://github.com/maevsi/stack/compare/15.5.5...15.5.6) (2025-12-06)
 
 ### Bug Fixes
