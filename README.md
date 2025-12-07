@@ -172,7 +172,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
 
  - ### `adminer`
     
-    You can access the database's frontend at [adminer.localhost](https://adminer.localhost/).
+    You can access the database's frontend at [adminer.app.localhost](https://adminer.app.localhost/).
     This information is required for login:
     
     |          |                     |
@@ -203,7 +203,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `grafana`
     
-    You can access the observation dashboard at [grafana.localhost](https://grafana.localhost/).
+    You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
     
  - ### `jobber`
     
@@ -211,12 +211,12 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `minio` ![development](https://img.shields.io/badge/-development-informational.svg?style=flat-square)
     
-    You can access the s3 console at [minio.localhost](https://minio.localhost/).
-    You can access the s3 api service at [s3.localhost](https://s3.localhost/) if you want to access via cli from outside the stack.
+    You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
+    You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
     
  - ### `portainer`
     
-    You can access the container manager's frontend at [portainer.localhost](https://portainer.localhost/).
+    You can access the container manager's frontend at [portainer.app.localhost](https://portainer.app.localhost/).
     
  - ### `portainer-agent`
     
@@ -224,7 +224,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `postgraphile`
     
-    You can access the GraphQL API for the PostgreSQL database at [postgraphile.localhost](https://postgraphile.localhost/).
+    You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
     
  - ### `postgres`
     
@@ -236,7 +236,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `prometheus`
     
-    You can access the metrics monitoring at [prometheus.localhost](https://prometheus.localhost/).
+    You can access the metrics monitoring at [prometheus.app.localhost](https://prometheus.app.localhost/).
     
  - ### `reccoom`
     
@@ -252,7 +252,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `redpanda-console`
     
-    You can access the event streaming platform's ui at [redpanda.localhost](https://redpanda.localhost/).
+    You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
     
  - ### `sqitch`
     
@@ -260,7 +260,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `traefik`
     
-    You can access the reverse proxy's dashboard at [traefik.localhost](https://traefik.localhost/).
+    You can access the reverse proxy's dashboard at [traefik.app.localhost](https://traefik.app.localhost/).
     
  - ### `traefik_certs-dumper` ![production](https://img.shields.io/badge/-production-informational.svg?style=flat-square)
     
@@ -268,11 +268,11 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
  - ### `tusd`
     
-    You can access the upload service at [tusd.localhost](https://tusd.localhost/).
+    You can access the upload service at [tusd.app.localhost](https://tusd.app.localhost/).
     
  - ### `vibetype`
     
-    You can access the main project's frontend at [localhost](https://localhost/).
+    You can access the main project's frontend at [app.localhost](https://app.localhost/).
     
 
 ## volumes
