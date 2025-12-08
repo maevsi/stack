@@ -1,3 +1,9 @@
+## [15.7.3](https://github.com/maevsi/stack/compare/15.7.2...15.7.3) (2025-12-08)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v12.43.1 ([f6afbb4](https://github.com/maevsi/stack/commit/f6afbb44adf196efa1c3fc61884fc41a0a8cd9b8))
+
 ## [15.7.2](https://github.com/maevsi/stack/compare/15.7.1...15.7.2) (2025-12-08)
 
 ### Bug Fixes
