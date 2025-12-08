@@ -301,7 +301,7 @@ services:
         - traefik.http.middlewares.postgraphile_auth.forwardauth.preserveRequestMethod=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowCredentials=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowHeaders=authorization,baggage,content-type,sentry-trace,x-turnstile-key
-        - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN}
+        - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN},https://localhost:3000,https://app.localhost:3000
         - traefik.http.routers.postgraphile.entryPoints=web
         - traefik.http.routers.postgraphile.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
@@ -527,7 +527,7 @@ services:
         - traefik.enable=true
         - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowHeaders=authorization,hook-name
         - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowMethods=GET,POST,PUT,DELETE
-        - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowOriginList=https://localhost:3000
+        - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowOriginList=https://localhost:3000,https://app.localhost:3000
         - traefik.http.middlewares.vibetype_redirectregex.redirectregex.regex=^https?:\/\/www\.${STACK_DOMAIN}\/(.*)
         - traefik.http.middlewares.vibetype_redirectregex.redirectregex.replacement=https://${STACK_DOMAIN}/$${2}
         - traefik.http.routers.vibetype.entryPoints=web
