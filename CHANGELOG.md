@@ -1,3 +1,13 @@
+## [15.7.0](https://github.com/maevsi/stack/compare/15.6.1...15.7.0) (2025-12-08)
+
+### Features
+
+* **vibetype:** allow more localhost cors origins ([562ff3b](https://github.com/maevsi/stack/commit/562ff3bdee9740b79963e295ad385251aba3fca8))
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v12.40.0 ([e34c0e6](https://github.com/maevsi/stack/commit/e34c0e6dca5a25bd96475abd1f3309e1f5056255))
+
 ## [15.6.1](https://github.com/maevsi/stack/compare/15.6.0...15.6.1) (2025-12-07)
 
 ### Bug Fixes
