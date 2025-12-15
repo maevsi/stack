@@ -1,3 +1,9 @@
+## [15.7.5](https://github.com/maevsi/stack/compare/15.7.4...15.7.5) (2025-12-15)
+
+### Bug Fixes
+
+* schedule release ([3680b5a](https://github.com/maevsi/stack/commit/3680b5a4fe4a6632847c576d4c7a8368b15b9368))
+
 ## [15.7.4](https://github.com/maevsi/stack/compare/15.7.3...15.7.4) (2025-12-11)
 
 ### Bug Fixes
