@@ -190,7 +190,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
-    image: grafana/grafana:12.3.0
+    image: grafana/grafana:12.3.1
     secrets:
       - grafana_admin_email
       - grafana_admin_password
@@ -485,7 +485,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.6.4
+    image: traefik:v3.6.5
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
