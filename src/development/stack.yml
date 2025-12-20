@@ -333,7 +333,7 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
-    image: postgis/postgis:17-3.5-alpine
+    image: postgis/postgis:18-3.6-alpine
     ports: #DARGSTACK-REMOVE
       - 5432:5432 #DARGSTACK-REMOVE
     secrets:
@@ -346,7 +346,7 @@ services:
     #   - net.ipv4.tcp_keepalive_intvl=30
     #   - net.ipv4.tcp_keepalive_probes=10
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/
   prometheus:
     # You can access the metrics monitoring at [prometheus.app.localhost](https://prometheus.app.localhost/).
     deploy:
@@ -395,7 +395,7 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
-    image: pgvector/pgvector:0.8.1-pg17
+    image: pgvector/pgvector:0.8.1-pg18
     ports: #DARGSTACK-REMOVE
       - 5433:5432 #DARGSTACK-REMOVE
     secrets:
@@ -403,7 +403,7 @@ services:
       - postgres_password
       - postgres_user
     volumes:
-      - reccoom_postgres_data:/var/lib/postgresql/data/
+      - reccoom_postgres_data:/var/lib/postgresql/
   redpanda:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
     command:
