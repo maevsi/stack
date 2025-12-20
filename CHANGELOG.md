@@ -1,3 +1,17 @@
+## [16.0.0](https://github.com/maevsi/stack/compare/15.7.5...16.0.0) (2025-12-20)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** upgrade sqitch to v10 and vibetype to v13
+* **deps:** upgrade postgres to v18
+* **deps:** update prodrigestivill/postgres-backup-local docker tag to v18
+
+### Miscellaneous Chores
+
+* **deps:** update prodrigestivill/postgres-backup-local docker tag to v18 ([6f80de2](https://github.com/maevsi/stack/commit/6f80de2825fa38abbe12e678e2f6333b98051aaf))
+* **deps:** upgrade postgres to v18 ([c5b9416](https://github.com/maevsi/stack/commit/c5b9416d1d508967a4c33fe4da059ec6401b0315))
+* **deps:** upgrade sqitch to v10 and vibetype to v13 ([b0de2b6](https://github.com/maevsi/stack/commit/b0de2b6a19f5ad776c40e395ee6f8c812c7355f3))
+
 ## [15.7.5](https://github.com/maevsi/stack/compare/15.7.4...15.7.5) (2025-12-15)
 
 ### Bug Fixes
