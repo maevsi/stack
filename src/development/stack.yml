@@ -420,7 +420,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v25.3.3
+    image: redpandadata/redpanda:v25.3.4
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
