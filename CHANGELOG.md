@@ -1,3 +1,9 @@
+## [16.0.3](https://github.com/maevsi/stack/compare/16.0.2...16.0.3) (2025-12-27)
+
+### Performance Improvements
+
+* **jobber:** wait some seconds before returning ([241e6f2](https://github.com/maevsi/stack/commit/241e6f236823a6db530a793c302803a2b8a70b71))
+
 ## [16.0.2](https://github.com/maevsi/stack/compare/16.0.1...16.0.2) (2025-12-27)
 
 ### Bug Fixes
