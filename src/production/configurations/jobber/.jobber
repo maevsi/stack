@@ -7,6 +7,7 @@ jobs:
       source .venv/bin/activate
       aws s3 sync /backups s3://$(cat /run/secrets/jobber_aws-bucket)/backups
       deactivate
+      sleep 3
     time: 0 0 0 *
     notifyOnSuccess:
       - type: program
