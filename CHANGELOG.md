@@ -1,3 +1,9 @@
+## [16.0.4](https://github.com/maevsi/stack/compare/16.0.3...16.0.4) (2025-12-31)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([e3a9380](https://github.com/maevsi/stack/commit/e3a938017cd13728b10f91dbe480c5bd5255c34e))
+
 ## [16.0.3](https://github.com/maevsi/stack/compare/16.0.2...16.0.3) (2025-12-27)
 
 ### Performance Improvements
