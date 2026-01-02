@@ -540,7 +540,6 @@ services:
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
     environment:
       AWS_REGION: ${VIBETYPE_AWS_REGION}
-      CONSOLA_LEVEL: 4 # debug #DARGSTACK-REMOVE
       NUXT_PUBLIC_GTAG_ID: ${VIBETYPE_NUXT_PUBLIC_GTAG_ID}
       NUXT_PUBLIC_I18N_BASE_URL: https://${STACK_DOMAIN}
       NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
