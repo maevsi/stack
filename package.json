@@ -2,8 +2,8 @@
   "author": "Jonas Thelemann <e-mail+maevsi_stack@jonas-thelemann.de>",
   "description": "Dargstack configuration for Vibetype.",
   "devDependencies": {
-    "@commitlint/cli": "20.3.0",
-    "@commitlint/config-conventional": "20.3.0",
+    "@commitlint/cli": "20.3.1",
+    "@commitlint/config-conventional": "20.3.1",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "dargstack": "3.0.0",
     "dargstack_rgen": "0.9.79",

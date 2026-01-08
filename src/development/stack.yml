@@ -159,7 +159,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    image: curlimages/curl:8.17.0
+    image: curlimages/curl:8.18.0
     secrets:
       - postgres_db
       - postgres_password
