@@ -318,7 +318,7 @@ services:
       POSTGRAPHILE_JWT_PUBLIC_KEY_FILE: /run/config/postgraphile_jwt-public-key
       POSTGRAPHILE_JWT_SECRET_KEY_FILE: /run/secrets/postgraphile_jwt-secret
       POSTGRAPHILE_OWNER_CONNECTION_FILE: /run/secrets/postgraphile_owner-connection
-    image: ghcr.io/maevsi/postgraphile:1.0.16
+    image: ghcr.io/maevsi/postgraphile:1.0.17
     secrets:
       - postgraphile_connection
       - postgraphile_jwt-secret
