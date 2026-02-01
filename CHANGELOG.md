@@ -1,3 +1,9 @@
+## [16.0.7](https://github.com/maevsi/stack/compare/16.0.6...16.0.7) (2026-02-01)
+
+### Bug Fixes
+
+* schedule release ([35fded5](https://github.com/maevsi/stack/commit/35fded54fcc8de9c3d38d8071c249291baab09f8))
+
 ## [16.0.6](https://github.com/maevsi/stack/compare/16.0.5...16.0.6) (2026-01-25)
 
 ### Bug Fixes
