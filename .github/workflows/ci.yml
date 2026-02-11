@@ -14,14 +14,14 @@ on:
 jobs:
   ci-optimization:
     name: CI optimization
-    uses: dargmuesli/github-actions/.github/workflows/ci-optimization.yml@9c6934912400aa5305af4b6a0f8b23e6dc8eb5bd # 4.0.6
+    uses: dargmuesli/github-actions/.github/workflows/ci-optimization.yml@e98193e91e9be2af3af784b7a0f25d35bf4eadc5 # 4.0.7
     permissions:
       pull-requests: read
   build:
     needs: ci-optimization
     if: needs.ci-optimization.outputs.continue == 'true'
     name: dargstack rgen
-    uses: dargmuesli/github-actions/.github/workflows/dargstack-rgen.yml@9c6934912400aa5305af4b6a0f8b23e6dc8eb5bd # 4.0.6
+    uses: dargmuesli/github-actions/.github/workflows/dargstack-rgen.yml@e98193e91e9be2af3af784b7a0f25d35bf4eadc5 # 4.0.7
     permissions:
       contents: read
     with:
@@ -29,7 +29,7 @@ jobs:
   release-semantic:
     needs: build
     name: Semantic Release
-    uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@9c6934912400aa5305af4b6a0f8b23e6dc8eb5bd # 4.0.6
+    uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@e98193e91e9be2af3af784b7a0f25d35bf4eadc5 # 4.0.7
     permissions:
       contents: write
       id-token: write
