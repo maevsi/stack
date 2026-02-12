@@ -275,7 +275,7 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
-    image: portainer/portainer-ce:2.38.0-alpine
+    image: portainer/portainer-ce:2.38.1-alpine
     secrets:
       - portainer_admin-password
     volumes:
@@ -287,7 +287,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.38.0
+    image: portainer/agent:2.38.1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -318,7 +318,7 @@ services:
       POSTGRAPHILE_JWT_PUBLIC_KEY_FILE: /run/config/postgraphile_jwt-public-key
       POSTGRAPHILE_JWT_SECRET_KEY_FILE: /run/secrets/postgraphile_jwt-secret
       POSTGRAPHILE_OWNER_CONNECTION_FILE: /run/secrets/postgraphile_owner-connection
-    image: ghcr.io/maevsi/postgraphile:1.0.18
+    image: ghcr.io/maevsi/postgraphile:1.0.19
     secrets:
       - postgraphile_connection
       - postgraphile_jwt-secret
@@ -437,7 +437,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.5.1
+    image: redpandadata/console:v3.5.2
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
@@ -485,7 +485,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.6.7
+    image: traefik:v3.6.8
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
