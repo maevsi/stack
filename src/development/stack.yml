@@ -525,7 +525,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowHeaders=authorization,hook-name
+        - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowHeaders=authorization,hook-name,x-csrf-token
         - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowMethods=GET,POST,PUT,DELETE
         - traefik.http.middlewares.vibetype_cors.headers.accessControlAllowOriginList=https://localhost:3000,https://app.localhost:3000
         - traefik.http.middlewares.vibetype_redirectregex.redirectregex.regex=^https?:\/\/www\.${STACK_DOMAIN}\/(.*)
