@@ -3,7 +3,34 @@
 # Vibetype
 # https://github.com/maevsi/vibetype/
 ---
+x-shared:
+  zammad-service:
+    &zammad-service # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+    environment: &zammad-environment
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_SCHEMA: https
+      ELASTICSEARCH_USER: elastic
+      MEMCACHE_SERVERS: memcached:11211
+      POSTGRESQL_DB_CREATE: "false"
+      POSTGRESQL_DB: zammad
+      POSTGRESQL_HOST: postgres
+      POSTGRESQL_OPTIONS: ?pool=50
+      REDIS_URL: redis://redis:6379
+    image: ghcr.io/zammad/zammad:6.5.2-90
+    secrets:
+      - source: elasticsearch_password
+        target: /run/environment-variables/ELASTICSEARCH_PASS
+      - source: postgres_role_service_zammad_username
+        target: /run/environment-variables/POSTGRESQL_USER
+      - source: postgres_role_service_zammad_password
+        target: /run/environment-variables/POSTGRESQL_PASS
+    volumes:
+      - zammad_data:/opt/zammad/storage
+      - ../production/configurations/zammad/docker-entrypoint.sh:/docker-entrypoint.sh:ro
 secrets:
+  elasticsearch_password:
+    # The search engine's password for the default user.
+    file: ./secrets/elasticsearch/password.secret
   grafana_admin_email:
     # The observation dashboard's admin email.
     file: ./secrets/grafana/admin_email.secret
@@ -166,6 +193,20 @@ services:
       - postgres_user
     volumes:
       - ../production/configurations/debezium-postgres-connector/entrypoint.sh:/entrypoint.sh:ro
+  elasticsearch:
+    # You cannot access the search engine via a web interface.
+    environment:
+      discovery.type: single-node
+      network.publish_host: elasticsearch
+      ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch_password
+    image: elasticsearch:8.19.11
+    secrets:
+      - source: elasticsearch_password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
   geoip:
     # You cannot access the ip geolocator via a web interface.
     image: ghcr.io/observabilitystack/geoip-api:2026-02
@@ -220,6 +261,10 @@ services:
     volumes:
       - ../production/backups/postgres/:/backups/
       - ./configurations/jobber/.jobber:/home/jobberuser/.jobber:ro
+  memcached:
+    # You cannot access the caching system via a web interface.
+    image: memcached:1.6.40-alpine
+    # command: memcached -m 256M
   minio: #DARGSTACK-REMOVE
     # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
     # You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
@@ -404,6 +449,11 @@ services:
       - postgres_user
     volumes:
       - reccoom_postgres_data:/var/lib/postgresql/
+  redis:
+    # You cannot access the caching system via a web interface.
+    image: redis:7.4.7-alpine
+    volumes:
+      - redis_data:/data
   redpanda:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
     command:
@@ -573,6 +623,48 @@ services:
       - ../../../vibetype/:/srv/app/ #DARGSTACK-REMOVE
       - vibetype_data:/srv/app/node_modules #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  zammad-backup:
+    # You cannot access the helpdesk backup service via a web interface.
+    <<: *zammad-service
+    command: ["zammad-backup"]
+    user: 0:0
+    volumes:
+      - zammad-backup_data:/var/tmp/zammad
+      - zammad_data:/opt/zammad/storage:ro
+      - ../production/configurations/zammad/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+  zammad-init:
+    # You cannot access the helpdesk initialization service via a web interface.
+    <<: *zammad-service
+    command: ["zammad-init"]
+    # depends_on:
+    #   - zammad-postgresql
+    user: 0:0
+  zammad-nginx:
+    # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+    <<: *zammad-service
+    command: ["zammad-nginx"]
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.zammad.entryPoints=web
+        - traefik.http.routers.zammad.middlewares=redirectscheme #DARGSTACK-REMOVE
+        - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.entryPoints=web-secure
+        - traefik.http.routers.zammad_secure.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
+        - traefik.http.services.zammad.loadbalancer.server.port=8080
+  zammad-railsserver:
+    # You cannot access the helpdesk application server directly.
+    <<: *zammad-service
+    command: ["zammad-railsserver"]
+  zammad-scheduler:
+    # You cannot access the helpdesk scheduler directly.
+    <<: *zammad-service
+    command: ["zammad-scheduler"]
+  zammad-websocket:
+    # You cannot access the helpdesk websocket server directly.
+    <<: *zammad-service
+    command: ["zammad-websocket"]
 version: "3.7"
 volumes:
   debezium_kafka_configuration:
@@ -584,6 +676,9 @@ volumes:
   debezium_kafka_logs:
     # The change data capture's logs.
     {}
+  elasticsearch_data:
+    # The search engine's data.
+    {}
   grafana_data:
     # The observation dashboard's data.
     {}
@@ -591,7 +686,7 @@ volumes:
     # The s3 server's data.
     {}
   pnpm_data:
-  # The node package manager's data.
+    # The node package manager's data.
     {}
   portainer_data:
     # The container manager's data.
@@ -605,9 +700,18 @@ volumes:
   reccoom_postgres_data:
     # The recommendation database's data.
     {}
+  redis_data:
+    # The caching system's data.
+    {}
   redpanda_data:
     # The message queue's data.
     {}
   vibetype_data:
     # The frontend's data.
+    {}
+  zammad-backup_data:
+    # The helpdesk backup's data.
+    {}
+  zammad_data:
+    # The helpdesk's data.
     {}
