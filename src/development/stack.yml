@@ -307,25 +307,28 @@ services:
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile_secure.entryPoints=web-secure
         - traefik.http.routers.postgraphile_secure.middlewares=postgraphile_auth,postgraphile_cors
-        - traefik.http.routers.postgraphile_secure.rule=Host(`postgraphile.${STACK_DOMAIN}`)
+        - traefik.http.routers.postgraphile_secure.rule=Host(`postgraphile.${STACK_DOMAIN}`) && Path(`/graphql`)
         - traefik.http.routers.postgraphile_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.postgraphile_secure_graphiql.entryPoints=web-secure
-        - traefik.http.routers.postgraphile_secure_graphiql.rule=Host(`postgraphile.${STACK_DOMAIN}`) && Path(`/graphiql`)
+        - traefik.http.routers.postgraphile_secure_graphiql.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile_secure_graphiql.tls.options=mintls13@file #DARGSTACK-REMOVE
-        - traefik.http.services.postgraphile.loadbalancer.server.port=5000
-    environment:
-      POSTGRAPHILE_CONNECTION_FILE: /run/secrets/postgraphile_connection
-      POSTGRAPHILE_JWT_PUBLIC_KEY_FILE: /run/config/postgraphile_jwt-public-key
-      POSTGRAPHILE_JWT_SECRET_KEY_FILE: /run/secrets/postgraphile_jwt-secret
-      POSTGRAPHILE_OWNER_CONNECTION_FILE: /run/secrets/postgraphile_owner-connection
-    image: ghcr.io/maevsi/postgraphile:1.0.19
+        - traefik.http.services.postgraphile.loadbalancer.server.port=5678
+    # # Use the DEBUG environment variable for extended debugging.
+    # environment:
+    #   DEBUG: graphile-build:warn,graphile-build-pg:sql
+    image: maevsi/postgraphile:dev
     secrets:
-      - postgraphile_connection
-      - postgraphile_jwt-secret
-      - postgraphile_owner-connection
+      - source: postgraphile_connection
+        target: /run/environment-variables/POSTGRAPHILE_CONNECTION
+      - source: postgraphile_jwt-secret
+        target: /run/environment-variables/POSTGRAPHILE_JWT_SECRET_KEY
+      - source: postgraphile_owner-connection
+        target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
     volumes:
-      - ./configurations/postgraphile/jwtRS256.key.pub:/run/config/postgraphile_jwt-public-key:ro
-      - ../production/configurations/postgraphile/.postgraphilerc.js:/postgraphile/.postgraphilerc.js:ro
+      - ../../../postgraphile/:/srv/app/ #DARGSTACK-REMOVE
+      - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
+      - pnpm_data:/srv/.pnpm-store/ #DARGSTACK-REMOVE
+      - postgraphile_data:/srv/app/node_modules #DARGSTACK-REMOVE
   postgres:
     # You can access the database via `adminer`.
     command: -c vibetype.jwt_expiry_duration='1 month' -c wal_level=logical
@@ -595,6 +598,9 @@ volumes:
     {}
   portainer_data:
     # The container manager's data.
+    {}
+  postgraphile_data:
+    # The GraphQL API's data.
     {}
   postgres_data:
     # The database's data.
