@@ -1,3 +1,24 @@
+## [17.0.0-beta.2](https://github.com/maevsi/stack/compare/17.0.0-beta.1...17.0.0-beta.2) (2026-02-20)
+
+### ⚠ BREAKING CHANGES
+
+* **postgraphile:** upgrade to v5
+
+### Features
+
+* **postgraphile:** upgrade to v5 ([0113383](https://github.com/maevsi/stack/commit/011338398447c002aaf4682f06aeaee238f3b3b8))
+
+## [17.0.0-beta.1](https://github.com/maevsi/stack/compare/16.0.8...17.0.0-beta.1) (2026-02-20)
+
+### ⚠ BREAKING CHANGES
+
+* **postgraphile:** change forward authorization path
+
+### Features
+
+* **postgraphile:** change forward authorization path ([0e9cc64](https://github.com/maevsi/stack/commit/0e9cc64501ec547b5bddef83dda8a202a94ff203))
+* **vibetype:** allow csrf token access control header ([1ccdd94](https://github.com/maevsi/stack/commit/1ccdd94c7f87fc570212f6cf8c5ad281632e743f))
+
 ## [16.0.8](https://github.com/maevsi/stack/compare/16.0.7...16.0.8) (2026-02-08)
 
 ### Bug Fixes
