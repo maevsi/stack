@@ -1,3 +1,13 @@
+## [17.0.0-beta.2](https://github.com/maevsi/stack/compare/17.0.0-beta.1...17.0.0-beta.2) (2026-02-20)
+
+### ⚠ BREAKING CHANGES
+
+* **postgraphile:** upgrade to v5
+
+### Features
+
+* **postgraphile:** upgrade to v5 ([0113383](https://github.com/maevsi/stack/commit/011338398447c002aaf4682f06aeaee238f3b3b8))
+
 ## [17.0.0-beta.1](https://github.com/maevsi/stack/compare/16.0.8...17.0.0-beta.1) (2026-02-20)
 
 ### ⚠ BREAKING CHANGES
