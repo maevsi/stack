@@ -296,7 +296,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/service/traefik/authentication
+        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/internal/service/postgraphile/authentication
         - traefik.http.middlewares.postgraphile_auth.forwardauth.forwardBody=true
         - traefik.http.middlewares.postgraphile_auth.forwardauth.preserveRequestMethod=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowCredentials=true
