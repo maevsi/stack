@@ -1,3 +1,9 @@
+## [16.1.4](https://github.com/maevsi/stack/compare/16.1.3...16.1.4) (2026-02-21)
+
+### Bug Fixes
+
+* **zammad-init:** restart on failure only ([3fb38d9](https://github.com/maevsi/stack/commit/3fb38d9d88cc8dd4db0baa55345c3e8e14e0ad70))
+
 ## [16.1.3](https://github.com/maevsi/stack/compare/16.1.2...16.1.3) (2026-02-21)
 
 ### Bug Fixes
