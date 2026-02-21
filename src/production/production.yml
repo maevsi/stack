@@ -162,6 +162,11 @@ services:
   #       target: /run/environment-variables/PGUSER
   #   volumes:
   #     - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  zammad-nginx:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.zammad_secure.tls.certresolver=default
 version: "3.7"
 volumes:
   acme_data:
