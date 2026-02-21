@@ -11,8 +11,8 @@ x-shared:
       ELASTICSEARCH_SCHEMA: https
       ELASTICSEARCH_USER: elastic
       MEMCACHE_SERVERS: memcached:11211
-      POSTGRESQL_DB_CREATE: "false"
       POSTGRESQL_DB: zammad
+      POSTGRESQL_DB_CREATE: "false"
       POSTGRESQL_HOST: postgres
       POSTGRESQL_OPTIONS: ?pool=50
       REDIS_URL: redis://redis:6379
@@ -636,8 +636,9 @@ services:
     # You cannot access the helpdesk initialization service via a web interface.
     <<: *zammad-service
     command: ["zammad-init"]
-    # depends_on:
-    #   - zammad-postgresql
+    deploy:
+      restart_policy:
+        condition: on-failure
     user: 0:0
   zammad-nginx:
     # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
