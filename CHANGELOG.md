@@ -1,3 +1,9 @@
+## [16.1.3](https://github.com/maevsi/stack/compare/16.1.2...16.1.3) (2026-02-21)
+
+### Bug Fixes
+
+* **elasticsearch:** set memory ([e257b75](https://github.com/maevsi/stack/commit/e257b75a3500aee4b0028bca4777905d14ca7cf0))
+
 ## [16.1.2](https://github.com/maevsi/stack/compare/16.1.1...16.1.2) (2026-02-21)
 
 ### Bug Fixes
