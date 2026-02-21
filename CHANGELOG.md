@@ -1,3 +1,9 @@
+## [16.1.5](https://github.com/maevsi/stack/compare/16.1.4...16.1.5) (2026-02-21)
+
+### Bug Fixes
+
+* **zammad:** set nginx server scheme ([f035ac5](https://github.com/maevsi/stack/commit/f035ac5ed555b00983612de0c73abdca5accc34d))
+
 ## [16.1.4](https://github.com/maevsi/stack/compare/16.1.3...16.1.4) (2026-02-21)
 
 ### Bug Fixes
