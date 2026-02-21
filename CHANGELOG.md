@@ -1,3 +1,9 @@
+## [16.1.1](https://github.com/maevsi/stack/compare/16.1.0...16.1.1) (2026-02-21)
+
+### Bug Fixes
+
+* **deps:** lockfile maintenance ([0785ef9](https://github.com/maevsi/stack/commit/0785ef9d90e3b32b86da13fae2052f4879d3985d))
+
 ## [16.1.0](https://github.com/maevsi/stack/compare/16.0.8...16.1.0) (2026-02-21)
 
 ### Features
