@@ -315,7 +315,6 @@ services:
         - traefik.http.routers.portainer_secure.rule=Host(`portainer.${STACK_DOMAIN}`)
         - traefik.http.routers.portainer_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.portainer.loadbalancer.server.port=9000
-      mode: replicated
       placement:
         constraints:
           - node.role == manager
