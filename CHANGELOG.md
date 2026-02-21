@@ -1,3 +1,9 @@
+## [16.1.0](https://github.com/maevsi/stack/compare/16.0.8...16.1.0) (2026-02-21)
+
+### Features
+
+* **zammad:** add ([f913dfc](https://github.com/maevsi/stack/commit/f913dfc894724e19195853138cc6610419a5ab42))
+
 ## [16.0.8](https://github.com/maevsi/stack/compare/16.0.7...16.0.8) (2026-02-08)
 
 ### Bug Fixes
