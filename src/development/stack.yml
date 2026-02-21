@@ -200,7 +200,7 @@ services:
       ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch_password
       ES_JAVA_OPTS: -Xms1g -Xmx1g
       network.publish_host: elasticsearch
-    image: elasticsearch:8.19.11
+    image: elasticsearch:9.3.0
     secrets:
       - source: elasticsearch_password
         uid: "1000"
