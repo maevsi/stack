@@ -11,6 +11,7 @@ x-shared:
       ELASTICSEARCH_SCHEMA: https
       ELASTICSEARCH_USER: elastic
       MEMCACHE_SERVERS: memcached:11211
+      NGINX_SERVER_SCHEME: https
       POSTGRESQL_DB: zammad
       POSTGRESQL_DB_CREATE: "false"
       POSTGRESQL_HOST: postgres
