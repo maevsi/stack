@@ -1,3 +1,9 @@
+## [16.1.2](https://github.com/maevsi/stack/compare/16.1.1...16.1.2) (2026-02-21)
+
+### Bug Fixes
+
+* **zammad-nginx:** resolve certificate ([e95bf06](https://github.com/maevsi/stack/commit/e95bf068fd2b4ad34c810815ab2e638b33cddb01))
+
 ## [16.1.1](https://github.com/maevsi/stack/compare/16.1.0...16.1.1) (2026-02-21)
 
 ### Bug Fixes
