@@ -28,7 +28,11 @@ This project is deployed in accordance to the [DargStack template](https://githu
 ## secrets
 
 
- - ### `elasticsearch_password`
+ - ### `elasticsearch-keystore_password`
+    
+    The search engine's password for the keystore.
+    
+ - ### `elasticsearch-password`
     
     The search engine's password for the default user.
     
@@ -343,6 +347,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `debezium_kafka_logs`
     
     The change data capture's logs.
+    
+ - ### `elasticsearch-configuration`
+    
+    The search engine's configuration.
     
  - ### `elasticsearch_data`
     

@@ -19,7 +19,7 @@ x-shared:
       REDIS_URL: redis://redis:6379
     image: ghcr.io/zammad/zammad:6.5.2-90
     secrets:
-      - source: elasticsearch_password
+      - source: elasticsearch-password
         target: /run/environment-variables/ELASTICSEARCH_PASS
       - source: postgres_role_service_zammad_username
         target: /run/environment-variables/POSTGRESQL_USER
@@ -29,7 +29,10 @@ x-shared:
       - zammad_data:/opt/zammad/storage
       - ../production/configurations/zammad/docker-entrypoint.sh:/docker-entrypoint.sh:ro
 secrets:
-  elasticsearch_password:
+  elasticsearch-keystore_password:
+    # The search engine's password for the keystore.
+    file: ./secrets/elasticsearch/keystore_password.secret
+  elasticsearch-password:
     # The search engine's password for the default user.
     file: ./secrets/elasticsearch/password.secret
   grafana_admin_email:
@@ -198,16 +201,22 @@ services:
     # You cannot access the search engine via a web interface.
     environment:
       discovery.type: single-node
-      ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch_password
+      ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch-password
       ES_JAVA_OPTS: -Xms1g -Xmx1g
+      KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore_password
       network.publish_host: elasticsearch
     image: elasticsearch:8.19.11
     secrets:
-      - source: elasticsearch_password
+      - source: elasticsearch-keystore_password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+      - source: elasticsearch-password
         uid: "1000"
         gid: "1000"
         mode: 0o400
     volumes:
+      - elasticsearch-configuration:/usr/share/elasticsearch/config
       - elasticsearch_data:/usr/share/elasticsearch/data
   geoip:
     # You cannot access the ip geolocator via a web interface.
@@ -677,6 +686,9 @@ volumes:
     {}
   debezium_kafka_logs:
     # The change data capture's logs.
+    {}
+  elasticsearch-configuration:
+    # The search engine's configuration.
     {}
   elasticsearch_data:
     # The search engine's data.
