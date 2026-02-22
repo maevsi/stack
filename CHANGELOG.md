@@ -1,3 +1,9 @@
+## [16.1.9](https://github.com/maevsi/stack/compare/16.1.8...16.1.9) (2026-02-22)
+
+### Bug Fixes
+
+* **vibetype:** move allowed headers from postgraphile ([421ae19](https://github.com/maevsi/stack/commit/421ae19e65001039c15c94db5e91ce3610bd230f))
+
 ## [16.1.8](https://github.com/maevsi/stack/compare/16.1.7...16.1.8) (2026-02-22)
 
 ### Bug Fixes
