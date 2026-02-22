@@ -1,3 +1,9 @@
+## [16.1.6](https://github.com/maevsi/stack/compare/16.1.5...16.1.6) (2026-02-22)
+
+### Bug Fixes
+
+* **elasticsearch:** correct security configuration ([ccda936](https://github.com/maevsi/stack/commit/ccda936b5d1d7c24450027e260d9b49c27abbfbd))
+
 ## [16.1.5](https://github.com/maevsi/stack/compare/16.1.4...16.1.5) (2026-02-21)
 
 ### Bug Fixes
