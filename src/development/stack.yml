@@ -200,6 +200,7 @@ services:
   elasticsearch:
     # You cannot access the search engine via a web interface.
     environment:
+      bootstrap.memory_lock: "true"
       discovery.type: single-node
       ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch-password
       ES_JAVA_OPTS: -Xms1g -Xmx1g
@@ -215,6 +216,13 @@ services:
         uid: "1000"
         gid: "1000"
         mode: 0o400
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
       - elasticsearch-configuration:/usr/share/elasticsearch/config
       - elasticsearch_data:/usr/share/elasticsearch/data
