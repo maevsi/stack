@@ -1,3 +1,9 @@
+## [16.1.7](https://github.com/maevsi/stack/compare/16.1.6...16.1.7) (2026-02-22)
+
+### Performance Improvements
+
+* **elasticsearch:** add resource constraints ([3ae4d73](https://github.com/maevsi/stack/commit/3ae4d73975b3afe8b5177cad84c476c358c230a4))
+
 ## [16.1.6](https://github.com/maevsi/stack/compare/16.1.5...16.1.6) (2026-02-22)
 
 ### Bug Fixes
