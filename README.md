@@ -8,16 +8,34 @@ This project is deployed in accordance to the [DargStack template](https://githu
 ## Table of Contents
 
 
- 1. [secrets](#secrets)
+ 1. [x-shared](#x-shared)
     
- 2. [services](#services)
+ 2. [secrets](#secrets)
     
- 3. [volumes](#volumes)
+ 3. [services](#services)
+    
+ 4. [volumes](#volumes)
+    
+
+## x-shared
+
+
+ - ### `zammad-service`
+    
+    You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
     
 
 ## secrets
 
 
+ - ### `elasticsearch-keystore_password`
+    
+    The search engine's password for the keystore.
+    
+ - ### `elasticsearch-password`
+    
+    The search engine's password for the default user.
+    
  - ### `grafana_admin_email`
     
     The observation dashboard's admin email.
@@ -197,6 +215,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You can check the database connector's setup logs using `portainer`.
     
+ - ### `elasticsearch`
+    
+    You cannot access the search engine via a web interface.
+    
  - ### `geoip`
     
     You cannot access the ip geolocator via a web interface.
@@ -208,6 +230,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `jobber`
     
     You cannot access the jobber via a web interface.
+    
+ - ### `memcached`
+    
+    You cannot access the caching system via a web interface.
     
  - ### `minio` ![development](https://img.shields.io/badge/-development-informational.svg?style=flat-square)
     
@@ -246,6 +272,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You can access reccoom's database via `adminer`.
     
+ - ### `redis`
+    
+    You cannot access the caching system via a web interface.
+    
  - ### `redpanda`
     
     You can access the event streaming platform's ui as described under `redpanda-console`.
@@ -274,6 +304,30 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You can access the main project's frontend at [app.localhost](https://app.localhost/).
     
+ - ### `zammad-backup`
+    
+    You cannot access the helpdesk backup service via a web interface.
+    
+ - ### `zammad-init`
+    
+    You cannot access the helpdesk initialization service via a web interface.
+    
+ - ### `zammad-nginx`
+    
+    You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+    
+ - ### `zammad-railsserver`
+    
+    You cannot access the helpdesk application server directly.
+    
+ - ### `zammad-scheduler`
+    
+    You cannot access the helpdesk scheduler directly.
+    
+ - ### `zammad-websocket`
+    
+    You cannot access the helpdesk websocket server directly.
+    
 
 ## volumes
 
@@ -293,6 +347,14 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `debezium_kafka_logs`
     
     The change data capture's logs.
+    
+ - ### `elasticsearch-configuration`
+    
+    The search engine's configuration.
+    
+ - ### `elasticsearch_data`
+    
+    The search engine's data.
     
  - ### `grafana_data`
     
@@ -326,6 +388,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The recommendation database's data.
     
+ - ### `redis_data`
+    
+    The caching system's data.
+    
  - ### `redpanda_data`
     
     The message queue's data.
@@ -333,5 +399,13 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `vibetype_data`
     
     The frontend's data.
+    
+ - ### `zammad-backup_data`
+    
+    The helpdesk backup's data.
+    
+ - ### `zammad_data`
+    
+    The helpdesk's data.
     
 

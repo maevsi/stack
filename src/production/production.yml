@@ -119,7 +119,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:13.3.2
+    image: ghcr.io/maevsi/vibetype:13.3.3
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
@@ -163,6 +163,11 @@ services:
   #       target: /run/environment-variables/PGUSER
   #   volumes:
   #     - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  zammad-nginx:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.zammad_secure.tls.certresolver=default
 version: "3.7"
 volumes:
   acme_data:

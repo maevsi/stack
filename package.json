@@ -2,8 +2,8 @@
   "author": "Jonas Thelemann <e-mail+maevsi_stack@jonas-thelemann.de>",
   "description": "Dargstack configuration for Vibetype.",
   "devDependencies": {
-    "@commitlint/cli": "20.4.1",
-    "@commitlint/config-conventional": "20.4.1",
+    "@commitlint/cli": "20.4.2",
+    "@commitlint/config-conventional": "20.4.2",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "dargstack": "3.0.0",
     "dargstack_rgen": "0.9.84",
@@ -14,7 +14,7 @@
   },
   "license": "GPL-3.0-only",
   "name": "@maevsi/stack",
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@10.30.1",
   "private": true,
   "repository": "https://github.com/maevsi/stack.git",
   "scripts": {

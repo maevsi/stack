@@ -19,6 +19,66 @@
 * **postgraphile:** change forward authorization path ([0e9cc64](https://github.com/maevsi/stack/commit/0e9cc64501ec547b5bddef83dda8a202a94ff203))
 * **vibetype:** allow csrf token access control header ([1ccdd94](https://github.com/maevsi/stack/commit/1ccdd94c7f87fc570212f6cf8c5ad281632e743f))
 
+## [16.1.9](https://github.com/maevsi/stack/compare/16.1.8...16.1.9) (2026-02-22)
+
+### Bug Fixes
+
+* **vibetype:** move allowed headers from postgraphile ([421ae19](https://github.com/maevsi/stack/commit/421ae19e65001039c15c94db5e91ce3610bd230f))
+
+## [16.1.8](https://github.com/maevsi/stack/compare/16.1.7...16.1.8) (2026-02-22)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v13.3.3 ([a175137](https://github.com/maevsi/stack/commit/a1751375c4bcaae957fd32e920cd7a62e10114fa))
+
+## [16.1.7](https://github.com/maevsi/stack/compare/16.1.6...16.1.7) (2026-02-22)
+
+### Performance Improvements
+
+* **elasticsearch:** add resource constraints ([3ae4d73](https://github.com/maevsi/stack/commit/3ae4d73975b3afe8b5177cad84c476c358c230a4))
+
+## [16.1.6](https://github.com/maevsi/stack/compare/16.1.5...16.1.6) (2026-02-22)
+
+### Bug Fixes
+
+* **elasticsearch:** correct security configuration ([ccda936](https://github.com/maevsi/stack/commit/ccda936b5d1d7c24450027e260d9b49c27abbfbd))
+
+## [16.1.5](https://github.com/maevsi/stack/compare/16.1.4...16.1.5) (2026-02-21)
+
+### Bug Fixes
+
+* **zammad:** set nginx server scheme ([f035ac5](https://github.com/maevsi/stack/commit/f035ac5ed555b00983612de0c73abdca5accc34d))
+
+## [16.1.4](https://github.com/maevsi/stack/compare/16.1.3...16.1.4) (2026-02-21)
+
+### Bug Fixes
+
+* **zammad-init:** restart on failure only ([3fb38d9](https://github.com/maevsi/stack/commit/3fb38d9d88cc8dd4db0baa55345c3e8e14e0ad70))
+
+## [16.1.3](https://github.com/maevsi/stack/compare/16.1.2...16.1.3) (2026-02-21)
+
+### Bug Fixes
+
+* **elasticsearch:** set memory ([e257b75](https://github.com/maevsi/stack/commit/e257b75a3500aee4b0028bca4777905d14ca7cf0))
+
+## [16.1.2](https://github.com/maevsi/stack/compare/16.1.1...16.1.2) (2026-02-21)
+
+### Bug Fixes
+
+* **zammad-nginx:** resolve certificate ([e95bf06](https://github.com/maevsi/stack/commit/e95bf068fd2b4ad34c810815ab2e638b33cddb01))
+
+## [16.1.1](https://github.com/maevsi/stack/compare/16.1.0...16.1.1) (2026-02-21)
+
+### Bug Fixes
+
+* **deps:** lockfile maintenance ([0785ef9](https://github.com/maevsi/stack/commit/0785ef9d90e3b32b86da13fae2052f4879d3985d))
+
+## [16.1.0](https://github.com/maevsi/stack/compare/16.0.8...16.1.0) (2026-02-21)
+
+### Features
+
+* **zammad:** add ([f913dfc](https://github.com/maevsi/stack/commit/f913dfc894724e19195853138cc6610419a5ab42))
+
 ## [16.0.8](https://github.com/maevsi/stack/compare/16.0.7...16.0.8) (2026-02-08)
 
 ### Bug Fixes
