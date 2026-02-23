@@ -1,3 +1,24 @@
+## [17.0.0-beta.3](https://github.com/maevsi/stack/compare/17.0.0-beta.2...17.0.0-beta.3) (2026-02-23)
+
+### Features
+
+* **zammad:** add ([f913dfc](https://github.com/maevsi/stack/commit/f913dfc894724e19195853138cc6610419a5ab42))
+
+### Bug Fixes
+
+* **deps:** lockfile maintenance ([0785ef9](https://github.com/maevsi/stack/commit/0785ef9d90e3b32b86da13fae2052f4879d3985d))
+* **deps:** update ghcr.io/maevsi/vibetype to v13.3.3 ([a175137](https://github.com/maevsi/stack/commit/a1751375c4bcaae957fd32e920cd7a62e10114fa))
+* **elasticsearch:** correct security configuration ([ccda936](https://github.com/maevsi/stack/commit/ccda936b5d1d7c24450027e260d9b49c27abbfbd))
+* **elasticsearch:** set memory ([e257b75](https://github.com/maevsi/stack/commit/e257b75a3500aee4b0028bca4777905d14ca7cf0))
+* **vibetype:** move allowed headers from postgraphile ([421ae19](https://github.com/maevsi/stack/commit/421ae19e65001039c15c94db5e91ce3610bd230f))
+* **zammad-init:** restart on failure only ([3fb38d9](https://github.com/maevsi/stack/commit/3fb38d9d88cc8dd4db0baa55345c3e8e14e0ad70))
+* **zammad-nginx:** resolve certificate ([e95bf06](https://github.com/maevsi/stack/commit/e95bf068fd2b4ad34c810815ab2e638b33cddb01))
+* **zammad:** set nginx server scheme ([f035ac5](https://github.com/maevsi/stack/commit/f035ac5ed555b00983612de0c73abdca5accc34d))
+
+### Performance Improvements
+
+* **elasticsearch:** add resource constraints ([3ae4d73](https://github.com/maevsi/stack/commit/3ae4d73975b3afe8b5177cad84c476c358c230a4))
+
 ## [17.0.0-beta.2](https://github.com/maevsi/stack/compare/17.0.0-beta.1...17.0.0-beta.2) (2026-02-20)
 
 ### ⚠ BREAKING CHANGES
