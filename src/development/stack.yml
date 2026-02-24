@@ -469,7 +469,7 @@ services:
       - reccoom_postgres_data:/var/lib/postgresql/
   redis:
     # You cannot access the caching system via a web interface.
-    image: redis:8.6.0-alpine
+    image: redis:8.6.1-alpine
     volumes:
       - redis_data:/data
   redpanda:
@@ -553,7 +553,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.6.8
+    image: traefik:v3.6.9
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
