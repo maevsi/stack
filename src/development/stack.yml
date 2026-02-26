@@ -338,7 +338,7 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
-    image: portainer/portainer-ce:2.38.1-alpine
+    image: portainer/portainer-ce:2.39.0-alpine
     secrets:
       - portainer_admin-password
     volumes:
@@ -350,7 +350,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.38.1
+    image: portainer/agent:2.39.0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -422,7 +422,7 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
-    image: prom/prometheus:v3.9.1
+    image: prom/prometheus:v3.10.0
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -458,7 +458,7 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
-    image: pgvector/pgvector:0.8.1-pg18
+    image: pgvector/pgvector:0.8.2-pg18
     ports: #DARGSTACK-REMOVE
       - 5433:5432 #DARGSTACK-REMOVE
     secrets:
@@ -488,7 +488,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v25.3.7
+    image: redpandadata/redpanda:v25.3.8
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
