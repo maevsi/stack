@@ -6,7 +6,7 @@
     "@commitlint/config-conventional": "20.4.2",
     "conventional-changelog-conventionalcommits": "9.2.0",
     "dargstack": "3.0.0",
-    "dargstack_rgen": "0.9.85",
+    "dargstack_rgen": "0.9.86",
     "husky": "9.1.7"
   },
   "engines": {
