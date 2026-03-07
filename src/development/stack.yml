@@ -282,7 +282,7 @@ services:
       - ./configurations/jobber/.jobber:/home/jobberuser/.jobber:ro
   memcached:
     # You cannot access the caching system via a web interface.
-    image: memcached:1.6.40-alpine
+    image: memcached:1.6.41-alpine
     # command: memcached -m 256M
   minio: #DARGSTACK-REMOVE
     # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
