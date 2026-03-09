@@ -206,7 +206,7 @@ services:
       ES_JAVA_OPTS: -Xms1g -Xmx1g
       KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore_password
       network.publish_host: elasticsearch
-    image: elasticsearch:8.19.12
+    image: elasticsearch:9.3.1
     secrets:
       - source: elasticsearch-keystore_password
         uid: "1000"
