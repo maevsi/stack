@@ -1,3 +1,9 @@
+## [17.0.0-beta.4](https://github.com/maevsi/stack/compare/17.0.0-beta.3...17.0.0-beta.4) (2026-03-11)
+
+### Bug Fixes
+
+* schedule release ([d2d69dc](https://github.com/maevsi/stack/commit/d2d69dcd3cd0df930fce71afe2b689d63772a12b))
+
 ## [17.0.0-beta.3](https://github.com/maevsi/stack/compare/17.0.0-beta.2...17.0.0-beta.3) (2026-02-23)
 
 ### Features
