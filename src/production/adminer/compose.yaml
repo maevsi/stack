@@ -1,0 +1,6 @@
+services:
+  adminer:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.adminer-secure.tls.certresolver=default

@@ -1,0 +1,35 @@
+secrets:
+  tusd-aws:
+    # The upload service's s3 credentials file.
+    file: ../../../artifacts/secrets/tusd-aws.secret
+services:
+  tusd:
+    # You can access the upload service at [tusd.app.localhost](https://tusd.app.localhost/).
+    command: -behind-proxy --hooks-enabled-events pre-create,pre-finish,pre-terminate --hooks-http http://vibetype:3000/api/internal/service/tusd -max-size ${TUSD_MAX_SIZE} -s3-bucket ${TUSD_BUCKET} -s3-endpoint ${TUSD_ENDPOINT}
+    deploy:
+      labels:
+        - dargstack.profiles=upload
+        - traefik.enable=true
+        - traefik.http.middlewares.tusd-cors.headers.customresponseheaders.Cross-Origin-Resource-Policy=cross-origin
+        - traefik.http.routers.tusd.entryPoints=web
+        - traefik.http.routers.tusd.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.tusd.rule=Host(`tusd.${STACK_DOMAIN}`)
+        - traefik.http.routers.tusd-secure.entryPoints=web-secure
+        - traefik.http.routers.tusd-secure.middlewares=tusd-cors
+        - traefik.http.routers.tusd-secure.rule=Host(`tusd.${STACK_DOMAIN}`) && (Method(`GET`) || Method(`HEAD`) || Method(`OPTIONS`) || Method(`POST`) || Method(`PUT`) || Method(`PATCH`))
+        - traefik.http.routers.tusd-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.tusd.loadbalancer.server.port=8080
+    environment:
+      AWS_REGION: ${TUSD_REGION}
+    image: tusproject/tusd:v2.9.1
+    secrets:
+      - source: tusd-aws
+        target: /home/tusd/.aws/credentials
+x-dargstack:
+  secrets:
+    tusd-aws:
+      insecure_default: |
+        [default]
+        aws_access_key_id = s3user
+        aws_secret_access_key = s3password
+      type: insecure_default

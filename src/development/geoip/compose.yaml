@@ -1,0 +1,4 @@
+services:
+  geoip:
+    # You cannot access the ip geolocator via a web interface.
+    image: ghcr.io/observabilitystack/geoip-api:2026-02

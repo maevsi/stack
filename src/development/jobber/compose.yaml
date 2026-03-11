@@ -1,0 +1,90 @@
+secrets:
+  jobber-aliases:
+    # The job scheduler's SMTP client mail alias.
+    file: ../../../artifacts/secrets/jobber-aliases.secret
+  jobber-aws-bucket:
+    # The job scheduler's AWS bucket name.
+    file: ../../../artifacts/secrets/jobber-aws-bucket.secret
+  jobber-aws-credentials:
+    # The job scheduler's AWS credentials.
+    file: ../../../artifacts/secrets/jobber-aws-credentials.secret
+  jobber-aws-configuration:
+    # The job scheduler's AWS configuration.
+    file: ../../../artifacts/secrets/jobber-aws-configuration.secret
+  jobber-msmtprc:
+    # The job scheduler's SMTP client configuration.
+    file: ../../../artifacts/secrets/jobber-msmtprc.secret
+services:
+  jobber:
+    # You cannot access the jobber via a web interface.
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: /run/secrets/jobber-aws-credentials
+    image: ghcr.io/dargmuesli/jobber-aws-msmtp:1.3.0
+    secrets:
+      - source: jobber-aliases
+        target: /etc/aliases
+      - jobber-aws-bucket
+      - jobber-aws-credentials
+      - source: jobber-aws-configuration
+        target: /home/jobberuser/.aws/config
+      - source: jobber-msmtprc
+        target: /etc/msmtprc
+    volumes:
+      - ./configurations/sinks:/srv/sinks:ro
+      - ./configurations/.jobber:/home/jobberuser/.jobber:ro
+x-dargstack:
+  secrets:
+    jobber-aliases:
+      type: insecure_default
+      insecure_default: "default: mail@localhost"
+    jobber-aws-bucket:
+      type: word
+    jobber-aws-credentials:
+      type: insecure_default
+      insecure_default: |
+        [default]
+        aws_access_key_id = s3user
+        aws_secret_access_key = s3password
+    jobber-aws-configuration:
+      type: template
+      template: |
+        [default]
+        region = <s3-region>
+
+        s3 =
+          endpoint_url = <s3-endpoint>
+          signature_version = s3v4
+          max_concurrent_requests = 100
+          max_queue_size = 1000
+          multipart_threshold = 50MB
+          # Edit the multipart_chunksize value according to the file sizes that you want to upload. The present configuration allows to upload files up to 10 GB (100 requests * 10MB). For example setting it to 5GB allows you to upload files up to 5TB.
+          multipart_chunksize = 10MB
+        s3api =
+          endpoint_url = <s3-endpoint>
+
+        [plugins]
+        endpoint = awscli_plugin_endpoint
+    jobber-msmtprc:
+      type: template
+      template: |
+        # Set default values for all following accounts.
+        defaults
+        auth           on
+        tls            on
+        tls_trust_file /etc/ssl/certs/ca-certificates.crt
+        syslog         on
+
+        # <name>
+        account        <name>
+        host           <host>
+        port           <port>
+        from           <email>
+        user           <email>
+        password       <password>
+        # or
+        #auth           off
+        #tls            off
+
+        # Set a default account
+        account default : <name>
+        aliases        /etc/aliases

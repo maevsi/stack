@@ -1,0 +1,6 @@
+services:
+  redpanda-console:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.redpanda-secure.tls.certresolver=default

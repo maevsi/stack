@@ -1,0 +1,43 @@
+services:
+  minio: # dargstack:dev-only
+    # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
+    # You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
+    command: server /data --console-address ":9001" # dargstack:dev-only
+    deploy: # dargstack:dev-only
+      labels: # dargstack:dev-only
+        - dargstack.profiles=upload
+        - traefik.enable=true # dargstack:dev-only
+        # Minio Console
+        - traefik.http.routers.minio.entryPoints=web # dargstack:dev-only
+        - traefik.http.routers.minio.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.minio.rule=Host(`minio.${STACK_DOMAIN}`) # dargstack:dev-only
+        - traefik.http.routers.minio.service=minio # dargstack:dev-only
+        - traefik.http.routers.minio-secure.entryPoints=web-secure # dargstack:dev-only
+        - traefik.http.routers.minio-secure.rule=Host(`minio.${STACK_DOMAIN}`) # dargstack:dev-only
+        - traefik.http.routers.minio-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.routers.minio-secure.service=minio # dargstack:dev-only
+        - traefik.http.services.minio.loadbalancer.server.port=9001 # dargstack:dev-only
+        - traefik.http.services.minio.loadbalancer.passhostheader=true # dargstack:dev-only
+        # Minio itself
+        - traefik.http.routers.s3.entryPoints=web # dargstack:dev-only
+        - traefik.http.routers.s3.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.s3.rule=Host(`s3.${STACK_DOMAIN}`) # dargstack:dev-only
+        - traefik.http.routers.s3.service=s3 # dargstack:dev-only
+        - traefik.http.routers.s3-secure.entryPoints=web-secure # dargstack:dev-only
+        - traefik.http.routers.s3-secure.rule=Host(`s3.${STACK_DOMAIN}`) # dargstack:dev-only
+        - traefik.http.routers.s3-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.routers.s3-secure.service=s3 # dargstack:dev-only
+        - traefik.http.services.s3.loadbalancer.server.port=9000 # dargstack:dev-only
+        - traefik.http.services.s3.loadbalancer.passhostheader=true # dargstack:dev-only
+    entrypoint: /patched-entrypoint.sh # dargstack:dev-only
+    image: minio/minio # dargstack:dev-only
+    volumes: # dargstack:dev-only
+      - minio-data:/data # dargstack:dev-only
+      - ./configurations/entrypoint.sh:/patched-entrypoint.sh # dargstack:dev-only
+    environment: # dargstack:dev-only
+      MINIO_ROOT_PASSWORD: s3password # dargstack:dev-only
+      MINIO_ROOT_USER: s3user # dargstack:dev-only
+volumes:
+  minio-data:
+    # The s3 server's data.
+    {}
