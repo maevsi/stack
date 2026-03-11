@@ -1,0 +1,46 @@
+services:
+  traefik:
+    # You can access the reverse proxy's dashboard at [traefik.app.localhost](https://traefik.app.localhost/).
+    command:
+      - --api=true
+      - --entryPoints.web.address=:80
+      - --entryPoints.web-secure.address=:443
+      - --entryPoints.web-secure.http.encodedCharacters.allowEncodedSlash=true # dargstack:dev-only # required for Nuxt's virtual imports
+      - --providers.swarm=true
+      - --providers.swarm.endpoint=unix:///var/run/docker.sock
+      - --providers.swarm.exposedByDefault=false
+      - --providers.file.filename=/dynamic.yml # dargstack:dev-only
+      - --providers.file.watch=true # dargstack:dev-only
+      - --log.level=DEBUG # dargstack:dev-only
+    deploy:
+      labels:
+        - dargstack.profiles=default
+        - traefik.enable=true
+        - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https # dargstack:dev-only
+        - traefik.http.routers.traefik.entryPoints=web
+        - traefik.http.routers.traefik.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.traefik.rule=Host(`traefik.${STACK_DOMAIN}`)
+        - traefik.http.routers.traefik.service=api@internal
+        - traefik.http.routers.traefik-secure.entryPoints=web-secure
+        - traefik.http.routers.traefik-secure.rule=Host(`traefik.${STACK_DOMAIN}`)
+        - traefik.http.routers.traefik-secure.service=api@internal
+        - traefik.http.routers.traefik-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.traefik.loadbalancer.server.port=8080
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+    image: traefik:v3.6.10
+    ports: # dargstack:dev-only
+      - mode: host # dargstack:dev-only
+        protocol: tcp # dargstack:dev-only
+        published: 80 # dargstack:dev-only
+        target: 80 # dargstack:dev-only
+      - mode: host # dargstack:dev-only
+        protocol: tcp # dargstack:dev-only
+        published: 443 # dargstack:dev-only
+        target: 443 # dargstack:dev-only
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../../artifacts/certificates/:/etc/traefik/acme/
+      - ./configurations/dynamic.yml:/dynamic.yml:ro # dargstack:dev-only

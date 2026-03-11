@@ -1,0 +1,7 @@
+services:
+  jobber:
+    environment:
+      SENTRY_CRONS: ${SENTRY_CRONS}
+    volumes:
+      - (( append ))
+      - postgres-backup-data:/backups/

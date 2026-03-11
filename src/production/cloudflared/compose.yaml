@@ -1,0 +1,10 @@
+services:
+  cloudflared:
+    # You can configure the secure tunnel at [dash.cloudflare.com](https://dash.cloudflare.com/).
+    command: tunnel run
+    deploy:
+      labels:
+        - dargstack.profiles=default
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN}
+    image: cloudflare/cloudflared

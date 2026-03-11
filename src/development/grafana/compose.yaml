@@ -1,0 +1,65 @@
+secrets:
+  grafana-admin-email:
+    # The observation dashboard's admin email.
+    file: ../../../artifacts/secrets/grafana-admin-email.secret
+  grafana-admin-password:
+    # The observation dashboard's admin password.
+    file: ../../../artifacts/secrets/grafana-admin-password.secret
+  grafana-admin-user:
+    # The observation dashboard's admin user.
+    file: ../../../artifacts/secrets/grafana-admin-user.secret
+  grafana-discord-webhook:
+    # The observation dashboard's contact point for Discord.
+    file: ../../../artifacts/secrets/grafana-discord-webhook.secret
+services:
+  grafana:
+    # You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+        - traefik.enable=true
+        - traefik.http.routers.grafana.entryPoints=web
+        - traefik.http.routers.grafana.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.grafana.rule=Host(`grafana.${STACK_DOMAIN}`)
+        - traefik.http.routers.grafana-secure.entryPoints=web-secure
+        - traefik.http.routers.grafana-secure.rule=Host(`grafana.${STACK_DOMAIN}`)
+        - traefik.http.routers.grafana-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.grafana.loadbalancer.server.port=3000
+    environment:
+      GF_DATABASE_HOST: postgres:5432
+      GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres-role-service-grafana-password
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_USER__FILE: /run/secrets/postgres-role-service-grafana-username
+      GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana-admin-email
+      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana-admin-password
+      GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana-admin-user
+      GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
+    image: grafana/grafana:12.4.1
+    secrets:
+      - grafana-admin-email
+      - grafana-admin-password
+      - grafana-admin-user
+      - grafana-discord-webhook
+      - postgres-db
+      - postgres-role-service-grafana-password
+      - postgres-role-service-grafana-username
+    volumes:
+      - ./configurations/dashboards:/var/lib/grafana/dashboards:ro
+      - ./configurations/provisioning:/etc/grafana/provisioning:ro
+      - grafana-data:/var/lib/grafana
+volumes:
+  grafana-data:
+    # The observation dashboard's data.
+    {}
+x-dargstack:
+  secrets:
+    grafana-admin-email:
+      insecure_default: admin@localhost
+      type: insecure_default
+    grafana-admin-password:
+      type: random_string
+    grafana-admin-user:
+      type: word
+    grafana-discord-webhook:
+      hint: https://discord.com/api/webhooks/<id>/<id>
+      type: third_party
