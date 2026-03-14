@@ -46,7 +46,7 @@ services:
         target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
     volumes:
       - ../../../../postgraphile/:/srv/app/ # dargstack:dev-only
-      - ./configurations/jwtRS256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
+      - ./configurations/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - postgraphile-data:/srv/app/node_modules # dargstack:dev-only
 volumes:
@@ -60,6 +60,7 @@ x-dargstack:
       template: postgres://{{secret:postgres-role-service-postgraphile-username}}:{{secret:postgres-role-service-postgraphile-password}}@postgres:5432/{{secret:postgres-db}}
     postgraphile-jwt-secret:
       type: private_key
+      key_type: ecdsa
     postgraphile-owner-connection:
       type: template
       template: postgres://{{secret:postgres-user}}:{{secret:postgres-password}}@postgres:5432/{{secret:postgres-db}}
