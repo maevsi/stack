@@ -1,0 +1,6 @@
+services:
+  portainer:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.portainer-secure.tls.certresolver=default

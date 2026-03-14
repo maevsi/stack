@@ -1,0 +1,28 @@
+services:
+  adminer:
+    # You can access the database's frontend at [adminer.app.localhost](https://adminer.app.localhost/).
+    # This information is required for login:
+    #
+    # |          |                     |
+    # | -------- | ------------------- |
+    # | System   | PostgreSQL          |
+    # | Server   | postgres            |
+    # | Username | [postgres-user]     |
+    # | Password | [postgres-password] |
+    # | Database | [postgres-db]       |
+    #
+    # Values in square brackets are [Docker secrets](https://docs.docker.com/engine/swarm/secrets/).
+    deploy:
+      labels:
+        - dargstack.profiles=default
+        - traefik.enable=true
+        - traefik.http.routers.adminer.entryPoints=web
+        - traefik.http.routers.adminer.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.adminer.rule=Host(`adminer.${STACK_DOMAIN}`)
+        - traefik.http.routers.adminer-secure.entryPoints=web-secure
+        - traefik.http.routers.adminer-secure.rule=Host(`adminer.${STACK_DOMAIN}`)
+        - traefik.http.routers.adminer-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.adminer.loadbalancer.server.port=8080
+    image: adminer:5.4.2-standalone
+    volumes:
+      - ./configurations/adminer.css:/var/www/html/adminer.css:ro

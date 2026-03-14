@@ -1,0 +1,44 @@
+secrets:
+  traefik-cf-dns-api-token:
+    # The DNS provider's DNS API token.
+    external: true
+  traefik-cf-zone-api-token:
+    # The DNS provider's zone API token.
+    external: true
+services:
+  traefik:
+    command:
+      - (( prepend ))
+      - --certificatesResolvers.default.acme.email=${TRAEFIK_ACME_EMAIL}
+      - --certificatesResolvers.default.acme.storage=/etc/traefik/acme/acme.json
+      - --certificatesResolvers.default.acme.dnsChallenge.provider=${TRAEFIK_ACME_PROVIDER}
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.traefik-secure.tls.certresolver=default
+    environment:
+      CF_DNS_API_TOKEN_FILE: /run/secrets/traefik-cf-dns-api-token
+      CF_ZONE_API_TOKEN_FILE: /run/secrets/traefik-cf-zone-api-token
+    secrets:
+      - traefik-cf-dns-api-token
+      - traefik-cf-zone-api-token
+  traefik-certs-dumper:
+    # You cannot access the reverse proxy's certificate helper directly.
+    command:
+      - file
+      - --clean=false
+      - --crt-name="$STACK_DOMAIN"
+      - --dest=/etc/traefik/acme/
+      - --key-name="$STACK_DOMAIN"
+      - --source=/etc/traefik/acme/acme.json
+      - --version=v2
+      - --watch
+    environment:
+      STACK_DOMAIN: ${STACK_DOMAIN}
+    image: ldez/traefik-certs-dumper:v2.11.0
+    volumes:
+      - acme-data:/etc/traefik/acme/
+volumes:
+  acme-data:
+    # The reverse proxy's certificate data.
+    {}

@@ -1,0 +1,49 @@
+services:
+  debezium:
+    # You can see how changes in the database end up in the event stream using `redpanda-console`.
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    environment:
+      BOOTSTRAP_SERVERS: redpanda:9092
+      CONFIG_STORAGE_TOPIC: connect_configs
+      GROUP_ID: 1
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+    # healthcheck:
+    #   test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8083/connectors"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 20s
+    image: quay.io/debezium/connect:3.5
+    volumes:
+      - debezium-kafka-configuration:/kafka/config
+      - debezium-kafka-data:/kafka/data
+      - debezium-kafka-logs:/kafka/logs
+  debezium-postgres-connector:
+    # You can check the database connector's setup logs using `portainer`.
+    command: /entrypoint.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+      restart_policy:
+        condition: on-failure
+    entrypoint: sh
+    image: curlimages/curl:8.18.0
+    secrets:
+      - postgres-db
+      - postgres-password
+      - postgres-user
+    volumes:
+      - ./configurations/entrypoint.sh:/entrypoint.sh:ro
+volumes:
+  debezium-kafka-configuration:
+    # The change data capture's configuration.
+    {}
+  debezium-kafka-data:
+    # The change data capture's data.
+    {}
+  debezium-kafka-logs:
+    # The change data capture's logs.
+    {}

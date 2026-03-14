@@ -1,0 +1,29 @@
+secrets:
+  sqitch-target:
+    # The database change management application's database connection string.
+    file: ../../../artifacts/secrets/sqitch-target.secret
+services:
+  sqitch:
+    # You cannot access the database migrations directly.
+    deploy:
+      labels:
+        - dargstack.development.build=../../../../sqitch
+        - dargstack.profiles=default
+    image: vibetype/sqitch:development
+    secrets:
+      - postgres-role-service-grafana-password
+      - postgres-role-service-grafana-username
+      - postgres-role-service-postgraphile-password
+      - postgres-role-service-postgraphile-username
+      - postgres-role-service-vibetype-password
+      - postgres-role-service-vibetype-username
+      - postgres-role-service-zammad-username
+      - postgres-role-service-zammad-password
+      - sqitch-target
+    volumes:
+      - ../../../../sqitch/:/srv/app/
+x-dargstack:
+  secrets:
+    sqitch-target:
+      type: template
+      template: postgres://{{secret:postgres-user}}:{{secret:postgres-password}}@postgres:5432/{{secret:postgres-db}}
