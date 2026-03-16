@@ -1,0 +1,49 @@
+secrets:
+  portainer-admin-password:
+    # The container manager's admin password.
+    file: ../../../artifacts/secrets/portainer-admin-password.secret
+services:
+  portainer:
+    # You can access the container manager's frontend at [portainer.app.localhost](https://portainer.app.localhost/).
+    command: -H tcp://tasks.portainer-agent:9001 --tlsskipverify --admin-password-file '/run/secrets/portainer-admin-password'
+    deploy:
+      labels:
+        - dargstack.profiles=default
+        - traefik.enable=true
+        - traefik.http.routers.portainer.entryPoints=web
+        - traefik.http.routers.portainer.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.portainer.rule=Host(`portainer.${STACK_DOMAIN}`)
+        - traefik.http.routers.portainer-secure.entryPoints=web-secure
+        - traefik.http.routers.portainer-secure.rule=Host(`portainer.${STACK_DOMAIN}`)
+        - traefik.http.routers.portainer-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.portainer.loadbalancer.server.port=9000
+      placement:
+        constraints:
+          - node.role == manager
+      replicas: 1
+    image: portainer/portainer-ce:2.39.0-alpine
+    secrets:
+      - portainer-admin-password
+    volumes:
+      - portainer-data:/data
+  portainer-agent:
+    # You cannot access the container manager's agent directly.
+    deploy:
+      labels:
+        - dargstack.profiles=default
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+    image: portainer/agent:2.39.0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+volumes:
+  portainer-data:
+    # The container manager's data.
+    {}
+x-dargstack:
+  secrets:
+    portainer-admin-password:
+      type: random_string

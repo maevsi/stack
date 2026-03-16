@@ -1,0 +1,4 @@
+# services:
+#   minio: (( prune )) # breaks renovate
+volumes:
+  minio_data: (( prune ))

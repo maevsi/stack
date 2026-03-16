@@ -1,0 +1,13 @@
+services:
+  redis:
+    # You cannot access the caching system via a web interface.
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+    image: redis:8.6.1-alpine
+    volumes:
+      - redis-data:/data
+volumes:
+  redis-data:
+    # The caching system's data.
+    {}

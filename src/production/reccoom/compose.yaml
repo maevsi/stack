@@ -1,0 +1,4 @@
+services:
+  reccoom:
+    deploy: (( prune ))
+    image: ghcr.io/maevsi/reccoom:0.8.1

@@ -1,0 +1,6 @@
+services:
+  grafana:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.grafana-secure.tls.certresolver=default

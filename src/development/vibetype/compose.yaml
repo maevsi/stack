@@ -1,0 +1,93 @@
+secrets:
+  vibetype-api-notification-secret:
+    # The notification endpoint's secret.
+    file: ../../../artifacts/secrets/vibetype-api-notification.secret
+  vibetype-aws-credentials:
+    # The cloud computing provider's user credentials.
+    file: ../../../artifacts/secrets/vibetype-aws-credentials.secret
+  vibetype-firebase-service-account-credentials:
+    # The notification provider's service account credentials.
+    file: ../../../artifacts/secrets/vibetype-firebase-service-account-credentials.secret
+  vibetype-monday:
+    # The project management software's configuration.
+    file: ../../../artifacts/secrets/vibetype-monday.secret
+  vibetype-openai-api-key:
+    # The AI provider's API key for the frontend.
+    file: ../../../artifacts/secrets/vibetype-openai-api-key.secret
+  vibetype-turnstile-key:
+    # The captcha provider's application key.
+    file: ../../../artifacts/secrets/vibetype-turnstile-key.secret
+services:
+  vibetype:
+    # You can access the main project's frontend at [app.localhost](https://app.localhost/).
+    deploy:
+      labels:
+        - dargstack.development.build=../../../../vibetype
+        - dargstack.profiles=default
+        - traefik.enable=true
+        - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowHeaders=authorization,content-type,hook-name,x-turnstile-key
+        - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowMethods=GET,POST,PUT,DELETE
+        - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowOriginList=https://localhost:3000,https://app.localhost:3000
+        - traefik.http.middlewares.vibetype-redirectregex.redirectregex.regex=^https?:\/\/www\.${STACK_DOMAIN}\/(.*)
+        - traefik.http.middlewares.vibetype-redirectregex.redirectregex.replacement=https://${STACK_DOMAIN}/$${1}
+        - traefik.http.routers.vibetype.entryPoints=web
+        - traefik.http.routers.vibetype.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.vibetype.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
+        - traefik.http.routers.vibetype-secure.entryPoints=web-secure
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
+        - traefik.http.routers.vibetype-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.vibetype.loadbalancer.server.port=3000
+    environment:
+      AWS_REGION: ${VIBETYPE_AWS_REGION}
+      NUXT_PUBLIC_GTAG_ID: ${VIBETYPE_NUXT_PUBLIC_GTAG_ID}
+      NUXT_PUBLIC_I18N_BASE_URL: https://${STACK_DOMAIN}
+      NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
+      NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
+      NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
+      PGHOST: postgres
+    image: vibetype/vibetype:development
+    secrets:
+      - source: vibetype-api-notification-secret
+        target: /run/environment-variables/NUXT_PRIVATE_API_NOTIFICATION_SECRET
+      - source: vibetype-aws-credentials
+        target: /home/node/.aws/credentials
+      - source: vibetype-firebase-service-account-credentials
+        target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
+      - source: vibetype-monday
+        target: /run/environment-variables/NUXT_PRIVATE_MONDAY
+      - source: vibetype-openai-api-key
+        target: /run/environment-variables/NUXT_PRIVATE_OPENAI_API_KEY
+      - source: vibetype-turnstile-key
+        target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
+      - source: postgres-db
+        target: /run/environment-variables/PGDATABASE
+      - source: postgres-role-service-vibetype-password
+        target: /run/environment-variables/PGPASSWORD
+      - source: postgres-role-service-vibetype-username
+        target: /run/environment-variables/PGUSER
+    user: node:node # files created inside a docker container, like node_modules by pnpm, gain correct permissions by setting the user to `node`
+    volumes:
+      - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
+      - ../../../artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
+      - ../../../../vibetype/:/srv/app/ # dargstack:dev-only
+      - vibetype-data:/srv/app/node_modules # dargstack:dev-only
+      - ../postgraphile/configurations/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+volumes:
+  vibetype-data:
+    # The frontend's data.
+    {}
+x-dargstack:
+  secrets:
+    vibetype-api-notification-secret:
+      type: random_string
+    vibetype-aws-credentials:
+      type: third_party
+    vibetype-firebase-service-account-credentials:
+      type: third_party
+    vibetype-monday:
+      type: third_party
+    vibetype-openai-api-key:
+      type: third_party
+    vibetype-turnstile-key:
+      type: third_party

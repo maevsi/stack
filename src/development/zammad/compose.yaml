@@ -1,0 +1,82 @@
+x-shared:
+  zammad-service:
+    &zammad-service # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+    environment: &zammad-environment
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_SCHEMA: https
+      ELASTICSEARCH_USER: elastic
+      MEMCACHE_SERVERS: memcached:11211
+      NGINX_SERVER_SCHEME: https
+      POSTGRESQL_DB: zammad
+      POSTGRESQL_DB_CREATE: "false"
+      POSTGRESQL_HOST: postgres
+      POSTGRESQL_OPTIONS: ?pool=50
+      REDIS_URL: redis://redis:6379
+    image: ghcr.io/zammad/zammad:6.5.2-90
+    secrets:
+      - source: elasticsearch-password
+        target: /run/environment-variables/ELASTICSEARCH_PASS
+      - source: postgres-role-service-zammad-username
+        target: /run/environment-variables/POSTGRESQL_USER
+      - source: postgres-role-service-zammad-password
+        target: /run/environment-variables/POSTGRESQL_PASS
+    volumes:
+      - zammad-data:/opt/zammad/storage
+      - ./configurations/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+services:
+  zammad-backup:
+    # You cannot access the helpdesk backup service via a web interface.
+    <<: *zammad-service
+    command: ["zammad-backup"]
+    user: 0:0
+    volumes:
+      - zammad-backup-data:/var/tmp/zammad
+      - zammad-data:/opt/zammad/storage:ro
+      - ./configurations/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+  zammad-init:
+    # You cannot access the helpdesk initialization service via a web interface.
+    <<: *zammad-service
+    command: ["zammad-init"]
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+      restart_policy:
+        condition: on-failure
+    user: 0:0
+  zammad-nginx:
+    # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+    <<: *zammad-service
+    command: ["zammad-nginx"]
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+        - traefik.enable=true
+        - traefik.http.routers.zammad.entryPoints=web
+        - traefik.http.routers.zammad.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad-secure.entryPoints=web-secure
+        - traefik.http.routers.zammad-secure.rule=Host(`zammad.${STACK_DOMAIN}`)
+        - traefik.http.routers.zammad-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.zammad.loadbalancer.server.port=8080
+  zammad-railsserver:
+    # You cannot access the helpdesk application server directly.
+    <<: *zammad-service
+    command: ["zammad-railsserver"]
+  zammad-scheduler:
+    # You cannot access the helpdesk scheduler directly.
+    <<: *zammad-service
+    command: ["zammad-scheduler"]
+  zammad-websocket:
+    # You cannot access the helpdesk websocket server directly.
+    <<: *zammad-service
+    command: ["zammad-websocket"]
+volumes:
+  zammad-backup-data:
+    # The helpdesk backup's data.
+    {}
+  zammad-data:
+    # The helpdesk's data.
+    {}

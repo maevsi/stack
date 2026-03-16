@@ -1,0 +1,6 @@
+services:
+  zammad-nginx:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.zammad-secure.tls.certresolver=default
