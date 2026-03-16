@@ -72,7 +72,7 @@ services:
       - ../../../artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
       - ../../../../vibetype/:/srv/app/ # dargstack:dev-only
       - vibetype-data:/srv/app/node_modules # dargstack:dev-only
-      - ../postgraphile/configurations/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+      - ../postgraphile/configurations/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
 volumes:
   vibetype-data:
     # The frontend's data.

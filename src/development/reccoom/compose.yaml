@@ -33,7 +33,7 @@ services:
       - reccoom-openai-api-key
     volumes:
       - ../../../../reccoom/:/srv/app/ # dargstack:dev-only
-      - ../postgraphile/configurations/jwtRS256.key.pub:/run/configurations/jwtRS256.key.pub:ro
+      - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
   reccoom_postgres:
     # You can access reccoom's database via `adminer`.
     deploy:

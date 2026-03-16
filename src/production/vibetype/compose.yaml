@@ -48,6 +48,6 @@ services:
   #     - source: postgres-role-service-vibetype-username
   #       target: /run/environment-variables/PGUSER
   #   volumes:
-  #     - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  #     - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
 volumes:
   vibetype_data: (( prune ))
