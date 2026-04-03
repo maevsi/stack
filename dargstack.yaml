@@ -25,7 +25,7 @@ behavior:
   prompt:
     volume:
       # Prompt to remove volumes before deploying (development only)
-      remove: false # default: true
+      remove: true
 
 # Production environment settings
 production:
