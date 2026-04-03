@@ -56,6 +56,18 @@
 * **postgraphile:** change forward authorization path ([0e9cc64](https://github.com/maevsi/stack/commit/0e9cc64501ec547b5bddef83dda8a202a94ff203))
 * **vibetype:** allow csrf token access control header ([1ccdd94](https://github.com/maevsi/stack/commit/1ccdd94c7f87fc570212f6cf8c5ad281632e743f))
 
+## [16.1.12](https://github.com/maevsi/stack/compare/16.1.11...16.1.12) (2026-03-29)
+
+### Bug Fixes
+
+* schedule release ([ea30303](https://github.com/maevsi/stack/commit/ea30303b47eadec1d99300c7f4393ab428274e91))
+
+## [16.1.11](https://github.com/maevsi/stack/compare/16.1.10...16.1.11) (2026-03-22)
+
+### Bug Fixes
+
+* schedule release ([241dd6d](https://github.com/maevsi/stack/commit/241dd6d5d51f6b21066423a2057a50a4d7eed22a))
+
 ## [16.1.10](https://github.com/maevsi/stack/compare/16.1.9...16.1.10) (2026-03-08)
 
 ### Bug Fixes
