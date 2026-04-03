@@ -7,7 +7,7 @@ ENVIRONMENT_VARIABLES_PATH="/run/environment-variables"
 
 is_valid_var_name() {
   case "$1" in
-    *[!a-zA-Z0-9_]*|'') return 1 ;;
+    ''|[!a-zA-Z_]*|*[!a-zA-Z0-9_]*) return 1 ;;
     *) return 0 ;;
   esac
 }
@@ -16,7 +16,7 @@ load_env_file() {
   file="$1"
   name=$(basename "$file")
   is_valid_var_name "$name" || return 0
-  value="$(cat "$file")"
+  value=$(cat "$file")
   export "$name=$value"
 }
 
