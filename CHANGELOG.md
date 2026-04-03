@@ -1,3 +1,10 @@
+## [17.0.0-beta.6](https://github.com/maevsi/stack/compare/17.0.0-beta.5...17.0.0-beta.6) (2026-04-03)
+
+### Bug Fixes
+
+* schedule release ([ea30303](https://github.com/maevsi/stack/commit/ea30303b47eadec1d99300c7f4393ab428274e91))
+* schedule release ([241dd6d](https://github.com/maevsi/stack/commit/241dd6d5d51f6b21066423a2057a50a4d7eed22a))
+
 ## [17.0.0-beta.5](https://github.com/maevsi/stack/compare/17.0.0-beta.4...17.0.0-beta.5) (2026-04-03)
 
 ### ⚠ BREAKING CHANGES
