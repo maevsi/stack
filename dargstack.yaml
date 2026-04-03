@@ -1,0 +1,47 @@
+# Dargstack configuration file
+
+# # Stack name — used as Docker stack name and image tag prefix
+name: "vibetype"
+
+# # Source code metadata (for documentation generation)
+# source:
+#   name: "example"
+#   url: "https://github.com/example/example"
+
+#####
+
+# Version: This CLI is compatible with config versions < 1.0.0
+compatibility: ">=4.0.0-0 <5.0.0"
+
+# Sudo mode — if Docker requires sudo on this machine, set to "always"
+# Options: "always", "never", "auto" (default)
+sudo: "auto"
+
+# Behavior configuration
+behavior:
+  build:
+    # Skip rebuilding images if they already exist
+    skip: true
+  prompt:
+    volume:
+      # Prompt to remove volumes before deploying (development only)
+      remove: true
+
+# Production environment settings
+production:
+  # Stack domain — used by the public to reach the services
+  domain: "vibetype.app"
+  # Git branch for production deployments
+  branch: "main"
+  # Tag strategy for production — use "latest" to auto-detect from git tags
+  tag: "latest"
+
+# Development environment settings
+development:
+  # Domain used for development deployments (defaults to "app.localhost").
+  domain: "app.localhost"
+  certificate:
+    # Additional domains for development TLS certificates (beyond the auto-discovered ones).
+    domains: []
+      # - "*.app.localhost"
+      # - "custom.localhost"

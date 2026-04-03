@@ -1,0 +1,92 @@
+secrets:
+  postgres-db:
+    # The database's name.
+    file: ../../../artifacts/secrets/postgres-db.secret
+  postgres-password:
+    # The database's password.
+    file: ../../../artifacts/secrets/postgres-password.secret
+  postgres-role-service-grafana-password:
+    # The password of the observation dashboard's database role.
+    file: ../../../artifacts/secrets/postgres-role-service-grafana-password.secret
+  postgres-role-service-grafana-username:
+    # The username of the observation dashboard's database role.
+    file: ../../../artifacts/secrets/postgres-role-service-grafana-username.secret
+  postgres-role-service-postgraphile-password:
+    # The password of the GraphQL API database wrapper's database role.
+    file: ../../../artifacts/secrets/postgres-role-service-postgraphile-password.secret
+  postgres-role-service-postgraphile-username:
+    # The username of the GraphQL API database wrapper's database role.
+    file: ../../../artifacts/secrets/postgres-role-service-postgraphile-username.secret
+  postgres-role-service-vibetype-password:
+    # The `tusd` database role's password.
+    file: ../../../artifacts/secrets/postgres-role-service-vibetype-password.secret
+  postgres-role-service-vibetype-username:
+    # The `tusd` database role's password.
+    file: ../../../artifacts/secrets/postgres-role-service-vibetype-username.secret
+  postgres-role-service-zammad-password:
+    # The password of the customer service database role.
+    file: ../../../artifacts/secrets/postgres-role-service-zammad-password.secret
+  postgres-role-service-zammad-username:
+    # The username of the customer service database role.
+    file: ../../../artifacts/secrets/postgres-role-service-zammad-username.secret
+  postgres-user:
+    # The database's default user.
+    file: ../../../artifacts/secrets/postgres-user.secret
+services:
+  postgres:
+    # You can access the database via `adminer`.
+    command: -c vibetype.jwt_expiry_duration='1 month' -c wal_level=logical
+    deploy:
+      labels:
+        - dargstack.profiles=default
+    environment:
+      POSTGRES_DB_FILE: /run/secrets/postgres-db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
+      POSTGRES_USER_FILE: /run/secrets/postgres-user
+    image: postgis/postgis:18-3.6-alpine
+    ports: # dargstack:dev-only
+      - 5432:5432 # dargstack:dev-only
+    secrets:
+      - postgres-db
+      - postgres-password
+      - postgres-user
+    # sysctls:
+    #   # Prevent Docker Swarm from killing connections (https://github.com/moby/moby/issues/31208)
+    #   - net.ipv4.tcp_keepalive_time=600
+    #   - net.ipv4.tcp_keepalive_intvl=30
+    #   - net.ipv4.tcp_keepalive_probes=10
+    volumes:
+      - postgres-data:/var/lib/postgresql/
+volumes:
+  postgres-data:
+    # The database's data.
+    {}
+x-dargstack:
+  secrets:
+    postgres-db:
+      type: word
+    postgres-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-grafana-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-grafana-username:
+      type: word
+    postgres-role-service-postgraphile-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-postgraphile-username:
+      type: word
+    postgres-role-service-vibetype-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-vibetype-username:
+      type: word
+    postgres-role-service-zammad-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-zammad-username:
+      type: word
+    postgres-user:
+      type: word

@@ -20,12 +20,30 @@ jobs:
   build:
     needs: ci-optimization
     if: needs.ci-optimization.outputs.continue == 'true'
-    name: dargstack rgen
-    uses: dargmuesli/github-actions/.github/workflows/dargstack-rgen.yml@661e39fe1c9e484d94c6a5a9d4c9946d57c41771 # 5.1.0
+    name: Update generated docs
+    runs-on: ubuntu-latest
     permissions:
-      contents: read
-    with:
-      APT_PACKAGES: mkcert
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Regenerate docs
+        run: |
+          go install github.com/dargstack/dargstack/v4/cmd/dargstack@latest
+          export PATH="$(go env GOPATH)/bin:$PATH"
+          dargstack document
+      - name: Commit and push updated docs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add artifacts/docs/
+          if git diff --staged --quiet; then
+            echo "Docs are already up to date"
+          else
+            git commit -m "chore: update generated docs"
+            git push
+          fi
   release-semantic:
     needs: build
     name: Semantic Release

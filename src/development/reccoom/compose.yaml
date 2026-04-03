@@ -1,0 +1,64 @@
+secrets:
+  reccoom-ingest-api-key:
+    # The AI provider's API key for the recommendation engine.
+    file: ../../../artifacts/secrets/reccoom-ingest-api-key.secret
+  reccoom-openai-api-key:
+    # The AI provider's API key for the recommendation engine.
+    file: ../../../artifacts/secrets/reccoom-openai-api-key.secret
+services:
+  reccoom:
+    # You cannot access the recommendation service directly.
+    deploy:
+      labels:
+        - dargstack.development.build=../../../../reccoom
+        - dargstack.profiles=recommendation
+        - traefik.enable=true
+        - traefik.http.routers.reccoom.entryPoints=web
+        - traefik.http.routers.reccoom.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.reccoom.rule=Host(`reccoom.${STACK_DOMAIN}`)
+        - traefik.http.routers.reccoom-secure.entryPoints=web-secure
+        - traefik.http.routers.reccoom-secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
+        - traefik.http.routers.reccoom-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.reccoom.loadbalancer.server.port=5245
+    environment:
+      POSTGRES_HOST: postgres
+      RECCOOM_POSTGRES_HOST: reccoom_postgres
+    image: vibetype/reccoom:development
+    secrets:
+      - postgres-db
+      - postgres-password
+      - postgres-user
+      - source: reccoom-ingest-api-key
+        target: /run/environment-variables/INGEST_API_KEY
+      - reccoom-openai-api-key
+    volumes:
+      - ../../../../reccoom/:/srv/app/ # dargstack:dev-only
+      - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
+  reccoom_postgres:
+    # You can access reccoom's database via `adminer`.
+    deploy:
+      labels:
+        - dargstack.profiles=recommendation
+    environment:
+      POSTGRES_DB_FILE: /run/secrets/postgres-db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
+      POSTGRES_USER_FILE: /run/secrets/postgres-user
+    image: pgvector/pgvector:0.8.2-pg18
+    ports: # dargstack:dev-only
+      - 5433:5432 # dargstack:dev-only
+    secrets:
+      - postgres-db
+      - postgres-password
+      - postgres-user
+    volumes:
+      - reccoom-postgres-data:/var/lib/postgresql/
+volumes:
+  reccoom-postgres-data:
+    # The recommendation database's data.
+    {}
+x-dargstack:
+  secrets:
+    reccoom-ingest-api-key:
+      type: third_party
+    reccoom-openai-api-key:
+      type: third_party

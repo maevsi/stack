@@ -1,0 +1,6 @@
+services:
+  prometheus:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.prometheus-secure.tls.certresolver=default

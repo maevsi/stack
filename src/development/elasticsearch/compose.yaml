@@ -1,0 +1,53 @@
+secrets:
+  elasticsearch-keystore-password:
+    # The search engine's password for the keystore.
+    file: ../../../artifacts/secrets/elasticsearch-keystore-password.secret
+  elasticsearch-password:
+    # The search engine's password for the default user.
+    file: ../../../artifacts/secrets/elasticsearch-password.secret
+services:
+  elasticsearch:
+    # You cannot access the search engine via a web interface.
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+    environment:
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch-password
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore-password
+      network.publish_host: elasticsearch
+    image: elasticsearch:8.19.12
+    secrets:
+      - source: elasticsearch-keystore-password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+      - source: elasticsearch-password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-configuration:/usr/share/elasticsearch/config
+      - elasticsearch-data:/usr/share/elasticsearch/data
+volumes:
+  elasticsearch-configuration:
+    # The search engine's configuration.
+    {}
+  elasticsearch-data:
+    # The search engine's data.
+    {}
+x-dargstack:
+  secrets:
+    elasticsearch-keystore-password:
+      type: random_string
+    elasticsearch-password:
+      type: random_string

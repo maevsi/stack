@@ -1,0 +1,66 @@
+secrets:
+  postgraphile-connection:
+    # The GraphQL API's database URI.
+    file: ../../../artifacts/secrets/postgraphile-connection.secret
+  postgraphile-jwt-secret:
+    # The GraphQL API's JWT secret.
+    file: ../../../artifacts/secrets/postgraphile-jwt-secret.secret
+  postgraphile-owner-connection:
+    # The GraphQL API's database owner URI.
+    file: ../../../artifacts/secrets/postgraphile-owner-connection.secret
+services:
+  postgraphile:
+    # You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.development.build=../../../../postgraphile
+        - dargstack.profiles=default
+        - traefik.enable=true
+        - traefik.http.middlewares.postgraphile-auth.forwardauth.address=http://vibetype:3000/api/internal/service/postgraphile/authentication
+        - traefik.http.middlewares.postgraphile-auth.forwardauth.forwardBody=true
+        - traefik.http.middlewares.postgraphile-auth.forwardauth.preserveRequestMethod=true
+        - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowCredentials=true
+        - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowHeaders=authorization
+        - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN},https://localhost:3000,https://app.localhost:3000
+        - traefik.http.routers.postgraphile.entryPoints=web
+        - traefik.http.routers.postgraphile.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
+        - traefik.http.routers.postgraphile-secure.entryPoints=web-secure
+        - traefik.http.routers.postgraphile-secure.middlewares=postgraphile-auth,postgraphile-cors
+        - traefik.http.routers.postgraphile-secure.rule=Host(`postgraphile.${STACK_DOMAIN}`) && Path(`/graphql`)
+        - traefik.http.routers.postgraphile-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.routers.postgraphile-secure-graphiql.entryPoints=web-secure
+        - traefik.http.routers.postgraphile-secure-graphiql.rule=Host(`postgraphile.${STACK_DOMAIN}`)
+        - traefik.http.routers.postgraphile-secure-graphiql.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.postgraphile.loadbalancer.server.port=5678
+    # # Use the DEBUG environment variable for extended debugging.
+    # environment:
+    #   DEBUG: graphile-build:warn,graphile-build-pg:sql
+    image: vibetype/postgraphile:development
+    secrets:
+      - source: postgraphile-connection
+        target: /run/environment-variables/POSTGRAPHILE_CONNECTION
+      - source: postgraphile-jwt-secret
+        target: /run/environment-variables/POSTGRAPHILE_JWT_SECRET_KEY
+      - source: postgraphile-owner-connection
+        target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
+    volumes:
+      - ../../../../postgraphile/:/srv/app/ # dargstack:dev-only
+      - ./configurations/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
+      - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
+      - postgraphile-data:/srv/app/node_modules # dargstack:dev-only
+volumes:
+  postgraphile-data:
+    # The GraphQL API's data.
+    {}
+x-dargstack:
+  secrets:
+    postgraphile-connection:
+      type: template
+      template: postgres://{{secret:postgres-role-service-postgraphile-username}}:{{secret:postgres-role-service-postgraphile-password}}@postgres:5432/{{secret:postgres-db}}
+    postgraphile-jwt-secret:
+      type: private_key
+      key_type: ecdsa
+    postgraphile-owner-connection:
+      type: template
+      template: postgres://{{secret:postgres-user}}:{{secret:postgres-password}}@postgres:5432/{{secret:postgres-db}}
