@@ -389,7 +389,7 @@ services:
         target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
     volumes:
       - ../../../postgraphile/:/srv/app/ #DARGSTACK-REMOVE
-      - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
+      - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
       - pnpm_data:/srv/.pnpm-store/ #DARGSTACK-REMOVE
       - postgraphile_data:/srv/app/node_modules #DARGSTACK-REMOVE
   postgres:
@@ -454,7 +454,7 @@ services:
       - reccoom_openai-api-key
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
-      - ./configurations/postgraphile/jwtRS256.key.pub:/run/configurations/jwtRS256.key.pub:ro
+      - ./configurations/postgraphile/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
   reccoom_postgres:
     # You can access reccoom's database via `adminer`.
     environment:
@@ -643,7 +643,7 @@ services:
       - ./certificates/:/srv/certificates/ #DARGSTACK-REMOVE
       - ../../../vibetype/:/srv/app/ #DARGSTACK-REMOVE
       - vibetype_data:/srv/app/node_modules #DARGSTACK-REMOVE
-      - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+      - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
   zammad-backup:
     # You cannot access the helpdesk backup service via a web interface.
     <<: *zammad-service

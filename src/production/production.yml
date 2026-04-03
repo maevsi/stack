@@ -43,7 +43,7 @@ services:
         - (( append ))
         - traefik.http.routers.postgraphile.middlewares=postgraphile_auth,postgraphile_cors
         - traefik.http.routers.postgraphile_secure.tls.certresolver=default
-    image: maevsi/postgraphile:2.0.0-beta.1
+    image: maevsi/postgraphile:2.0.0
   postgres_backup:
     # You cannot access the database backup directly.
     environment:
@@ -162,7 +162,7 @@ services:
   #     - source: postgres_role_service_vibetype_username
   #       target: /run/environment-variables/PGUSER
   #   volumes:
-  #     - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  #     - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
   zammad-nginx:
     deploy:
       labels:
