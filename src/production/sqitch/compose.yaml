@@ -1,4 +1,4 @@
 services:
   sqitch:
-    image: ghcr.io/maevsi/sqitch:10.0.6
+    image: ghcr.io/maevsi/sqitch:10.0.8
     volumes: (( prune ))
