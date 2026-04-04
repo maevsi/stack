@@ -1,5 +1,8 @@
 services:
   jobber:
+    deploy:
+      update_config:
+        order: stop-first
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
     volumes:

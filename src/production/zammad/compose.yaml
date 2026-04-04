@@ -1,6 +1,28 @@
 services:
+  zammad-backup:
+    deploy:
+      update_config:
+        order: stop-first
+  zammad-init:
+    deploy:
+      update_config:
+        order: stop-first
   zammad-nginx:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.zammad-secure.tls.certresolver=default
+      update_config:
+        order: start-first
+  zammad-railsserver:
+    deploy:
+      update_config:
+        order: start-first
+  zammad-scheduler:
+    deploy:
+      update_config:
+        order: stop-first
+  zammad-websocket:
+    deploy:
+      update_config:
+        order: start-first

@@ -1,6 +1,12 @@
 services:
+  redpanda:
+    deploy:
+      update_config:
+        order: stop-first
   redpanda-console:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.redpanda-secure.tls.certresolver=default
+      update_config:
+        order: start-first

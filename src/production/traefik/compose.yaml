@@ -16,6 +16,8 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.traefik-secure.tls.certresolver=default
+      update_config:
+        order: start-first
     environment:
       CF_DNS_API_TOKEN_FILE: /run/secrets/traefik-cf-dns-api-token
       CF_ZONE_API_TOKEN_FILE: /run/secrets/traefik-cf-zone-api-token
@@ -33,6 +35,9 @@ services:
       - --source=/etc/traefik/acme/acme.json
       - --version=v2
       - --watch
+    deploy:
+      update_config:
+        order: stop-first
     environment:
       STACK_DOMAIN: ${STACK_DOMAIN}
     image: ldez/traefik-certs-dumper:v2.11.0
