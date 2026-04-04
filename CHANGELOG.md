@@ -1,3 +1,9 @@
+## [17.0.1](https://github.com/maevsi/stack/compare/17.0.0...17.0.1) (2026-04-04)
+
+### Bug Fixes
+
+* **deps:** update redpandadata/redpanda docker tag to v26 ([f6dfad9](https://github.com/maevsi/stack/commit/f6dfad97a5ab3f9e559f5b04f749576b58593d65))
+
 ## [17.0.0](https://github.com/maevsi/stack/compare/16.1.12...17.0.0) (2026-04-04)
 
 ### ⚠ BREAKING CHANGES
