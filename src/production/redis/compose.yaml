@@ -1,0 +1,5 @@
+services:
+  redis:
+    deploy:
+      update_config:
+        order: stop-first

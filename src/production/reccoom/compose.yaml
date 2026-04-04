@@ -1,4 +1,7 @@
 services:
   reccoom:
-    deploy: (( prune ))
+    deploy:
+      labels: (( prune ))
+      update_config:
+        order: start-first
     image: ghcr.io/maevsi/reccoom:0.9.0

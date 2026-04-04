@@ -5,6 +5,8 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
+      update_config:
+        order: start-first
     image: ghcr.io/maevsi/vibetype:13.4.0
   # vibetype-beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).

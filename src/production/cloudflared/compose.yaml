@@ -5,6 +5,8 @@ services:
     deploy:
       labels:
         - dargstack.profiles=default
+      update_config:
+        order: start-first
     environment:
       TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN}
     image: cloudflare/cloudflared

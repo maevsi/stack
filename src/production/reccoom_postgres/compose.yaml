@@ -1,0 +1,5 @@
+services:
+  reccoom_postgres:
+    deploy:
+      update_config:
+        order: stop-first
