@@ -43,6 +43,7 @@ services:
         - (( append ))
         - traefik.http.routers.postgraphile.middlewares=postgraphile_auth,postgraphile_cors
         - traefik.http.routers.postgraphile_secure.tls.certresolver=default
+    image: maevsi/postgraphile:2.0.0
   postgres_backup:
     # You cannot access the database backup directly.
     environment:
@@ -72,7 +73,7 @@ services:
         - (( append ))
         - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
-    image: ghcr.io/maevsi/sqitch:10.0.6
+    image: ghcr.io/maevsi/sqitch:11.0.0
     volumes: (( prune ))
   traefik:
     command:
@@ -118,7 +119,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:13.3.3
+    image: ghcr.io/maevsi/vibetype:14.0.0
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
@@ -161,7 +162,7 @@ services:
   #     - source: postgres_role_service_vibetype_username
   #       target: /run/environment-variables/PGUSER
   #   volumes:
-  #     - ./configurations/postgraphile/jwtRS256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  #     - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
   zammad-nginx:
     deploy:
       labels:

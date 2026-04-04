@@ -372,6 +372,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The container manager's data.
     
+ - ### `postgraphile_data`
+    
+    The GraphQL API's data.
+    
  - ### `postgres_data`
     
     The database's data.
