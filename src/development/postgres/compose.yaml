@@ -18,10 +18,10 @@ secrets:
     # The username of the GraphQL API database wrapper's database role.
     file: ../../../artifacts/secrets/postgres-role-service-postgraphile-username.secret
   postgres-role-service-vibetype-password:
-    # The `tusd` database role's password.
+    # The `vibetype` database role's password.
     file: ../../../artifacts/secrets/postgres-role-service-vibetype-password.secret
   postgres-role-service-vibetype-username:
-    # The `tusd` database role's password.
+    # The `vibetype` database role's password.
     file: ../../../artifacts/secrets/postgres-role-service-vibetype-username.secret
   postgres-role-service-zammad-password:
     # The password of the customer service database role.
