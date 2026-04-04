@@ -1,3 +1,25 @@
+## [17.0.0](https://github.com/maevsi/stack/compare/16.1.12...17.0.0) (2026-04-04)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** upgrade maevsi/sqitch to v11
+* **deps:** upgrade maevsi/vibetype to v14
+* **postgraphile:** upgrade to v2
+* **postgraphile:** upgrade to v5
+* **postgraphile:** change forward authorization path
+
+### Features
+
+* **postgraphile:** change forward authorization path ([0e9cc64](https://github.com/maevsi/stack/commit/0e9cc64501ec547b5bddef83dda8a202a94ff203))
+* **postgraphile:** upgrade to v2 ([66a6a3f](https://github.com/maevsi/stack/commit/66a6a3f982dec6a3679f1fe4ab8d1bf8fd8cbd77))
+* **postgraphile:** upgrade to v5 ([0113383](https://github.com/maevsi/stack/commit/011338398447c002aaf4682f06aeaee238f3b3b8))
+* **vibetype:** allow csrf token access control header ([1ccdd94](https://github.com/maevsi/stack/commit/1ccdd94c7f87fc570212f6cf8c5ad281632e743f))
+
+### Miscellaneous Chores
+
+* **deps:** upgrade maevsi/sqitch to v11 ([52c79cc](https://github.com/maevsi/stack/commit/52c79cc651bf4bf8e2ea533bc780191129a5dadc))
+* **deps:** upgrade maevsi/vibetype to v14 ([2f361b1](https://github.com/maevsi/stack/commit/2f361b13a22b0cc78db84dd84c0b07d3a81ff2fb))
+
 ## [17.0.0-beta.6](https://github.com/maevsi/stack/compare/17.0.0-beta.5...17.0.0-beta.6) (2026-04-03)
 
 ### Bug Fixes
