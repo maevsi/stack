@@ -206,7 +206,7 @@ services:
       ES_JAVA_OPTS: -Xms1g -Xmx1g
       KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore_password
       network.publish_host: elasticsearch
-    image: elasticsearch:8.19.12
+    image: elasticsearch:8.19.13
     secrets:
       - source: elasticsearch-keystore_password
         uid: "1000"
@@ -250,7 +250,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
-    image: grafana/grafana:12.4.1
+    image: grafana/grafana:12.4.2
     secrets:
       - grafana_admin_email
       - grafana_admin_password
@@ -338,7 +338,7 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
-    image: portainer/portainer-ce:2.39.0-alpine
+    image: portainer/portainer-ce:2.40.0-alpine
     secrets:
       - portainer_admin-password
     volumes:
@@ -350,7 +350,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.39.0
+    image: portainer/agent:2.40.0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -425,7 +425,7 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
-    image: prom/prometheus:v3.10.0
+    image: prom/prometheus:v3.11.0
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -472,7 +472,7 @@ services:
       - reccoom_postgres_data:/var/lib/postgresql/
   redis:
     # You cannot access the caching system via a web interface.
-    image: redis:8.6.1-alpine
+    image: redis:8.6.2-alpine
     volumes:
       - redis_data:/data
   redpanda:
@@ -491,7 +491,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v25.3.10
+    image: redpandadata/redpanda:v25.3.13
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
@@ -508,7 +508,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.5.3
+    image: redpandadata/console:v3.7.0
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
@@ -556,7 +556,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.6.10
+    image: traefik:v3.6.12
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
@@ -587,7 +587,7 @@ services:
         - traefik.http.services.tusd.loadbalancer.server.port=8080
     environment:
       AWS_REGION: ${TUSD_REGION}
-    image: tusproject/tusd:v2.9.1
+    image: tusproject/tusd:v2.9.2
     secrets:
       - source: tusd_aws
         target: /home/tusd/.aws/credentials
