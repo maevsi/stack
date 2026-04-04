@@ -5,4 +5,4 @@ services:
         - (( append ))
         - traefik.http.routers.postgraphile.middlewares=postgraphile-auth,postgraphile-cors
         - traefik.http.routers.postgraphile-secure.tls.certresolver=default
-    image: maevsi/postgraphile:2.0.0-beta.1
+    image: ghcr.io/maevsi/postgraphile:2.0.0-beta.1
