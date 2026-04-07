@@ -1,3 +1,9 @@
+## [17.0.2](https://github.com/maevsi/stack/compare/17.0.1...17.0.2) (2026-04-07)
+
+### Bug Fixes
+
+* **postgraphile:** update jwt public key ([d7dc0bd](https://github.com/maevsi/stack/commit/d7dc0bd2ca50a9dd61d55ff4733889a7b6d8948f))
+
 ## [17.0.1](https://github.com/maevsi/stack/compare/17.0.0...17.0.1) (2026-04-04)
 
 ### Bug Fixes
