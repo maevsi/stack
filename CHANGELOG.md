@@ -1,3 +1,9 @@
+## [17.0.3](https://github.com/maevsi/stack/compare/17.0.2...17.0.3) (2026-04-07)
+
+### Bug Fixes
+
+* **postgraphile:** add container registry prefix ([af7f85b](https://github.com/maevsi/stack/commit/af7f85b6ff84a35a1d6da47596bd720558439e4f))
+
 ## [17.0.2](https://github.com/maevsi/stack/compare/17.0.1...17.0.2) (2026-04-07)
 
 ### Bug Fixes
