@@ -134,15 +134,15 @@ secrets:
   vibetype_firebase-service-account-credentials:
     # The notification provider's service account credentials.
     file: ./secrets/vibetype/firebase-service-account-credentials.secret
-  vibetype_monday:
-    # The project management software's configuration.
-    file: ./secrets/vibetype/monday.secret
   vibetype_openai-api-key:
     # The AI provider's API key for the frontend.
     file: ./secrets/vibetype/openai-api-key.secret
   vibetype_turnstile-key:
     # The captcha provider's application key.
     file: ./secrets/vibetype/turnstile-key.secret
+  vibetype_zammad:
+    # The ticket system's configuration.
+    file: ./secrets/vibetype/zammad.secret
 services:
   adminer:
     # You can access the database's frontend at [adminer.app.localhost](https://adminer.app.localhost/).
@@ -773,12 +773,12 @@ services:
         target: /home/node/.aws/credentials
       - source: vibetype_firebase-service-account-credentials
         target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
-      - source: vibetype_monday
-        target: /run/environment-variables/NUXT_PRIVATE_MONDAY
       - source: vibetype_openai-api-key
         target: /run/environment-variables/NUXT_PRIVATE_OPENAI_API_KEY
       - source: vibetype_turnstile-key
         target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
+      - source: vibetype_zammad
+        target: /run/environment-variables/NUXT_PRIVATE_ZAMMAD
       - source: postgres_db
         target: /run/environment-variables/PGDATABASE
       - source: postgres_role_service_vibetype_password

@@ -180,10 +180,6 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The notification provider's service account credentials.
     
- - ### `vibetype_monday`
-    
-    The project management software's configuration.
-    
  - ### `vibetype_openai-api-key`
     
     The AI provider's API key for the frontend.
@@ -191,6 +187,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `vibetype_turnstile-key`
     
     The captcha provider's application key.
+    
+ - ### `vibetype_zammad`
+    
+    The ticket system's configuration.
     
 
 ## services
