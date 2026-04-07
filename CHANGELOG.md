@@ -1,3 +1,9 @@
+## [17.0.4](https://github.com/maevsi/stack/compare/17.0.3...17.0.4) (2026-04-07)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/postgraphile to v2.0.1 ([a64615e](https://github.com/maevsi/stack/commit/a64615e49d88cb5c69db7b48082b3ef722007216))
+
 ## [17.0.3](https://github.com/maevsi/stack/compare/17.0.2...17.0.3) (2026-04-07)
 
 ### Bug Fixes
