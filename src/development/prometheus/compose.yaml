@@ -12,7 +12,7 @@ services:
         - traefik.http.routers.prometheus-secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
-    image: prom/prometheus:v3.11.0
+    image: prom/prometheus:v3.11.1
     volumes:
       - ./configurations/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
