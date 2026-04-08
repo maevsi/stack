@@ -190,7 +190,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    image: curlimages/curl:8.18.0
+    image: curlimages/curl:8.19.0
     secrets:
       - postgres_db
       - postgres_password
@@ -508,7 +508,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.7.0
+    image: redpandadata/console:v3.7.1
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
