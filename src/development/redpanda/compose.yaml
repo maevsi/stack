@@ -18,7 +18,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v26.1.2
+    image: redpandadata/redpanda:v26.1.3
     volumes:
       - redpanda-data:/var/lib/redpanda/data
   redpanda-console:
