@@ -1,3 +1,9 @@
+## [17.1.0](https://github.com/maevsi/stack/compare/17.0.5...17.1.0) (2026-04-11)
+
+### Features
+
+* **reccoom:** add postgres role ([7390264](https://github.com/maevsi/stack/commit/7390264fe551dffe76dfa9841f856c605da297cd))
+
 ## [17.0.5](https://github.com/maevsi/stack/compare/17.0.4...17.0.5) (2026-04-10)
 
 ### Bug Fixes
