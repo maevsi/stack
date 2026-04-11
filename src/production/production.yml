@@ -66,14 +66,14 @@ services:
         - traefik.http.routers.prometheus_secure.tls.certresolver=default
   reccoom:
     deploy: (( prune ))
-    image: ghcr.io/maevsi/reccoom:0.9.0
+    image: ghcr.io/maevsi/reccoom:0.10.0
   redpanda-console:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
-    image: ghcr.io/maevsi/sqitch:11.0.1
+    image: ghcr.io/maevsi/sqitch:11.1.0
     volumes: (( prune ))
   traefik:
     command:

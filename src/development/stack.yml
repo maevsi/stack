@@ -92,6 +92,12 @@ secrets:
   postgres_role_service_postgraphile_username:
     # The username of the GraphQL API database wrapper's database role.
     file: ./secrets/postgres/role_service_postgraphile_username.secret
+  postgres_role_service_reccoom_password:
+    # The password of the recommendation engine's database role.
+    file: ./secrets/postgres/role_service_reccoom_password.secret
+  postgres_role_service_reccoom_username:
+    # The username of the recommendation engine's database role.
+    file: ./secrets/postgres/role_service_reccoom_username.secret
   postgres_role_service_vibetype_password:
     # The `tusd` database role's password.
     file: ./secrets/postgres/role_service_vibetype_password.secret
@@ -446,12 +452,22 @@ services:
       RECCOOM_POSTGRES_HOST: reccoom_postgres
     image: maevsi/reccoom:dev
     secrets:
-      - postgres_db
-      - postgres_password
-      - postgres_user
+      - source: postgres_db
+        target: /run/environment-variables/POSTGRES_DATABASE
+      - source: postgres_db
+        target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
+      - source: postgres_role_service_reccoom_username
+        target: /run/environment-variables/POSTGRES_USER
+      - source: postgres_role_service_reccoom_username
+        target: /run/environment-variables/RECCOOM_POSTGRES_USER
+      - source: postgres_role_service_reccoom_password
+        target: /run/environment-variables/POSTGRES_PASS
+      - source: postgres_role_service_reccoom_password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASS
       - source: reccoom_ingest-api-key
         target: /run/environment-variables/INGEST_API_KEY
-      - reccoom_openai-api-key
+      - source: reccoom_openai-api-key
+        target: /run/environment-variables/OPENAI_API_KEY
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
@@ -519,6 +535,8 @@ services:
       - postgres_role_service_grafana_username
       - postgres_role_service_postgraphile_password
       - postgres_role_service_postgraphile_username
+      - postgres_role_service_reccoom_password
+      - postgres_role_service_reccoom_username
       - postgres_role_service_vibetype_password
       - postgres_role_service_vibetype_username
       - postgres_role_service_zammad_username
