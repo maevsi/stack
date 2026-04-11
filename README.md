@@ -116,6 +116,14 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The username of the GraphQL API database wrapper's database role.
     
+ - ### `postgres_role_service_reccoom_password`
+    
+    The password of the recommendation engine's database role.
+    
+ - ### `postgres_role_service_reccoom_username`
+    
+    The username of the recommendation engine's database role.
+    
  - ### `postgres_role_service_vibetype_password`
     
     The `tusd` database role's password.
