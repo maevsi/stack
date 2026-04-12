@@ -167,6 +167,12 @@ services:
         - traefik.http.routers.adminer_secure.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.adminer.loadbalancer.server.port=8080
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     image: adminer:5.4.2-standalone
     volumes:
       - ../production/configurations/adminer/adminer.css:/var/www/html/adminer.css:ro
@@ -201,12 +207,12 @@ services:
       GROUP_ID: 1
       OFFSET_STORAGE_TOPIC: connect_offsets
       STATUS_STORAGE_TOPIC: connect_statuses
-    # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8083/connectors"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 20s
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8083/connectors"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
     image: quay.io/debezium/connect:3.6
     volumes:
       - debezium_kafka_configuration:/kafka/config
@@ -235,6 +241,12 @@ services:
       ES_JAVA_OPTS: -Xms1g -Xmx1g
       KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore_password
       network.publish_host: elasticsearch
+    # healthcheck:
+    #   test: ["CMD-SHELL", "NETRC=$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$(cat /run/secrets/elasticsearch-password)\" > \"$NETRC\" && curl -fsS --netrc-file \"$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$NETRC\" || { rm -f \"$NETRC\"; exit 1; }"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 60s
     image: elasticsearch:8.19.14
     secrets:
       - source: elasticsearch-keystore_password
@@ -257,6 +269,12 @@ services:
       - elasticsearch_data:/usr/share/elasticsearch/data
   geoip:
     # You cannot access the ip geolocator via a web interface.
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     image: ghcr.io/observabilitystack/geoip-api:2026-02
   grafana:
     # You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
@@ -279,6 +297,12 @@ services:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin_password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana_admin_user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     image: grafana/grafana:12.4.2
     secrets:
       - grafana_admin_email
@@ -311,6 +335,12 @@ services:
       - ./configurations/jobber/.jobber:/home/jobberuser/.jobber:ro
   memcached:
     # You cannot access the caching system via a web interface.
+    healthcheck:
+      test: ["CMD-SHELL", "echo version | nc -w1 localhost 11211 | grep -q VERSION || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     image: memcached:1.6.41-alpine
     # command: memcached -m 256M
   minio: #DARGSTACK-REMOVE
@@ -357,6 +387,12 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9100/metrics"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     image: quay.io/prometheus/node-exporter:v1.11.1
     volumes:
       - /proc:/host/proc:ro
@@ -384,6 +420,12 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9000/api/system/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     image: portainer/portainer-ce:2.40.0-alpine
     secrets:
       - portainer_admin-password
@@ -445,6 +487,12 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     image: postgis/postgis:18-3.6-alpine
     ports: #DARGSTACK-REMOVE
       - 5432:5432 #DARGSTACK-REMOVE
@@ -471,6 +519,12 @@ services:
         - traefik.http.routers.prometheus_secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.prometheus.loadbalancer.server.port=9090
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9090/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     image: prom/prometheus:v3.11.1
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
@@ -490,6 +544,12 @@ services:
     environment:
       POSTGRES_HOST: postgres
       RECCOOM_POSTGRES_HOST: reccoom_postgres
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:5245/docs"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     image: maevsi/reccoom:dev
     secrets:
       - source: postgres_db
@@ -517,6 +577,12 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres_db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
       POSTGRES_USER_FILE: /run/secrets/postgres_user
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     image: pgvector/pgvector:0.8.2-pg18
     ports: #DARGSTACK-REMOVE
       - 5433:5432 #DARGSTACK-REMOVE
@@ -528,6 +594,12 @@ services:
       - reccoom_postgres_data:/var/lib/postgresql/
   redis:
     # You cannot access the caching system via a web interface.
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     image: redis:8.6.2-alpine
     volumes:
       - redis_data:/data
@@ -541,12 +613,12 @@ services:
       - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
       - --advertise-pandaproxy-addr internal://redpanda:8082,external://localhost:18082
       - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
-    # healthcheck:
-    #   test: ["CMD-SHELL", "output=$(rpk cluster health --json); echo \"$output\" | grep -q '\"healthy\":true' || { echo \"$output\"; exit 1; }"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 10s
+    healthcheck:
+      test: ["CMD", "rpk", "cluster", "health", "--exit-when-healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     image: redpandadata/redpanda:v26.1.4
     volumes:
       - redpanda_data:/var/lib/redpanda/data
@@ -564,6 +636,12 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/admin/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     image: redpandadata/console:v3.7.1
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
@@ -591,6 +669,7 @@ services:
       - --entryPoints.web.address=:80
       - --entryPoints.web-secure.address=:443
       - --entryPoints.web-secure.http.encodedCharacters.allowEncodedSlash=true #DARGSTACK-REMOVE # required for Nuxt's virtual imports
+      - --ping=true
       - --providers.swarm=true
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --providers.swarm.exposedByDefault=false
@@ -614,6 +693,12 @@ services:
       placement:
         constraints:
           - node.role == manager
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     image: traefik:v3.6.13
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
@@ -645,6 +730,12 @@ services:
         - traefik.http.services.tusd.loadbalancer.server.port=8080
     environment:
       AWS_REGION: ${TUSD_REGION}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     image: tusproject/tusd:v2.9.2
     secrets:
       - source: tusd_aws
@@ -733,10 +824,22 @@ services:
         - traefik.http.routers.zammad_secure.rule=Host(`zammad.${STACK_DOMAIN}`)
         - traefik.http.routers.zammad_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.services.zammad.loadbalancer.server.port=8080
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
   zammad-railsserver:
     # You cannot access the helpdesk application server directly.
     <<: *zammad-service
     command: ["zammad-railsserver"]
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
   zammad-scheduler:
     # You cannot access the helpdesk scheduler directly.
     <<: *zammad-service
