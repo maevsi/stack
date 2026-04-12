@@ -1,3 +1,13 @@
+## [17.2.0](https://github.com/maevsi/stack/compare/17.1.1...17.2.0) (2026-04-12)
+
+### Features
+
+* **docker:** add healthchecks ([3b6358b](https://github.com/maevsi/stack/commit/3b6358b98f9b2236e884dc63beddb0f31961820f))
+
+### Performance Improvements
+
+* **cadvisor:** add ([97d4197](https://github.com/maevsi/stack/commit/97d4197b4c2f18de8aef0738a04567121fe95b3d))
+
 ## [17.1.1](https://github.com/maevsi/stack/compare/17.1.0...17.1.1) (2026-04-12)
 
 ### Bug Fixes
