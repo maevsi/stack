@@ -170,6 +170,29 @@ services:
     image: adminer:5.4.2-standalone
     volumes:
       - ../production/configurations/adminer/adminer.css:/var/www/html/adminer.css:ro
+  cadvisor:
+    # You can access the container metrics at [cadvisor.app.localhost](https://cadvisor.app.localhost/).
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.cadvisor.entryPoints=web
+        - traefik.http.routers.cadvisor.middlewares=redirectscheme #DARGSTACK-REMOVE
+        - traefik.http.routers.cadvisor.rule=Host(`cadvisor.${STACK_DOMAIN}`)
+        - traefik.http.routers.cadvisor_secure.entryPoints=web-secure
+        - traefik.http.routers.cadvisor_secure.rule=Host(`cadvisor.${STACK_DOMAIN}`)
+        - traefik.http.routers.cadvisor_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
+        - traefik.http.services.cadvisor.loadbalancer.server.port=8080
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+    image: ghcr.io/google/cadvisor:0.56.2
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
   debezium:
     # You can see how changes in the database end up in the event stream using `redpanda-console`.
     environment:
@@ -327,6 +350,23 @@ services:
     environment: #DARGSTACK-REMOVE
       MINIO_ROOT_PASSWORD: s3password #DARGSTACK-REMOVE
       MINIO_ROOT_USER: s3user #DARGSTACK-REMOVE
+  node-exporter:
+    # You can view host metrics in the Grafana observation dashboard.
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+    image: quay.io/prometheus/node-exporter:v1.11.1
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --path.procfs=/host/proc
+      - --path.rootfs=/rootfs
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
   portainer:
     # You can access the container manager's frontend at [portainer.app.localhost](https://portainer.app.localhost/).
     command: -H tcp://tasks.portainer-agent:9001 --tlsskipverify --admin-password-file '/run/secrets/portainer_admin-password'
