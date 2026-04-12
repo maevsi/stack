@@ -1,0 +1,4 @@
+#cloud-config
+
+# The worker node joins the Swarm via a Terraform provisioner on the manager
+# after both servers are running. See main.tf for the orchestration.

@@ -14,26 +14,65 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.adminer_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == manager
   cadvisor:
     deploy:
       labels: (( prune ))
   cloudflared:
     # You can configure the secure tunnel at [dash.cloudflare.com](https://dash.cloudflare.com/).
     command: tunnel run
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == manager
     environment:
       TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN}
     image: cloudflare/cloudflared
+  debezium:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  debezium-postgres-connector:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  elasticsearch:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  geoip:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
   grafana:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.grafana_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == manager
   jobber:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
     volumes:
       - (( append ))
       - ./configurations/jobber/sinks:/srv/sinks:ro
+  memcached:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
   # minio: (( prune )) # breaks renovate
   portainer:
     deploy:
@@ -46,9 +85,21 @@ services:
         - (( append ))
         - traefik.http.routers.postgraphile.middlewares=postgraphile_auth,postgraphile_cors
         - traefik.http.routers.postgraphile_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
     image: ghcr.io/maevsi/postgraphile:2.0.1
+  postgres:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
   postgres_backup:
     # You cannot access the database backup directly.
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
     environment:
       POSTGRES_DB_FILE: /run/secrets/postgres-backup_db
       POSTGRES_HOST: postgres
@@ -67,15 +118,44 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.prometheus_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == manager
   reccoom:
-    deploy: (( prune ))
+    deploy:
+      labels: (( prune ))
+      placement:
+        constraints:
+          - node.labels.role == worker
     image: ghcr.io/maevsi/reccoom:0.11.0
+  reccoom_postgres:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  redis:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  redpanda:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
   redpanda-console:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.redpanda_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
   sqitch:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
     image: ghcr.io/maevsi/sqitch:11.1.0
     volumes: (( prune ))
   traefik:
@@ -96,6 +176,10 @@ services:
       - traefik_cf-zone-api-token
   traefik_certs-dumper:
     # You cannot access the reverse proxy's certificate helper directly.
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == manager
     command:
       - file
       - --clean=false
@@ -116,12 +200,18 @@ services:
         - (( append ))
         - traefik.http.routers.tusd.middlewares=tusd_cors
         - traefik.http.routers.tusd_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
   vibetype:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
     image: ghcr.io/maevsi/vibetype:14.1.1
     user: (( prune ))
   # vibetype_beta:
@@ -166,11 +256,39 @@ services:
   #       target: /run/environment-variables/PGUSER
   #   volumes:
   #     - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+  zammad-backup:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  zammad-init:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
   zammad-nginx:
     deploy:
       labels:
         - (( append ))
         - traefik.http.routers.zammad_secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
+  zammad-railsserver:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  zammad-scheduler:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+  zammad-websocket:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
 version: "3.7"
 volumes:
   acme_data:
