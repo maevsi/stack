@@ -1,3 +1,9 @@
+## [17.1.1](https://github.com/maevsi/stack/compare/17.1.0...17.1.1) (2026-04-12)
+
+### Bug Fixes
+
+* **reccoom:** add missing secrets ([f2d2ae5](https://github.com/maevsi/stack/commit/f2d2ae5aab036491fe143f5221aa770725705bcd))
+
 ## [17.1.0](https://github.com/maevsi/stack/compare/17.0.5...17.1.0) (2026-04-11)
 
 ### Features
