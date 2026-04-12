@@ -30,6 +30,7 @@ done
 create "root"
 create "traefik" \
     `# adminer` "adminer.app.localhost" \
+    `# cadvisor` "cadvisor.app.localhost" \
     `# grafana` "grafana.app.localhost" \
     `# minio` "minio.app.localhost" \
     `# portainer` "portainer.app.localhost" \

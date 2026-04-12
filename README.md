@@ -211,6 +211,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     Values in square brackets are [Docker secrets](https://docs.docker.com/engine/swarm/secrets/).
     
+ - ### `cadvisor`
+    
+    You can access the container metrics at [cadvisor.app.localhost](https://cadvisor.app.localhost/).
+    
  - ### `cloudflared` ![production](https://img.shields.io/badge/-production-informational.svg?style=flat-square)
     
     You can configure the secure tunnel at [dash.cloudflare.com](https://dash.cloudflare.com/).
@@ -247,6 +251,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
     You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
+    
+ - ### `node-exporter`
+    
+    You can view host metrics in the Grafana observation dashboard.
     
  - ### `portainer`
     

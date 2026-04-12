@@ -14,6 +14,9 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.adminer_secure.tls.certresolver=default
+  cadvisor:
+    deploy:
+      labels: (( prune ))
   cloudflared:
     # You can configure the secure tunnel at [dash.cloudflare.com](https://dash.cloudflare.com/).
     command: tunnel run
