@@ -525,7 +525,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: prom/prometheus:v3.11.1
+    image: prom/prometheus:v3.11.2
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
