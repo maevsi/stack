@@ -1,0 +1,6 @@
+# Encrypt this file with `sops -e -i terraform.tfvars.enc.yaml`.
+# SOPS reads the age key from ~/.config/sops/age/keys.txt automatically.
+age_secret_key: "<your-age-secret-key>"
+hcloud_token: "<your-hcloud-token>"
+ssh_source_ips:
+  - "<your-operator-ip>/32"

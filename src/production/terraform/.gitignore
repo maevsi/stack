@@ -1,0 +1,6 @@
+# Terraform state and secrets
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.tfvars.json
+.terraform/
