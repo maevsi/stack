@@ -647,6 +647,9 @@ services:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
     # You cannot access the database migrations directly.
+    deploy:
+      restart_policy:
+        condition: on-failure
     image: maevsi/sqitch:dev
     secrets:
       - postgres_role_service_grafana_password
