@@ -1,3 +1,9 @@
+## [18.0.2](https://github.com/maevsi/stack/compare/18.0.1...18.0.2) (2026-04-14)
+
+### Bug Fixes
+
+* **vibetype:** correct environment variables ([333e7ae](https://github.com/maevsi/stack/commit/333e7ae8e0dd5fd6a9e88c2510fff863bb8ce35c))
+
 ## [18.0.1](https://github.com/maevsi/stack/compare/18.0.0...18.0.1) (2026-04-14)
 
 ### Bug Fixes
