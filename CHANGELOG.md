@@ -1,3 +1,9 @@
+## [17.2.3](https://github.com/maevsi/stack/compare/17.2.2...17.2.3) (2026-04-14)
+
+### Performance Improvements
+
+* **elasticsearch:** disable temporarily ([0ed9183](https://github.com/maevsi/stack/commit/0ed9183c86bc7d8c64fa0bd665a290f31c778a01))
+
 ## [17.2.2](https://github.com/maevsi/stack/compare/17.2.1...17.2.2) (2026-04-14)
 
 ### Bug Fixes
