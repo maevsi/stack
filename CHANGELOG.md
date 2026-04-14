@@ -1,3 +1,9 @@
+## [17.2.5](https://github.com/maevsi/stack/compare/17.2.4...17.2.5) (2026-04-14)
+
+### Bug Fixes
+
+* **reccoom:** correct environment variable naming ([975895e](https://github.com/maevsi/stack/commit/975895e6767d1350ef6be3fcfec184bb2e74a491))
+
 ## [17.2.4](https://github.com/maevsi/stack/compare/17.2.3...17.2.4) (2026-04-14)
 
 ### Bug Fixes
