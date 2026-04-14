@@ -1,3 +1,9 @@
+## [17.2.4](https://github.com/maevsi/stack/compare/17.2.3...17.2.4) (2026-04-14)
+
+### Bug Fixes
+
+* **postgres:** use correct user and database for healthcheck ([82e121d](https://github.com/maevsi/stack/commit/82e121d2844bf4f21bbc55e91dafb4bd0913d717))
+
 ## [17.2.3](https://github.com/maevsi/stack/compare/17.2.2...17.2.3) (2026-04-14)
 
 ### Performance Improvements
