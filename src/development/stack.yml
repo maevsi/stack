@@ -234,6 +234,8 @@ services:
       - ../production/configurations/debezium-postgres-connector/entrypoint.sh:/entrypoint.sh:ro
   elasticsearch:
     # You cannot access the search engine via a web interface.
+    deploy:
+      replicas: 0 # TODO: reenable once server setup is more fault tolerant
     environment:
       bootstrap.memory_lock: "true"
       discovery.type: single-node
