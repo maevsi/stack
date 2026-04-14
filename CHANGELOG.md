@@ -1,3 +1,13 @@
+## [18.0.0](https://github.com/maevsi/stack/compare/17.2.6...18.0.0) (2026-04-14)
+
+### ⚠ BREAKING CHANGES
+
+* **vibetype:** switch from monday to zammad
+
+### Features
+
+* **vibetype:** switch from monday to zammad ([a58e551](https://github.com/maevsi/stack/commit/a58e551680a48c5884a0317121b123b0909d9857))
+
 ## [17.2.6](https://github.com/maevsi/stack/compare/17.2.5...17.2.6) (2026-04-14)
 
 ### Bug Fixes
