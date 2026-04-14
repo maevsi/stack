@@ -1,3 +1,9 @@
+## [17.2.2](https://github.com/maevsi/stack/compare/17.2.1...17.2.2) (2026-04-14)
+
+### Bug Fixes
+
+* **sqitch:** restart on failure only ([00598b8](https://github.com/maevsi/stack/commit/00598b86d3f92a419c1d8fd74cb21d37b13e58a8))
+
 ## [17.2.1](https://github.com/maevsi/stack/compare/17.2.0...17.2.1) (2026-04-14)
 
 ### Bug Fixes
