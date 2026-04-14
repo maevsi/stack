@@ -1,3 +1,9 @@
+## [18.0.1](https://github.com/maevsi/stack/compare/18.0.0...18.0.1) (2026-04-14)
+
+### Bug Fixes
+
+* zammad ([c144ae1](https://github.com/maevsi/stack/commit/c144ae181b75132d5fbb24a96659970c6b61e9f7))
+
 ## [18.0.0](https://github.com/maevsi/stack/compare/17.2.6...18.0.0) (2026-04-14)
 
 ### ⚠ BREAKING CHANGES
