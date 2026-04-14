@@ -1,3 +1,9 @@
+## [17.2.1](https://github.com/maevsi/stack/compare/17.2.0...17.2.1) (2026-04-14)
+
+### Bug Fixes
+
+* **postgraphile:** resolve certs for ruru ([7523091](https://github.com/maevsi/stack/commit/752309141c49831027a7bbb4eb9d3cd9816bf814))
+
 ## [17.2.0](https://github.com/maevsi/stack/compare/17.1.1...17.2.0) (2026-04-12)
 
 ### Features
