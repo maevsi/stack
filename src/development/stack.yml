@@ -560,12 +560,12 @@ services:
         target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
       - source: postgres_role_service_reccoom_username
         target: /run/environment-variables/POSTGRES_USER
-      - source: postgres_role_service_reccoom_username
+      - source: postgres_user
         target: /run/environment-variables/RECCOOM_POSTGRES_USER
       - source: postgres_role_service_reccoom_password
-        target: /run/environment-variables/POSTGRES_PASS
-      - source: postgres_role_service_reccoom_password
-        target: /run/environment-variables/RECCOOM_POSTGRES_PASS
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres_password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
       - source: reccoom_ingest-api-key
         target: /run/environment-variables/INGEST_API_KEY
       - source: reccoom_openai-api-key
