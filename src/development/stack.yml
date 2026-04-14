@@ -546,12 +546,6 @@ services:
     environment:
       POSTGRES_HOST: postgres
       RECCOOM_POSTGRES_HOST: reccoom_postgres
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:5245/docs"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 20s
     image: maevsi/reccoom:dev
     secrets:
       - source: postgres_db
