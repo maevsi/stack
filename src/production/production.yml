@@ -123,7 +123,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:15.0.0-beta.5
+    image: ghcr.io/maevsi/vibetype:15.0.1
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
@@ -150,13 +150,13 @@ services:
   #   image: ghcr.io/maevsi/vibetype:11.0.2
   #   secrets:
   #     - source: vibetype_api-notification-secret
-  #       target: /run/environment-variables/NUXT_PRIVATE_API_NOTIFICATION_SECRET
+  #       target: /run/environment-variables/NUXT_API_NOTIFICATION_SECRET
   #     - source: vibetype_aws-credentials
   #       target: /home/node/.aws/credentials # TODO: switch to user `node`
   #     - source: vibetype_firebase-service-account-credentials
   #       target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
   #     - source: vibetype_openai-api-key
-  #       target: /run/environment-variables/NUXT_PRIVATE_OPENAI_API_KEY
+  #       target: /run/environment-variables/NUXT_OPENAI_API_KEY
   #     - source: vibetype_turnstile-key
   #       target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
   #     - source: postgres_db
