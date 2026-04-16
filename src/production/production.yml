@@ -47,7 +47,7 @@ services:
         - traefik.http.routers.postgraphile.middlewares=postgraphile_auth,postgraphile_cors
         - traefik.http.routers.postgraphile_secure.tls.certresolver=default
         - traefik.http.routers.postgraphile_secure_ruru.tls.certresolver=default
-    image: ghcr.io/maevsi/postgraphile:2.0.1
+    image: ghcr.io/maevsi/postgraphile:2.0.2
   postgres_backup:
     # You cannot access the database backup directly.
     environment:
