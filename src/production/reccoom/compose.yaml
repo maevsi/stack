@@ -4,4 +4,4 @@ services:
       labels: (( prune ))
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/reccoom:0.13.0
+    image: ghcr.io/maevsi/reccoom:0.13.1
