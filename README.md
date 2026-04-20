@@ -284,6 +284,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You cannot access the recommendation service directly.
     
+ - ### `reccoom_consumer`
+    
+    You can track the recommender's event streaming consumer using `redpanda-console`.
+    
  - ### `reccoom_migration`
     
     You cannot access the recommender's database migration service directly.
@@ -403,6 +407,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
  - ### `prometheus_data`
     
     The metrics monitoring's data.
+    
+ - ### `reccoom_fastembed_data`
+    
+    The recommender's model cache.
     
  - ### `reccoom_postgres_data`
     
