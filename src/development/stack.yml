@@ -449,9 +449,6 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.middlewares.postgraphile_auth.forwardauth.address=http://vibetype:3000/api/internal/service/postgraphile/authentication
-        - traefik.http.middlewares.postgraphile_auth.forwardauth.forwardBody=true
-        - traefik.http.middlewares.postgraphile_auth.forwardauth.preserveRequestMethod=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowCredentials=true
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowHeaders=authorization
         - traefik.http.middlewares.postgraphile_cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN},https://localhost:3000,https://app.localhost:3000
@@ -459,7 +456,7 @@ services:
         - traefik.http.routers.postgraphile.middlewares=redirectscheme #DARGSTACK-REMOVE
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile_secure.entryPoints=web-secure
-        - traefik.http.routers.postgraphile_secure.middlewares=postgraphile_auth,postgraphile_cors
+        - traefik.http.routers.postgraphile_secure.middlewares=postgraphile_cors
         - traefik.http.routers.postgraphile_secure.rule=Host(`postgraphile.${STACK_DOMAIN}`) && Path(`/graphql`)
         - traefik.http.routers.postgraphile_secure.tls.options=mintls13@file #DARGSTACK-REMOVE
         - traefik.http.routers.postgraphile_secure_ruru.entryPoints=web-secure
