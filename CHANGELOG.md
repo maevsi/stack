@@ -1,3 +1,9 @@
+## [18.0.4](https://github.com/maevsi/stack/compare/18.0.3...18.0.4) (2026-04-21)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v15.0.3 ([5248d72](https://github.com/maevsi/stack/commit/5248d727721571e37fcfe406fe0a616dffb72b0c))
+
 ## [18.0.3](https://github.com/maevsi/stack/compare/18.0.2...18.0.3) (2026-04-14)
 
 ### Bug Fixes
