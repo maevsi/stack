@@ -567,6 +567,50 @@ services:
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
+  reccoom_consumer:
+    # You can track the recommender's event streaming consumer using `redpanda-console`.
+    command: ["uv", "run", "python", "-m", "src.consumer"]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+      POSTGRES_HOST: postgres
+      RECCOOM_POSTGRES_HOST: reccoom_postgres
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /run/consumer-alive && [ $$(( $$(date +%s) - $$(date +%s -r /run/consumer-alive) )) -lt 60 ]"]
+      timeout: 5s
+    image: maevsi/reccoom:dev
+    secrets:
+      - source: postgres_db
+        target: /run/environment-variables/POSTGRES_DATABASE
+      - source: postgres_db
+        target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
+      - source: postgres_role_service_reccoom_username
+        target: /run/environment-variables/POSTGRES_USER
+      - source: postgres_user
+        target: /run/environment-variables/RECCOOM_POSTGRES_USER
+      - source: postgres_role_service_reccoom_password
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres_password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+    volumes:
+      - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
+  reccoom_migration:
+    # You cannot access the recommender's database migration service directly.
+    command: ["uv", "run", "alembic", "upgrade", "head"]
+    deploy:
+      restart_policy:
+        condition: on-failure
+    environment:
+      RECCOOM_POSTGRES_HOST: reccoom_postgres
+    image: maevsi/reccoom:dev
+    secrets:
+      - source: postgres_db
+        target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
+      - source: postgres_user
+        target: /run/environment-variables/RECCOOM_POSTGRES_USER
+      - source: postgres_password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+    volumes:
+      - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
   reccoom_postgres:
     # You can access reccoom's database via `adminer`.
     environment:
