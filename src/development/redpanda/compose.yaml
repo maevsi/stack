@@ -18,7 +18,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 10s
-    image: redpandadata/redpanda:v26.1.5
+    image: redpandadata/redpanda:v26.1.6
     volumes:
       - redpanda-data:/var/lib/redpanda/data
   redpanda-console:
@@ -36,7 +36,7 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
-    image: redpandadata/console:v3.7.1
+    image: redpandadata/console:v3.7.2
     volumes:
       - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
 volumes:
