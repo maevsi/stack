@@ -1,3 +1,9 @@
+## [18.1.0](https://github.com/maevsi/stack/compare/18.0.7...18.1.0) (2026-05-05)
+
+### Features
+
+* **reccoom:** add migration service ([ebc7fc9](https://github.com/maevsi/stack/commit/ebc7fc9a980790109c726dd1c2a6be7eddfe759f))
+
 ## [18.0.7](https://github.com/maevsi/stack/compare/18.0.6...18.0.7) (2026-05-01)
 
 ### Bug Fixes
