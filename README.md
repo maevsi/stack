@@ -284,6 +284,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     You cannot access the recommendation service directly.
     
+ - ### `reccoom_migration`
+    
+    You cannot access the recommender's database migration service directly.
+    
  - ### `reccoom_postgres`
     
     You can access reccoom's database via `adminer`.
