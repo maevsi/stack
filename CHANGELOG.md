@@ -1,3 +1,9 @@
+## [18.1.1](https://github.com/maevsi/stack/compare/18.1.0...18.1.1) (2026-05-10)
+
+### Bug Fixes
+
+* **reccoom:** drop all volumes for production ([94e8a64](https://github.com/maevsi/stack/commit/94e8a643b9d456ad03941cc9609c70a5979afb9a))
+
 ## [18.1.0](https://github.com/maevsi/stack/compare/18.0.7...18.1.0) (2026-05-05)
 
 ### Features
