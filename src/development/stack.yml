@@ -614,7 +614,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    image: redis:8.6.2-alpine
+    image: redis:8.6.3-alpine
     volumes:
       - redis_data:/data
   redpanda:
@@ -633,7 +633,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-    image: redpandadata/redpanda:v26.1.6
+    image: redpandadata/redpanda:v26.1.7
     volumes:
       - redpanda_data:/var/lib/redpanda/data
   redpanda-console:
@@ -716,7 +716,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: traefik:v3.6.15
+    image: traefik:v3.7.0
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
