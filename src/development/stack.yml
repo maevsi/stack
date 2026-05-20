@@ -656,7 +656,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: redpandadata/console:v3.7.2
+    image: redpandadata/console:v3.7.3
     volumes:
       - ../production/configurations/redpanda/config.yaml:/srv/app/redpanda-config.yaml:ro
   sqitch:
