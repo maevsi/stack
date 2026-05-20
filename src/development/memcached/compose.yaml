@@ -4,5 +4,5 @@ services:
     deploy:
       labels:
         - dargstack.profiles=zammad
-    image: memcached:1.6.41-alpine
+    image: memcached:1.6.42-alpine
     # command: memcached -m 256M
