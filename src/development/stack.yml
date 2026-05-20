@@ -343,7 +343,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
-    image: memcached:1.6.41-alpine
+    image: memcached:1.6.42-alpine
     # command: memcached -m 256M
   minio: #DARGSTACK-REMOVE
     # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
