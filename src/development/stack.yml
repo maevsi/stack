@@ -7,6 +7,7 @@ x-shared:
   zammad-service:
     &zammad-service # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
     environment: &zammad-environment
+      ELASTICSEARCH_ENABLED: false
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_SCHEMA: https
       ELASTICSEARCH_USER: elastic
