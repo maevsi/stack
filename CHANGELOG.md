@@ -1,3 +1,9 @@
+## [18.2.1](https://github.com/maevsi/stack/compare/18.2.0...18.2.1) (2026-05-24)
+
+### Bug Fixes
+
+* **ci:** enable corepack instead of installing node dependencies ([065af8f](https://github.com/maevsi/stack/commit/065af8f1bc500c12c95f144c33541f8c4c868c9e))
+
 ## [18.2.0](https://github.com/maevsi/stack/compare/18.1.1...18.2.0) (2026-05-24)
 
 ### Features
