@@ -1,3 +1,16 @@
+## [18.2.0](https://github.com/maevsi/stack/compare/18.1.1...18.2.0) (2026-05-24)
+
+### Features
+
+* **reccoom:** add consumer ([2fd08a5](https://github.com/maevsi/stack/commit/2fd08a579da0c2070567d1f0adcb2d617b18ea9b))
+
+### Bug Fixes
+
+* schedule release ([57f724a](https://github.com/maevsi/stack/commit/57f724ab3b368a605f04daaabd5bf56b5ca324b7))
+* **vibetype:** allow csrf header for cors ([c8ce494](https://github.com/maevsi/stack/commit/c8ce494ad42229194c10eda359fc14e18121b538))
+* **zammad:** correct boolean yaml syntax ([601f56e](https://github.com/maevsi/stack/commit/601f56e382dc66b78d7ae75ff7e4c733be53b9f2))
+* **zammad:** disable elasticsearch integration ([02eb7cb](https://github.com/maevsi/stack/commit/02eb7cbf07b5e59ceb3d3655644f711490ba166c))
+
 ## [18.1.1](https://github.com/maevsi/stack/compare/18.1.0...18.1.1) (2026-05-10)
 
 ### Bug Fixes
