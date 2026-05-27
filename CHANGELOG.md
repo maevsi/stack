@@ -1,3 +1,9 @@
+## [18.3.0](https://github.com/maevsi/stack/compare/18.2.1...18.3.0) (2026-05-27)
+
+### Features
+
+* **postgraphile:** remove forward authentication middleware ([b99c38b](https://github.com/maevsi/stack/commit/b99c38b5003a0ba16779bfbc58873edc22d9fe0c))
+
 ## [18.2.1](https://github.com/maevsi/stack/compare/18.2.0...18.2.1) (2026-05-24)
 
 ### Bug Fixes
