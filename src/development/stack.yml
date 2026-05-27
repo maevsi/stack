@@ -639,7 +639,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    image: redis:8.6.3-alpine
+    image: redis:8.8.0-alpine
     volumes:
       - redis_data:/data
   redpanda:

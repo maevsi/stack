@@ -3,7 +3,7 @@
   "description": "Dargstack configuration for Vibetype.",
   "devDependencies": {
     "dargstack": "3.0.0",
-    "dargstack_rgen": "0.9.90"
+    "dargstack_rgen": "0.9.91"
   },
   "devEngines": {
     "packageManager": {
