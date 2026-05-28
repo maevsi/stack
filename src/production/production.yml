@@ -47,7 +47,7 @@ services:
         - traefik.http.routers.postgraphile.middlewares=postgraphile_cors,redirectscheme
         - traefik.http.routers.postgraphile_secure.tls.certresolver=default
         - traefik.http.routers.postgraphile_secure_ruru.tls.certresolver=default
-    image: ghcr.io/maevsi/postgraphile:2.1.0
+    image: ghcr.io/maevsi/postgraphile:2.1.2
   postgres_backup:
     # You cannot access the database backup directly.
     environment:
@@ -82,7 +82,7 @@ services:
         - (( append ))
         - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
-    image: ghcr.io/maevsi/sqitch:11.1.4
+    image: ghcr.io/maevsi/sqitch:11.1.5
     volumes: (( prune ))
   traefik:
     command:
