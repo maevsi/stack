@@ -1,3 +1,9 @@
+## [18.3.3](https://github.com/maevsi/stack/compare/18.3.2...18.3.3) (2026-05-28)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([73a55d8](https://github.com/maevsi/stack/commit/73a55d8ccbebfc90fdac81348794de1bf159ac4b))
+
 ## [18.3.2](https://github.com/maevsi/stack/compare/18.3.1...18.3.2) (2026-05-28)
 
 ### Bug Fixes
