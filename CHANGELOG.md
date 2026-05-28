@@ -1,3 +1,9 @@
+## [18.3.4](https://github.com/maevsi/stack/compare/18.3.3...18.3.4) (2026-05-28)
+
+### Bug Fixes
+
+* **deps:** update maevsi/postgraphile to v2.1.3 ([e2aef64](https://github.com/maevsi/stack/commit/e2aef6439425677bb9b0b309500b2bdf671343c1))
+
 ## [18.3.3](https://github.com/maevsi/stack/compare/18.3.2...18.3.3) (2026-05-28)
 
 ### Bug Fixes
