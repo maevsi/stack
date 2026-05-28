@@ -1,3 +1,9 @@
+## [18.3.2](https://github.com/maevsi/stack/compare/18.3.1...18.3.2) (2026-05-28)
+
+### Bug Fixes
+
+* **reccoom:** correct production images for sibling services ([1e69dab](https://github.com/maevsi/stack/commit/1e69dabfed0fdb9395f4a920f20fe596cd394b1c))
+
 ## [18.3.1](https://github.com/maevsi/stack/compare/18.3.0...18.3.1) (2026-05-28)
 
 ### Bug Fixes
