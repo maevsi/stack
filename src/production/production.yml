@@ -71,6 +71,11 @@ services:
   reccoom:
     deploy: (( prune ))
     image: ghcr.io/maevsi/reccoom:0.15.0
+  reccoom_consumer:
+    image: ghcr.io/maevsi/reccoom:0.15.0
+  reccoom_migration:
+    image: ghcr.io/maevsi/reccoom:0.15.0
+    volumes: (( prune ))
   redpanda-console:
     deploy:
       labels:

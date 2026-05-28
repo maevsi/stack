@@ -608,8 +608,8 @@ services:
         target: /run/environment-variables/RECCOOM_POSTGRES_USER
       - source: postgres_password
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
-    volumes: #DARGSTACK-REMOVE
-      - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
+    volumes:
+      - ../../../reccoom/:/srv/app/
   reccoom_postgres:
     # You can access reccoom's database via `adminer`.
     environment:
