@@ -1,3 +1,9 @@
+## [18.3.1](https://github.com/maevsi/stack/compare/18.3.0...18.3.1) (2026-05-28)
+
+### Bug Fixes
+
+* **deps:** update dargmuesli/github-actions to v5.4.0 ([fbccad5](https://github.com/maevsi/stack/commit/fbccad5c36a7eebcecd23518d26efbeba62ea2e0))
+
 ## [18.3.0](https://github.com/maevsi/stack/compare/18.2.1...18.3.0) (2026-05-27)
 
 ### Features
