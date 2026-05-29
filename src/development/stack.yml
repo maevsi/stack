@@ -250,7 +250,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 60s
-    image: elasticsearch:8.19.15
+    image: elasticsearch:8.19.16
     secrets:
       - source: elasticsearch-keystore_password
         uid: "1000"
@@ -525,7 +525,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: prom/prometheus:v3.11.3
+    image: prom/prometheus:v3.12.0
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
