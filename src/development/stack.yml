@@ -741,7 +741,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: traefik:v3.7.1
+    image: traefik:v3.7.3
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
