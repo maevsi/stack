@@ -117,6 +117,9 @@ secrets:
   reccoom_ingest-api-key:
     # The AI provider's API key for the recommendation engine.
     file: ./secrets/reccoom/ingest-api-key.secret
+  reccoom_model-api-key:
+    # The AI model provider's API key.
+    file: ./secrets/reccoom/model-api-key.secret
   reccoom_openai-api-key:
     # The AI provider's API key for the recommendation engine.
     file: ./secrets/reccoom/openai-api-key.secret
@@ -560,6 +563,8 @@ services:
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
       - source: reccoom_ingest-api-key
         target: /run/environment-variables/INGEST_API_KEY
+      - source: reccoom_model-api-key
+        target: /run/environment-variables/MODEL_API_KEY
       - source: reccoom_openai-api-key
         target: /run/environment-variables/OPENAI_API_KEY
     volumes:

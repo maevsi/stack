@@ -148,6 +148,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The AI provider's API key for the recommendation engine.
     
+ - ### `reccoom_model-api-key`
+    
+    The AI model provider's API key.
+    
  - ### `reccoom_openai-api-key`
     
     The AI provider's API key for the recommendation engine.
