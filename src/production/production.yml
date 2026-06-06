@@ -82,7 +82,7 @@ services:
         - (( append ))
         - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
-    image: ghcr.io/maevsi/sqitch:11.1.5
+    image: ghcr.io/maevsi/sqitch:11.1.6
     volumes: (( prune ))
   traefik:
     command:
@@ -128,7 +128,7 @@ services:
         - (( append ))
         - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
         - traefik.http.routers.vibetype_secure.tls.certresolver=default
-    image: ghcr.io/maevsi/vibetype:15.1.6
+    image: ghcr.io/maevsi/vibetype:15.1.7
     user: (( prune ))
   # vibetype_beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
