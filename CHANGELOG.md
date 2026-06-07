@@ -1,3 +1,9 @@
+## [18.3.5](https://github.com/maevsi/stack/compare/18.3.4...18.3.5) (2026-06-07)
+
+### Bug Fixes
+
+* schedule release ([fb21d30](https://github.com/maevsi/stack/commit/fb21d3011213bb666d2832b74ed7c8498e9affb9))
+
 ## [18.3.4](https://github.com/maevsi/stack/compare/18.3.3...18.3.4) (2026-05-28)
 
 ### Bug Fixes
