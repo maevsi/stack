@@ -1,3 +1,9 @@
+## [18.4.0](https://github.com/maevsi/stack/compare/18.3.5...18.4.0) (2026-06-11)
+
+### Features
+
+* **reccoom:** add model api key secret ([#271](https://github.com/maevsi/stack/issues/271)) ([f462768](https://github.com/maevsi/stack/commit/f462768838736950b5f0f9a211b6c34241225956))
+
 ## [18.3.5](https://github.com/maevsi/stack/compare/18.3.4...18.3.5) (2026-06-07)
 
 ### Bug Fixes
