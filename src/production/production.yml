@@ -82,7 +82,7 @@ services:
         - (( append ))
         - traefik.http.routers.redpanda_secure.tls.certresolver=default
   sqitch:
-    image: ghcr.io/maevsi/sqitch:11.1.6
+    image: ghcr.io/maevsi/sqitch:11.1.7
     volumes: (( prune ))
   traefik:
     command:
