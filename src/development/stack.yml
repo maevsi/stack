@@ -783,7 +783,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: tusproject/tusd:v2.9.2
+    image: tusproject/tusd:v2.10.0
     secrets:
       - source: tusd_aws
         target: /home/tusd/.aws/credentials
