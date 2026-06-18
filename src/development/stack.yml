@@ -627,7 +627,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: pgvector/pgvector:0.8.2-pg18
+    image: pgvector/pgvector:0.8.3-pg18
     ports: #DARGSTACK-REMOVE
       - 5433:5432 #DARGSTACK-REMOVE
     secrets:
