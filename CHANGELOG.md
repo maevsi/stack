@@ -1,3 +1,9 @@
+## [18.4.1](https://github.com/maevsi/stack/compare/18.4.0...18.4.1) (2026-06-21)
+
+### Bug Fixes
+
+* schedule release ([2960b39](https://github.com/maevsi/stack/commit/2960b396c9170222462388e6d244e733850a0257))
+
 ## [18.4.0](https://github.com/maevsi/stack/compare/18.3.5...18.4.0) (2026-06-11)
 
 ### Features
