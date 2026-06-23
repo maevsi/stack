@@ -309,7 +309,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    image: grafana/grafana:12.4.4
+    image: grafana/grafana:12.4.5
     secrets:
       - grafana_admin_email
       - grafana_admin_password
