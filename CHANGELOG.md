@@ -1,3 +1,5 @@
+## [18.4.2](https://github.com/maevsi/stack/compare/18.4.1...18.4.2) (2026-06-29)
+
 ## [18.4.1](https://github.com/maevsi/stack/compare/18.4.0...18.4.1) (2026-06-21)
 
 ### Bug Fixes
