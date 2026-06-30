@@ -70,11 +70,11 @@ services:
         - traefik.http.routers.prometheus_secure.tls.certresolver=default
   reccoom:
     deploy: (( prune ))
-    image: ghcr.io/maevsi/reccoom:0.18.2
+    image: ghcr.io/maevsi/reccoom:0.18.4
   reccoom_consumer:
-    image: ghcr.io/maevsi/reccoom:0.18.2
+    image: ghcr.io/maevsi/reccoom:0.18.4
   reccoom_migration:
-    image: ghcr.io/maevsi/reccoom:0.18.2
+    image: ghcr.io/maevsi/reccoom:0.18.4
     volumes: (( prune ))
   redpanda-console:
     deploy:
