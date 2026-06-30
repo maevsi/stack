@@ -572,7 +572,7 @@ services:
       - ./configurations/postgraphile/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
   reccoom_consumer:
     # You can track the recommender's event streaming consumer using `redpanda-console`.
-    command: ["uv", "run", "python", "-m", "src.consumer"]
+    command: ["python", "-m", "src.consumer"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
       POSTGRES_HOST: postgres
@@ -599,7 +599,7 @@ services:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
   reccoom_migration:
     # You cannot access the recommender's database migration service directly.
-    command: ["uv", "run", "alembic", "upgrade", "head"]
+    command: ["python", "-m", "src.migration"]
     deploy:
       restart_policy:
         condition: on-failure
