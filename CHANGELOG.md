@@ -1,3 +1,5 @@
+## [18.5.1](https://github.com/maevsi/stack/compare/18.5.0...18.5.1) (2026-07-01)
+
 ## [18.5.0](https://github.com/maevsi/stack/compare/18.4.2...18.5.0) (2026-07-01)
 
 ## [18.4.2](https://github.com/maevsi/stack/compare/18.4.1...18.4.2) (2026-06-29)
