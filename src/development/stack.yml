@@ -256,7 +256,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 60s
-    image: elasticsearch:8.19.17
+    image: elasticsearch:8.19.18
     secrets:
       - source: elasticsearch-keystore_password
         uid: "1000"
@@ -531,7 +531,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: prom/prometheus:v3.12.0
+    image: prom/prometheus:v3.13.0
     volumes:
       - ../production/configurations/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -636,7 +636,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: pgvector/pgvector:0.8.3-pg18
+    image: pgvector/pgvector:0.8.4-pg18
     ports: #DARGSTACK-REMOVE
       - 5433:5432 #DARGSTACK-REMOVE
     secrets:
@@ -755,7 +755,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: traefik:v3.7.5
+    image: traefik:v3.7.6
     ports: #DARGSTACK-REMOVE
       - mode: host #DARGSTACK-REMOVE
         protocol: tcp #DARGSTACK-REMOVE
