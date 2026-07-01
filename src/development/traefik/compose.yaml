@@ -30,7 +30,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    image: traefik:v3.7.5
+    image: traefik:v3.7.6
     ports: # dargstack:dev-only
       - mode: host # dargstack:dev-only
         protocol: tcp # dargstack:dev-only
