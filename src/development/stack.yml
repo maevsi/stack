@@ -123,6 +123,9 @@ secrets:
   reccoom_openai-api-key:
     # The AI provider's API key for the recommendation engine.
     file: ./secrets/reccoom/openai-api-key.secret
+  reccoom_sentry-dsn:
+    # The Sentry DSN for the AI service.
+    file: ./secrets/reccoom/sentry-dsn.secret
   sqitch_target:
     # The database change management application's database connection string.
     file: ./secrets/sqitch/target.secret
@@ -567,6 +570,8 @@ services:
         target: /run/environment-variables/MODEL_API_KEY
       - source: reccoom_openai-api-key
         target: /run/environment-variables/OPENAI_API_KEY
+      - source: reccoom_sentry-dsn
+        target: /run/environment-variables/SENTRY_DSN
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
@@ -594,6 +599,8 @@ services:
         target: /run/environment-variables/POSTGRES_PASSWORD
       - source: postgres_password
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+      - source: reccoom_sentry-dsn
+        target: /run/environment-variables/SENTRY_DSN
     volumes:
       - reccoom_fastembed_data:/tmp/fastembed_cache/
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
@@ -613,6 +620,8 @@ services:
         target: /run/environment-variables/RECCOOM_POSTGRES_USER
       - source: postgres_password
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+      - source: reccoom_sentry-dsn
+        target: /run/environment-variables/SENTRY_DSN
     volumes:
       - ../../../reccoom/:/srv/app/
   reccoom_postgres:

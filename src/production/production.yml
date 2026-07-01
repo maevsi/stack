@@ -70,10 +70,16 @@ services:
         - traefik.http.routers.prometheus_secure.tls.certresolver=default
   reccoom:
     deploy: (( prune ))
+    environment:
+      SENTRY_TRACES_SAMPLE_RATE: "0.1"
     image: ghcr.io/maevsi/reccoom:0.18.4
   reccoom_consumer:
+    environment:
+      SENTRY_TRACES_SAMPLE_RATE: "0.1"
     image: ghcr.io/maevsi/reccoom:0.18.4
   reccoom_migration:
+    environment:
+      SENTRY_TRACES_SAMPLE_RATE: "0.1"
     image: ghcr.io/maevsi/reccoom:0.18.4
     volumes: (( prune ))
   redpanda-console:

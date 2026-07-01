@@ -156,6 +156,10 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The AI provider's API key for the recommendation engine.
     
+ - ### `reccoom_sentry-dsn`
+    
+    The Sentry DSN for the AI service.
+    
  - ### `sqitch_target`
     
     The database change management application's database connection string.
