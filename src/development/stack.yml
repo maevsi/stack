@@ -256,7 +256,7 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 60s
-    image: elasticsearch:8.19.18
+    image: elasticsearch:9.4.3
     secrets:
       - source: elasticsearch-keystore_password
         uid: "1000"
