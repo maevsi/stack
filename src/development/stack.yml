@@ -583,7 +583,7 @@ services:
       POSTGRES_HOST: postgres
       RECCOOM_POSTGRES_HOST: reccoom_postgres
     healthcheck:
-      test: ["CMD-SHELL", "test -f /run/consumer-alive && [ $$(( $$(date +%s) - $$(date +%s -r /run/consumer-alive) )) -lt 60 ]"]
+      test: ["CMD-SHELL", "test -f /home/python/consumer-alive && [ $$(( $$(date +%s) - $$(date +%s -r /home/python/consumer-alive) )) -lt 60 ]"]
       timeout: 5s
     image: maevsi/reccoom:dev
     secrets:
