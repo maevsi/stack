@@ -578,7 +578,7 @@ services:
       - reccoom_data:/home/python/.cache/
   reccoom_consumer:
     # You can track the recommender's event streaming consumer using `redpanda-console`.
-    command: ["python", "-m", "src.consumer"]
+    command: ["uv", "run", "python", "-m", "src.consumer"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
       POSTGRES_HOST: postgres
@@ -607,7 +607,7 @@ services:
       - reccoom_data:/home/python/.cache/
   reccoom_migration:
     # You cannot access the recommender's database migration service directly.
-    command: ["python", "-m", "src.migration"]
+    command: ["uv", "run", "python", "-m", "src.migration"]
     deploy:
       restart_policy:
         condition: on-failure

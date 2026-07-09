@@ -72,15 +72,15 @@ services:
     deploy: (( prune ))
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.18.7
+    image: ghcr.io/maevsi/reccoom:0.18.9
   reccoom_consumer:
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.18.7
+    image: ghcr.io/maevsi/reccoom:0.18.9
   reccoom_migration:
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.18.7
+    image: ghcr.io/maevsi/reccoom:0.18.9
     volumes: (( prune ))
   redpanda-console:
     deploy:
