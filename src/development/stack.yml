@@ -575,9 +575,10 @@ services:
     volumes:
       - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
       - ./configurations/postgraphile/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
+      - reccoom_data:/home/python/.cache/
   reccoom_consumer:
     # You can track the recommender's event streaming consumer using `redpanda-console`.
-    command: ["python", "-m", "src.consumer"]
+    command: ["uv", "run", "python", "-m", "src.consumer"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
       POSTGRES_HOST: postgres
@@ -603,10 +604,10 @@ services:
         target: /run/environment-variables/SENTRY_DSN
     volumes:
       - reccoom_fastembed_data:/tmp/fastembed_cache/
-      - ../../../reccoom/:/srv/app/ #DARGSTACK-REMOVE
+      - reccoom_data:/home/python/.cache/
   reccoom_migration:
     # You cannot access the recommender's database migration service directly.
-    command: ["python", "-m", "src.migration"]
+    command: ["uv", "run", "python", "-m", "src.migration"]
     deploy:
       restart_policy:
         condition: on-failure
@@ -624,6 +625,7 @@ services:
         target: /run/environment-variables/SENTRY_DSN
     volumes:
       - ../../../reccoom/:/srv/app/
+      - reccoom_data:/home/python/.cache/
   reccoom_postgres:
     # You can access reccoom's database via `adminer`.
     environment:
@@ -942,7 +944,7 @@ volumes:
   prometheus_data:
     # The metrics monitoring's data.
     {}
-  reccoom_fastembed_data:
+  reccoom_data:
     # The recommender's model cache.
     {}
   reccoom_postgres_data:
