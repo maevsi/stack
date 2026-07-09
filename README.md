@@ -416,7 +416,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
     
     The metrics monitoring's data.
     
- - ### `reccoom_fastembed_data`
+ - ### `reccoom_data`
     
     The recommender's model cache.
     
