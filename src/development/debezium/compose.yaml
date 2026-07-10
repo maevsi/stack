@@ -10,12 +10,12 @@ services:
       GROUP_ID: 1
       OFFSET_STORAGE_TOPIC: connect_offsets
       STATUS_STORAGE_TOPIC: connect_statuses
-    # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8083/connectors"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 20s
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8083/connectors"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
     image: quay.io/debezium/connect:3.6
     volumes:
       - debezium-kafka-configuration:/kafka/config

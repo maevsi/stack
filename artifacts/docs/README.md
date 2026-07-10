@@ -6,7 +6,7 @@ The Docker stack configuration for [vibetype.app](https://vibetype.app/).
 
 ### analytics
 
-Services: grafana, prometheus
+Services: cadvisor, grafana, node-exporter, prometheus
 
 ### default
 
@@ -18,7 +18,7 @@ Services: debezium, debezium-postgres-connector, redpanda, redpanda-console
 
 ### recommendation
 
-Services: reccoom, reccoom_postgres
+Services: reccoom, reccoom-consumer, reccoom-migration, reccoom-postgres
 
 ### upload
 
@@ -44,6 +44,10 @@ This information is required for login:
 | Database | [postgres-db]       |
 
 Values in square brackets are [Docker secrets](https://docs.docker.com/engine/swarm/secrets/).
+
+### cadvisor
+
+You can access the container metrics at [cadvisor.app.localhost](https://cadvisor.app.localhost/).
 
 ### cloudflared *(production only)*
 
@@ -82,6 +86,10 @@ You cannot access the caching system via a web interface.
 You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
 You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
 
+### node-exporter
+
+You can view host metrics in the Grafana observation dashboard.
+
 ### portainer
 
 You can access the container manager's frontend at [portainer.app.localhost](https://portainer.app.localhost/).
@@ -110,7 +118,15 @@ You can access the metrics monitoring at [prometheus.app.localhost](https://prom
 
 You cannot access the recommendation service directly.
 
-### reccoom_postgres
+### reccoom-consumer
+
+You can track the recommender's event streaming consumer using `redpanda-console`.
+
+### reccoom-migration
+
+You cannot access the recommender's database migration service directly.
+
+### reccoom-postgres
 
 You can access reccoom's database via `adminer`.
 

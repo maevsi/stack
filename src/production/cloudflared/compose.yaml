@@ -9,4 +9,4 @@ services:
         order: start-first
     environment:
       TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN}
-    image: cloudflare/cloudflared
+    image: cloudflare/cloudflared:2026.7.1

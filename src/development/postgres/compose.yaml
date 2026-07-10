@@ -17,6 +17,12 @@ secrets:
   postgres-role-service-postgraphile-username:
     # The username of the GraphQL API database wrapper's database role.
     file: ../../../artifacts/secrets/postgres-role-service-postgraphile-username.secret
+  postgres-role-service-reccoom-password:
+    # The password of the recommendation engine's database role.
+    file: ../../../artifacts/secrets/postgres-role-service-reccoom-password.secret
+  postgres-role-service-reccoom-username:
+    # The username of the recommendation engine's database role.
+    file: ../../../artifacts/secrets/postgres-role-service-reccoom-username.secret
   postgres-role-service-vibetype-password:
     # The `vibetype` database role's password.
     file: ../../../artifacts/secrets/postgres-role-service-vibetype-password.secret
@@ -43,6 +49,12 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres-db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
       POSTGRES_USER_FILE: /run/secrets/postgres-user
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$(cat /run/secrets/postgres_user) -d $$(cat /run/secrets/postgres_db)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     image: postgis/postgis:18-3.6-alpine
     ports: # dargstack:dev-only
       - 5432:5432 # dargstack:dev-only
@@ -64,7 +76,7 @@ volumes:
 x-dargstack:
   secrets:
     postgres-db:
-      type: word
+      type: wordlist_word
     postgres-password:
       special_characters: false
       type: random_string
@@ -72,21 +84,26 @@ x-dargstack:
       special_characters: false
       type: random_string
     postgres-role-service-grafana-username:
-      type: word
+      type: wordlist_word
     postgres-role-service-postgraphile-password:
       special_characters: false
       type: random_string
     postgres-role-service-postgraphile-username:
-      type: word
+      type: wordlist_word
+    postgres-role-service-reccoom-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-reccoom-username:
+      type: wordlist_word
     postgres-role-service-vibetype-password:
       special_characters: false
       type: random_string
     postgres-role-service-vibetype-username:
-      type: word
+      type: wordlist_word
     postgres-role-service-zammad-password:
       special_characters: false
       type: random_string
     postgres-role-service-zammad-username:
-      type: word
+      type: wordlist_word
     postgres-user:
-      type: word
+      type: wordlist_word

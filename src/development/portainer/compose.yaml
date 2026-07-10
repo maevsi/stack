@@ -21,6 +21,12 @@ services:
         constraints:
           - node.role == manager
       replicas: 1
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9000/api/system/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     image: portainer/portainer-ce:2.43.0-alpine
     secrets:
       - portainer-admin-password

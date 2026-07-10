@@ -1,3 +1,271 @@
+## [18.5.3](https://github.com/maevsi/stack/compare/18.5.2...18.5.3) (2026-07-09)
+
+## [18.5.2](https://github.com/maevsi/stack/compare/18.5.1...18.5.2) (2026-07-05)
+
+## [18.5.1](https://github.com/maevsi/stack/compare/18.5.0...18.5.1) (2026-07-01)
+
+## [18.5.0](https://github.com/maevsi/stack/compare/18.4.2...18.5.0) (2026-07-01)
+
+## [18.4.2](https://github.com/maevsi/stack/compare/18.4.1...18.4.2) (2026-06-29)
+
+## [18.4.1](https://github.com/maevsi/stack/compare/18.4.0...18.4.1) (2026-06-21)
+
+### Bug Fixes
+
+* schedule release ([2960b39](https://github.com/maevsi/stack/commit/2960b396c9170222462388e6d244e733850a0257))
+
+## [18.4.0](https://github.com/maevsi/stack/compare/18.3.5...18.4.0) (2026-06-11)
+
+### Features
+
+* **reccoom:** add model api key secret ([#271](https://github.com/maevsi/stack/issues/271)) ([f462768](https://github.com/maevsi/stack/commit/f462768838736950b5f0f9a211b6c34241225956))
+
+## [18.3.5](https://github.com/maevsi/stack/compare/18.3.4...18.3.5) (2026-06-07)
+
+### Bug Fixes
+
+* schedule release ([fb21d30](https://github.com/maevsi/stack/commit/fb21d3011213bb666d2832b74ed7c8498e9affb9))
+
+## [18.3.4](https://github.com/maevsi/stack/compare/18.3.3...18.3.4) (2026-05-28)
+
+### Bug Fixes
+
+* **deps:** update maevsi/postgraphile to v2.1.3 ([e2aef64](https://github.com/maevsi/stack/commit/e2aef6439425677bb9b0b309500b2bdf671343c1))
+
+## [18.3.3](https://github.com/maevsi/stack/compare/18.3.2...18.3.3) (2026-05-28)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([73a55d8](https://github.com/maevsi/stack/commit/73a55d8ccbebfc90fdac81348794de1bf159ac4b))
+
+## [18.3.2](https://github.com/maevsi/stack/compare/18.3.1...18.3.2) (2026-05-28)
+
+### Bug Fixes
+
+* **reccoom:** correct production images for sibling services ([1e69dab](https://github.com/maevsi/stack/commit/1e69dabfed0fdb9395f4a920f20fe596cd394b1c))
+
+## [18.3.1](https://github.com/maevsi/stack/compare/18.3.0...18.3.1) (2026-05-28)
+
+### Bug Fixes
+
+* **deps:** update dargmuesli/github-actions to v5.4.0 ([fbccad5](https://github.com/maevsi/stack/commit/fbccad5c36a7eebcecd23518d26efbeba62ea2e0))
+
+## [18.3.0](https://github.com/maevsi/stack/compare/18.2.1...18.3.0) (2026-05-27)
+
+### Features
+
+* **postgraphile:** remove forward authentication middleware ([b99c38b](https://github.com/maevsi/stack/commit/b99c38b5003a0ba16779bfbc58873edc22d9fe0c))
+
+## [18.2.1](https://github.com/maevsi/stack/compare/18.2.0...18.2.1) (2026-05-24)
+
+### Bug Fixes
+
+* **ci:** enable corepack instead of installing node dependencies ([065af8f](https://github.com/maevsi/stack/commit/065af8f1bc500c12c95f144c33541f8c4c868c9e))
+
+## [18.2.0](https://github.com/maevsi/stack/compare/18.1.1...18.2.0) (2026-05-24)
+
+### Features
+
+* **reccoom:** add consumer ([2fd08a5](https://github.com/maevsi/stack/commit/2fd08a579da0c2070567d1f0adcb2d617b18ea9b))
+
+### Bug Fixes
+
+* schedule release ([57f724a](https://github.com/maevsi/stack/commit/57f724ab3b368a605f04daaabd5bf56b5ca324b7))
+* **vibetype:** allow csrf header for cors ([c8ce494](https://github.com/maevsi/stack/commit/c8ce494ad42229194c10eda359fc14e18121b538))
+* **zammad:** correct boolean yaml syntax ([601f56e](https://github.com/maevsi/stack/commit/601f56e382dc66b78d7ae75ff7e4c733be53b9f2))
+* **zammad:** disable elasticsearch integration ([02eb7cb](https://github.com/maevsi/stack/commit/02eb7cbf07b5e59ceb3d3655644f711490ba166c))
+
+## [18.1.1](https://github.com/maevsi/stack/compare/18.1.0...18.1.1) (2026-05-10)
+
+### Bug Fixes
+
+* **reccoom:** drop all volumes for production ([94e8a64](https://github.com/maevsi/stack/commit/94e8a643b9d456ad03941cc9609c70a5979afb9a))
+
+## [18.1.0](https://github.com/maevsi/stack/compare/18.0.7...18.1.0) (2026-05-05)
+
+### Features
+
+* **reccoom:** add migration service ([ebc7fc9](https://github.com/maevsi/stack/commit/ebc7fc9a980790109c726dd1c2a6be7eddfe759f))
+
+## [18.0.7](https://github.com/maevsi/stack/compare/18.0.6...18.0.7) (2026-05-01)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v15.1.1 ([7a0ab13](https://github.com/maevsi/stack/commit/7a0ab13d6128c542853f0d4b9c9a0e84e72dbf23))
+
+## [18.0.6](https://github.com/maevsi/stack/compare/18.0.5...18.0.6) (2026-05-01)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v15.1.0 ([6e53de3](https://github.com/maevsi/stack/commit/6e53de351a2be052839de47c706ac64c2e40994d))
+
+## [18.0.5](https://github.com/maevsi/stack/compare/18.0.4...18.0.5) (2026-04-21)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v15.0.4 ([d0d172f](https://github.com/maevsi/stack/commit/d0d172f42d5d3aa314c77036c5d2694035915afc))
+
+## [18.0.4](https://github.com/maevsi/stack/compare/18.0.3...18.0.4) (2026-04-21)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v15.0.3 ([5248d72](https://github.com/maevsi/stack/commit/5248d727721571e37fcfe406fe0a616dffb72b0c))
+
+## [18.0.3](https://github.com/maevsi/stack/compare/18.0.2...18.0.3) (2026-04-14)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype to v15.0.2 ([cf2aae7](https://github.com/maevsi/stack/commit/cf2aae7f7b754dcadbfb14e1cd574a651cb2909b))
+
+## [18.0.2](https://github.com/maevsi/stack/compare/18.0.1...18.0.2) (2026-04-14)
+
+### Bug Fixes
+
+* **vibetype:** correct environment variables ([333e7ae](https://github.com/maevsi/stack/commit/333e7ae8e0dd5fd6a9e88c2510fff863bb8ce35c))
+
+## [18.0.1](https://github.com/maevsi/stack/compare/18.0.0...18.0.1) (2026-04-14)
+
+### Bug Fixes
+
+* zammad ([c144ae1](https://github.com/maevsi/stack/commit/c144ae181b75132d5fbb24a96659970c6b61e9f7))
+
+## [18.0.0](https://github.com/maevsi/stack/compare/17.2.6...18.0.0) (2026-04-14)
+
+### ⚠ BREAKING CHANGES
+
+* **vibetype:** switch from monday to zammad
+
+### Features
+
+* **vibetype:** switch from monday to zammad ([a58e551](https://github.com/maevsi/stack/commit/a58e551680a48c5884a0317121b123b0909d9857))
+
+## [17.2.6](https://github.com/maevsi/stack/compare/17.2.5...17.2.6) (2026-04-14)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v14.1.3 ([63efe50](https://github.com/maevsi/stack/commit/63efe503c1fc299767ea7c721599e323f6cd3958))
+
+## [17.2.5](https://github.com/maevsi/stack/compare/17.2.4...17.2.5) (2026-04-14)
+
+### Bug Fixes
+
+* **reccoom:** correct environment variable naming ([975895e](https://github.com/maevsi/stack/commit/975895e6767d1350ef6be3fcfec184bb2e74a491))
+
+## [17.2.4](https://github.com/maevsi/stack/compare/17.2.3...17.2.4) (2026-04-14)
+
+### Bug Fixes
+
+* **postgres:** use correct user and database for healthcheck ([82e121d](https://github.com/maevsi/stack/commit/82e121d2844bf4f21bbc55e91dafb4bd0913d717))
+
+## [17.2.3](https://github.com/maevsi/stack/compare/17.2.2...17.2.3) (2026-04-14)
+
+### Performance Improvements
+
+* **elasticsearch:** disable temporarily ([0ed9183](https://github.com/maevsi/stack/commit/0ed9183c86bc7d8c64fa0bd665a290f31c778a01))
+
+## [17.2.2](https://github.com/maevsi/stack/compare/17.2.1...17.2.2) (2026-04-14)
+
+### Bug Fixes
+
+* **sqitch:** restart on failure only ([00598b8](https://github.com/maevsi/stack/commit/00598b86d3f92a419c1d8fd74cb21d37b13e58a8))
+
+## [17.2.1](https://github.com/maevsi/stack/compare/17.2.0...17.2.1) (2026-04-14)
+
+### Bug Fixes
+
+* **postgraphile:** resolve certs for ruru ([7523091](https://github.com/maevsi/stack/commit/752309141c49831027a7bbb4eb9d3cd9816bf814))
+
+## [17.2.0](https://github.com/maevsi/stack/compare/17.1.1...17.2.0) (2026-04-12)
+
+### Features
+
+* **docker:** add healthchecks ([3b6358b](https://github.com/maevsi/stack/commit/3b6358b98f9b2236e884dc63beddb0f31961820f))
+
+### Performance Improvements
+
+* **cadvisor:** add ([97d4197](https://github.com/maevsi/stack/commit/97d4197b4c2f18de8aef0738a04567121fe95b3d))
+
+## [17.1.1](https://github.com/maevsi/stack/compare/17.1.0...17.1.1) (2026-04-12)
+
+### Bug Fixes
+
+* **reccoom:** add missing secrets ([f2d2ae5](https://github.com/maevsi/stack/commit/f2d2ae5aab036491fe143f5221aa770725705bcd))
+
+## [17.1.0](https://github.com/maevsi/stack/compare/17.0.5...17.1.0) (2026-04-11)
+
+### Features
+
+* **reccoom:** add postgres role ([7390264](https://github.com/maevsi/stack/commit/7390264fe551dffe76dfa9841f856c605da297cd))
+
+## [17.0.5](https://github.com/maevsi/stack/compare/17.0.4...17.0.5) (2026-04-10)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v14.1.0 ([d129bdf](https://github.com/maevsi/stack/commit/d129bdf8032734681ccf86daf45d9cfb53fa2660))
+
+## [17.0.4](https://github.com/maevsi/stack/compare/17.0.3...17.0.4) (2026-04-07)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/postgraphile to v2.0.1 ([a64615e](https://github.com/maevsi/stack/commit/a64615e49d88cb5c69db7b48082b3ef722007216))
+
+## [17.0.3](https://github.com/maevsi/stack/compare/17.0.2...17.0.3) (2026-04-07)
+
+### Bug Fixes
+
+* **postgraphile:** add container registry prefix ([af7f85b](https://github.com/maevsi/stack/commit/af7f85b6ff84a35a1d6da47596bd720558439e4f))
+
+## [17.0.2](https://github.com/maevsi/stack/compare/17.0.1...17.0.2) (2026-04-07)
+
+### Bug Fixes
+
+* **postgraphile:** update jwt public key ([d7dc0bd](https://github.com/maevsi/stack/commit/d7dc0bd2ca50a9dd61d55ff4733889a7b6d8948f))
+
+## [17.0.1](https://github.com/maevsi/stack/compare/17.0.0...17.0.1) (2026-04-04)
+
+### Bug Fixes
+
+* **deps:** update redpandadata/redpanda docker tag to v26 ([f6dfad9](https://github.com/maevsi/stack/commit/f6dfad97a5ab3f9e559f5b04f749576b58593d65))
+
+## [17.0.0](https://github.com/maevsi/stack/compare/16.1.12...17.0.0) (2026-04-04)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** upgrade maevsi/sqitch to v11
+* **deps:** upgrade maevsi/vibetype to v14
+* **postgraphile:** upgrade to v2
+* **postgraphile:** upgrade to v5
+* **postgraphile:** change forward authorization path
+
+### Features
+
+* **postgraphile:** change forward authorization path ([0e9cc64](https://github.com/maevsi/stack/commit/0e9cc64501ec547b5bddef83dda8a202a94ff203))
+* **postgraphile:** upgrade to v2 ([66a6a3f](https://github.com/maevsi/stack/commit/66a6a3f982dec6a3679f1fe4ab8d1bf8fd8cbd77))
+* **postgraphile:** upgrade to v5 ([0113383](https://github.com/maevsi/stack/commit/011338398447c002aaf4682f06aeaee238f3b3b8))
+* **vibetype:** allow csrf token access control header ([1ccdd94](https://github.com/maevsi/stack/commit/1ccdd94c7f87fc570212f6cf8c5ad281632e743f))
+
+### Miscellaneous Chores
+
+* **deps:** upgrade maevsi/sqitch to v11 ([52c79cc](https://github.com/maevsi/stack/commit/52c79cc651bf4bf8e2ea533bc780191129a5dadc))
+* **deps:** upgrade maevsi/vibetype to v14 ([2f361b1](https://github.com/maevsi/stack/commit/2f361b13a22b0cc78db84dd84c0b07d3a81ff2fb))
+
+## [17.0.0-beta.6](https://github.com/maevsi/stack/compare/17.0.0-beta.5...17.0.0-beta.6) (2026-04-03)
+
+### Bug Fixes
+
+* schedule release ([ea30303](https://github.com/maevsi/stack/commit/ea30303b47eadec1d99300c7f4393ab428274e91))
+* schedule release ([241dd6d](https://github.com/maevsi/stack/commit/241dd6d5d51f6b21066423a2057a50a4d7eed22a))
+
+## [17.0.0-beta.5](https://github.com/maevsi/stack/compare/17.0.0-beta.4...17.0.0-beta.5) (2026-04-03)
+
+### ⚠ BREAKING CHANGES
+
+* **postgraphile:** upgrade to v2
+
+### Features
+
+* **postgraphile:** upgrade to v2 ([66a6a3f](https://github.com/maevsi/stack/commit/66a6a3f982dec6a3679f1fe4ab8d1bf8fd8cbd77))
+
 ## [17.0.0-beta.4](https://github.com/maevsi/stack/compare/17.0.0-beta.3...17.0.0-beta.4) (2026-03-11)
 
 ### Bug Fixes
@@ -45,6 +313,18 @@
 
 * **postgraphile:** change forward authorization path ([0e9cc64](https://github.com/maevsi/stack/commit/0e9cc64501ec547b5bddef83dda8a202a94ff203))
 * **vibetype:** allow csrf token access control header ([1ccdd94](https://github.com/maevsi/stack/commit/1ccdd94c7f87fc570212f6cf8c5ad281632e743f))
+
+## [16.1.12](https://github.com/maevsi/stack/compare/16.1.11...16.1.12) (2026-03-29)
+
+### Bug Fixes
+
+* schedule release ([ea30303](https://github.com/maevsi/stack/commit/ea30303b47eadec1d99300c7f4393ab428274e91))
+
+## [16.1.11](https://github.com/maevsi/stack/compare/16.1.10...16.1.11) (2026-03-22)
+
+### Bug Fixes
+
+* schedule release ([241dd6d](https://github.com/maevsi/stack/commit/241dd6d5d51f6b21066423a2057a50a4d7eed22a))
 
 ## [16.1.10](https://github.com/maevsi/stack/compare/16.1.9...16.1.10) (2026-03-08)
 

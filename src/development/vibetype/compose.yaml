@@ -8,15 +8,18 @@ secrets:
   vibetype-firebase-service-account-credentials:
     # The notification provider's service account credentials.
     file: ../../../artifacts/secrets/vibetype-firebase-service-account-credentials.secret
-  vibetype-monday:
-    # The project management software's configuration.
-    file: ../../../artifacts/secrets/vibetype-monday.secret
   vibetype-openai-api-key:
     # The AI provider's API key for the frontend.
     file: ../../../artifacts/secrets/vibetype-openai-api-key.secret
   vibetype-turnstile-key:
     # The captcha provider's application key.
     file: ../../../artifacts/secrets/vibetype-turnstile-key.secret
+  vibetype-zammad:
+    # The ticket system's configuration.
+    file: ../../../artifacts/secrets/vibetype-zammad.secret
+  vibetype-zammad-api-token:
+    # The ticket system's API token.
+    file: ../../../artifacts/secrets/vibetype-zammad-api-token.secret
 services:
   vibetype:
     # You can access the main project's frontend at [app.localhost](https://app.localhost/).
@@ -25,7 +28,7 @@ services:
         - dargstack.development.build=../../../../vibetype
         - dargstack.profiles=default
         - traefik.enable=true
-        - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowHeaders=authorization,content-type,hook-name,x-turnstile-key
+        - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowHeaders=authorization,content-type,hook-name,x-csrf-token,x-turnstile-key
         - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowMethods=GET,POST,PUT,DELETE
         - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowOriginList=https://localhost:3000,https://app.localhost:3000
         - traefik.http.middlewares.vibetype-redirectregex.redirectregex.regex=^https?:\/\/www\.${STACK_DOMAIN}\/(.*)
@@ -49,17 +52,17 @@ services:
     image: vibetype/vibetype:development
     secrets:
       - source: vibetype-api-notification-secret
-        target: /run/environment-variables/NUXT_PRIVATE_API_NOTIFICATION_SECRET
+        target: /run/environment-variables/NUXT_API_NOTIFICATION_SECRET
       - source: vibetype-aws-credentials
         target: /home/node/.aws/credentials
       - source: vibetype-firebase-service-account-credentials
         target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
-      - source: vibetype-monday
-        target: /run/environment-variables/NUXT_PRIVATE_MONDAY
       - source: vibetype-openai-api-key
-        target: /run/environment-variables/NUXT_PRIVATE_OPENAI_API_KEY
+        target: /run/environment-variables/NUXT_OPENAI_API_KEY
       - source: vibetype-turnstile-key
         target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
+      - source: vibetype-zammad
+        target: /run/environment-variables/NUXT_VIBETYPE_ZAMMAD
       - source: postgres-db
         target: /run/environment-variables/PGDATABASE
       - source: postgres-role-service-vibetype-password
@@ -84,9 +87,16 @@ x-dargstack:
       type: third_party
     vibetype-firebase-service-account-credentials:
       type: third_party
-    vibetype-monday:
-      type: third_party
     vibetype-openai-api-key:
       type: third_party
     vibetype-turnstile-key:
+      type: third_party
+    vibetype-zammad:
+      template: |
+        {
+          "apiToken": "{{secret:vibetype-zammad-api-token}}",
+          "group": "Users",
+          "url": "https://support.example.com"
+        }
+    vibetype-zammad-api-token:
       type: third_party

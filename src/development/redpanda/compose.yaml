@@ -12,12 +12,12 @@ services:
     deploy:
       labels:
         - dargstack.profiles=event-streaming
-    # healthcheck:
-    #   test: ["CMD-SHELL", "output=$(rpk cluster health --json); echo \"$output\" | grep -q '\"healthy\":true' || { echo \"$output\"; exit 1; }"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 10s
+    healthcheck:
+      test: ["CMD", "rpk", "cluster", "health", "--exit-when-healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     image: redpandadata/redpanda:v26.1.12
     volumes:
       - redpanda-data:/var/lib/redpanda/data
@@ -36,6 +36,12 @@ services:
         - traefik.http.services.redpanda.loadbalancer.server.port=8080
     environment:
       CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/admin/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     image: redpandadata/console:v3.8.0
     volumes:
       - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro

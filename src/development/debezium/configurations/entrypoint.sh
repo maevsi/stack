@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
 
 CONNECTOR_NAME="postgres-connector"
 DEBEZIUM_URL="http://debezium:8083/connectors"
@@ -12,36 +13,22 @@ while ! curl --output /dev/null --silent --show-error "$DEBEZIUM_URL"; do
     sleep 5
 done
 
-echo "Debezium is ready. Registering PostgreSQL connector..."
+echo "Debezium is ready. Ensuring PostgreSQL connector is up to date..."
 
-# Check if the connector already exists
-HTTP_STATUS=$(curl --output /dev/null --silent --show-error -w "%{http_code}" "$DEBEZIUM_URL/$CONNECTOR_NAME")
+# PUT is idempotent: creates if missing, updates if config changed,
+# no-op if unchanged. Preserves WAL offsets across config updates.
+curl --fail --output /dev/null --silent --show-error \
+    -X PUT "$DEBEZIUM_URL/$CONNECTOR_NAME/config" \
+    -H "Content-Type: application/json" \
+    -d '{
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.dbname": "'"$POSTGRES_DB"'",
+    "database.hostname": "postgres",
+    "database.password": "'"$POSTGRES_PASSWORD"'",
+    "database.user": "'"$POSTGRES_USER"'",
+    "plugin.name": "pgoutput",
+    "table.include.list": "vibetype.event,vibetype.upload,vibetype_private.notification",
+    "topic.prefix" : "vibetype"
+}'
 
-if [ "$HTTP_STATUS" -eq 200 ]; then
-    echo "Connector '$CONNECTOR_NAME' already exists. Skipping registration."
-elif [ "$HTTP_STATUS" -eq 404 ]; then
-    echo "Connector '$CONNECTOR_NAME' does not exist. Registering..."
-
-    # Register the Debezium PostgreSQL connector
-    curl --output /dev/null --silent --show-error \
-        -X POST $DEBEZIUM_URL \
-        -H "Content-Type: application/json" \
-        -d '{
-        "name": "'"$CONNECTOR_NAME"'",
-        "config": {
-            "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-            "database.dbname": "'"$POSTGRES_DB"'",
-            "database.hostname": "postgres",
-            "database.password": "'"$POSTGRES_PASSWORD"'",
-            "database.user": "'"$POSTGRES_USER"'",
-            "plugin.name": "pgoutput",
-            "table.include.list": "vibetype.upload,vibetype_private.notification",
-            "topic.prefix" : "vibetype"
-        }
-    }'
-
-    echo "PostgreSQL connector '$CONNECTOR_NAME' registered."
-else
-    echo "Failed to query Debezium API. HTTP status: $HTTP_STATUS"
-    exit 1
-fi
+echo "PostgreSQL connector '$CONNECTOR_NAME' is up to date."

@@ -9,12 +9,16 @@ services:
       labels:
         - dargstack.development.build=../../../../sqitch
         - dargstack.profiles=default
+      restart_policy:
+        condition: on-failure
     image: vibetype/sqitch:development
     secrets:
       - postgres-role-service-grafana-password
       - postgres-role-service-grafana-username
       - postgres-role-service-postgraphile-password
       - postgres-role-service-postgraphile-username
+      - postgres-role-service-reccoom-password
+      - postgres-role-service-reccoom-username
       - postgres-role-service-vibetype-password
       - postgres-role-service-vibetype-username
       - postgres-role-service-zammad-username

@@ -1,0 +1,6 @@
+services:
+  adminer:
+    deploy:
+      labels: (( prune ))
+      update_config:
+        order: start-first

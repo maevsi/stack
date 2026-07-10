@@ -1,0 +1,26 @@
+services:
+  node-exporter:
+    # You can view host metrics in the Grafana observation dashboard.
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9100/metrics"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    image: quay.io/prometheus/node-exporter:v1.11.1
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --path.procfs=/host/proc
+      - --path.rootfs=/rootfs
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)

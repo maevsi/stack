@@ -30,15 +30,15 @@ services:
       - source: jobber-msmtprc
         target: /etc/msmtprc
     volumes:
-      - ./configurations/sinks:/srv/sinks:ro
       - ./configurations/.jobber:/home/jobberuser/.jobber:ro
+      - ./configurations/sinks:/srv/sinks:ro
 x-dargstack:
   secrets:
     jobber-aliases:
       type: insecure_default
       insecure_default: "default: mail@localhost"
     jobber-aws-bucket:
-      type: word
+      type: wordlist_word
     jobber-aws-credentials:
       type: insecure_default
       insecure_default: |

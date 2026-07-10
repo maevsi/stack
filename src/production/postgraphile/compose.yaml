@@ -3,8 +3,9 @@ services:
     deploy:
       labels:
         - (( append ))
-        - traefik.http.routers.postgraphile.middlewares=postgraphile-auth,postgraphile-cors
+        - traefik.http.routers.postgraphile.middlewares=postgraphile-cors,redirectscheme
         - traefik.http.routers.postgraphile-secure.tls.certresolver=default
+        - traefik.http.routers.postgraphile_secure_ruru.tls.certresolver=default
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/postgraphile:2.0.0-beta.1
+    image: ghcr.io/maevsi/postgraphile:2.1.6

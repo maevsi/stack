@@ -16,9 +16,6 @@ services:
         - dargstack.development.build=../../../../postgraphile
         - dargstack.profiles=default
         - traefik.enable=true
-        - traefik.http.middlewares.postgraphile-auth.forwardauth.address=http://vibetype:3000/api/internal/service/postgraphile/authentication
-        - traefik.http.middlewares.postgraphile-auth.forwardauth.forwardBody=true
-        - traefik.http.middlewares.postgraphile-auth.forwardauth.preserveRequestMethod=true
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowCredentials=true
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowHeaders=authorization
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN},https://localhost:3000,https://app.localhost:3000
@@ -26,12 +23,12 @@ services:
         - traefik.http.routers.postgraphile.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile-secure.entryPoints=web-secure
-        - traefik.http.routers.postgraphile-secure.middlewares=postgraphile-auth,postgraphile-cors
+        - traefik.http.routers.postgraphile-secure.middlewares=postgraphile-cors
         - traefik.http.routers.postgraphile-secure.rule=Host(`postgraphile.${STACK_DOMAIN}`) && Path(`/graphql`)
         - traefik.http.routers.postgraphile-secure.tls.options=mintls13@file # dargstack:dev-only
-        - traefik.http.routers.postgraphile-secure-graphiql.entryPoints=web-secure
-        - traefik.http.routers.postgraphile-secure-graphiql.rule=Host(`postgraphile.${STACK_DOMAIN}`)
-        - traefik.http.routers.postgraphile-secure-graphiql.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.routers.postgraphile-secure-ruru.entryPoints=web-secure
+        - traefik.http.routers.postgraphile-secure-ruru.rule=Host(`postgraphile.${STACK_DOMAIN}`)
+        - traefik.http.routers.postgraphile-secure-ruru.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.postgraphile.loadbalancer.server.port=5678
     # # Use the DEBUG environment variable for extended debugging.
     # environment:

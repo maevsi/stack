@@ -34,6 +34,12 @@ services:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana-admin-password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana-admin-user
       GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     image: grafana/grafana:12.4.5
     secrets:
       - grafana-admin-email
@@ -59,7 +65,7 @@ x-dargstack:
     grafana-admin-password:
       type: random_string
     grafana-admin-user:
-      type: word
+      type: wordlist_word
     grafana-discord-webhook:
       hint: https://discord.com/api/webhooks/<id>/<id>
       type: third_party

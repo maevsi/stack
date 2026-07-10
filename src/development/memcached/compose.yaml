@@ -4,5 +4,11 @@ services:
     deploy:
       labels:
         - dargstack.profiles=zammad
+    healthcheck:
+      test: ["CMD-SHELL", "echo version | nc -w1 localhost 11211 | grep -q VERSION || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     image: memcached:1.6.44-alpine
     # command: memcached -m 256M

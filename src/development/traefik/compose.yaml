@@ -6,6 +6,7 @@ services:
       - --entryPoints.web.address=:80
       - --entryPoints.web-secure.address=:443
       - --entryPoints.web-secure.http.encodedCharacters.allowEncodedSlash=true # dargstack:dev-only # required for Nuxt's virtual imports
+      - --ping=true
       - --providers.swarm=true
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --providers.swarm.exposedByDefault=false
@@ -30,6 +31,12 @@ services:
       placement:
         constraints:
           - node.role == manager
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     image: traefik:v3.7.7
     ports: # dargstack:dev-only
       - mode: host # dargstack:dev-only

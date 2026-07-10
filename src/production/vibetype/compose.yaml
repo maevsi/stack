@@ -33,13 +33,13 @@ services:
   #   image: ghcr.io/maevsi/vibetype:11.0.2
   #   secrets:
   #     - source: vibetype-api-notification-secret
-  #       target: /run/environment-variables/NUXT_PRIVATE_API_NOTIFICATION_SECRET
+  #       target: /run/environment-variables/NUXT_API_NOTIFICATION_SECRET
   #     - source: vibetype-aws-credentials
   #       target: /home/node/.aws/credentials # TODO: switch to user `node`
   #     - source: vibetype-firebase-service-account-credentials
   #       target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
   #     - source: vibetype-openai-api-key
-  #       target: /run/environment-variables/NUXT_PRIVATE_OPENAI_API_KEY
+  #       target: /run/environment-variables/NUXT_OPENAI_API_KEY
   #     - source: vibetype-turnstile-key
   #       target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
   #     - source: postgres-db

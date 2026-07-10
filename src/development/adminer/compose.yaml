@@ -23,6 +23,12 @@ services:
         - traefik.http.routers.adminer-secure.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.adminer.loadbalancer.server.port=8080
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     image: adminer:5.4.2-standalone
     volumes:
       - ./configurations/adminer.css:/var/www/html/adminer.css:ro
