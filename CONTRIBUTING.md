@@ -33,8 +33,6 @@ Clone this repository into the directory where you want the project to live, the
 cd /path/to/where/you/want/the/project
 git clone https://github.com/maevsi/stack.git
 cd stack
-
-```sh
 bash scripts/setup.sh
 ```
 

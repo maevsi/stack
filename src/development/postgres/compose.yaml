@@ -27,7 +27,7 @@ secrets:
     # The `vibetype` database role's password.
     file: ../../../artifacts/secrets/postgres-role-service-vibetype-password.secret
   postgres-role-service-vibetype-username:
-    # The `vibetype` database role's password.
+    # The `vibetype` database role's username.
     file: ../../../artifacts/secrets/postgres-role-service-vibetype-username.secret
   postgres-role-service-zammad-password:
     # The password of the customer service database role.
@@ -50,7 +50,7 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
       POSTGRES_USER_FILE: /run/secrets/postgres-user
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$(cat /run/secrets/postgres_user) -d $$(cat /run/secrets/postgres_db)"]
+      test: ["CMD-SHELL", "pg_isready -U $$(cat /run/secrets/postgres-user) -d $$(cat /run/secrets/postgres-db)"]
       interval: 10s
       timeout: 5s
       retries: 5

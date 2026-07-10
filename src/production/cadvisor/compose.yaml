@@ -1,6 +1,8 @@
 services:
-  adminer:
+  cadvisor:
     deploy:
-      labels: (( prune ))
+      labels:
+        - (( append ))
+        - traefik.http.routers.cadvisor-secure.tls.certresolver=default
       update_config:
         order: start-first

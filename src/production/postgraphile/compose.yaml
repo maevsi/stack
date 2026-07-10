@@ -5,7 +5,7 @@ services:
         - (( append ))
         - traefik.http.routers.postgraphile.middlewares=postgraphile-cors,redirectscheme
         - traefik.http.routers.postgraphile-secure.tls.certresolver=default
-        - traefik.http.routers.postgraphile_secure_ruru.tls.certresolver=default
+        - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
       update_config:
         order: start-first
     image: ghcr.io/maevsi/postgraphile:2.1.6
