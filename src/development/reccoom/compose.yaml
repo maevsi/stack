@@ -43,7 +43,7 @@ services:
       POSTGRES_DB_FILE: /run/secrets/postgres-db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
       POSTGRES_USER_FILE: /run/secrets/postgres-user
-    image: pgvector/pgvector:0.8.2-pg18
+    image: pgvector/pgvector:0.8.5-pg18
     ports: # dargstack:dev-only
       - 5433:5432 # dargstack:dev-only
     secrets:
