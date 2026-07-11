@@ -8,6 +8,9 @@ secrets:
   postgraphile-owner-connection:
     # The GraphQL API's database owner URI.
     file: ../../../artifacts/secrets/postgraphile-owner-connection.secret
+  postgraphile-sentry-dsn:
+    # The GraphQL API's Sentry DSN.
+    file: ../../../artifacts/secrets/postgraphile-sentry-dsn.secret
 services:
   postgraphile:
     # You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
@@ -41,6 +44,8 @@ services:
         target: /run/environment-variables/POSTGRAPHILE_JWT_SECRET_KEY
       - source: postgraphile-owner-connection
         target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
+      - source: postgraphile-sentry-dsn
+        target: /run/environment-variables/POSTGRAPHILE_SENTRY_DSN
     volumes:
       - ../../../../postgraphile/:/srv/app/ # dargstack:dev-only
       - ./configurations/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
@@ -61,3 +66,5 @@ x-dargstack:
     postgraphile-owner-connection:
       type: template
       template: postgres://{{secret:postgres-user}}:{{secret:postgres-password}}@postgres:5432/{{secret:postgres-db}}
+    postgraphile-sentry-dsn:
+      type: third_party
