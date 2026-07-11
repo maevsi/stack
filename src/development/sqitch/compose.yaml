@@ -30,4 +30,4 @@ x-dargstack:
   secrets:
     sqitch-target:
       type: template
-      template: postgres://{{secret:postgres-user}}:{{secret:postgres-password}}@postgres:5432/{{secret:postgres-db}}
+      template: db:pg://{{secret:postgres-user}}:{{secret:postgres-password}}@postgres:5432/{{secret:postgres-db}}

@@ -49,10 +49,10 @@ x-dargstack:
       type: template
       template: |
         [default]
-        region = <s3-region>
+        region = {{secret:jobber-aws-configuration-region}}
 
         s3 =
-          endpoint_url = <s3-endpoint>
+          endpoint_url = {{secret:jobber-aws-configuration-s3-endpoint}}
           signature_version = s3v4
           max_concurrent_requests = 100
           max_queue_size = 1000
@@ -60,10 +60,14 @@ x-dargstack:
           # Edit the multipart_chunksize value according to the file sizes that you want to upload. The present configuration allows to upload files up to 10 GB (100 requests * 10MB). For example setting it to 5GB allows you to upload files up to 5TB.
           multipart_chunksize = 10MB
         s3api =
-          endpoint_url = <s3-endpoint>
+          endpoint_url = {{secret:jobber-aws-configuration-s3-endpoint}}
 
         [plugins]
         endpoint = awscli_plugin_endpoint
+    jobber-aws-configuration-region:
+      type: third_party
+    jobber-aws-configuration-s3-endpoint:
+      type: third_party
     jobber-msmtprc:
       type: template
       template: |
@@ -75,12 +79,12 @@ x-dargstack:
         syslog         on
 
         # <name>
-        account        <name>
-        host           <host>
-        port           <port>
-        from           <email>
-        user           <email>
-        password       <password>
+        account        {{secret:jobber-msmtprc-account}}
+        from           {{secret:jobber-msmtprc-from}}
+        host           {{secret:jobber-msmtprc-host}}
+        password       {{secret:jobber-msmtprc-password}}
+        port           {{secret:jobber-msmtprc-port}}
+        user           {{secret:jobber-msmtprc-user}}
         # or
         #auth           off
         #tls            off
@@ -88,3 +92,15 @@ x-dargstack:
         # Set a default account
         account default : <name>
         aliases        /etc/aliases
+    jobber-msmtprc-account:
+      type: third_party
+    jobber-msmtprc-from:
+      type: third_party
+    jobber-msmtprc-host:
+      type: third_party
+    jobber-msmtprc-password:
+      type: third_party
+    jobber-msmtprc-port:
+      type: third_party
+    jobber-msmtprc-user:
+      type: third_party
