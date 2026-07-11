@@ -1,19 +1,19 @@
 secrets:
   jobber-aliases:
     # The job scheduler's SMTP client mail alias.
-    file: ../../../artifacts/secrets/jobber-aliases.secret
+    file: ~~/artifacts/secrets/jobber-aliases.secret
   jobber-aws-bucket:
     # The job scheduler's AWS bucket name.
-    file: ../../../artifacts/secrets/jobber-aws-bucket.secret
+    file: ~~/artifacts/secrets/jobber-aws-bucket.secret
   jobber-aws-credentials:
     # The job scheduler's AWS credentials.
-    file: ../../../artifacts/secrets/jobber-aws-credentials.secret
+    file: ~~/artifacts/secrets/jobber-aws-credentials.secret
   jobber-aws-configuration:
     # The job scheduler's AWS configuration.
-    file: ../../../artifacts/secrets/jobber-aws-configuration.secret
+    file: ~~/artifacts/secrets/jobber-aws-configuration.secret
   jobber-msmtprc:
     # The job scheduler's SMTP client configuration.
-    file: ../../../artifacts/secrets/jobber-msmtprc.secret
+    file: ~~/artifacts/secrets/jobber-msmtprc.secret
 services:
   jobber:
     # You cannot access the jobber via a web interface.

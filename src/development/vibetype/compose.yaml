@@ -1,25 +1,25 @@
 secrets:
   vibetype-api-notification-secret:
     # The notification endpoint's secret.
-    file: ../../../artifacts/secrets/vibetype-api-notification.secret
+    file: ~~/artifacts/secrets/vibetype-api-notification.secret
   vibetype-aws-credentials:
     # The cloud computing provider's user credentials.
-    file: ../../../artifacts/secrets/vibetype-aws-credentials.secret
+    file: ~~/artifacts/secrets/vibetype-aws-credentials.secret
   vibetype-firebase-service-account-credentials:
     # The notification provider's service account credentials.
-    file: ../../../artifacts/secrets/vibetype-firebase-service-account-credentials.secret
+    file: ~~/artifacts/secrets/vibetype-firebase-service-account-credentials.secret
   vibetype-openai-api-key:
     # The AI provider's API key for the frontend.
-    file: ../../../artifacts/secrets/vibetype-openai-api-key.secret
+    file: ~~/artifacts/secrets/vibetype-openai-api-key.secret
   vibetype-turnstile-key:
     # The captcha provider's application key.
-    file: ../../../artifacts/secrets/vibetype-turnstile-key.secret
+    file: ~~/artifacts/secrets/vibetype-turnstile-key.secret
   vibetype-zammad:
     # The ticket system's configuration.
-    file: ../../../artifacts/secrets/vibetype-zammad.secret
+    file: ~~/artifacts/secrets/vibetype-zammad.secret
   vibetype-zammad-api-token:
     # The ticket system's API token.
-    file: ../../../artifacts/secrets/vibetype-zammad-api-token.secret
+    file: ~~/artifacts/secrets/vibetype-zammad-api-token.secret
 services:
   vibetype:
     # You can access the main project's frontend at [app.localhost](https://app.localhost/).
@@ -71,8 +71,8 @@ services:
         target: /run/environment-variables/PGUSER
     volumes:
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
-      - ../../../artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
-      - ../../../../vibetype/:/srv/app/ # dargstack:dev-only
+      - ~~/artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
+      - ~~/../vibetype/:/srv/app/ # dargstack:dev-only
       - vibetype-data:/srv/app/node_modules # dargstack:dev-only
       - ../postgraphile/configurations/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
 volumes:

@@ -1,43 +1,43 @@
 secrets:
   postgres-db:
     # The database's name.
-    file: ../../../artifacts/secrets/postgres-db.secret
+    file: ~~/artifacts/secrets/postgres-db.secret
   postgres-password:
     # The database's password.
-    file: ../../../artifacts/secrets/postgres-password.secret
+    file: ~~/artifacts/secrets/postgres-password.secret
   postgres-role-service-grafana-password:
     # The password of the observation dashboard's database role.
-    file: ../../../artifacts/secrets/postgres-role-service-grafana-password.secret
+    file: ~~/artifacts/secrets/postgres-role-service-grafana-password.secret
   postgres-role-service-grafana-username:
     # The username of the observation dashboard's database role.
-    file: ../../../artifacts/secrets/postgres-role-service-grafana-username.secret
+    file: ~~/artifacts/secrets/postgres-role-service-grafana-username.secret
   postgres-role-service-postgraphile-password:
     # The password of the GraphQL API database wrapper's database role.
-    file: ../../../artifacts/secrets/postgres-role-service-postgraphile-password.secret
+    file: ~~/artifacts/secrets/postgres-role-service-postgraphile-password.secret
   postgres-role-service-postgraphile-username:
     # The username of the GraphQL API database wrapper's database role.
-    file: ../../../artifacts/secrets/postgres-role-service-postgraphile-username.secret
+    file: ~~/artifacts/secrets/postgres-role-service-postgraphile-username.secret
   postgres-role-service-reccoom-password:
     # The password of the recommendation engine's database role.
-    file: ../../../artifacts/secrets/postgres-role-service-reccoom-password.secret
+    file: ~~/artifacts/secrets/postgres-role-service-reccoom-password.secret
   postgres-role-service-reccoom-username:
     # The username of the recommendation engine's database role.
-    file: ../../../artifacts/secrets/postgres-role-service-reccoom-username.secret
+    file: ~~/artifacts/secrets/postgres-role-service-reccoom-username.secret
   postgres-role-service-vibetype-password:
     # The `vibetype` database role's password.
-    file: ../../../artifacts/secrets/postgres-role-service-vibetype-password.secret
+    file: ~~/artifacts/secrets/postgres-role-service-vibetype-password.secret
   postgres-role-service-vibetype-username:
     # The `vibetype` database role's username.
-    file: ../../../artifacts/secrets/postgres-role-service-vibetype-username.secret
+    file: ~~/artifacts/secrets/postgres-role-service-vibetype-username.secret
   postgres-role-service-zammad-password:
     # The password of the customer service database role.
-    file: ../../../artifacts/secrets/postgres-role-service-zammad-password.secret
+    file: ~~/artifacts/secrets/postgres-role-service-zammad-password.secret
   postgres-role-service-zammad-username:
     # The username of the customer service database role.
-    file: ../../../artifacts/secrets/postgres-role-service-zammad-username.secret
+    file: ~~/artifacts/secrets/postgres-role-service-zammad-username.secret
   postgres-user:
     # The database's default user.
-    file: ../../../artifacts/secrets/postgres-user.secret
+    file: ~~/artifacts/secrets/postgres-user.secret
 services:
   postgres:
     # You can access the database via `adminer`.

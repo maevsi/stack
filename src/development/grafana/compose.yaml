@@ -1,16 +1,16 @@
 secrets:
   grafana-admin-email:
     # The observation dashboard's admin email.
-    file: ../../../artifacts/secrets/grafana-admin-email.secret
+    file: ~~/artifacts/secrets/grafana-admin-email.secret
   grafana-admin-password:
     # The observation dashboard's admin password.
-    file: ../../../artifacts/secrets/grafana-admin-password.secret
+    file: ~~/artifacts/secrets/grafana-admin-password.secret
   grafana-admin-user:
     # The observation dashboard's admin user.
-    file: ../../../artifacts/secrets/grafana-admin-user.secret
+    file: ~~/artifacts/secrets/grafana-admin-user.secret
   grafana-discord-webhook:
     # The observation dashboard's contact point for Discord.
-    file: ../../../artifacts/secrets/grafana-discord-webhook.secret
+    file: ~~/artifacts/secrets/grafana-discord-webhook.secret
 services:
   grafana:
     # You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).

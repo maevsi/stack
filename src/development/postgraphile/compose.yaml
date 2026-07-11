@@ -1,16 +1,16 @@
 secrets:
   postgraphile-connection:
     # The GraphQL API's database URI.
-    file: ../../../artifacts/secrets/postgraphile-connection.secret
+    file: ~~/artifacts/secrets/postgraphile-connection.secret
   postgraphile-jwt-secret:
     # The GraphQL API's JWT secret.
-    file: ../../../artifacts/secrets/postgraphile-jwt-secret.secret
+    file: ~~/artifacts/secrets/postgraphile-jwt-secret.secret
   postgraphile-owner-connection:
     # The GraphQL API's database owner URI.
-    file: ../../../artifacts/secrets/postgraphile-owner-connection.secret
+    file: ~~/artifacts/secrets/postgraphile-owner-connection.secret
   postgraphile-sentry-dsn:
     # The GraphQL API's Sentry DSN.
-    file: ../../../artifacts/secrets/postgraphile-sentry-dsn.secret
+    file: ~~/artifacts/secrets/postgraphile-sentry-dsn.secret
 services:
   postgraphile:
     # You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
@@ -47,7 +47,7 @@ services:
       - source: postgraphile-sentry-dsn
         target: /run/environment-variables/POSTGRAPHILE_SENTRY_DSN
     volumes:
-      - ../../../../postgraphile/:/srv/app/ # dargstack:dev-only
+      - ~~/../postgraphile/:/srv/app/ # dargstack:dev-only
       - ./configurations/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - postgraphile-data:/srv/app/node_modules # dargstack:dev-only

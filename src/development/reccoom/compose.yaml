@@ -1,16 +1,16 @@
 secrets:
   reccoom-ingest-api-key:
     # The recommendation engine's ingest API key.
-    file: ../../../artifacts/secrets/reccoom-ingest-api-key.secret
+    file: ~~/artifacts/secrets/reccoom-ingest-api-key.secret
   reccoom-model-api-key:
     # The recommendation engine's model API key.
-    file: ../../../artifacts/secrets/reccoom-model-api-key.secret
+    file: ~~/artifacts/secrets/reccoom-model-api-key.secret
   reccoom-openai-api-key:
     # The recommendation engine's OpenAI API key.
-    file: ../../../artifacts/secrets/reccoom-openai-api-key.secret
+    file: ~~/artifacts/secrets/reccoom-openai-api-key.secret
   reccoom-sentry-dsn:
     # The recommendation engine's Sentry DSN.
-    file: ../../../artifacts/secrets/reccoom-sentry-dsn.secret
+    file: ~~/artifacts/secrets/reccoom-sentry-dsn.secret
 services:
   reccoom:
     # You cannot access the recommendation service directly.
@@ -52,7 +52,7 @@ services:
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
     volumes:
-      - ../../../../reccoom/:/srv/app/ # dargstack:dev-only
+      - ~~/../reccoom/:/srv/app/ # dargstack:dev-only
       - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
       - reccoom-data:/home/python/.cache/
   reccoom-consumer:
@@ -86,7 +86,7 @@ services:
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
     volumes:
-      - ../../../../reccoom/:/srv/app/
+      - ~~/../reccoom/:/srv/app/
       - reccoom-data:/home/python/.cache/
   reccoom-migration:
     # You cannot access the recommender's database migration service directly.
@@ -110,7 +110,7 @@ services:
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
     volumes:
-      - ../../../../reccoom/:/srv/app/
+      - ~~/../reccoom/:/srv/app/
       - reccoom-data:/home/python/.cache/
   reccoom-postgres:
     # You can access reccoom's database via `adminer`.

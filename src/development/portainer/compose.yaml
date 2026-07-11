@@ -1,7 +1,7 @@
 secrets:
   portainer-admin-password:
     # The container manager's admin password.
-    file: ../../../artifacts/secrets/portainer-admin-password.secret
+    file: ~~/artifacts/secrets/portainer-admin-password.secret
 services:
   portainer:
     # You can access the container manager's frontend at [portainer.app.localhost](https://portainer.app.localhost/).

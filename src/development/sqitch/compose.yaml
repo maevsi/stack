@@ -1,7 +1,7 @@
 secrets:
   sqitch-target:
     # The database change management application's database connection string.
-    file: ../../../artifacts/secrets/sqitch-target.secret
+    file: ~~/artifacts/secrets/sqitch-target.secret
 services:
   sqitch:
     # You cannot access the database migrations directly.
@@ -25,7 +25,7 @@ services:
       - postgres-role-service-zammad-password
       - sqitch-target
     volumes:
-      - ../../../../sqitch/:/srv/app/
+      - ~~/../sqitch/:/srv/app/
 x-dargstack:
   secrets:
     sqitch-target:

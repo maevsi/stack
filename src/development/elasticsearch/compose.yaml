@@ -1,10 +1,10 @@
 secrets:
   elasticsearch-keystore-password:
     # The search engine's password for the keystore.
-    file: ../../../artifacts/secrets/elasticsearch-keystore-password.secret
+    file: ~~/artifacts/secrets/elasticsearch-keystore-password.secret
   elasticsearch-password:
     # The search engine's password for the default user.
-    file: ../../../artifacts/secrets/elasticsearch-password.secret
+    file: ~~/artifacts/secrets/elasticsearch-password.secret
 services:
   elasticsearch:
     # You cannot access the search engine via a web interface.
