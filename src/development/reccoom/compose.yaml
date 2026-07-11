@@ -16,7 +16,7 @@ services:
     # You cannot access the recommendation service directly.
     deploy:
       labels:
-        - dargstack.development.build=../../../../reccoom
+        - dargstack.development.git=git@github.com:maevsi/reccoom.git
         - dargstack.profiles=recommendation
         - traefik.enable=true # dargstack:dev-only
         - traefik.http.routers.reccoom.entryPoints=web
@@ -60,7 +60,7 @@ services:
     command: ["uv", "run", "python", "-m", "src.consumer"]
     deploy:
       labels:
-        - dargstack.development.build=../../../../reccoom
+        - dargstack.development.git=git@github.com:maevsi/reccoom.git
         - dargstack.profiles=recommendation
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
@@ -93,7 +93,7 @@ services:
     command: ["uv", "run", "python", "-m", "src.migration"]
     deploy:
       labels:
-        - dargstack.development.build=../../../../reccoom
+        - dargstack.development.git=git@github.com:maevsi/reccoom.git
         - dargstack.profiles=recommendation
       restart_policy:
         condition: on-failure

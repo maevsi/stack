@@ -16,7 +16,7 @@ services:
     # You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
     deploy:
       labels:
-        - dargstack.development.build=../../../../postgraphile
+        - dargstack.development.git=git@github.com:maevsi/postgraphile.git
         - dargstack.profiles=default
         - traefik.enable=true
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowCredentials=true
