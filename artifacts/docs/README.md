@@ -1,6 +1,6 @@
 # vibetype
 
-The Docker stack configuration for [vibetype.app](https://vibetype.app/).
+The Docker stack configuration for [vibetype.app](https://vibetype.app/). Related to [maevsi](https://github.com/maevsi).
 
 ## Profiles
 
