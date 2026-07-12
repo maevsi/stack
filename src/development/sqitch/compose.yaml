@@ -25,7 +25,7 @@ services:
       - postgres-role-service-zammad-password
       - sqitch-target
     volumes:
-      - ~~/../sqitch/:/srv/app/
+      - ~~~/sqitch/:/srv/app/
 x-dargstack:
   secrets:
     sqitch-target:

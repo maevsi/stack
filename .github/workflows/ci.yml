@@ -30,7 +30,7 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
       - name: Regenerate docs
         run: |
-          go install github.com/dargstack/dargstack/v4/cmd/dargstack@v4.0.0-beta.15
+          go install github.com/dargstack/dargstack/v4/cmd/dargstack@v4.0.0-beta.16
           export PATH="$(go env GOPATH)/bin:$PATH"
           dargstack document
       - name: Commit and push updated docs
