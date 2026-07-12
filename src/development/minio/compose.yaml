@@ -1,10 +1,10 @@
 services:
-  minio: # dargstack:dev-only
+  minio:
     # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
     # You can access the s3 api service at [s3.app.localhost](https://s3.app.localhost/) if you want to access via cli from outside the stack.
     command: server /data --console-address ":9001" # dargstack:dev-only
-    deploy: # dargstack:dev-only
-      labels: # dargstack:dev-only
+    deploy:
+      labels:
         - dargstack.profiles=upload
         - traefik.enable=true # dargstack:dev-only
         # Minio Console
