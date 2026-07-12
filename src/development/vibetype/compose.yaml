@@ -17,9 +17,6 @@ secrets:
   vibetype-zammad:
     # The ticket system's configuration.
     file: ~~/artifacts/secrets/vibetype-zammad.secret
-  vibetype-zammad-api-token:
-    # The ticket system's API token.
-    file: ~~/artifacts/secrets/vibetype-zammad-api-token.secret
 services:
   vibetype:
     # You can access the main project's frontend at [app.localhost](https://app.localhost/).
