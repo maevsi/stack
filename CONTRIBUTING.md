@@ -28,22 +28,10 @@ There are two development modes:
 
 ### Automated Setup
 
-Clone this repository into the directory where you want the project to live, then run the setup script from inside the cloned `stack` repository:
 ```sh
-cd /path/to/where/you/want/the/project
-git clone https://github.com/maevsi/stack.git
-cd stack
-bash scripts/setup.sh
+dargstack init
 ```
-
-The script will interactively ask which optional feature sets you want, then:
-
-1. Clone the selected repositories as siblings inside a `vibetype/` parent directory.
-2. Run `dargstack build <service>` for the selected services to build the required development container images.
-3. Deploy the development stack with `dargstack deploy`.
-
-> Per-repository setup (e.g. Node.js install for `vibetype`) is not yet automated here. Each repository will eventually provide its own `scripts/setup.sh` that this script will invoke. In the meantime, follow the manual steps below for repository-specific preparation.
-
+<!-- TODO: add https://github.com/maevsi/stack.git parameter -->
 ### Manual Setup
 
 If you prefer to step through each action yourself:

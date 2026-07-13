@@ -22,11 +22,5 @@ To see which services, secrets and volumes this stack includes, head over to [`a
 To start a local fullstack development environment, run the setup script from the directory where you want to clone the project:
 
 ```sh
-bash <(curl -fsSL https://raw.githubusercontent.com/maevsi/stack/main/scripts/setup.sh)
-```
-
-Or, if you have already cloned this repository:
-
-```sh
-bash scripts/setup.sh
+dargstack init
 ```
