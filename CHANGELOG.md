@@ -1,3 +1,5 @@
+## [19.0.0](https://github.com/maevsi/stack/compare/18.5.3...19.0.0) (2026-07-13)
+
 ## [18.5.3](https://github.com/maevsi/stack/compare/18.5.2...18.5.3) (2026-07-09)
 
 ## [18.5.2](https://github.com/maevsi/stack/compare/18.5.1...18.5.2) (2026-07-05)
