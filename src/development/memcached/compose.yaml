@@ -10,5 +10,5 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
-    image: memcached:1.6.44-alpine
+    image: memcached:1.6.45-alpine
     # command: memcached -m 256M
