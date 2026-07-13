@@ -1,0 +1,155 @@
+secrets:
+  reccoom-ingest-api-key:
+    # The recommendation engine's ingest API key.
+    file: ~~/artifacts/secrets/reccoom-ingest-api-key.secret
+  reccoom-model-api-key:
+    # The recommendation engine's model API key.
+    file: ~~/artifacts/secrets/reccoom-model-api-key.secret
+  reccoom-openai-api-key:
+    # The recommendation engine's OpenAI API key.
+    file: ~~/artifacts/secrets/reccoom-openai-api-key.secret
+  reccoom-sentry-dsn:
+    # The recommendation engine's Sentry DSN.
+    file: ~~/artifacts/secrets/reccoom-sentry-dsn.secret
+services:
+  reccoom:
+    # You cannot access the recommendation service directly.
+    deploy:
+      labels:
+        - dargstack.development.git=git@github.com:maevsi/reccoom.git
+        - dargstack.profiles=recommendation
+        - traefik.enable=true # dargstack:dev-only
+        - traefik.http.routers.reccoom.entryPoints=web
+        - traefik.http.routers.reccoom.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.reccoom.rule=Host(`reccoom.${STACK_DOMAIN}`)
+        - traefik.http.routers.reccoom-secure.entryPoints=web-secure
+        - traefik.http.routers.reccoom-secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
+        - traefik.http.routers.reccoom-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.reccoom.loadbalancer.server.port=5245
+    environment:
+      POSTGRES_HOST: postgres
+      RECCOOM_POSTGRES_HOST: reccoom-postgres
+    image: vibetype/reccoom:development
+    secrets:
+      - source: postgres-db
+        target: /run/environment-variables/POSTGRES_DATABASE
+      - source: postgres-db
+        target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
+      - source: postgres-role-service-reccoom-username
+        target: /run/environment-variables/POSTGRES_USER
+      - source: postgres-user
+        target: /run/environment-variables/RECCOOM_POSTGRES_USER
+      - source: postgres-role-service-reccoom-password
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres-password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+      - source: reccoom-ingest-api-key
+        target: /run/environment-variables/INGEST_API_KEY
+      - source: reccoom-model-api-key
+        target: /run/environment-variables/MODEL_API_KEY
+      - source: reccoom-openai-api-key
+        target: /run/environment-variables/OPENAI_API_KEY
+      - source: reccoom-sentry-dsn
+        target: /run/environment-variables/SENTRY_DSN
+    volumes:
+      - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
+      - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
+      - reccoom-data:/home/python/.cache/
+  reccoom-consumer:
+    # You can track the recommender's event streaming consumer using `redpanda-console`.
+    command: ["uv", "run", "python", "-m", "src.consumer"]
+    deploy:
+      labels:
+        - dargstack.development.git=git@github.com:maevsi/reccoom.git
+        - dargstack.profiles=recommendation
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+      POSTGRES_HOST: postgres
+      RECCOOM_POSTGRES_HOST: reccoom-postgres
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /home/python/consumer-alive && [ $$(( $$(date +%s) - $$(date +%s -r /home/python/consumer-alive) )) -lt 60 ]"]
+      timeout: 5s
+    image: vibetype/reccoom:development
+    secrets:
+      - source: postgres-db
+        target: /run/environment-variables/POSTGRES_DATABASE
+      - source: postgres-db
+        target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
+      - source: postgres-role-service-reccoom-username
+        target: /run/environment-variables/POSTGRES_USER
+      - source: postgres-user
+        target: /run/environment-variables/RECCOOM_POSTGRES_USER
+      - source: postgres-role-service-reccoom-password
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres-password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+      - source: reccoom-sentry-dsn
+        target: /run/environment-variables/SENTRY_DSN
+    volumes:
+      - ~~~/reccoom/:/srv/app/
+      - reccoom-data:/home/python/.cache/
+  reccoom-migration:
+    # You cannot access the recommender's database migration service directly.
+    command: ["uv", "run", "python", "-m", "src.migration"]
+    deploy:
+      labels:
+        - dargstack.development.git=git@github.com:maevsi/reccoom.git
+        - dargstack.profiles=recommendation
+      restart_policy:
+        condition: on-failure
+    environment:
+      RECCOOM_POSTGRES_HOST: reccoom-postgres
+    image: vibetype/reccoom:development
+    secrets:
+      - source: postgres-db
+        target: /run/environment-variables/RECCOOM_POSTGRES_DATABASE
+      - source: postgres-user
+        target: /run/environment-variables/RECCOOM_POSTGRES_USER
+      - source: postgres-password
+        target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+      - source: reccoom-sentry-dsn
+        target: /run/environment-variables/SENTRY_DSN
+    volumes:
+      - ~~~/reccoom/:/srv/app/
+      - reccoom-data:/home/python/.cache/
+  reccoom-postgres:
+    # You can access reccoom's database via `adminer`.
+    deploy:
+      labels:
+        - dargstack.profiles=recommendation
+    environment:
+      POSTGRES_DB_FILE: /run/secrets/postgres-db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
+      POSTGRES_USER_FILE: /run/secrets/postgres-user
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$(cat /run/secrets/postgres-user) -d $$(cat /run/secrets/postgres-db)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    image: pgvector/pgvector:0.8.5-pg18
+    ports: # dargstack:dev-only
+      - 5433:5432 # dargstack:dev-only
+    secrets:
+      - postgres-db
+      - postgres-password
+      - postgres-user
+    volumes:
+      - reccoom-postgres-data:/var/lib/postgresql/
+volumes:
+  reccoom-data:
+    # The general cache data.
+    {}
+  reccoom-postgres-data:
+    # The recommendation database's data.
+    {}
+x-dargstack:
+  secrets:
+    reccoom-ingest-api-key:
+      type: third_party
+    reccoom-model-api-key:
+      type: third_party
+    reccoom-openai-api-key:
+      type: third_party
+    reccoom-sentry-dsn:
+      type: third_party

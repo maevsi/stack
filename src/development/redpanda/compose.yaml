@@ -1,0 +1,51 @@
+services:
+  redpanda:
+    # You can access the event streaming platform's ui as described under `redpanda-console`.
+    command:
+      - redpanda start
+      - --mode dev-container # dargstack:dev-only
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr internal://redpanda:9092,external://localhost:19092
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
+      - --advertise-pandaproxy-addr internal://redpanda:8082,external://localhost:18082
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    healthcheck:
+      test: ["CMD", "rpk", "cluster", "health", "--exit-when-healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    image: redpandadata/redpanda:v26.1.12
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+  redpanda-console:
+    # You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+        - traefik.enable=true
+        - traefik.http.routers.redpanda.entryPoints=web
+        - traefik.http.routers.redpanda.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.redpanda.rule=Host(`redpanda.${STACK_DOMAIN}`)
+        - traefik.http.routers.redpanda-secure.entryPoints=web-secure
+        - traefik.http.routers.redpanda-secure.rule=Host(`redpanda.${STACK_DOMAIN}`)
+        - traefik.http.routers.redpanda-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.redpanda.loadbalancer.server.port=8080
+    environment:
+      CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/admin/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    image: redpandadata/console:v3.8.0
+    volumes:
+      - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
+volumes:
+  redpanda-data:
+    # The message queue's data.
+    {}

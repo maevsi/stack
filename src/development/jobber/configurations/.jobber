@@ -1,0 +1,12 @@
+version: 1.4
+
+jobs:
+  DBBackup:
+    cmd: aws s3 sync /backups s3://$(cat /run/secrets/jobber-aws-bucket)/backups
+    time: 0 0 0 *
+    notifyOnSuccess:
+      - type: system-email
+    notifyOnError:
+      - type: system-email
+    notifyOnFailure:
+      - type: system-email

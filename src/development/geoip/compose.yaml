@@ -1,0 +1,10 @@
+services:
+  geoip:
+    # You cannot access the ip geolocator via a web interface.
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    image: ghcr.io/observabilitystack/geoip-api:2026-02

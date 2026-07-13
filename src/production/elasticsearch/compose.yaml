@@ -1,0 +1,5 @@
+services:
+  elasticsearch:
+    deploy:
+      update_config:
+        order: stop-first

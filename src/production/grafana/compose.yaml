@@ -1,0 +1,8 @@
+services:
+  grafana:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.grafana-secure.tls.certresolver=default
+      update_config:
+        order: start-first

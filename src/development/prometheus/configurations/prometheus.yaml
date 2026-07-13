@@ -1,0 +1,35 @@
+global:
+  scrape_interval: 15s # By default, scrape targets every 15 seconds.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: "codelab-monitor"
+
+scrape_configs:
+  - job_name: "cadvisor"
+    dns_sd_configs:
+      - names: ["tasks.cadvisor"]
+        port: 8080
+        type: A
+
+  - job_name: "grafana"
+    static_configs:
+      - targets: ["grafana:3000"]
+
+  - job_name: "node-exporter"
+    dns_sd_configs:
+      - names: ["tasks.node-exporter"]
+        port: 9100
+        type: A
+
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "redpanda"
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - redpanda:9644
+    metrics_path: /public_metrics

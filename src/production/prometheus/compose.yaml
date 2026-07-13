@@ -1,0 +1,8 @@
+services:
+  prometheus:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.prometheus-secure.tls.certresolver=default
+      update_config:
+        order: stop-first

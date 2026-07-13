@@ -1,0 +1,25 @@
+services:
+  cadvisor:
+    # You can access the container metrics at [cadvisor.app.localhost](https://cadvisor.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+        - traefik.enable=true
+        - traefik.http.routers.cadvisor.entryPoints=web
+        - traefik.http.routers.cadvisor.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.cadvisor.rule=Host(`cadvisor.${STACK_DOMAIN}`)
+        - traefik.http.routers.cadvisor-secure.entryPoints=web-secure
+        - traefik.http.routers.cadvisor-secure.rule=Host(`cadvisor.${STACK_DOMAIN}`)
+        - traefik.http.routers.cadvisor-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.cadvisor.loadbalancer.server.port=8080
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+    image: ghcr.io/google/cadvisor:v0.60.3
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro

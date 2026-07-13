@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+  - access: proxy
+    jsonData:
+      database: $__file{/run/secrets/postgres-db}
+      postgresVersion: 1500
+      sslmode: disable
+    name: PostgreSQL
+    secureJsonData:
+      password: $__file{/run/secrets/postgres-role-service-grafana-password}
+    type: grafana-postgresql-datasource
+    url: postgres:5432
+    user: $__file{/run/secrets/postgres-role-service-grafana-username}

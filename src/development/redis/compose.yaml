@@ -1,0 +1,19 @@
+services:
+  redis:
+    # You cannot access the caching system via a web interface.
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    image: redis:8.8.0-alpine
+    volumes:
+      - redis-data:/data
+volumes:
+  redis-data:
+    # The caching system's data.
+    {}

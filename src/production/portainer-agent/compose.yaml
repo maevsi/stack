@@ -1,0 +1,5 @@
+services:
+  portainer-agent:
+    deploy:
+      update_config:
+        order: start-first

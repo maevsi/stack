@@ -1,0 +1,9 @@
+services:
+  tusd:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.tusd.middlewares=tusd-cors
+        - traefik.http.routers.tusd-secure.tls.certresolver=default
+      update_config:
+        order: start-first

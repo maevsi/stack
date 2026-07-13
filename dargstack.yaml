@@ -1,0 +1,28 @@
+# Dargstack configuration file
+
+environment:
+  # development:
+  #   domain: app.localhost # optional, defaults to "app.localhost"
+  #   certificate:
+  #     include: [] # optional, domains added to TLS cert
+  #       # - "*.app.localhost"
+  #     exclude: [] # optional, domains removed from TLS cert
+  production:
+    domain: vibetype.app # optional, defaults to "app.localhost"
+    # branch: main # optional, defaults to "main"
+    # tag: latest # optional, defaults to "latest"
+
+metadata:
+  compatibility: ">=4.0.0-0 <5.0.0"
+  name: "vibetype"
+  source:
+    name: "maevsi"
+    url: "https://github.com/maevsi"
+
+runtime:
+  # deploy:
+  #   volumes:
+  #     prompt: true # optional, defaults to true
+  build:
+    mode: missing # optional, "always" | "missing"
+  # sudo: auto # optional, "auto" | "always" | "never"

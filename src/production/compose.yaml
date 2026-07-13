@@ -1,0 +1,2 @@
+volumes:
+  pnpm-data: (( prune ))

@@ -1,0 +1,60 @@
+secrets:
+  elasticsearch-keystore-password:
+    # The search engine's password for the keystore.
+    file: ~~/artifacts/secrets/elasticsearch-keystore-password.secret
+  elasticsearch-password:
+    # The search engine's password for the default user.
+    file: ~~/artifacts/secrets/elasticsearch-password.secret
+services:
+  elasticsearch:
+    # You cannot access the search engine via a web interface.
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+      replicas: 0 # TODO: reenable once server setup is more fault tolerant
+    environment:
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch-password
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore-password
+      network.publish_host: elasticsearch
+    # healthcheck:
+    #   test: ["CMD-SHELL", "NETRC=$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$(cat /run/secrets/elasticsearch-password)\" > \"$NETRC\" && curl -fsS --netrc-file \"$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$NETRC\" || { rm -f \"$NETRC\"; exit 1; }"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 60s
+    image: elasticsearch:8.19.18
+    secrets:
+      - source: elasticsearch-keystore-password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+      - source: elasticsearch-password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-configuration:/usr/share/elasticsearch/config
+      - elasticsearch-data:/usr/share/elasticsearch/data
+volumes:
+  elasticsearch-configuration:
+    # The search engine's configuration.
+    {}
+  elasticsearch-data:
+    # The search engine's data.
+    {}
+x-dargstack:
+  secrets:
+    elasticsearch-keystore-password:
+      type: random_string
+    elasticsearch-password:
+      type: random_string

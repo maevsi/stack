@@ -1,0 +1,8 @@
+services:
+  adminer:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.adminer-secure.tls.certresolver=default
+      update_config:
+        order: start-first

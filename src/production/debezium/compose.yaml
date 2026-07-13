@@ -1,0 +1,9 @@
+services:
+  debezium:
+    deploy:
+      update_config:
+        order: stop-first
+  debezium-postgres-connector:
+    deploy:
+      update_config:
+        order: stop-first

@@ -1,0 +1,5 @@
+services:
+  geoip:
+    deploy:
+      update_config:
+        order: start-first

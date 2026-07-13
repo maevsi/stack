@@ -1,0 +1,7 @@
+services:
+  sqitch:
+    deploy:
+      update_config:
+        order: stop-first
+    image: ghcr.io/maevsi/sqitch:11.1.8
+    volumes: (( prune ))

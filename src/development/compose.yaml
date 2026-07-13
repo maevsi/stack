@@ -1,0 +1,4 @@
+volumes:
+  pnpm-data:
+    # The node package manager's data.
+    {}

@@ -1,9 +1,0 @@
-**/backups/*/**
-**/production/secrets/**/*.secret
-*.crt
-*.csr
-*.env
-*.key
-!**/README.md
-!**/*.template
-production/stack.yml
