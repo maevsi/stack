@@ -74,6 +74,11 @@ volumes:
     # The database's data.
     {}
 x-dargstack:
+  platform:
+    darwin:
+      services:
+        postgres:
+          image: imresamu/postgis:18-3.6-alpine
   secrets:
     postgres-db:
       type: wordlist_word
