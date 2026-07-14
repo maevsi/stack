@@ -4,6 +4,8 @@ The Docker stack configuration for [vibetype.app](https://vibetype.app/). See [m
 
 ## Profiles
 
+Profiles group services so you can deploy subsets on demand. Activate with `dargstack deploy --profiles <name>`.
+
 ### analytics
 
 Services: cadvisor, grafana, node-exporter, prometheus
@@ -29,6 +31,8 @@ Services: minio, tusd
 Services: elasticsearch, memcached, redis, zammad-backup, zammad-init, zammad-nginx, zammad-railsserver, zammad-scheduler, zammad-websocket
 
 ## Services
+
+Each service corresponds to a compose.yaml file. Descriptions are extracted from YAML comments in the source. Services marked *(production only)* exist only in the production overlay.
 
 ### adminer
 
