@@ -5,22 +5,30 @@
 
 # @maevsi/stack
 
-The Docker stack configuration for [vibetype.app](https://vibetype.app/).
+The Docker stack configuration for [vibetype.app](https://vibetype.app/), closely related to [Vibetype's source code](https://github.com/maevsi/vibetype/).
 
-This project is managed with [dargstack](https://github.com/dargstack/dargstack/) and is closely related to [Vibetype's source code](https://github.com/maevsi/vibetype/).
+This project uses [dargstack](https://github.com/dargstack/dargstack/), a CLI tool for managing Docker Swarm stacks. Install it before getting started.
+
+## Prerequisites
+
+- [Git](https://git-scm.com/)
+- [Docker](https://docs.docker.com/engine/install/)
+- [dargstack](https://github.com/dargstack/dargstack/#install)
+
+> 💡 **Windows users:** use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install).
+
+## Quick Start
+
+```sh
+dargstack initialize
+```
+
+This clones all sibling repositories and initializes the fullstack development environment.
+
+## Contributing
+
+Before making changes, read [CONTRIBUTING.md](CONTRIBUTING.md) for development modes, manual setup, and guidelines.
 
 ## Documentation
 
-To see which services, secrets and volumes this stack includes, head over to [`artifacts/docs/README.md`](artifacts/docs/README.md).
-
-## Development Setup
-
-> 💡 **Windows users:** Run these steps inside [WSL](https://docs.microsoft.com/en-us/windows/wsl/install).
-
-> 📖 **New to the project? Read [CONTRIBUTING.md](CONTRIBUTING.md) first** to understand the repository structure, the development modes, and what each component does. You will need this context to work effectively beyond the quick setup below.
-
-To start a local fullstack development environment, run the setup script from the directory where you want to clone the project:
-
-```sh
-dargstack init
-```
+- [`artifacts/docs/README.md`](artifacts/docs/README.md): see an overview of all services, secrets, and volumes in the stack (auto-generated)
