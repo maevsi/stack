@@ -20,7 +20,7 @@ This project uses [dargstack](https://github.com/dargstack/dargstack/), a CLI to
 ## Quick Start
 
 ```sh
-dargstack initialize
+dargstack clone
 ```
 
 This clones all sibling repositories and initializes the fullstack development environment.

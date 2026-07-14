@@ -22,7 +22,8 @@ services:
     # You can access the main project's frontend at [app.localhost](https://app.localhost/).
     deploy:
       labels:
-        - dargstack.development.git=git@github.com:maevsi/vibetype.git
+        - dargstack.development.git.ssh=git@github.com:maevsi/vibetype.git
+        - dargstack.development.git.https=https://github.com/maevsi/vibetype.git
         - dargstack.profiles=default
         - traefik.enable=true
         - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowHeaders=authorization,content-type,hook-name,x-csrf-token,x-turnstile-key

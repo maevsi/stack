@@ -7,7 +7,8 @@ services:
     # You cannot access the database migrations directly.
     deploy:
       labels:
-        - dargstack.development.git=git@github.com:maevsi/sqitch.git
+        - dargstack.development.git.ssh=git@github.com:maevsi/sqitch.git
+        - dargstack.development.git.https=https://github.com/maevsi/sqitch.git
         - dargstack.profiles=default
       restart_policy:
         condition: on-failure
