@@ -22,7 +22,7 @@ metadata:
 runtime:
   # deploy:
   #   volumes:
-  #     prompt: true # optional, defaults to true
-  build:
-    mode: missing # optional, "always" | "missing"
+  #     prompt: false # optional, defaults to true
+  # build:
+  #   mode: missing # optional, "always" | "missing"
   # sudo: auto # optional, "auto" | "always" | "never"
