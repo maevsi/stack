@@ -13,7 +13,7 @@ environment:
     # tag: latest # optional, defaults to "latest"
 
 metadata:
-  compatibility: ">=4.2.0-0 <5.0.0"
+  compatibility: ">=4.7.0-0 <5.0.0"
   name: "vibetype"
   source:
     name: "maevsi"
