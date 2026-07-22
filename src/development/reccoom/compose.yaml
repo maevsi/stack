@@ -55,7 +55,7 @@ services:
     volumes:
       - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
       - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
-      - reccoom-data:/home/python/.cache/
+      - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-consumer:
     # You can track the recommender's event streaming consumer using `redpanda-console`.
     command: ["uv", "run", "python", "-m", "src.consumer"]
@@ -87,9 +87,9 @@ services:
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
-    volumes:
-      - ~~~/reccoom/:/srv/app/
-      - reccoom-data:/home/python/.cache/
+    volumes: # dargstack:dev-only
+      - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
+      - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-migration:
     # You cannot access the recommender's database migration service directly.
     command: ["uv", "run", "python", "-m", "src.migration"]
@@ -112,9 +112,9 @@ services:
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
-    volumes:
-      - ~~~/reccoom/:/srv/app/
-      - reccoom-data:/home/python/.cache/
+    volumes: # dargstack:dev-only
+      - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
+      - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-postgres:
     # You can access reccoom's database via `adminer`.
     deploy:
