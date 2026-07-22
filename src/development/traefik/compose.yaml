@@ -49,5 +49,5 @@ services:
         target: 443 # dargstack:dev-only
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ~~/artifacts/certificates/:/etc/traefik/acme/
+      - ~~/artifacts/certificates/:/etc/traefik/acme/ # dargstack:dev-only
       - ./configurations/dynamic.yml:/dynamic.yml:ro # dargstack:dev-only
