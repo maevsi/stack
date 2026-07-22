@@ -14,7 +14,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: quay.io/prometheus/node-exporter:v1.12.0
+    image: quay.io/prometheus/node-exporter:v1.12.1
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro

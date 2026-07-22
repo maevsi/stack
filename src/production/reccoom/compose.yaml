@@ -5,21 +5,21 @@ services:
         order: start-first
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.18.10
+    image: ghcr.io/maevsi/reccoom:0.20.1
   reccoom-consumer:
     deploy:
       update_config:
         order: start-first
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.18.10
+    image: ghcr.io/maevsi/reccoom:0.20.1
   reccoom-migration:
     deploy:
       update_config:
         order: start-first
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.18.10
+    image: ghcr.io/maevsi/reccoom:0.20.1
     volumes: (( prune ))
   reccoom-postgres:
     deploy:

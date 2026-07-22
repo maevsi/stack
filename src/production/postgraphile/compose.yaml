@@ -8,4 +8,4 @@ services:
         - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/postgraphile:2.1.7
+    image: ghcr.io/maevsi/postgraphile:2.1.10
