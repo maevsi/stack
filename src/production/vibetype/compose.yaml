@@ -51,4 +51,4 @@ services:
   #   volumes:
   #     - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
 volumes:
-  vibetype_data: (( prune ))
+  vibetype-data: (( prune ))
