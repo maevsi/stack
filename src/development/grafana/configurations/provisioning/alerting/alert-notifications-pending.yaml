@@ -4,6 +4,7 @@ groups:
       name: Critical
       folder: Infrastructure
       interval: 10s
+      repeat_interval: 604800 # 7 days
       rules:
         - uid: een6tmiec4ge8f
           title: Notifications pending
