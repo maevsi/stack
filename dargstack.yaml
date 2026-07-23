@@ -1,4 +1,5 @@
 # Dargstack configuration file
+$schema: ./artifacts/dargstack.json
 
 environment:
   # development:
