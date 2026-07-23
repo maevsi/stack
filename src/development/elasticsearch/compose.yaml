@@ -11,14 +11,19 @@ services:
     deploy:
       labels:
         - dargstack.profiles=zammad
-      replicas: 0 # TODO: reenable once server setup is more fault tolerant
+      resources:
+        limits:
+          memory: 1024m
+        reservations:
+          memory: 512m
     environment:
       bootstrap.memory_lock: "true"
       discovery.type: single-node
       ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch-password
-      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
       KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore-password
       network.publish_host: elasticsearch
+      xpack.ml.enabled: "false"
     # healthcheck:
     #   test: ["CMD-SHELL", "NETRC=$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$(cat /run/secrets/elasticsearch-password)\" > \"$NETRC\" && curl -fsS --netrc-file \"$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$NETRC\" || { rm -f \"$NETRC\"; exit 1; }"]
     #   interval: 30s
