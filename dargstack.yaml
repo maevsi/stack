@@ -1,5 +1,5 @@
 # Dargstack configuration file
-$schema: ./artifacts/dargstack.json
+$schema: https://jonas-thelemann.de/schema/dargstack.json
 
 environment:
   # development:
