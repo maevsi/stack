@@ -14,7 +14,7 @@ on:
 jobs:
   ci-optimization:
     name: CI optimization
-    uses: dargmuesli/github-actions/.github/workflows/ci-optimization.yml@b24aec150dd9a8562cd773dbd85487e56e46fdc6 # 5.7.0
+    uses: dargmuesli/github-actions/.github/workflows/ci-optimization.yml@709b1aafc707215fb7bdee40fd3367d3623b4aa8 # 5.9.0
     permissions:
       pull-requests: read
   build:
@@ -48,7 +48,7 @@ jobs:
   release-semantic:
     needs: build
     name: Semantic Release
-    uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@b24aec150dd9a8562cd773dbd85487e56e46fdc6 # 5.7.0
+    uses: dargmuesli/github-actions/.github/workflows/release-semantic.yml@709b1aafc707215fb7bdee40fd3367d3623b4aa8 # 5.9.0
     permissions:
       contents: write
       id-token: write

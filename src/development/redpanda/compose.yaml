@@ -42,7 +42,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: redpandadata/console:v3.8.0
+    image: redpandadata/console:v3.9.0
     volumes:
       - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
 volumes:
