@@ -9,7 +9,7 @@ services:
       labels:
         - dargstack.development.git.ssh=git@github.com:maevsi/sqitch.git
         - dargstack.development.git.https=https://github.com/maevsi/sqitch.git
-        - dargstack.profiles=default
+        - dargstack.profiles=default,analytics,event-streaming,recommendation,zammad
       restart_policy:
         condition: on-failure
     image: vibetype/sqitch:development

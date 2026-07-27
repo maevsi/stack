@@ -15,7 +15,7 @@ services:
       - --log.level=DEBUG # dargstack:dev-only
     deploy:
       labels:
-        - dargstack.profiles=default
+        - dargstack.profiles=default,analytics,event-streaming,recommendation,upload,zammad
         - traefik.enable=true
         - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https # dargstack:dev-only
         - traefik.http.routers.traefik.entryPoints=web

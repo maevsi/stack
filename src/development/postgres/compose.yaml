@@ -44,7 +44,7 @@ services:
     command: -c vibetype.jwt_expiry_duration='1 month' -c wal_level=logical
     deploy:
       labels:
-        - dargstack.profiles=default
+        - dargstack.profiles=default,analytics,event-streaming,recommendation,zammad
     environment:
       POSTGRES_DB_FILE: /run/secrets/postgres-db
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password

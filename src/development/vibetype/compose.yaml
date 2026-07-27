@@ -24,7 +24,7 @@ services:
       labels:
         - dargstack.development.git.ssh=git@github.com:maevsi/vibetype.git
         - dargstack.development.git.https=https://github.com/maevsi/vibetype.git
-        - dargstack.profiles=default
+        - dargstack.profiles=default,upload
         - traefik.enable=true
         - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowHeaders=authorization,content-type,hook-name,x-csrf-token,x-turnstile-key
         - traefik.http.middlewares.vibetype-cors.headers.accessControlAllowMethods=GET,POST,PUT,DELETE

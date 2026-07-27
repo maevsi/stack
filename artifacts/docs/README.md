@@ -8,7 +8,7 @@ Profiles group services so you can deploy subsets on demand. Activate with `darg
 
 ### analytics
 
-Services: cadvisor, grafana, node-exporter, prometheus
+Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, traefik
 
 ### default
 
@@ -16,19 +16,19 @@ Services: adminer, cloudflared, portainer, portainer-agent, postgraphile, postgr
 
 ### event-streaming
 
-Services: debezium, debezium-postgres-connector, redpanda, redpanda-console
+Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-console, sqitch, traefik
 
 ### recommendation
 
-Services: reccoom, reccoom-consumer, reccoom-migration, reccoom-postgres
+Services: postgres, reccoom, reccoom-consumer, reccoom-migration, reccoom-postgres, sqitch, traefik
 
 ### upload
 
-Services: minio, tusd
+Services: minio, traefik, tusd, vibetype
 
 ### zammad
 
-Services: elasticsearch, memcached, redis, zammad-backup, zammad-init, zammad-nginx, zammad-railsserver, zammad-scheduler, zammad-websocket
+Services: elasticsearch, memcached, postgres, redis, sqitch, traefik, zammad-backup, zammad-init, zammad-nginx, zammad-railsserver, zammad-scheduler, zammad-websocket
 
 ## Services
 
