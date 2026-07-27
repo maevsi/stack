@@ -28,11 +28,15 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.head_ref || github.ref_name }}
-      - name: Regenerate docs
+      - name: Install dargstack
         run: |
-          go install github.com/dargstack/dargstack/v4/cmd/dargstack@v4.7.0
-          export PATH="$(go env GOPATH)/bin:$PATH"
-          dargstack document
+          ARCHIVE="dargstack_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/').tar.gz"
+          curl -sfL -o "$ARCHIVE" "https://github.com/dargstack/dargstack/releases/latest/download/$ARCHIVE"
+          curl -sfL https://github.com/dargstack/dargstack/releases/latest/download/checksums.txt | sha256sum -c - --ignore-missing
+          tar xzf "$ARCHIVE" && rm "$ARCHIVE"
+          mv dargstack /usr/local/bin/
+      - name: Regenerate docs
+        run: dargstack document
       - name: Commit and push updated docs
         if: github.event_name == 'push'
         run: |
