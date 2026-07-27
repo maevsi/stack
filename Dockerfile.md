@@ -1,3 +1,3 @@
 # <DEPENDENCIES>
-FROM ghcr.io/dargstack/dargstack:4.9.2
+FROM ghcr.io/dargstack/dargstack:4.9.4
 # </DEPENDENCIES>
