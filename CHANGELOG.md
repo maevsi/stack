@@ -1,3 +1,5 @@
+## [20.0.0-beta.1](https://github.com/maevsi/stack/compare/19.1.9...20.0.0-beta.1) (2026-07-27)
+
 ## [19.1.9](https://github.com/maevsi/stack/compare/19.1.8...19.1.9) (2026-07-27)
 
 ## [19.1.8](https://github.com/maevsi/stack/compare/19.1.7...19.1.8) (2026-07-27)
