@@ -16,7 +16,7 @@ x-shared:
       POSTGRESQL_HOST: postgres
       POSTGRESQL_OPTIONS: ?pool=50
       REDIS_URL: redis://redis:6379
-    image: ghcr.io/zammad/zammad:6.5.2-90
+    image: ghcr.io/zammad/zammad:7.1.1-0035
     secrets:
       - source: elasticsearch-password
         target: /run/environment-variables/ELASTICSEARCH_PASS
@@ -26,7 +26,7 @@ x-shared:
         target: /run/environment-variables/POSTGRESQL_PASS
     volumes:
       - zammad-data:/opt/zammad/storage
-      - ./configurations/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      - ./configurations/docker-entrypoint.sh:/opt/zammad/bin/docker-entrypoint:ro
 services:
   zammad-backup:
     # You cannot access the helpdesk backup service via a web interface.
@@ -36,7 +36,7 @@ services:
     volumes:
       - zammad-backup-data:/var/tmp/zammad
       - zammad-data:/opt/zammad/storage:ro
-      - ./configurations/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      - ./configurations/docker-entrypoint.sh:/opt/zammad/bin/docker-entrypoint:ro
   zammad-init:
     # You cannot access the helpdesk initialization service via a web interface.
     <<: *zammad-service
