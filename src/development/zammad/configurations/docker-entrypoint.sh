@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -o errexit
 
 # START of maevsi entrypoint script customization
 ENVIRONMENT_VARIABLES_PATH="/run/environment-variables"
@@ -45,46 +45,50 @@ load_environment_variables
 : "${NGINX_CLIENT_MAX_BODY_SIZE:=50M}"
 : "${NGINX_SERVER_NAME:=_}"
 : "${NGINX_SERVER_SCHEME:=\$scheme}"
-: "${POSTGRESQL_DB:=zammad_production}"
 : "${POSTGRESQL_DB_CREATE:=true}"
-: "${POSTGRESQL_HOST:=zammad-postgresql}"
-: "${POSTGRESQL_PORT:=5432}"
-: "${POSTGRESQL_USER:=zammad}"
-: "${POSTGRESQL_PASS:=zammad}"
-: "${POSTGRESQL_OPTIONS:=}"
-: "${RAILS_ENV:=production}"
-: "${RAILS_LOG_TO_STDOUT:=true}"
-: "${RAILS_TRUSTED_PROXIES:=127.0.0.1,::1}"
-: "${ZAMMAD_DIR:=/opt/zammad}"
 : "${ZAMMAD_RAILSSERVER_HOST:=zammad-railsserver}"
 : "${ZAMMAD_RAILSSERVER_PORT:=3000}"
 : "${ZAMMAD_WEBSOCKET_HOST:=zammad-websocket}"
 : "${ZAMMAD_WEBSOCKET_PORT:=6042}"
+: "${RESTORE_DIR:=/var/tmp/zammad/restore}"
 
-# Support both ZAMMAD_WEB_CONCURRENCY (as recommended by the Zammad docker stack & documentation)
-#   and WEB_CONCURRENCY (Zammad and Rails default).
-: "${ZAMMAD_WEB_CONCURRENCY:=0}"
-: "${WEB_CONCURRENCY:=${ZAMMAD_WEB_CONCURRENCY}}"
-export WEB_CONCURRENCY
-
-ESCAPED_POSTGRESQL_PASS=$(echo "$POSTGRESQL_PASS" | sed -e 's/[\/&]/\\&/g')
-export DATABASE_URL="postgres://${POSTGRESQL_USER}:${ESCAPED_POSTGRESQL_PASS}@${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/${POSTGRESQL_DB}${POSTGRESQL_OPTIONS}"
+function check_no_restore_running {
+  echo 'Checking for active restore operations...'
+  until [ ! -d "${RESTORE_DIR}" ] || [ -z "$(ls "${RESTORE_DIR}")" ]; do
+    echo "  waiting for restore to finish..."
+    sleep 2
+  done
+}
 
 function check_zammad_ready {
+  check_no_restore_running
+
+  echo 'Checking if Zammad is ready...'
   # Verify that migrations have been ran and seeds executed to process ENV vars like FQDN correctly.
   until bundle exec rails r 'ActiveRecord::Migration.check_all_pending!; Translation.any? || raise' &> /dev/null; do
-    echo "waiting for init container to finish install or update..."
+    echo "  waiting for init container to finish install or update..."
     sleep 2
+  done
+}
+
+function check_postgresql_ready {
+  echo 'Checking if PostgreSQL is ready...'
+
+  # Strip possible surrounding brackets from IPv6 addresses.
+  CLEAN_POSTGRESQL_HOST=${POSTGRESQL_HOST#[}; CLEAN_POSTGRESQL_HOST=${CLEAN_POSTGRESQL_HOST%]}
+
+  until (pg_isready -q -h "$CLEAN_POSTGRESQL_HOST" -p "$POSTGRESQL_PORT"); do
+    echo "  waiting for postgresql server to be ready..."
+    sleep 1
   done
 }
 
 # zammad init
 if [ "$1" = 'zammad-init' ]; then
   # install / update zammad
-  until (echo > /dev/tcp/"${POSTGRESQL_HOST}"/"${POSTGRESQL_PORT}") &> /dev/null; do
-    echo "waiting for postgresql server to be ready..."
-    sleep 1
-  done
+  check_postgresql_ready
+
+  check_no_restore_running
 
   # check if database exists / update to new version
   echo "initialising / updating database..."
@@ -176,7 +180,7 @@ elif [ "$1" = 'zammad-nginx' ]; then
 elif [ "$1" = 'zammad-railsserver' ]; then
   check_zammad_ready
 
-  echo "starting railsserver... with WEB_CONCURRENCY=${WEB_CONCURRENCY}"
+  echo "starting railsserver..."
 
   #shellcheck disable=SC2101
   exec bundle exec puma -b tcp://[::]:"${ZAMMAD_RAILSSERVER_PORT}" -e "${RAILS_ENV}"
@@ -199,7 +203,7 @@ elif [ "$1" = 'zammad-websocket' ]; then
 
 # zammad-backup
 elif [ "$1" = 'zammad-backup' ]; then
-  check_zammad_ready
+  check_postgresql_ready
 
   echo "starting backup..."
 
