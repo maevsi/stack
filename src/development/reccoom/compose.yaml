@@ -130,7 +130,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: pgvector/pgvector:0.8.5-pg18
+    image: pgvector/pgvector:0.8.6-pg18
     ports: # dargstack:dev-only
       - 5433:5432 # dargstack:dev-only
     secrets:
