@@ -16,7 +16,7 @@ Services: adminer, cloudflared, portainer, portainer-agent, postgraphile, postgr
 
 ### event-streaming
 
-Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-cluster-config, redpanda-console, sqitch, traefik
+Services: debezium, debezium-postgres-connector, gizmosql, postgres, redpanda, redpanda-cluster-config, redpanda-connect, redpanda-console, sqitch, traefik
 
 ### recommendation
 
@@ -77,6 +77,10 @@ See `docs/elasticsearch.md` for how the helpdesk trusts this service's certifica
 ### geoip
 
 You cannot access the ip geolocator via a web interface.
+
+### gizmosql
+
+You can query the event stream's parquet lakehouse using any Arrow Flight SQL client at gizmosql:31337.
 
 ### grafana
 
@@ -151,6 +155,10 @@ You can access the event streaming platform's ui as described under `redpanda-co
 ### redpanda-cluster-config
 
 The broker's one-shot task for adjusting its cluster configuration after startup.
+
+### redpanda-connect
+
+You can track the event stream ingestion using the pipeline's readiness endpoint.
 
 ### redpanda-console
 

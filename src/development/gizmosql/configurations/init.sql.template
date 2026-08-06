@@ -1,0 +1,38 @@
+INSTALL httpfs;
+LOAD httpfs;
+
+CREATE SECRET r2_secret (TYPE r2, KEY_ID '__R2_ACCESS_KEY_ID__', SECRET '__R2_SECRET_ACCESS_KEY__', ACCOUNT_ID '__R2_ACCOUNT_ID__');
+
+CREATE SCHEMA IF NOT EXISTS analytics;
+
+-- The event stream's parquet lakehouse, written by redpanda-connect to R2
+-- (bucket "test", prefix "events/"). The raw parquet columns are strings, so
+-- ids and timestamps are cast to proper types (try_cast keeps bad values NULL).
+CREATE OR REPLACE VIEW analytics.events AS
+SELECT
+  try_cast(id AS UUID) AS id,
+  name,
+  slug,
+  try_cast(start AS TIMESTAMPTZ) AS start,
+  try_cast("end" AS TIMESTAMPTZ) AS "end",
+  visibility,
+  is_archived,
+  is_in_person,
+  is_remote,
+  language,
+  url,
+  try_cast(address_id AS UUID) AS address_id,
+  guest_count_maximum,
+  try_cast(created_at AS TIMESTAMPTZ) AS created_at,
+  try_cast(created_by AS UUID) AS created_by,
+  operation
+FROM read_parquet('r2://test/events/*.parquet');
+
+-- Example aggregate over the lakehouse.
+CREATE OR REPLACE VIEW analytics.events_daily AS
+SELECT
+  try_cast(created_at AS DATE) AS day,
+  count(*) AS events
+FROM read_parquet('r2://test/events/*.parquet')
+GROUP BY 1
+ORDER BY 1;

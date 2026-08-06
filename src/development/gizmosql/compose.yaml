@@ -1,0 +1,58 @@
+secrets:
+  gizmosql-password:
+    # The gizmosql server's password.
+    file: ~~/artifacts/secrets/gizmosql-password.secret
+  r2-account-id:
+    # The event stream analytics' cloud storage account identifier.
+    file: ~~/artifacts/secrets/r2-account-id.secret
+  r2-aws-credentials-access-key:
+    # The event stream analytics' cloud storage secret access key.
+    file: ~~/artifacts/secrets/r2-aws-credentials-access-key.secret
+  r2-aws-credentials-access-key-id:
+    # The event stream analytics' cloud storage access key identifier.
+    file: ~~/artifacts/secrets/r2-aws-credentials-access-key-id.secret
+services:
+  gizmosql:
+    # You can query the event stream's parquet lakehouse using any Arrow Flight SQL client.
+    command: /run/entrypoint.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    entrypoint: sh
+    environment:
+      GIZMOSQL_USERNAME: gizmosql
+      INIT_SQL_COMMANDS_FILE: /tmp/gizmosql-init.sql
+      PRINT_QUERIES: "1"
+      TLS_ENABLED: "0"
+    healthcheck:
+      test: ["CMD-SHELL", "GIZMOSQL_PASSWORD=$$(cat /run/environment-variables/GIZMOSQL_PASSWORD) gizmosql_client --host 127.0.0.1 --port 31337 --username gizmosql --command 'SELECT 1'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    image: gizmodata/gizmosql:v1.35.1
+    ports: # dargstack:dev-only
+      - 31337:31337 # dargstack:dev-only
+    secrets:
+      - source: gizmosql-password
+        target: /run/environment-variables/GIZMOSQL_PASSWORD
+      - source: r2-account-id
+        target: /run/environment-variables/R2_ACCOUNT_ID
+      - source: r2-aws-credentials-access-key-id
+        target: /run/environment-variables/R2_ACCESS_KEY_ID
+      - source: r2-aws-credentials-access-key
+        target: /run/environment-variables/R2_SECRET_ACCESS_KEY
+    volumes:
+      - ./configurations/entrypoint.sh:/run/entrypoint.sh:ro
+      - ./configurations/init.sql.template:/run/init.sql.template:ro
+x-dargstack:
+  secrets:
+    gizmosql-password:
+      special_characters: false
+      type: random_string
+    r2-account-id:
+      type: third_party
+    r2-aws-credentials-access-key:
+      type: third_party
+    r2-aws-credentials-access-key-id:
+      type: third_party

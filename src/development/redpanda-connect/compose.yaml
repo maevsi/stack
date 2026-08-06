@@ -1,0 +1,30 @@
+secrets:
+  r2-aws-credentials:
+    # The event stream ingestion's s3 credentials file.
+    file: ~~/artifacts/secrets/r2-aws-credentials.secret
+services:
+  redpanda-connect:
+    # You can track the event stream's parquet ingestion using the pipeline's readiness endpoint.
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: /run/secrets/r2-aws-credentials
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:4195/ready"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    image: redpandadata/connect:4.103.1
+    secrets:
+      - r2-aws-credentials
+    volumes:
+      - ./configurations/config.yaml:/connect.yaml:ro
+x-dargstack:
+  secrets:
+    r2-aws-credentials:
+      template: |
+        [default]
+        aws_access_key_id = {{secret:r2-aws-credentials-access-key-id}}
+        aws_secret_access_key = {{secret:r2-aws-credentials-access-key}}
