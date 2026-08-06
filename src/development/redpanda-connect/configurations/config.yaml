@@ -1,0 +1,77 @@
+input:
+  kafka_franz:
+    seed_brokers: ["redpanda:9092"]
+    topics: ["vibetype.vibetype.event"]
+    consumer_group: "rp_connect_r2_ingest"
+pipeline:
+  processors:
+    # Tombstone messages (Debezium deletes) carry no payload and must be dropped.
+    - bloblang: |
+        root = if this.payload.after.or(this.after) == null { deleted() }
+    - mapping: |
+        root = this.payload.after.or(this.after)
+        root.operation = this.payload.op.or(this.op)
+output:
+  aws_s3:
+    bucket: test
+    endpoint: ${S3_ENDPOINT_URL}
+    region: weur
+    force_path_style_urls: true
+    credentials:
+      profile: default
+    path: 'events/${! timestamp_unix_nano() }-${! uuid_v4() }.parquet'
+    batching:
+      count: 10000
+      period: 15s
+      processors:
+        - parquet_encode:
+            schema:
+              - name: id
+                type: UTF8
+                optional: true
+              - name: name
+                type: UTF8
+                optional: true
+              - name: slug
+                type: UTF8
+                optional: true
+              - name: start
+                type: UTF8
+                optional: true
+              - name: end
+                type: UTF8
+                optional: true
+              - name: visibility
+                type: UTF8
+                optional: true
+              - name: is_archived
+                type: BOOLEAN
+                optional: true
+              - name: is_in_person
+                type: BOOLEAN
+                optional: true
+              - name: is_remote
+                type: BOOLEAN
+                optional: true
+              - name: language
+                type: UTF8
+                optional: true
+              - name: url
+                type: UTF8
+                optional: true
+              - name: address_id
+                type: UTF8
+                optional: true
+              - name: guest_count_maximum
+                type: INT64
+                optional: true
+              - name: created_at
+                type: UTF8
+                optional: true
+              - name: created_by
+                type: UTF8
+                optional: true
+              - name: operation
+                type: UTF8
+                optional: true
+            default_compression: zstd
