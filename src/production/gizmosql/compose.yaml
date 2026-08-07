@@ -1,0 +1,5 @@
+services:
+  gizmosql:
+    deploy:
+      update_config:
+        order: stop-first

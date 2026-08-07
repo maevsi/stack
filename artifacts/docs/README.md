@@ -16,7 +16,7 @@ Services: adminer, cloudflared, portainer, portainer-agent, postgraphile, postgr
 
 ### event-streaming
 
-Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-console, sqitch, traefik
+Services: debezium, debezium-postgres-connector, gizmosql, postgres, redpanda, redpanda-connect, redpanda-console, sqitch, traefik
 
 ### recommendation
 
@@ -72,6 +72,10 @@ You cannot access the search engine via a web interface.
 ### geoip
 
 You cannot access the ip geolocator via a web interface.
+
+### gizmosql
+
+You can query the event stream's parquet lakehouse using any Arrow Flight SQL client at gizmosql:31337.
 
 ### grafana
 
@@ -141,6 +145,10 @@ You cannot access the caching system via a web interface.
 ### redpanda
 
 You can access the event streaming platform's ui as described under `redpanda-console`.
+
+### redpanda-connect
+
+You can track the event stream ingestion using the pipeline's readiness endpoint.
 
 ### redpanda-console
 
