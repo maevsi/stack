@@ -1,0 +1,5 @@
+services:
+  node-exporter:
+    deploy:
+      update_config:
+        order: start-first
