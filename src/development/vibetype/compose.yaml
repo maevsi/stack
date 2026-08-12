@@ -11,6 +11,9 @@ secrets:
   vibetype-openai-api-key:
     # The AI provider's API key for the frontend.
     file: ~~/artifacts/secrets/vibetype-openai-api-key.secret
+  vibetype-scripts-proxy-secret:
+    # The scripts proxy's secret.
+    file: ~~/artifacts/secrets/vibetype-scripts-proxy-secret.secret
   vibetype-turnstile-key:
     # The captcha provider's application key.
     file: ~~/artifacts/secrets/vibetype-turnstile-key.secret
@@ -57,6 +60,8 @@ services:
         target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
       - source: vibetype-openai-api-key
         target: /run/environment-variables/NUXT_OPENAI_API_KEY
+      - source: vibetype-scripts-proxy-secret
+        target: /run/environment-variables/NUXT_SCRIPTS_PROXY_SECRET
       - source: vibetype-turnstile-key
         target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
       - source: vibetype-zammad
@@ -113,6 +118,8 @@ x-dargstack:
       type: third_party
     vibetype-openai-api-key:
       type: third_party
+    vibetype-scripts-proxy-secret:
+      type: random_string
     vibetype-turnstile-key:
       insecure_default: 1x0000000000000000000000000000000AA
     vibetype-zammad:
