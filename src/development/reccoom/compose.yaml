@@ -33,6 +33,7 @@ services:
         reservations:
           memory: 1200M
     environment:
+      ADMIN_ACCOUNT_IDS: ${RECCOOM_ADMIN_ACCOUNT_IDS}
       POSTGRES_HOST: postgres
       RECCOOM_POSTGRES_HOST: reccoom-postgres
     image: vibetype/reccoom:development
