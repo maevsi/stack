@@ -47,6 +47,8 @@ services:
         target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
       - source: postgraphile-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
+      - source: vibetype-turnstile-key
+        target: /run/environment-variables/POSTGRAPHILE_TURNSTILE_SECRET_KEY
     volumes:
       - ~~~/postgraphile/:/srv/app/ # dargstack:dev-only
       - ./configurations/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
