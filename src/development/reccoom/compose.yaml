@@ -58,9 +58,11 @@ services:
         target: /run/environment-variables/SENTRY_DSN
       - source: reccoom-service-api-key
         target: /run/environment-variables/SERVICE_API_KEY
+    configs:
+      - source: postgraphile-jwt-public-key
+        target: /run/configurations/jwtES256.key.pub
     volumes:
       - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
-      - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
       - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-consumer:
     # You can track the recommender's event streaming consumer using `redpanda-console`.
