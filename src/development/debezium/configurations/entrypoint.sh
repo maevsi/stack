@@ -27,7 +27,7 @@ curl --fail --output /dev/null --silent --show-error \
     "database.password": "'"$POSTGRES_PASSWORD"'",
     "database.user": "'"$POSTGRES_USER"'",
     "plugin.name": "pgoutput",
-    "table.include.list": "vibetype_private.outbox,vibetype.upload",
+    "table.include.list": "vibetype_private.outbox",
     "topic.prefix" : "vibetype",
     "transforms": "outbox",
     "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
