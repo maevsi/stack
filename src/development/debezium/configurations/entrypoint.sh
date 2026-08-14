@@ -27,8 +27,18 @@ curl --fail --output /dev/null --silent --show-error \
     "database.password": "'"$POSTGRES_PASSWORD"'",
     "database.user": "'"$POSTGRES_USER"'",
     "plugin.name": "pgoutput",
-    "table.include.list": "vibetype.event,vibetype.upload,vibetype_private.notification",
-    "topic.prefix" : "vibetype"
+    "table.include.list": "vibetype_private.outbox,vibetype.upload",
+    "topic.prefix" : "vibetype",
+    "transforms": "outbox",
+    "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.route.by.field": "channel",
+    "transforms.outbox.route.topic.replacement": "vibetype.outbox.${routedByValue}",
+    "transforms.outbox.table.field.event.key": "id",
+    "transforms.outbox.table.field.event.payload": "payload",
+    "transforms.outbox.predicate": "isOutbox",
+    "predicates": "isOutbox",
+    "predicates.isOutbox.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
+    "predicates.isOutbox.pattern": "vibetype\\.vibetype_private\\.outbox"
 }'
 
 echo "PostgreSQL connector '$CONNECTOR_NAME' is up to date."
