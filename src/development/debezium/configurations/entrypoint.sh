@@ -33,7 +33,7 @@ curl --fail --output /dev/null --silent --show-error \
     "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
     "transforms.outbox.route.by.field": "channel",
     "transforms.outbox.route.topic.replacement": "vibetype.outbox.${routedByValue}",
-    "transforms.outbox.table.field.event.key": "id",
+    "transforms.outbox.table.field.event.key": "aggregate_id",
     "transforms.outbox.table.field.event.payload": "payload",
     "transforms.outbox.predicate": "isOutbox",
     "predicates": "isOutbox",
