@@ -1,4 +1,5 @@
 audit-log/
 certificates/
+configs/
 secrets/
 .env.merged
