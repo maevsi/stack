@@ -1,7 +1,4 @@
 secrets:
-  reccoom-ingest-api-key:
-    # The recommendation engine's ingest API key.
-    file: ~~/artifacts/secrets/reccoom-ingest-api-key.secret
   reccoom-model-api-key:
     # The recommendation engine's model API key.
     file: ~~/artifacts/secrets/reccoom-model-api-key.secret
@@ -11,6 +8,9 @@ secrets:
   reccoom-sentry-dsn:
     # The recommendation engine's Sentry DSN.
     file: ~~/artifacts/secrets/reccoom-sentry-dsn.secret
+  reccoom-service-api-key:
+    # The recommendation engine's service-to-service API key.
+    file: ~~/artifacts/secrets/reccoom-service-api-key.secret
 services:
   reccoom:
     # You cannot access the recommendation service directly.
@@ -27,7 +27,13 @@ services:
         - traefik.http.routers.reccoom-secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.reccoom.loadbalancer.server.port=5245
+      resources:
+        limits:
+          memory: 1750M
+        reservations:
+          memory: 1200M
     environment:
+      ADMIN_ACCOUNT_IDS: ${RECCOOM_ADMIN_ACCOUNT_IDS}
       POSTGRES_HOST: postgres
       RECCOOM_POSTGRES_HOST: reccoom-postgres
     image: vibetype/reccoom:development
@@ -44,17 +50,19 @@ services:
         target: /run/environment-variables/POSTGRES_PASSWORD
       - source: postgres-password
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
-      - source: reccoom-ingest-api-key
-        target: /run/environment-variables/INGEST_API_KEY
       - source: reccoom-model-api-key
         target: /run/environment-variables/MODEL_API_KEY
       - source: reccoom-openai-api-key
         target: /run/environment-variables/OPENAI_API_KEY
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
+      - source: reccoom-service-api-key
+        target: /run/environment-variables/SERVICE_API_KEY
+    configs:
+      - source: postgraphile-jwt-public-key
+        target: /run/configurations/jwtES256.key.pub
     volumes:
       - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
-      - ../postgraphile/configurations/jwtES256.key.pub:/run/configurations/jwtES256.key.pub:ro
       - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-consumer:
     # You can track the recommender's event streaming consumer using `redpanda-console`.
@@ -64,9 +72,15 @@ services:
         - dargstack.development.git.ssh=git@github.com:maevsi/reccoom.git
         - dargstack.development.git.https=https://github.com/maevsi/reccoom.git
         - dargstack.profiles=recommendation
+      resources:
+        limits:
+          memory: 350M
+        reservations:
+          memory: 150M
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
       POSTGRES_HOST: postgres
+      RECCOOM_API_URL: http://reccoom:5245
       RECCOOM_POSTGRES_HOST: reccoom-postgres
     healthcheck:
       test: ["CMD-SHELL", "test -f /home/python/consumer-alive && [ $$(( $$(date +%s) - $$(date +%s -r /home/python/consumer-alive) )) -lt 60 ]"]
@@ -85,6 +99,8 @@ services:
         target: /run/environment-variables/POSTGRES_PASSWORD
       - source: postgres-password
         target: /run/environment-variables/RECCOOM_POSTGRES_PASSWORD
+      - source: reccoom-service-api-key
+        target: /run/environment-variables/SERVICE_API_KEY
       - source: reccoom-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
     volumes: # dargstack:dev-only
@@ -98,6 +114,11 @@ services:
         - dargstack.development.git.ssh=git@github.com:maevsi/reccoom.git
         - dargstack.development.git.https=https://github.com/maevsi/reccoom.git
         - dargstack.profiles=recommendation
+      resources:
+        limits:
+          memory: 350M
+        reservations:
+          memory: 150M
       restart_policy:
         condition: on-failure
     environment:
@@ -148,11 +169,11 @@ volumes:
     {}
 x-dargstack:
   secrets:
-    reccoom-ingest-api-key:
-      type: third_party
     reccoom-model-api-key:
       type: third_party
     reccoom-openai-api-key:
       type: third_party
     reccoom-sentry-dsn:
+      type: third_party
+    reccoom-service-api-key:
       type: third_party

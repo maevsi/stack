@@ -11,6 +11,9 @@ secrets:
   vibetype-openai-api-key:
     # The AI provider's API key for the frontend.
     file: ~~/artifacts/secrets/vibetype-openai-api-key.secret
+  vibetype-scripts-proxy-secret:
+    # The scripts proxy's secret.
+    file: ~~/artifacts/secrets/vibetype-scripts-proxy-secret.secret
   vibetype-turnstile-key:
     # The captcha provider's application key.
     file: ~~/artifacts/secrets/vibetype-turnstile-key.secret
@@ -57,6 +60,8 @@ services:
         target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
       - source: vibetype-openai-api-key
         target: /run/environment-variables/NUXT_OPENAI_API_KEY
+      - source: vibetype-scripts-proxy-secret
+        target: /run/environment-variables/NUXT_SCRIPTS_PROXY_SECRET
       - source: vibetype-turnstile-key
         target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
       - source: vibetype-zammad
@@ -67,12 +72,14 @@ services:
         target: /run/environment-variables/PGPASSWORD
       - source: postgres-role-service-vibetype-username
         target: /run/environment-variables/PGUSER
+    configs:
+      - source: postgraphile-jwt-public-key
+        target: /run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY
     volumes:
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - ~~/artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
       - ~~~/vibetype/:/srv/app/ # dargstack:dev-only
       - vibetype-data:/srv/app/node_modules # dargstack:dev-only
-      - ../postgraphile/configurations/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
 volumes:
   vibetype-data:
     # The frontend's data.
@@ -113,6 +120,8 @@ x-dargstack:
       type: third_party
     vibetype-openai-api-key:
       type: third_party
+    vibetype-scripts-proxy-secret:
+      type: random_string
     vibetype-turnstile-key:
       insecure_default: 1x0000000000000000000000000000000AA
     vibetype-zammad:

@@ -1,3 +1,17 @@
+## [20.3.1](https://github.com/maevsi/stack/compare/20.3.0...20.3.1) (2026-08-14)
+
+## [20.3.0](https://github.com/maevsi/stack/compare/20.2.2...20.3.0) (2026-08-13)
+
+## [20.2.2](https://github.com/maevsi/stack/compare/20.2.1...20.2.2) (2026-08-13)
+
+## [20.2.1](https://github.com/maevsi/stack/compare/20.2.0...20.2.1) (2026-08-12)
+
+## [20.2.0](https://github.com/maevsi/stack/compare/20.1.0...20.2.0) (2026-08-12)
+
+## [20.1.0](https://github.com/maevsi/stack/compare/20.0.2...20.1.0) (2026-08-10)
+
+## [20.0.2](https://github.com/maevsi/stack/compare/20.0.1...20.0.2) (2026-08-07)
+
 ## [20.0.1](https://github.com/maevsi/stack/compare/20.0.0...20.0.1) (2026-07-30)
 
 ## [20.0.0](https://github.com/maevsi/stack/compare/19.1.9...20.0.0) (2026-07-28)

@@ -11,6 +11,10 @@ secrets:
   postgraphile-sentry-dsn:
     # The GraphQL API's Sentry DSN.
     file: ~~/artifacts/secrets/postgraphile-sentry-dsn.secret
+configs:
+  postgraphile-jwt-public-key:
+    # The GraphQL API's JWT public key, derived from postgraphile-jwt-secret.
+    file: ~~/artifacts/configs/postgraphile-jwt-public-key.pub
 services:
   postgraphile:
     # You can access the GraphQL API for the PostgreSQL database at [postgraphile.app.localhost](https://postgraphile.app.localhost/).
@@ -47,9 +51,13 @@ services:
         target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
       - source: postgraphile-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
+      - source: vibetype-turnstile-key
+        target: /run/environment-variables/TURNSTILE_SECRET_KEY
+    configs:
+      - source: postgraphile-jwt-public-key
+        target: /run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY
     volumes:
       - ~~~/postgraphile/:/srv/app/ # dargstack:dev-only
-      - ./configurations/jwtES256.key.pub:/run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY:ro
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - postgraphile-data:/srv/app/node_modules # dargstack:dev-only
 volumes:
@@ -57,6 +65,10 @@ volumes:
     # The GraphQL API's data.
     {}
 x-dargstack:
+  configs:
+    postgraphile-jwt-public-key:
+      type: public_key
+      source: postgraphile-jwt-secret
   secrets:
     postgraphile-connection:
       type: template
