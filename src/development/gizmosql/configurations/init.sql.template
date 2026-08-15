@@ -1,11 +1,11 @@
 INSTALL httpfs;
 LOAD httpfs;
 
-CREATE SECRET r2_secret (TYPE r2, KEY_ID '__R2_ACCESS_KEY_ID__', SECRET '__R2_SECRET_ACCESS_KEY__', ACCOUNT_ID '__R2_ACCOUNT_ID__');
+CREATE SECRET s3_secret (TYPE r2, KEY_ID '__S3_ACCESS_KEY_ID__', SECRET '__S3_SECRET_ACCESS_KEY__', ACCOUNT_ID '__S3_ACCOUNT_ID__');
 
 CREATE SCHEMA IF NOT EXISTS analytics;
 
--- The event stream's parquet lakehouse, written by redpanda-connect to R2
+-- The event stream's parquet lakehouse, written by redpanda-connect to S3
 -- (bucket "test", prefix "events/"). The raw parquet columns are strings, so
 -- ids and timestamps are cast to proper types (try_cast keeps bad values NULL).
 CREATE OR REPLACE VIEW analytics.events AS

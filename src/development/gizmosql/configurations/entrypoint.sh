@@ -32,20 +32,20 @@ load_environment_variables() {
 load_environment_variables
 # END of maevsi entrypoint script customization
 
-# DuckDB in this image has no getenv() function, so the R2 values are rendered
+# DuckDB in this image has no getenv() function, so the S3 values are rendered
 # into init.sql. sed treats `&` and `\` specially in replacements, so escape
-# them first (R2 keys are hex today, but this keeps arbitrary values safe).
+# them first (S3 keys are hex today, but this keeps arbitrary values safe).
 escape_sed_replacement() {
   printf '%s\n' "$1" | sed 's/[&\\]/\\&/g'
 }
 
-R2_ACCOUNT_ID="$(escape_sed_replacement "${R2_ACCOUNT_ID}")"
-R2_ACCESS_KEY_ID="$(escape_sed_replacement "${R2_ACCESS_KEY_ID}")"
-R2_SECRET_ACCESS_KEY="$(escape_sed_replacement "${R2_SECRET_ACCESS_KEY}")"
+S3_ACCOUNT_ID="$(escape_sed_replacement "${S3_ACCOUNT_ID}")"
+S3_ACCESS_KEY_ID="$(escape_sed_replacement "${S3_ACCESS_KEY_ID}")"
+S3_SECRET_ACCESS_KEY="$(escape_sed_replacement "${S3_SECRET_ACCESS_KEY}")"
 
-sed -e "s|__R2_ACCOUNT_ID__|${R2_ACCOUNT_ID}|g" \
-    -e "s|__R2_ACCESS_KEY_ID__|${R2_ACCESS_KEY_ID}|g" \
-    -e "s|__R2_SECRET_ACCESS_KEY__|${R2_SECRET_ACCESS_KEY}|g" \
+sed -e "s|__S3_ACCOUNT_ID__|${S3_ACCOUNT_ID}|g" \
+    -e "s|__S3_ACCESS_KEY_ID__|${S3_ACCESS_KEY_ID}|g" \
+    -e "s|__S3_SECRET_ACCESS_KEY__|${S3_SECRET_ACCESS_KEY}|g" \
     /run/init.sql.template > /tmp/gizmosql-init.sql
 
 exec /opt/gizmosql/scripts/start_gizmosql.sh

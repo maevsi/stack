@@ -2,7 +2,7 @@ input:
   kafka_franz:
     seed_brokers: ["redpanda:9092"]
     topics: ["vibetype.vibetype.event"]
-    consumer_group: "rp_connect_r2_ingest"
+    consumer_group: "rp_connect_s3_ingest"
 pipeline:
   processors:
     # Tombstone messages (Debezium deletes) carry no payload and must be dropped.
