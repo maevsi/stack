@@ -2,18 +2,18 @@ secrets:
   gizmosql-password:
     # The gizmosql server's password.
     file: ~~/artifacts/secrets/gizmosql-password.secret
-  r2-account-id:
+  s3-account-id:
     # The event stream analytics' cloud storage account identifier.
-    file: ~~/artifacts/secrets/r2-account-id.secret
-  r2-aws-credentials-access-key:
+    file: ~~/artifacts/secrets/s3-account-id.secret
+  s3-aws-credentials-access-key:
     # The event stream analytics' cloud storage secret access key.
-    file: ~~/artifacts/secrets/r2-aws-credentials-access-key.secret
-  r2-aws-credentials-access-key-id:
+    file: ~~/artifacts/secrets/s3-aws-credentials-access-key.secret
+  s3-aws-credentials-access-key-id:
     # The event stream analytics' cloud storage access key identifier.
-    file: ~~/artifacts/secrets/r2-aws-credentials-access-key-id.secret
+    file: ~~/artifacts/secrets/s3-aws-credentials-access-key-id.secret
 services:
   gizmosql:
-    # You can query the event stream's parquet lakehouse using any Arrow Flight SQL client.
+    # You can query the event stream's parquet lakehouse using Grafana or any Arrow Flight SQL client.
     command: /run/entrypoint.sh
     deploy:
       labels:
@@ -31,17 +31,15 @@ services:
       retries: 3
       start_period: 60s
     image: gizmodata/gizmosql:v1.35.1
-    ports: # dargstack:dev-only
-      - 31337:31337 # dargstack:dev-only
     secrets:
       - source: gizmosql-password
         target: /run/environment-variables/GIZMOSQL_PASSWORD
-      - source: r2-account-id
-        target: /run/environment-variables/R2_ACCOUNT_ID
-      - source: r2-aws-credentials-access-key-id
-        target: /run/environment-variables/R2_ACCESS_KEY_ID
-      - source: r2-aws-credentials-access-key
-        target: /run/environment-variables/R2_SECRET_ACCESS_KEY
+      - source: s3-account-id
+        target: /run/environment-variables/S3_ACCOUNT_ID
+      - source: s3-aws-credentials-access-key-id
+        target: /run/environment-variables/S3_ACCESS_KEY_ID
+      - source: s3-aws-credentials-access-key
+        target: /run/environment-variables/S3_SECRET_ACCESS_KEY
     volumes:
       - ./configurations/entrypoint.sh:/run/entrypoint.sh:ro
       - ./configurations/init.sql.template:/run/init.sql.template:ro
@@ -50,9 +48,9 @@ x-dargstack:
     gizmosql-password:
       special_characters: false
       type: random_string
-    r2-account-id:
+    s3-account-id:
       type: third_party
-    r2-aws-credentials-access-key:
+    s3-aws-credentials-access-key:
       type: third_party
-    r2-aws-credentials-access-key-id:
+    s3-aws-credentials-access-key-id:
       type: third_party
