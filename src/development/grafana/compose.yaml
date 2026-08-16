@@ -30,6 +30,7 @@ services:
       GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres-role-service-grafana-password
       GF_DATABASE_TYPE: postgres
       GF_DATABASE_USER__FILE: /run/secrets/postgres-role-service-grafana-username
+      GF_INSTALL_PLUGINS: gizmodata-gizmosql-datasource
       GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana-admin-email
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana-admin-password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana-admin-user
@@ -46,6 +47,7 @@ services:
       - grafana-admin-password
       - grafana-admin-user
       - grafana-discord-webhook
+      - gizmosql-password
       - postgres-db
       - postgres-role-service-grafana-password
       - postgres-role-service-grafana-username
