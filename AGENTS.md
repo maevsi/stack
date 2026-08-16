@@ -22,6 +22,7 @@ applyTo: '**'
 - Do not use abbreviations in naming, except where omitting them would look unnatural
 - Use natural language in any non-code text instead of referring to code directly, e.g. "the database's password" instead of "the `postgres_password`", except when a code reference is needed
 - Use backticks in any non-code text to refer to code, e.g. "`postgres`" instead of "postgres"
+- In markdown prose, start each sentence on its own line (semantic line breaks); renders the same, but keeps diffs scoped to the sentence that changed
 - Sort YAML keys lexicographically except where order is semantically significant
 - Code formatting is done by the editor via `.editorconfig`
 
