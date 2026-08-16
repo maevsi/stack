@@ -13,7 +13,7 @@ secrets:
     file: ~~/artifacts/secrets/s3-aws-credentials-access-key-id.secret
 services:
   gizmosql:
-    # You can query the event stream's parquet lakehouse using Grafana or any Arrow Flight SQL client.
+    # You can query the event stream's parquet lakehouse using `grafana`.
     command: /run/entrypoint.sh
     deploy:
       labels:

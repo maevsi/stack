@@ -4,7 +4,7 @@ secrets:
     file: ~~/artifacts/secrets/s3-aws-credentials.secret
 services:
   redpanda-connect:
-    # You can track the event stream's parquet ingestion using the pipeline's readiness endpoint.
+    # You cannot access the event stream connector directly.
     deploy:
       labels:
         - dargstack.profiles=event-streaming
