@@ -75,7 +75,7 @@ You cannot access the ip geolocator via a web interface.
 
 ### gizmosql
 
-You can query the event stream's parquet lakehouse using any Arrow Flight SQL client at gizmosql:31337.
+You can query the event stream's parquet lakehouse using `grafana`.
 
 ### grafana
 
@@ -148,7 +148,7 @@ You can access the event streaming platform's ui as described under `redpanda-co
 
 ### redpanda-connect
 
-You can track the event stream ingestion using the pipeline's readiness endpoint.
+You cannot access the event stream connector directly.
 
 ### redpanda-console
 
