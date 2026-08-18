@@ -11,6 +11,16 @@ secrets:
   postgres-role-service-grafana-username:
     # The username of the observation dashboard's database role.
     file: ~~/artifacts/secrets/postgres-role-service-grafana-username.secret
+  postgres-role-service-jobber-password:
+    # The password of the workflow worker's outbox-purge database role. Kept
+    # under the `jobber` name jobber (the role's original owner) used,
+    # renaming would make dargstack generate a new random value and orphan
+    # the real grant already made on this role in the sqitch repo.
+    file: ~~/artifacts/secrets/postgres-role-service-jobber-password.secret
+  postgres-role-service-jobber-username:
+    # The username of the workflow worker's outbox-purge database role. Kept
+    # under the `jobber` name for the same reason as the password above.
+    file: ~~/artifacts/secrets/postgres-role-service-jobber-username.secret
   postgres-role-service-postgraphile-password:
     # The password of the GraphQL API database wrapper's database role.
     file: ~~/artifacts/secrets/postgres-role-service-postgraphile-password.secret

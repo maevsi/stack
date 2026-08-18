@@ -78,10 +78,6 @@ You cannot access the ip geolocator via a web interface.
 You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
 See `docs/grafana.md` for how to configure datasources, alerting, and dashboards after first login.
 
-### jobber
-
-You cannot access the jobber via a web interface.
-
 ### memcached
 
 You cannot access the caching system via a web interface.

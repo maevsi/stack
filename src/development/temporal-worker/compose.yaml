@@ -1,3 +1,18 @@
+secrets:
+  jobber-aws-bucket:
+    # The workflow worker's AWS bucket name for DBBackup. Kept under the
+    # `jobber` name jobber originally used, renaming would make dargstack
+    # generate a new random value and orphan the real S3 bucket already in
+    # use in production.
+    file: ~~/artifacts/secrets/jobber-aws-bucket.secret
+  jobber-aws-credentials:
+    # The workflow worker's AWS credentials for DBBackup. Kept under the
+    # `jobber` name for the same reason as `jobber-aws-bucket`.
+    file: ~~/artifacts/secrets/jobber-aws-credentials.secret
+  jobber-aws-configuration:
+    # The workflow worker's AWS configuration for DBBackup. Kept under the
+    # `jobber` name for the same reason as `jobber-aws-bucket`.
+    file: ~~/artifacts/secrets/jobber-aws-configuration.secret
 services:
   temporal-worker:
     # You cannot access the workflow worker directly, use `temporal-ui`.
@@ -7,18 +22,21 @@ services:
         - dargstack.development.git.https=https://github.com/maevsi/temporal-worker.git
     environment:
       AWS_SHARED_CREDENTIALS_FILE: /run/secrets/jobber-aws-credentials
-      POSTGRES_DB_FILE: /run/secrets/postgres-db
       POSTGRES_HOST: postgres
       TEMPORAL_ADDRESS: temporal:7233
     image: vibetype/temporal-worker:development
     secrets:
-      - jobber-aws-bucket
+      - source: jobber-aws-bucket
+        target: /run/environment-variables/AWS_BUCKET
       - jobber-aws-credentials
       - source: jobber-aws-configuration
         target: /home/node/.aws/config
-      - postgres-db
-      - postgres-role-service-jobber-password
-      - postgres-role-service-jobber-username
+      - source: postgres-db
+        target: /run/environment-variables/POSTGRES_DATABASE
+      - source: postgres-role-service-jobber-password
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres-role-service-jobber-username
+        target: /run/environment-variables/POSTGRES_USER
     volumes:
       - ~~~/temporal-worker/:/srv/app/ # dargstack:dev-only
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
@@ -27,3 +45,36 @@ volumes:
   temporal-worker-data:
     # The workflow worker's data.
     {}
+x-dargstack:
+  secrets:
+    jobber-aws-bucket:
+      type: wordlist_word
+    jobber-aws-credentials:
+      type: insecure_default
+      insecure_default: |
+        [default]
+        aws_access_key_id = s3user
+        aws_secret_access_key = s3password
+    jobber-aws-configuration:
+      type: template
+      template: |
+        [default]
+        region = {{secret:jobber-aws-configuration-region}}
+
+        s3 =
+          endpoint_url = {{secret:jobber-aws-configuration-s3-endpoint}}
+          signature_version = s3v4
+          max_concurrent_requests = 100
+          max_queue_size = 1000
+          multipart_threshold = 50MB
+          # Edit the multipart_chunksize value according to the file sizes that you want to upload. The present configuration allows to upload files up to 10 GB (100 requests * 10MB). For example setting it to 5GB allows you to upload files up to 5TB.
+          multipart_chunksize = 10MB
+        s3api =
+          endpoint_url = {{secret:jobber-aws-configuration-s3-endpoint}}
+
+        [plugins]
+        endpoint = awscli_plugin_endpoint
+    jobber-aws-configuration-region:
+      type: third_party
+    jobber-aws-configuration-s3-endpoint:
+      type: third_party
