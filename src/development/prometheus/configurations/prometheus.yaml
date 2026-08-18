@@ -33,3 +33,7 @@ scrape_configs:
       - targets:
           - redpanda:9644
     metrics_path: /public_metrics
+
+  - job_name: "temporal"
+    static_configs:
+      - targets: ["temporal:8000"]
