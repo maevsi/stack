@@ -5,6 +5,7 @@ services:
         order: stop-first
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
+      SENTRY_CRONS_OUTBOX_PURGE: ${SENTRY_CRONS_OUTBOX_PURGE}
     volumes:
       - (( append ))
       - postgres-backup-data:/backups/
