@@ -151,6 +151,18 @@ You can access the event streaming platform's ui at [redpanda.app.localhost](htt
 
 You cannot access the database migrations directly.
 
+### temporal
+
+You cannot access the workflow orchestrator directly, use `temporal-ui`.
+
+### temporal-ui
+
+You can access the workflow orchestrator's ui at [temporal.app.localhost](https://temporal.app.localhost/).
+
+### temporal-worker
+
+You cannot access the workflow worker directly, use `temporal-ui`.
+
 ### traefik
 
 You can access the reverse proxy's dashboard at [traefik.app.localhost](https://traefik.app.localhost/).

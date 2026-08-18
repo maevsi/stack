@@ -1,0 +1,29 @@
+services:
+  temporal-worker:
+    # You cannot access the workflow worker directly, use `temporal-ui`.
+    deploy:
+      labels:
+        - dargstack.development.git.ssh=git@github.com:maevsi/temporal-worker.git
+        - dargstack.development.git.https=https://github.com/maevsi/temporal-worker.git
+    environment:
+      AWS_SHARED_CREDENTIALS_FILE: /run/secrets/jobber-aws-credentials
+      POSTGRES_DB_FILE: /run/secrets/postgres-db
+      POSTGRES_HOST: postgres
+      TEMPORAL_ADDRESS: temporal:7233
+    image: vibetype/temporal-worker:development
+    secrets:
+      - jobber-aws-bucket
+      - jobber-aws-credentials
+      - source: jobber-aws-configuration
+        target: /home/node/.aws/config
+      - postgres-db
+      - postgres-role-service-jobber-password
+      - postgres-role-service-jobber-username
+    volumes:
+      - ~~~/temporal-worker/:/srv/app/ # dargstack:dev-only
+      - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
+      - temporal-worker-data:/srv/app/node_modules # dargstack:dev-only
+volumes:
+  temporal-worker-data:
+    # The workflow worker's data.
+    {}
