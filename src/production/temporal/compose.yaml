@@ -1,0 +1,13 @@
+services:
+  temporal:
+    deploy:
+      update_config:
+        order: stop-first
+  temporal-ui:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.temporal.middlewares=redirectscheme
+        - traefik.http.routers.temporal-secure.tls.certresolver=default
+      update_config:
+        order: start-first

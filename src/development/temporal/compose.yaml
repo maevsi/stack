@@ -1,0 +1,44 @@
+services:
+  temporal:
+    # You cannot access the workflow orchestrator directly, use `temporal-ui`.
+    entrypoint: sh
+    command: ["/entrypoint.sh"]
+    environment:
+      DB: postgres12
+      DB_PORT: "5432"
+      POSTGRES_SEEDS: postgres
+      PROMETHEUS_ENDPOINT: 0.0.0.0:8000
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 7233 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    image: temporalio/auto-setup:1.29.1
+    secrets:
+      - postgres-role-service-temporal-password
+      - postgres-role-service-temporal-username
+    volumes:
+      - ./configurations/entrypoint.sh:/entrypoint.sh:ro
+  temporal-ui:
+    # You can access the workflow orchestrator's ui at [temporal.app.localhost](https://temporal.app.localhost/).
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.temporal.entryPoints=web
+        - traefik.http.routers.temporal.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.temporal.rule=Host(`temporal.${STACK_DOMAIN}`)
+        - traefik.http.routers.temporal-secure.entryPoints=web-secure
+        - traefik.http.routers.temporal-secure.rule=Host(`temporal.${STACK_DOMAIN}`)
+        - traefik.http.routers.temporal-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.temporal.loadbalancer.server.port=8080
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CORS_ORIGINS: https://temporal.${STACK_DOMAIN}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    image: temporalio/ui:2.40.1
