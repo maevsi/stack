@@ -23,6 +23,12 @@ secrets:
   postgres-role-service-reccoom-username:
     # The username of the recommendation engine's database role.
     file: ~~/artifacts/secrets/postgres-role-service-reccoom-username.secret
+  postgres-role-service-temporal-password:
+    # The password of the workflow orchestrator's own database role (schema ownership, not app data).
+    file: ~~/artifacts/secrets/postgres-role-service-temporal-password.secret
+  postgres-role-service-temporal-username:
+    # The username of the workflow orchestrator's own database role (schema ownership, not app data).
+    file: ~~/artifacts/secrets/postgres-role-service-temporal-username.secret
   postgres-role-service-vibetype-password:
     # The `vibetype` database role's password.
     file: ~~/artifacts/secrets/postgres-role-service-vibetype-password.secret
@@ -99,6 +105,11 @@ x-dargstack:
       special_characters: false
       type: random_string
     postgres-role-service-reccoom-username:
+      type: wordlist_word
+    postgres-role-service-temporal-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-temporal-username:
       type: wordlist_word
     postgres-role-service-vibetype-password:
       special_characters: false
