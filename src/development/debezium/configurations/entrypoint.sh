@@ -34,7 +34,6 @@ curl --fail --output /dev/null --silent --show-error \
     "transforms.outbox.route.by.field": "aggregate_type",
     "transforms.outbox.route.topic.replacement": "vibetype.outbox.${routedByValue}",
     "transforms.outbox.table.field.event.key": "aggregate_id",
-    "transforms.outbox.table.field.event.payload": "payload",
     "transforms.outbox.predicate": "isOutbox",
     "predicates": "isOutbox",
     "predicates.isOutbox.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
