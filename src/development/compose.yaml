@@ -2,3 +2,21 @@ volumes:
   pnpm-data:
     # The node package manager's data.
     {}
+secrets:
+  s3-account-id:
+    # The event stream analytics' cloud storage account identifier.
+    file: ~~/artifacts/secrets/s3-account-id.secret
+  s3-aws-credentials-access-key:
+    # The event stream analytics' cloud storage secret access key.
+    file: ~~/artifacts/secrets/s3-aws-credentials-access-key.secret
+  s3-aws-credentials-access-key-id:
+    # The event stream analytics' cloud storage access key identifier.
+    file: ~~/artifacts/secrets/s3-aws-credentials-access-key-id.secret
+x-dargstack:
+  secrets:
+    s3-account-id:
+      type: third_party
+    s3-aws-credentials-access-key:
+      type: third_party
+    s3-aws-credentials-access-key-id:
+      type: third_party

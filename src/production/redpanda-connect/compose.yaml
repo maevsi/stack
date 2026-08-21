@@ -1,0 +1,5 @@
+services:
+  redpanda-connect:
+    deploy:
+      update_config:
+        order: stop-first
