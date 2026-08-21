@@ -1,3 +1,9 @@
+## [20.3.2](https://github.com/maevsi/stack/compare/20.3.1...20.3.2) (2026-08-21)
+
+### Bug Fixes
+
+* **vibetype:** correct notification secret variable name ([#298](https://github.com/maevsi/stack/issues/298)) ([0d871bd](https://github.com/maevsi/stack/commit/0d871bdbd322ca6ecb28821080fbaa52f15104b9))
+
 ## [20.3.1](https://github.com/maevsi/stack/compare/20.3.0...20.3.1) (2026-08-14)
 
 ## [20.3.0](https://github.com/maevsi/stack/compare/20.2.2...20.3.0) (2026-08-13)
