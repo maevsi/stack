@@ -53,7 +53,7 @@ services:
     image: vibetype/vibetype:development
     secrets:
       - source: vibetype-api-notification-secret
-        target: /run/environment-variables/NUXT_API_NOTIFICATION_SECRET
+        target: /run/environment-variables/NUXT_VIBETYPE_API_NOTIFICATION_SECRET
       - source: vibetype-aws-credentials
         target: /home/node/.aws/credentials
       - source: vibetype-firebase-service-account-credentials
