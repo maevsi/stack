@@ -1,3 +1,9 @@
+## [20.3.4](https://github.com/maevsi/stack/compare/20.3.3...20.3.4) (2026-08-24)
+
+### Bug Fixes
+
+* **traefik:** append production volumes ([30bc832](https://github.com/maevsi/stack/commit/30bc832458b7f963098aa003741b314e847aa1f5))
+
 ## [20.3.3](https://github.com/maevsi/stack/compare/20.3.2...20.3.3) (2026-08-24)
 
 ### Bug Fixes
