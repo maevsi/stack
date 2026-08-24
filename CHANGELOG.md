@@ -1,3 +1,9 @@
+## [20.3.3](https://github.com/maevsi/stack/compare/20.3.2...20.3.3) (2026-08-24)
+
+### Bug Fixes
+
+* **traefik:** add acme volume ([e952b4c](https://github.com/maevsi/stack/commit/e952b4c9f45774c0006d428f129ccc176c357592))
+
 ## [20.3.2](https://github.com/maevsi/stack/compare/20.3.1...20.3.2) (2026-08-21)
 
 ### Bug Fixes
