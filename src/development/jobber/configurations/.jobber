@@ -10,3 +10,12 @@ jobs:
       - type: system-email
     notifyOnFailure:
       - type: system-email
+  OutboxPurge:
+    cmd: PGPASSWORD="$(cat /run/secrets/postgres-role-service-jobber-password)" psql -v ON_ERROR_STOP=1 -h "$POSTGRES_HOST" -U "$(cat /run/secrets/postgres-role-service-jobber-username)" -d "$(cat "$POSTGRES_DB_FILE")" -c "DELETE FROM vibetype_private.outbox WHERE created_at < now() - interval '24 hours'"
+    time: 0 0 */2 *
+    notifyOnSuccess:
+      - type: system-email
+    notifyOnError:
+      - type: system-email
+    notifyOnFailure:
+      - type: system-email

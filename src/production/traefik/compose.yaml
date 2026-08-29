@@ -24,6 +24,9 @@ services:
     secrets:
       - traefik-cf-dns-api-token
       - traefik-cf-zone-api-token
+    volumes:
+      - (( append ))
+      - acme-data:/etc/traefik/acme/
   traefik-certs-dumper:
     # You cannot access the reverse proxy's certificate helper directly.
     command:

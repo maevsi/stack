@@ -1,3 +1,21 @@
+## [20.3.4](https://github.com/maevsi/stack/compare/20.3.3...20.3.4) (2026-08-24)
+
+### Bug Fixes
+
+* **traefik:** append production volumes ([30bc832](https://github.com/maevsi/stack/commit/30bc832458b7f963098aa003741b314e847aa1f5))
+
+## [20.3.3](https://github.com/maevsi/stack/compare/20.3.2...20.3.3) (2026-08-24)
+
+### Bug Fixes
+
+* **traefik:** add acme volume ([e952b4c](https://github.com/maevsi/stack/commit/e952b4c9f45774c0006d428f129ccc176c357592))
+
+## [20.3.2](https://github.com/maevsi/stack/compare/20.3.1...20.3.2) (2026-08-21)
+
+### Bug Fixes
+
+* **vibetype:** correct notification secret variable name ([#298](https://github.com/maevsi/stack/issues/298)) ([0d871bd](https://github.com/maevsi/stack/commit/0d871bdbd322ca6ecb28821080fbaa52f15104b9))
+
 ## [20.3.1](https://github.com/maevsi/stack/compare/20.3.0...20.3.1) (2026-08-14)
 
 ## [20.3.0](https://github.com/maevsi/stack/compare/20.2.2...20.3.0) (2026-08-13)

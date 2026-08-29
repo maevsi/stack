@@ -11,6 +11,12 @@ secrets:
   postgres-role-service-grafana-username:
     # The username of the observation dashboard's database role.
     file: ~~/artifacts/secrets/postgres-role-service-grafana-username.secret
+  postgres-role-service-jobber-password:
+    # The password of the job scheduler's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-jobber-password.secret
+  postgres-role-service-jobber-username:
+    # The username of the job scheduler's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-jobber-username.secret
   postgres-role-service-postgraphile-password:
     # The password of the GraphQL API database wrapper's database role.
     file: ~~/artifacts/secrets/postgres-role-service-postgraphile-password.secret
@@ -89,6 +95,11 @@ x-dargstack:
       special_characters: false
       type: random_string
     postgres-role-service-grafana-username:
+      type: wordlist_word
+    postgres-role-service-jobber-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-jobber-username:
       type: wordlist_word
     postgres-role-service-postgraphile-password:
       special_characters: false

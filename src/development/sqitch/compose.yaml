@@ -16,6 +16,8 @@ services:
     secrets:
       - postgres-role-service-grafana-password
       - postgres-role-service-grafana-username
+      - postgres-role-service-jobber-password
+      - postgres-role-service-jobber-username
       - postgres-role-service-postgraphile-password
       - postgres-role-service-postgraphile-username
       - postgres-role-service-reccoom-password

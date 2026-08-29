@@ -18,3 +18,17 @@ jobs:
     notifyOnFailure:
       - type: program
         path: /srv/sinks/sentry/error.sh
+  OutboxPurge:
+    cmd: |
+      /srv/sinks/sentry-outbox-purge/in-progress.sh
+      PGPASSWORD="$(cat /run/secrets/postgres-role-service-jobber-password)" psql -v ON_ERROR_STOP=1 -h "$POSTGRES_HOST" -U "$(cat /run/secrets/postgres-role-service-jobber-username)" -d "$(cat "$POSTGRES_DB_FILE")" -c "DELETE FROM vibetype_private.outbox WHERE created_at < now() - interval '24 hours'"
+    time: 0 0 */2 *
+    notifyOnSuccess:
+      - type: program
+        path: /srv/sinks/sentry-outbox-purge/ok.sh
+    notifyOnError:
+      - type: program
+        path: /srv/sinks/sentry-outbox-purge/error.sh
+    notifyOnFailure:
+      - type: program
+        path: /srv/sinks/sentry-outbox-purge/error.sh

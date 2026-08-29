@@ -10,7 +10,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    image: redis:8.10.0-alpine
+    image: redis:8.10.1-alpine
     volumes:
       - redis-data:/data
 volumes:
