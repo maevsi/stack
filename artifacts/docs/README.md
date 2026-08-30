@@ -8,7 +8,7 @@ Profiles group services so you can deploy subsets on demand. Activate with `darg
 
 ### analytics
 
-Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, traefik
+Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, temporal, temporal-ui, temporal-worker, traefik
 
 ### default
 

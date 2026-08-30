@@ -1,9 +1,0 @@
-services:
-  temporal-worker:
-    deploy:
-      update_config:
-        order: start-first
-    environment:
-      SENTRY_CRONS: ${SENTRY_CRONS}
-      SENTRY_CRONS_OUTBOX_PURGE: ${SENTRY_CRONS_OUTBOX_PURGE}
-    image: ghcr.io/maevsi/temporal-worker:0.1.0
