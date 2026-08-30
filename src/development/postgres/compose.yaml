@@ -11,16 +11,6 @@ secrets:
   postgres-role-service-grafana-username:
     # The username of the observation dashboard's database role.
     file: ~~/artifacts/secrets/postgres-role-service-grafana-username.secret
-  postgres-role-service-jobber-password:
-    # The password of the workflow worker's outbox-purge database role. Kept
-    # under the `jobber` name jobber (the role's original owner) used,
-    # renaming would make dargstack generate a new random value and orphan
-    # the real grant already made on this role in the sqitch repo.
-    file: ~~/artifacts/secrets/postgres-role-service-jobber-password.secret
-  postgres-role-service-jobber-username:
-    # The username of the workflow worker's outbox-purge database role. Kept
-    # under the `jobber` name for the same reason as the password above.
-    file: ~~/artifacts/secrets/postgres-role-service-jobber-username.secret
   postgres-role-service-postgraphile-password:
     # The password of the GraphQL API database wrapper's database role.
     file: ~~/artifacts/secrets/postgres-role-service-postgraphile-password.secret
@@ -34,11 +24,19 @@ secrets:
     # The username of the recommendation engine's database role.
     file: ~~/artifacts/secrets/postgres-role-service-reccoom-username.secret
   postgres-role-service-temporal-password:
-    # The password of the workflow orchestrator's own database role (schema ownership, not app data).
+    # The password of the workflow orchestrator's database role.
+    # The role owns the orchestrator's own two databases and holds none of the application's data.
     file: ~~/artifacts/secrets/postgres-role-service-temporal-password.secret
   postgres-role-service-temporal-username:
-    # The username of the workflow orchestrator's own database role (schema ownership, not app data).
+    # The username of the workflow orchestrator's database role.
     file: ~~/artifacts/secrets/postgres-role-service-temporal-username.secret
+  postgres-role-service-temporal-worker-password:
+    # The password of the workflow worker's database role.
+    # The role exists for the outbox purge workflow, which stays disabled until the outbox table lands in `sqitch`.
+    file: ~~/artifacts/secrets/postgres-role-service-temporal-worker-password.secret
+  postgres-role-service-temporal-worker-username:
+    # The username of the workflow worker's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-temporal-worker-username.secret
   postgres-role-service-vibetype-password:
     # The `vibetype` database role's password.
     file: ~~/artifacts/secrets/postgres-role-service-vibetype-password.secret
@@ -120,6 +118,11 @@ x-dargstack:
       special_characters: false
       type: random_string
     postgres-role-service-temporal-username:
+      type: wordlist_word
+    postgres-role-service-temporal-worker-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-temporal-worker-username:
       type: wordlist_word
     postgres-role-service-vibetype-password:
       special_characters: false
