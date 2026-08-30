@@ -1,3 +1,10 @@
+secrets:
+  redpanda-console-users:
+    # The event streaming platform ui's basic authentication users, in htpasswd format.
+    file: ~~/artifacts/secrets/redpanda-console-users.secret
+  temporal-ui-users:
+    # The workflow orchestrator ui's basic authentication users, in htpasswd format.
+    file: ~~/artifacts/secrets/temporal-ui-users.secret
 services:
   traefik:
     # You can access the reverse proxy's dashboard at [traefik.app.localhost](https://traefik.app.localhost/).
@@ -18,6 +25,10 @@ services:
         - dargstack.profiles=default,analytics,event-streaming,recommendation,upload,zammad
         - traefik.enable=true
         - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https # dargstack:dev-only
+        # These two uis have no login of their own, so the reverse proxy supplies one.
+        # Both the middlewares and their user files live here because it is the reverse proxy that has to read them, not the services they protect.
+        - traefik.http.middlewares.redpanda-console-auth.basicauth.usersfile=/run/secrets/redpanda-console-users
+        - traefik.http.middlewares.temporal-ui-auth.basicauth.usersfile=/run/secrets/temporal-ui-users
         - traefik.http.routers.traefik.entryPoints=web
         - traefik.http.routers.traefik.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.traefik.rule=Host(`traefik.${STACK_DOMAIN}`)
@@ -47,7 +58,18 @@ services:
         protocol: tcp # dargstack:dev-only
         published: 443 # dargstack:dev-only
         target: 443 # dargstack:dev-only
+    secrets:
+      - redpanda-console-users
+      - temporal-ui-users
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~~/artifacts/certificates/:/etc/traefik/acme/ # dargstack:dev-only
       - ./configurations/dynamic.yml:/dynamic.yml:ro # dargstack:dev-only
+x-dargstack:
+  secrets:
+    redpanda-console-users:
+      type: insecure_default
+      insecure_default: "redpanda:$2y$05$5M8cW1XyOSaT9bnOyKGvmuLHd8tbM0uB4gNuh8p7E0Ee0rQUMOFwy"
+    temporal-ui-users:
+      type: insecure_default
+      insecure_default: "temporal:$2y$05$gM4UgMFoaY7P3h/9X.2TCOM3MXoEeA7bvbIbUTJIbghoKf8CQWnqa"
