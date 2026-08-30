@@ -17,7 +17,7 @@ groups:
               datasourceUid: prometheus
               model:
                 editorMode: code
-                expr: sum(increase(workflow_failed[10m]))
+                expr: sum(increase(workflow_failed[10m])) or vector(0)
                 instant: true
                 intervalMs: 1000
                 maxDataPoints: 43200
