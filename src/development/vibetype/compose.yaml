@@ -75,7 +75,7 @@ services:
     configs:
       - source: postgraphile-jwt-public-key
         target: /run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY
-    volumes:
+    volumes: # dargstack:dev-only
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - ~~/artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
       - ~~~/vibetype/:/srv/app/ # dargstack:dev-only
