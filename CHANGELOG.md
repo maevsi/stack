@@ -1,3 +1,9 @@
+## [20.3.7](https://github.com/maevsi/stack/compare/20.3.6...20.3.7) (2026-09-02)
+
+### Bug Fixes
+
+* **reccoom:** correct empty volume list ([f89e640](https://github.com/maevsi/stack/commit/f89e6407f69c8840493bfe3a5d24926443bc94ea))
+
 ## [20.3.6](https://github.com/maevsi/stack/compare/20.3.5...20.3.6) (2026-09-02)
 
 ### Bug Fixes
