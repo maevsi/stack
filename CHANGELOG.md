@@ -1,3 +1,9 @@
+## [20.3.6](https://github.com/maevsi/stack/compare/20.3.5...20.3.6) (2026-09-02)
+
+### Bug Fixes
+
+* **vibetype:** correct empty volume list ([193e3f5](https://github.com/maevsi/stack/commit/193e3f5034bccf71f5bb0e5c7b4ee5b8efb88b81))
+
 ## [20.3.5](https://github.com/maevsi/stack/compare/20.3.4...20.3.5) (2026-09-02)
 
 ### Bug Fixes
