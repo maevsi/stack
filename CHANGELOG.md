@@ -1,3 +1,9 @@
+## [20.3.5](https://github.com/maevsi/stack/compare/20.3.4...20.3.5) (2026-09-02)
+
+### Bug Fixes
+
+* **postgraphile:** correct empty volume list ([4cf4242](https://github.com/maevsi/stack/commit/4cf4242249aa0e11f3fee11a528189bc108c70f3))
+
 ## [20.3.4](https://github.com/maevsi/stack/compare/20.3.3...20.3.4) (2026-08-24)
 
 ### Bug Fixes
