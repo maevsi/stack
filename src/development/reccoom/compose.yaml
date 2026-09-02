@@ -61,7 +61,7 @@ services:
     configs:
       - source: postgraphile-jwt-public-key
         target: /run/configurations/jwtES256.key.pub
-    volumes:
+    volumes: # dargstack:dev-only
       - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
       - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-consumer:
