@@ -56,7 +56,7 @@ services:
     configs:
       - source: postgraphile-jwt-public-key
         target: /run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY
-    volumes:
+    volumes: # dargstack:dev-only
       - ~~~/postgraphile/:/srv/app/ # dargstack:dev-only
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - postgraphile-data:/srv/app/node_modules # dargstack:dev-only
