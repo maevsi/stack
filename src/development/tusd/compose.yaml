@@ -34,8 +34,8 @@ services:
 x-dargstack:
   secrets:
     tusd-aws:
-      insecure_default: |
+      template: |
         [default]
-        aws_access_key_id = s3user
-        aws_secret_access_key = s3password
-      type: insecure_default
+        aws_access_key_id = {{secret:minio-root-user}}
+        aws_secret_access_key = {{secret:minio-root-password}}
+      type: template

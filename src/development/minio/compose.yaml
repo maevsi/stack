@@ -1,3 +1,10 @@
+secrets:
+  minio-root-password:
+    # The s3 server's root password.
+    file: ~~/artifacts/secrets/minio-root-password.secret
+  minio-root-user:
+    # The s3 server's root user.
+    file: ~~/artifacts/secrets/minio-root-user.secret
 services:
   minio:
     # You can access the s3 console at [minio.app.localhost](https://minio.app.localhost/).
@@ -31,13 +38,23 @@ services:
         - traefik.http.services.s3.loadbalancer.passhostheader=true
     entrypoint: /patched-entrypoint.sh
     image: minio/minio
+    secrets:
+      - minio-root-password
+      - minio-root-user
     volumes:
       - minio-data:/data
       - ./configurations/entrypoint.sh:/patched-entrypoint.sh
     environment:
-      MINIO_ROOT_PASSWORD: s3password
-      MINIO_ROOT_USER: s3user
+      MINIO_ROOT_PASSWORD_FILE: /run/secrets/minio-root-password
+      MINIO_ROOT_USER_FILE: /run/secrets/minio-root-user
 volumes:
   minio-data:
     # The s3 server's data.
     {}
+x-dargstack:
+  secrets:
+    minio-root-password:
+      special_characters: false
+      type: random_string
+    minio-root-user:
+      type: wordlist_word

@@ -40,11 +40,11 @@ x-dargstack:
     jobber-aws-bucket:
       type: wordlist_word
     jobber-aws-credentials:
-      type: insecure_default
-      insecure_default: |
+      type: template
+      template: |
         [default]
-        aws_access_key_id = s3user
-        aws_secret_access_key = s3password
+        aws_access_key_id = {{secret:minio-root-user}}
+        aws_secret_access_key = {{secret:minio-root-password}}
     jobber-aws-configuration:
       type: template
       template: |
