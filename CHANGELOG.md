@@ -1,3 +1,9 @@
+## [20.5.1](https://github.com/maevsi/stack/compare/20.5.0...20.5.1) (2026-09-03)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/sqitch to v12.3.1 ([c4b70d8](https://github.com/maevsi/stack/commit/c4b70d80411cb143d975ce7727109522190cbe0b))
+
 ## [20.5.0](https://github.com/maevsi/stack/compare/20.4.0...20.5.0) (2026-09-03)
 
 ### Features
