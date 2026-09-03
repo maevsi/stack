@@ -22,6 +22,7 @@ services:
       CF_DNS_API_TOKEN_FILE: /run/secrets/traefik-cf-dns-api-token
       CF_ZONE_API_TOKEN_FILE: /run/secrets/traefik-cf-zone-api-token
     secrets:
+      - (( append ))
       - traefik-cf-dns-api-token
       - traefik-cf-zone-api-token
     volumes:
