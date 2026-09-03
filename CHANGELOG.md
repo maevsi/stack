@@ -1,3 +1,9 @@
+## [20.5.2](https://github.com/maevsi/stack/compare/20.5.1...20.5.2) (2026-09-03)
+
+### Bug Fixes
+
+* **minio:** secure secrets ([407e639](https://github.com/maevsi/stack/commit/407e6395ba7d819bfcddde60d547915413c75a3f))
+
 ## [20.5.1](https://github.com/maevsi/stack/compare/20.5.0...20.5.1) (2026-09-03)
 
 ### Bug Fixes
