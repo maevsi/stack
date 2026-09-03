@@ -20,7 +20,6 @@ services:
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
     image: ghcr.io/maevsi/reccoom:0.23.0
-    volumes: (( prune ))
   reccoom-postgres:
     deploy:
       update_config:
