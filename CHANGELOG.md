@@ -1,3 +1,9 @@
+## [20.4.0](https://github.com/maevsi/stack/compare/20.3.7...20.4.0) (2026-09-03)
+
+### Features
+
+* **grafana:** remove provisioning, document manual setup ([#300](https://github.com/maevsi/stack/issues/300)) ([7f5a7f4](https://github.com/maevsi/stack/commit/7f5a7f479df3eb011fd4b6110f3c024bae0106b9))
+
 ## [20.3.7](https://github.com/maevsi/stack/compare/20.3.6...20.3.7) (2026-09-02)
 
 ### Bug Fixes
