@@ -1,3 +1,9 @@
+## [20.5.0](https://github.com/maevsi/stack/compare/20.4.0...20.5.0) (2026-09-03)
+
+### Features
+
+* **adminer:** preselect database name ([0b4b844](https://github.com/maevsi/stack/commit/0b4b8447b39829ab98b2018ebe20ec6860ef7ccb))
+
 ## [20.4.0](https://github.com/maevsi/stack/compare/20.3.7...20.4.0) (2026-09-03)
 
 ### Features
