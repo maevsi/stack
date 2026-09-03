@@ -76,6 +76,7 @@ You cannot access the ip geolocator via a web interface.
 ### grafana
 
 You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
+See `docs/grafana.md` for how to configure datasources, alerting, and dashboards after first login.
 
 ### jobber
 
