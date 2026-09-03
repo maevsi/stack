@@ -87,7 +87,8 @@ services:
 volumes:
   temporal-worker-backup-data:
     # The workflow worker's backup source directory.
-    # Production mounts the database backup's data here instead; development keeps an empty volume so the backup workflow is a no-op rather than a recurring failure.
+    # Production mounts the database backup's data here instead.
+    # Development keeps an empty volume so the backup workflow is a no-op rather than a recurring failure.
     {}
   temporal-worker-data:
     # The workflow worker's Go module cache.
