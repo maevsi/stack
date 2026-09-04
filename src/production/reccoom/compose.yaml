@@ -22,5 +22,8 @@ services:
     image: ghcr.io/maevsi/reccoom:0.23.0
   reccoom-postgres:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first

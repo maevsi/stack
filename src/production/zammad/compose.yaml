@@ -1,10 +1,16 @@
 services:
   zammad-backup:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
   zammad-init:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
   zammad-nginx:
@@ -12,17 +18,29 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.zammad-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first
   zammad-railsserver:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first
   zammad-scheduler:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
   zammad-websocket:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first

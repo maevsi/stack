@@ -1,5 +1,8 @@
 services:
   elasticsearch:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first

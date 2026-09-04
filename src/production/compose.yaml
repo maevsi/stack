@@ -1,2 +1,10 @@
+networks:
+  default:
+    # The stack's overlay network.
+    driver: overlay
+    driver_opts:
+      # Hetzner Cloud's private networks run at an MTU of 1450 rather than the 1500 the overlay driver assumes, and its VXLAN header claims another 50 bytes on top.
+      # Left at the default, every full-size frame would be oversized by exactly that header, which stalls large payloads while small ones and health checks keep succeeding.
+      com.docker.network.driver.mtu: "1400"
 volumes:
   pnpm-data: (( prune ))
