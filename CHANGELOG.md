@@ -1,3 +1,19 @@
+## [21.0.0](https://github.com/maevsi/stack/compare/20.5.2...21.0.0) (2026-09-04)
+
+### ⚠ BREAKING CHANGES
+
+* **swarm:** services holding a production volume or a `configurations/` bind mount now require a node labelled `vibetype.storage=true`; label the node before deploying, and deploy with `--force` so the overlay network is recreated at the new MTU.
+
+### Features
+
+* **swarm:** support multi-node deployment ([88acb7b](https://github.com/maevsi/stack/commit/88acb7b1d8519ccaa3ceffa51d4f9cb8782c0cbe))
+
+## [20.5.2](https://github.com/maevsi/stack/compare/20.5.1...20.5.2) (2026-09-03)
+
+### Bug Fixes
+
+* **minio:** secure secrets ([407e639](https://github.com/maevsi/stack/commit/407e6395ba7d819bfcddde60d547915413c75a3f))
+
 ## [20.5.1](https://github.com/maevsi/stack/compare/20.5.0...20.5.1) (2026-09-03)
 
 ### Bug Fixes

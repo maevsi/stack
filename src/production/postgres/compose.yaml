@@ -5,11 +5,17 @@ secrets:
 services:
   postgres:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
   postgres-backup:
     # You cannot access the database backup directly.
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
     environment:

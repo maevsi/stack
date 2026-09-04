@@ -1,6 +1,9 @@
 services:
   redpanda:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
   redpanda-console:
@@ -11,5 +14,8 @@ services:
         - traefik.http.routers.redpanda.middlewares=redpanda-console-auth
         - traefik.http.routers.redpanda-secure.middlewares=redpanda-console-auth
         - traefik.http.routers.redpanda-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first
