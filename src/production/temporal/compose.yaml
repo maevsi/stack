@@ -1,6 +1,9 @@
 services:
   temporal:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
   temporal-ui:
@@ -15,6 +18,9 @@ services:
         order: start-first
   temporal-worker:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first
     environment:
