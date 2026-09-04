@@ -98,8 +98,8 @@ x-dargstack:
     jobber-aws-bucket:
       type: wordlist_word
     temporal-worker-s3-access-key-id:
-      type: insecure_default
-      insecure_default: s3user
+      template: "{{secret:minio-root-user}}"
+      type: template
     temporal-worker-s3-secret-access-key:
-      type: insecure_default
-      insecure_default: s3password
+      template: "{{secret:minio-root-password}}"
+      type: template
