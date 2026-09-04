@@ -16,6 +16,10 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.traefik-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - (( append ))
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first
     environment:
@@ -39,6 +43,9 @@ services:
       - --version=v2
       - --watch
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
     environment:
