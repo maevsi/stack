@@ -1,3 +1,13 @@
+## [21.1.0](https://github.com/maevsi/stack/compare/21.0.0...21.1.0) (2026-09-05)
+
+### Features
+
+* **cloudflared:** add readiness health check ([#302](https://github.com/maevsi/stack/issues/302)) ([7843bf2](https://github.com/maevsi/stack/commit/7843bf282aa021f4eba03459a43cf10c51837fe3))
+
+### Bug Fixes
+
+* **traefik:** correct labels ([9bb6da0](https://github.com/maevsi/stack/commit/9bb6da0c31c286a777f4b5d63458d16c2eb47afb))
+
 ## [21.0.0](https://github.com/maevsi/stack/compare/20.5.2...21.0.0) (2026-09-04)
 
 ### ⚠ BREAKING CHANGES
