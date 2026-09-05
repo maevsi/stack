@@ -8,5 +8,15 @@ services:
       update_config:
         order: start-first
     environment:
+      # The metrics server binds to the loopback interface because nothing outside the container reads it.
+      TUNNEL_METRICS: 127.0.0.1:20241
       TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN}
+    healthcheck:
+      # The image ships no shell and no HTTP client, so `cloudflared` probes itself.
+      # It reads the metrics address from `TUNNEL_METRICS`, calls that server's readiness endpoint and exits non-zero while no connection to Cloudflare's edge is registered.
+      test: ["CMD", "cloudflared", "tunnel", "ready"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     image: cloudflare/cloudflared:2026.8.3
