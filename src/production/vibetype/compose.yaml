@@ -3,7 +3,7 @@ services:
     deploy:
       labels:
         - (( append ))
-        - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
+        - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype-redirectregex
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
       update_config:
         order: start-first
@@ -14,10 +14,10 @@ services:
   #     labels:
   #       - traefik.enable=true
   #       - traefik.http.routers.vibetype-beta.entryPoints=web
-  #       - traefik.http.routers.vibetype-beta.middlewares=vibetype_cors,vibetype_redirectregex
+  #       - traefik.http.routers.vibetype-beta.middlewares=vibetype_cors,vibetype-redirectregex
   #       - traefik.http.routers.vibetype-beta.rule=Host(`beta.${STACK_DOMAIN}`)
   #       - traefik.http.routers.vibetype-beta-secure.entryPoints=web-secure
-  #       - traefik.http.routers.vibetype-beta-secure.middlewares=vibetype_cors,vibetype_redirectregex
+  #       - traefik.http.routers.vibetype-beta-secure.middlewares=vibetype_cors,vibetype-redirectregex
   #       - traefik.http.routers.vibetype-beta-secure.rule=Host(`beta.${STACK_DOMAIN}`)
   #       - traefik.http.services.vibetype-beta.loadbalancer.server.port=3000
   #       - traefik.http.routers.vibetype-beta-secure.tls.certresolver=default

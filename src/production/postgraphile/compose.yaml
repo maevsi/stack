@@ -3,7 +3,6 @@ services:
     deploy:
       labels:
         - (( append ))
-        - traefik.http.routers.postgraphile.middlewares=postgraphile-cors,redirectscheme
         - traefik.http.routers.postgraphile-secure.tls.certresolver=default
         - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
       update_config:

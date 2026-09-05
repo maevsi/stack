@@ -16,7 +16,7 @@ services:
         - traefik.enable=true
         # Minio Console
         - traefik.http.routers.minio.entryPoints=web
-        - traefik.http.routers.minio.middlewares=redirectscheme
+        - traefik.http.routers.minio.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.minio.rule=Host(`minio.${STACK_DOMAIN}`)
         - traefik.http.routers.minio.service=minio
         - traefik.http.routers.minio-secure.entryPoints=web-secure
@@ -27,7 +27,7 @@ services:
         - traefik.http.services.minio.loadbalancer.passhostheader=true
         # Minio itself
         - traefik.http.routers.s3.entryPoints=web
-        - traefik.http.routers.s3.middlewares=redirectscheme
+        - traefik.http.routers.s3.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.s3.rule=Host(`s3.${STACK_DOMAIN}`)
         - traefik.http.routers.s3.service=s3
         - traefik.http.routers.s3-secure.entryPoints=web-secure
