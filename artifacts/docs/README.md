@@ -8,7 +8,7 @@ Profiles group services so you can deploy subsets on demand. Activate with `darg
 
 ### analytics
 
-Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, traefik
+Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, temporal, temporal-ui, temporal-worker, traefik
 
 ### default
 
@@ -78,10 +78,6 @@ You cannot access the ip geolocator via a web interface.
 You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
 See `docs/grafana.md` for how to configure datasources, alerting, and dashboards after first login.
 
-### jobber
-
-You cannot access the jobber via a web interface.
-
 ### memcached
 
 You cannot access the caching system via a web interface.
@@ -150,6 +146,18 @@ You can access the event streaming platform's ui at [redpanda.app.localhost](htt
 ### sqitch
 
 You cannot access the database migrations directly.
+
+### temporal
+
+You cannot access the workflow orchestrator directly, use `temporal-ui`.
+
+### temporal-ui
+
+You can access the workflow orchestrator's ui at [temporal.app.localhost](https://temporal.app.localhost/).
+
+### temporal-worker
+
+You cannot access the workflow worker directly, use `temporal-ui`.
 
 ### traefik
 
