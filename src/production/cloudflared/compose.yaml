@@ -1,3 +1,7 @@
+secrets:
+  cloudflared-tunnel-token:
+    # The secure tunnel's connector token.
+    external: true
 services:
   cloudflared:
     # You can configure the secure tunnel at [dash.cloudflare.com](https://dash.cloudflare.com/).
@@ -10,7 +14,7 @@ services:
     environment:
       # The metrics server binds to the loopback interface because nothing outside the container reads it.
       TUNNEL_METRICS: 127.0.0.1:20241
-      TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN}
+      TUNNEL_TOKEN_FILE: /run/secrets/cloudflared-tunnel-token
     healthcheck:
       # The image ships no shell and no HTTP client, so `cloudflared` probes itself.
       # It reads the metrics address from `TUNNEL_METRICS`, calls that server's readiness endpoint and exits non-zero while no connection to Cloudflare's edge is registered.
@@ -20,3 +24,5 @@ services:
       retries: 3
       start_period: 30s
     image: cloudflare/cloudflared:2026.8.3
+    secrets:
+      - cloudflared-tunnel-token
