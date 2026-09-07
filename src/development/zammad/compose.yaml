@@ -5,7 +5,7 @@ x-shared:
       labels:
         - dargstack.profiles=zammad
     environment: &zammad-environment
-      ELASTICSEARCH_ENABLED: "false"
+      ELASTICSEARCH_ENABLED: "true"
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_SCHEMA: https
       ELASTICSEARCH_USER: elastic
