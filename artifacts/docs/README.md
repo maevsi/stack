@@ -68,6 +68,7 @@ You can check the database connector's setup logs using `portainer`.
 ### elasticsearch
 
 You cannot access the search engine via a web interface.
+See `docs/elasticsearch.md` for how the helpdesk trusts this service's certificate and when that certificate has to be replaced.
 
 ### geoip
 
