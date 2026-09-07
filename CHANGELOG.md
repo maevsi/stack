@@ -1,3 +1,9 @@
+## [21.2.0](https://github.com/maevsi/stack/compare/21.1.0...21.2.0) (2026-09-07)
+
+### Features
+
+* **elasticsearch:** reenable ([#304](https://github.com/maevsi/stack/issues/304)) ([3894748](https://github.com/maevsi/stack/commit/38947483f643261734636ef172c2863263ea74af))
+
 ## [21.1.0](https://github.com/maevsi/stack/compare/21.0.0...21.1.0) (2026-09-05)
 
 ### Features
