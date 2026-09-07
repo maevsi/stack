@@ -21,7 +21,7 @@ services:
       http.max_content_length: 400mb
       KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore-password
     healthcheck:
-      test: ["CMD-SHELL", "NETRC=$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$(cat /run/secrets/elasticsearch-password)\" > \"$NETRC\" && curl -fsS --netrc-file \"$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$NETRC\" || { rm -f \"$NETRC\"; exit 1; }"]
+      test: ["CMD-SHELL", "NETRC=$$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$$(cat /run/secrets/elasticsearch-password)\" > \"$$NETRC\" && curl -fsS --netrc-file \"$$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$$NETRC\" || { rm -f \"$$NETRC\"; exit 1; }"]
       interval: 30s
       timeout: 10s
       retries: 3
