@@ -1,3 +1,9 @@
+## [21.2.1](https://github.com/maevsi/stack/compare/21.2.0...21.2.1) (2026-09-08)
+
+### Bug Fixes
+
+* **elasticsearch:** make the service boot and report healthy ([#306](https://github.com/maevsi/stack/issues/306)) ([7a3cd4b](https://github.com/maevsi/stack/commit/7a3cd4ba1196b12e16fae875ba49e0e7d4905e9e))
+
 ## [21.2.0](https://github.com/maevsi/stack/compare/21.1.0...21.2.0) (2026-09-07)
 
 ### Features
