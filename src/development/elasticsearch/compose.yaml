@@ -20,14 +20,16 @@ services:
       # The helpdesk sends bulk requests that exceed the 100mb default while it rebuilds its search index.
       http.max_content_length: 400mb
       KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore-password
-      # The automatic security configuration puts this name into the certificate it generates, which is what lets the helpdesk verify the connection.
-      network.publish_host: elasticsearch
     healthcheck:
-      test: ["CMD-SHELL", "NETRC=$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$(cat /run/secrets/elasticsearch-password)\" > \"$NETRC\" && curl -fsS --netrc-file \"$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$NETRC\" || { rm -f \"$NETRC\"; exit 1; }"]
+      test: ["CMD-SHELL", "NETRC=$$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$$(cat /run/secrets/elasticsearch-password)\" > \"$$NETRC\" && curl -fsS --netrc-file \"$$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$$NETRC\" || { rm -f \"$$NETRC\"; exit 1; }"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 60s
+    # The automatic security configuration puts the container's host name into the certificate it generates, which is what lets the helpdesk verify the connection.
+    # Setting it here rather than through `network.publish_host` also keeps the boot out of the swarm's service discovery, which publishes the equally named service record only once the health check above passes.
+    # The search engine can never pass that check while it is still waiting for the very name it needs to finish booting.
+    hostname: elasticsearch
     image: elasticsearch:9.5.3
     secrets:
       - source: elasticsearch-keystore-password

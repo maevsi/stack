@@ -15,7 +15,11 @@ It skips itself as soon as `xpack.security.enabled` is present in `config/elasti
 Everything below therefore describes a one-time setup.
 
 The name the helpdesk connects to has to appear in the server certificate, otherwise verification fails on a hostname mismatch even when the authority is trusted.
-Auto-configuration copies the value of `network.publish_host` into the certificate for this reason, which is why `src/development/elasticsearch/compose.yaml` sets it to `elasticsearch`.
+Auto-configuration puts the container's host name into the certificate for this reason, which is why `src/development/elasticsearch/compose.yaml` sets `hostname` to `elasticsearch`.
+
+The same setting could be made with `network.publish_host`, and doing so deadlocks the boot.
+The swarm publishes a service's name in its service discovery only once the task passes its health check, so the search engine would wait for a name that only appears after it serves requests, and it dies with `UnknownHostException` instead.
+Docker writes the `hostname` value into the container's own `/etc/hosts`, which is available from the first moment of the boot.
 
 ## How the helpdesk trusts it
 
