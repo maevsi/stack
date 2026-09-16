@@ -14,7 +14,7 @@ services:
         - dargstack.profiles=zammad
       resources:
         limits:
-          memory: 1024m
+          memory: 1536m
         reservations:
           memory: 512m
     environment:
