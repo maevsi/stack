@@ -16,7 +16,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: ghcr.io/google/cadvisor:v0.60.5
+    image: ghcr.io/google/cadvisor:v0.60.6
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
