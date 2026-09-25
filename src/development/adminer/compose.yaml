@@ -31,6 +31,6 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: adminer:6.1.0-standalone
+    image: adminer:6.1.1-standalone
     volumes:
       - ./configurations/adminer.css:/var/www/html/adminer.css:ro
