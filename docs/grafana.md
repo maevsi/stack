@@ -79,6 +79,21 @@ Add under **Alerting → Alert rules → New alert rule**, in the `Infrastructur
 - **Summary annotation**: "There are notifications which are not sent out, or at least not marked as acknowledged."
 - **Contact point**: `Discord`
 
+### Alert rule: workflow failures
+
+Add under **Alerting → Alert rules → New alert rule**, in the `Infrastructure` folder.
+
+- **Query (A)**, on the Prometheus datasource, code mode, instant query over the last 10 minutes: `sum(increase(workflow_failed[10m])) or vector(0)`
+- **Reduce (B)**: last of A
+- **Threshold (C)**: B is above 0, this is the alert condition
+- **Evaluation**: every `1m`, for `1m`, group `Temporal`, repeat every 7 days
+- **No data / error state**: `NoData` / `Error`
+- **Summary annotation**: "Temporal reported one or more failed workflow executions in the last 10 minutes."
+- **Contact point**: `Discord`
+
+The `or vector(0)` keeps the query from going stale while no workflow has ever failed.
+Without it `workflow_failed` does not exist yet, the rule evaluates to no data, and the alert fires on the `NoData` state instead of staying quiet.
+
 ## Dashboards
 
 Add under **Dashboards → New → Import**.
@@ -93,7 +108,8 @@ The following were provisioned from public community dashboards and can be reimp
 The `Redpanda Ops Dashboard`, `Grafana metrics`, and `Prometheus 2.0 Stats` dashboards were also provisioned from community sources, but without a recorded grafana.com ID.
 Search grafana.com's dashboard library by name, or recover the exact JSON that was previously provisioned from this repository's git history (`git log --diff-filter=D -- 'src/development/grafana/configurations/dashboards/**'`) and import it via **Upload dashboard JSON file**.
 
-Two dashboards were specific to this project rather than imported from the community, both querying the PostgreSQL datasource. Recreate their panels as needed:
+Two dashboards were specific to this project rather than imported from the community, both querying the PostgreSQL datasource.
+Recreate their panels as needed:
 
 **KPIs** (folder `Management`):
 
