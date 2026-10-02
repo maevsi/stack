@@ -10,6 +10,9 @@ services:
     deploy:
       labels:
         - (( append ))
+        # The ui has no login of its own, so both routers sit behind basic authentication.
+        - traefik.http.routers.redpanda.middlewares=redpanda-console-auth
+        - traefik.http.routers.redpanda-secure.middlewares=redpanda-console-auth
         - traefik.http.routers.redpanda-secure.tls.certresolver=default
       placement:
         constraints:
