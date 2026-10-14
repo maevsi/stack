@@ -20,6 +20,10 @@ services:
       - postgres-role-service-postgraphile-username
       - postgres-role-service-reccoom-password
       - postgres-role-service-reccoom-username
+      - postgres-role-service-temporal-password
+      - postgres-role-service-temporal-username
+      - postgres-role-service-temporal-worker-password
+      - postgres-role-service-temporal-worker-username
       - postgres-role-service-vibetype-password
       - postgres-role-service-vibetype-username
       - postgres-role-service-zammad-username
