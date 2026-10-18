@@ -1,3 +1,9 @@
+## [21.2.6](https://github.com/maevsi/stack/compare/21.2.5...21.2.6) (2026-10-18)
+
+### Bug Fixes
+
+* schedule release ([8fb769d](https://github.com/maevsi/stack/commit/8fb769d195d5319320f65a1ecfe0b3e859f8cf29))
+
 ## [21.2.5](https://github.com/maevsi/stack/compare/21.2.4...21.2.5) (2026-10-04)
 
 ### Bug Fixes
