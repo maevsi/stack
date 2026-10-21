@@ -8,3 +8,8 @@ services:
       update_config:
         order: start-first
     image: ghcr.io/maevsi/postgraphile:2.2.6
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

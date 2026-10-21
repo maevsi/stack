@@ -8,6 +8,11 @@ services:
       update_config:
         order: start-first
     image: ghcr.io/maevsi/vibetype:15.23.3
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   # vibetype-beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
   #   deploy:

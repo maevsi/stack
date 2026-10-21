@@ -8,6 +8,11 @@ services:
         order: stop-first
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     volumes:
       - (( append ))
       - postgres-backup-data:/backups/

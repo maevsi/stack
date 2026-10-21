@@ -10,6 +10,11 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   postgres-backup:
     # You cannot access the database backup directly.
     deploy:
@@ -24,6 +29,11 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
       POSTGRES_USER_FILE: /run/secrets/postgres-user
     image: prodrigestivill/postgres-backup-local:18-alpine
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     secrets:
       - postgres-backup-db
       - postgres-password
