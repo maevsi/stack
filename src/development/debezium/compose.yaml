@@ -21,6 +21,7 @@ services:
       - debezium-kafka-configuration:/kafka/config
       - debezium-kafka-data:/kafka/data
       - debezium-kafka-logs:/kafka/logs
+      - ./configurations/log4j.properties:/kafka/config/log4j.properties:ro
   debezium-postgres-connector:
     # You can check the database connector's setup logs using `portainer`.
     command: /entrypoint.sh
