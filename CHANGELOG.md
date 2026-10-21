@@ -1,3 +1,9 @@
+## [21.2.8](https://github.com/maevsi/stack/compare/21.2.7...21.2.8) (2026-10-21)
+
+### Bug Fixes
+
+* **docker:** cap the container log size of every production service ([#310](https://github.com/maevsi/stack/issues/310)) ([c01ac6d](https://github.com/maevsi/stack/commit/c01ac6da89452666aba05aedb7c70c45eb943ef6))
+
 ## [21.2.7](https://github.com/maevsi/stack/compare/21.2.6...21.2.7) (2026-10-21)
 
 ### Bug Fixes
