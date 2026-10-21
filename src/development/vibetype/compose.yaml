@@ -8,6 +8,9 @@ secrets:
   vibetype-firebase-service-account-credentials:
     # The notification provider's service account credentials.
     file: ~~/artifacts/secrets/vibetype-firebase-service-account-credentials.secret
+  vibetype-nuxt-app-secret:
+    # The root secret of the Nuxt app, e.g. for signing Open Graph image URLs.
+    file: ~~/artifacts/secrets/vibetype-nuxt-app-secret.secret
   vibetype-openai-api-key:
     # The AI provider's API key for the frontend.
     file: ~~/artifacts/secrets/vibetype-openai-api-key.secret
@@ -58,6 +61,8 @@ services:
         target: /home/node/.aws/credentials
       - source: vibetype-firebase-service-account-credentials
         target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
+      - source: vibetype-nuxt-app-secret
+        target: /run/environment-variables/NUXT_APP_SECRET
       - source: vibetype-openai-api-key
         target: /run/environment-variables/NUXT_OPENAI_API_KEY
       - source: vibetype-scripts-proxy-secret
@@ -118,6 +123,9 @@ x-dargstack:
       type: third_party
     vibetype-firebase-service-account-credentials-private-key:
       type: third_party
+    vibetype-nuxt-app-secret:
+      special_characters: false # nitro parses environment overrides, so the value must stay a plain string
+      type: random_string
     vibetype-openai-api-key:
       type: third_party
     vibetype-scripts-proxy-secret:
