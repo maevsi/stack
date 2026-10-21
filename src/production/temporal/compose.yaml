@@ -1,0 +1,33 @@
+services:
+  temporal:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+      update_config:
+        order: stop-first
+  temporal-ui:
+    deploy:
+      labels:
+        - (( append ))
+        # The ui has no login of its own and can terminate or signal workflows, so both routers sit behind basic authentication.
+        - traefik.http.routers.temporal.middlewares=temporal-ui-auth
+        - traefik.http.routers.temporal-secure.middlewares=temporal-ui-auth
+        - traefik.http.routers.temporal-secure.tls.certresolver=default
+      update_config:
+        order: start-first
+  temporal-worker:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+      update_config:
+        order: start-first
+    environment:
+      SENTRY_CRONS: ${SENTRY_CRONS}
+    image: ghcr.io/maevsi/temporal:0.1.0
+    volumes:
+      - postgres-backup-data:/backups/
+volumes:
+  temporal-worker-backup-data: (( prune ))
+  temporal-worker-data: (( prune ))

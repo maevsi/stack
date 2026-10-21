@@ -1,3 +1,22 @@
+secrets:
+  redpanda-console-auth:
+    # The event streaming platform ui's basic authentication credential, in htpasswd format.
+    file: ~~/artifacts/secrets/redpanda-console-auth.secret
+  redpanda-console-password:
+    # The password half of the event streaming platform ui's basic authentication credential, before hashing.
+    file: ~~/artifacts/secrets/redpanda-console-password.secret
+  redpanda-console-username:
+    # The username half of the event streaming platform ui's basic authentication credential.
+    file: ~~/artifacts/secrets/redpanda-console-username.secret
+  temporal-ui-auth:
+    # The workflow orchestrator ui's basic authentication credential, in htpasswd format.
+    file: ~~/artifacts/secrets/temporal-ui-auth.secret
+  temporal-ui-password:
+    # The password half of the workflow orchestrator ui's basic authentication credential, before hashing.
+    file: ~~/artifacts/secrets/temporal-ui-password.secret
+  temporal-ui-username:
+    # The username half of the workflow orchestrator ui's basic authentication credential.
+    file: ~~/artifacts/secrets/temporal-ui-username.secret
 services:
   traefik:
     # You can access the reverse proxy's dashboard at [traefik.app.localhost](https://traefik.app.localhost/).
@@ -18,6 +37,10 @@ services:
         - dargstack.profiles=default,analytics,event-streaming,recommendation,upload,zammad
         - traefik.enable=true
         - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https # dargstack:dev-only
+        # These two uis have no login of their own, so the reverse proxy supplies one.
+        # Both the middlewares and their credential files live here because it is the reverse proxy that has to read them, not the services they protect.
+        - traefik.http.middlewares.redpanda-console-auth.basicauth.usersfile=/run/secrets/redpanda-console-auth
+        - traefik.http.middlewares.temporal-ui-auth.basicauth.usersfile=/run/secrets/temporal-ui-auth
         - traefik.http.routers.traefik.entryPoints=web
         - traefik.http.routers.traefik.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.traefik.rule=Host(`traefik.${STACK_DOMAIN}`)
@@ -47,7 +70,30 @@ services:
         protocol: tcp # dargstack:dev-only
         published: 443 # dargstack:dev-only
         target: 443 # dargstack:dev-only
+    secrets:
+      - redpanda-console-auth
+      - temporal-ui-auth
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~~/artifacts/certificates/:/etc/traefik/acme/ # dargstack:dev-only
       - ./configurations/dynamic.yml:/dynamic.yml:ro # dargstack:dev-only
+x-dargstack:
+  secrets:
+    # Only the hash reaches the reverse proxy, so both halves get a file of their own that no service mounts, because the generated credential would be unrecoverable otherwise.
+    # Read them back with `dargstack secret show` when you need to log in.
+    redpanda-console-auth:
+      source: redpanda-console-password
+      type: basic_auth
+      username: "{{secret:redpanda-console-username}}"
+    redpanda-console-password:
+      type: random_string
+    redpanda-console-username:
+      type: wordlist_word
+    temporal-ui-auth:
+      source: temporal-ui-password
+      type: basic_auth
+      username: "{{secret:temporal-ui-username}}"
+    temporal-ui-password:
+      type: random_string
+    temporal-ui-username:
+      type: wordlist_word
