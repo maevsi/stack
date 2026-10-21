@@ -6,6 +6,11 @@ services:
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
     image: ghcr.io/maevsi/reccoom:0.23.0
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   reccoom-consumer:
     deploy:
       update_config:
@@ -13,6 +18,11 @@ services:
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
     image: ghcr.io/maevsi/reccoom:0.23.0
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   reccoom-migration:
     deploy:
       update_config:
@@ -27,3 +37,8 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

@@ -24,5 +24,10 @@ services:
       retries: 3
       start_period: 30s
     image: cloudflare/cloudflared:2026.10.2
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     secrets:
       - cloudflared-tunnel-token

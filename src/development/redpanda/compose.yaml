@@ -21,6 +21,18 @@ services:
     image: redpandadata/redpanda:v26.2.5
     volumes:
       - redpanda-data:/var/lib/redpanda/data
+  redpanda-cluster-config:
+    # The broker's one-shot task for adjusting its cluster configuration after startup.
+    command: /entrypoint.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+      restart_policy:
+        condition: on-failure
+    entrypoint: sh
+    image: curlimages/curl:8.22.0
+    volumes:
+      - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:
     # You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
     deploy:
