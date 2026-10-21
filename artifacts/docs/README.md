@@ -16,7 +16,7 @@ Services: adminer, cloudflared, portainer, portainer-agent, postgraphile, postgr
 
 ### event-streaming
 
-Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-console, sqitch, traefik
+Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-cluster-config, redpanda-console, sqitch, traefik
 
 ### recommendation
 
@@ -143,6 +143,10 @@ You cannot access the caching system via a web interface.
 ### redpanda
 
 You can access the event streaming platform's ui as described under `redpanda-console`.
+
+### redpanda-cluster-config
+
+The broker's one-shot task for adjusting its cluster configuration after startup.
 
 ### redpanda-console
 
