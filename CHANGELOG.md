@@ -1,3 +1,9 @@
+## [21.2.7](https://github.com/maevsi/stack/compare/21.2.6...21.2.7) (2026-10-21)
+
+### Bug Fixes
+
+* **debezium:** cap the connect service log rotation ([#308](https://github.com/maevsi/stack/issues/308)) ([e249197](https://github.com/maevsi/stack/commit/e249197e5447c05a128ea096a591ca42f8558224))
+
 ## [21.2.6](https://github.com/maevsi/stack/compare/21.2.5...21.2.6) (2026-10-18)
 
 ### Bug Fixes
