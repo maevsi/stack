@@ -28,7 +28,7 @@ scrape_configs:
       - targets: ["localhost:9090"]
 
   - job_name: "redpanda"
-    scrape_interval: 5s
+    scrape_interval: 30s
     static_configs:
       - targets:
           - redpanda:9644

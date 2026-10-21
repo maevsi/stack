@@ -30,7 +30,7 @@ services:
     # Setting it here rather than through `network.publish_host` also keeps the boot out of the swarm's service discovery, which publishes the equally named service record only once the health check above passes.
     # The search engine can never pass that check while it is still waiting for the very name it needs to finish booting.
     hostname: elasticsearch
-    image: elasticsearch:9.5.3
+    image: elasticsearch:9.5.5
     secrets:
       - source: elasticsearch-keystore-password
         uid: "1000"

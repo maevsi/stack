@@ -16,11 +16,12 @@ services:
       timeout: 10s
       retries: 3
       start_period: 90s
-    image: quay.io/debezium/connect:3.7
+    image: quay.io/debezium/connect:3.8
     volumes:
       - debezium-kafka-configuration:/kafka/config
       - debezium-kafka-data:/kafka/data
       - debezium-kafka-logs:/kafka/logs
+      - ./configurations/log4j.properties:/kafka/config/log4j.properties:ro
   debezium-postgres-connector:
     # You can check the database connector's setup logs using `portainer`.
     command: /entrypoint.sh
@@ -30,7 +31,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    image: curlimages/curl:8.22.0
+    image: curlimages/curl:8.23.0
     secrets:
       - postgres-db
       - postgres-password
