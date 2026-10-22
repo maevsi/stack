@@ -44,6 +44,7 @@ services:
     deploy:
       labels:
         - dargstack.profiles=zammad
+        - vibetype.one-shot=true
       restart_policy:
         condition: on-failure
     user: 0:0

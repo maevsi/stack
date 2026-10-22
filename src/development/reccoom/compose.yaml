@@ -114,6 +114,7 @@ services:
         - dargstack.development.git.ssh=git@github.com:maevsi/reccoom.git
         - dargstack.development.git.https=https://github.com/maevsi/reccoom.git
         - dargstack.profiles=recommendation
+        - vibetype.one-shot=true
       resources:
         limits:
           memory: 350M

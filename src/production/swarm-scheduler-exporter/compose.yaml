@@ -3,6 +3,7 @@ services:
     # The exporter that reports the swarm's state, its nodes and each service's tasks to the metrics monitoring.
     cap_drop:
       - ALL
+    command: ["-label", "vibetype.one-shot"]
     deploy:
       labels:
         - dargstack.profiles=analytics
