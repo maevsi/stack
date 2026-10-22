@@ -41,7 +41,7 @@ secrets:
 services:
   postgres:
     # You can access the database via `adminer`.
-    command: -c vibetype.jwt_expiry_duration='1 month' -c wal_level=logical
+    command: -c vibetype.jwt_expiry_duration='1 month' -c wal_level=logical -c max_slot_wal_keep_size=1GB
     deploy:
       labels:
         - dargstack.profiles=default,analytics,event-streaming,recommendation,zammad
