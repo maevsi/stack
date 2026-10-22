@@ -36,6 +36,7 @@ services:
     deploy:
       labels:
         - dargstack.profiles=event-streaming
+        - vibetype.one-shot=true
       restart_policy:
         condition: on-failure
     entrypoint: sh
