@@ -1,3 +1,9 @@
+## [21.3.0](https://github.com/maevsi/stack/compare/21.2.8...21.3.0) (2026-10-22)
+
+### Features
+
+* **vibetype:** add the nuxt app secret ([#312](https://github.com/maevsi/stack/issues/312)) ([5621d79](https://github.com/maevsi/stack/commit/5621d79b304bcb41b69e1313927b39c4dc1081fe))
+
 ## [21.2.8](https://github.com/maevsi/stack/compare/21.2.7...21.2.8) (2026-10-21)
 
 ### Bug Fixes
