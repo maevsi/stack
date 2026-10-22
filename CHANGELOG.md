@@ -1,3 +1,9 @@
+## [21.5.0](https://github.com/maevsi/stack/compare/21.4.0...21.5.0) (2026-10-22)
+
+### Features
+
+* **swarm-scheduler-exporter:** expose the one-shot service label ([#318](https://github.com/maevsi/stack/issues/318)) ([7a639b0](https://github.com/maevsi/stack/commit/7a639b0f6d86161d04fed5fe99bd2d3141fe9498))
+
 ## [21.4.0](https://github.com/maevsi/stack/compare/21.3.4...21.4.0) (2026-10-22)
 
 ### Features
