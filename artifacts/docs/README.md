@@ -8,7 +8,7 @@ Profiles group services so you can deploy subsets on demand. Activate with `darg
 
 ### analytics
 
-Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, swarm-scheduler-exporter, traefik
+Services: cadvisor, docker-socket-proxy, grafana, node-exporter, postgres, prometheus, sqitch, swarm-scheduler-exporter, traefik
 
 ### default
 
@@ -64,6 +64,10 @@ You can see how changes in the database end up in the event stream using `redpan
 ### debezium-postgres-connector
 
 You can check the database connector's setup logs using `portainer`.
+
+### docker-socket-proxy *(production only)*
+
+The allowlisted proxy in front of the manager's docker socket, for the swarm scheduler exporter.
 
 ### elasticsearch
 
