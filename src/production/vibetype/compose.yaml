@@ -7,7 +7,7 @@ services:
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/vibetype:15.25.1
+    image: ghcr.io/maevsi/vibetype:15.26.1
     logging:
       driver: json-file
       options:
