@@ -26,6 +26,7 @@ curl --fail --output /dev/null --silent --show-error \
     "database.hostname": "postgres",
     "database.password": "'"$POSTGRES_PASSWORD"'",
     "database.user": "'"$POSTGRES_USER"'",
+    "snapshot.mode": "when_needed",
     "plugin.name": "pgoutput",
     "table.include.list": "vibetype.event,vibetype.upload,vibetype_private.notification",
     "topic.prefix" : "vibetype"
