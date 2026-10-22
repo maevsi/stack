@@ -30,8 +30,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    # The broker's own image, so the one-shot talks to the cluster with the broker's rpk.
-    image: redpandadata/redpanda:v26.2.5
+    image: curlimages/curl:8.23.0
     volumes:
       - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:

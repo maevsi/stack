@@ -1,11 +1,11 @@
 #!/bin/sh
 set -eu
 
-BROKERS="redpanda:9092"
+ADMIN_URL="http://redpanda:9644/v1/cluster_config"
 
-# Wait for the broker to accept connections.
+# Wait for Redpanda's admin API to be reachable.
 echo "Waiting for Redpanda to be ready..."
-until rpk topic list --api-urls "$BROKERS" >/dev/null 2>&1; do
+while ! curl --fail --silent --output /dev/null "$ADMIN_URL"; do
     sleep 5
 done
 
@@ -15,17 +15,19 @@ done
 echo "Disabling the unlicensed enterprise balancing features..."
 
 # The property names changed across broker versions, so the script
-# disables whichever of the legacy names the running broker still knows.
-for property in core_balancing_continuous partition_auto_balancing_continuous; do
-    if rpk cluster config get "$property" --api-urls "$BROKERS" >/dev/null 2>&1; then
-        rpk cluster config set "$property" false --api-urls "$BROKERS"
+# disables whichever of them the running broker still knows.
+set_property() {
+    if ! curl --fail --silent --output /dev/null "$ADMIN_URL/$1"; then
+        return 0
     fi
-done
+    curl --fail --silent --output /dev/null --show-error \
+        -X PUT "$ADMIN_URL" \
+        -H "Content-Type: application/json" \
+        -d "{\"config_properties\": [{\"name\": \"$1\", \"value\": $2}]}"
+}
 
-# Current versions replaced the legacy partition flag with a mode property;
-# node_add is the unlicensed behaviour and keeps balancing on node additions.
-if rpk cluster config get partition_autobalancing_mode --api-urls "$BROKERS" >/dev/null 2>&1; then
-    rpk cluster config set partition_autobalancing_mode node_add --api-urls "$BROKERS"
-fi
+set_property core_balancing_continuous false
+set_property partition_auto_balancing_continuous false
+set_property partition_autobalancing_mode '"node_add"'
 
 echo "The enterprise balancing features are disabled."
