@@ -33,3 +33,7 @@ scrape_configs:
       - targets:
           - redpanda:9644
     metrics_path: /public_metrics
+
+  - job_name: "swarm-scheduler-exporter"
+    static_configs:
+      - targets: ["swarm-scheduler-exporter:8888"]
