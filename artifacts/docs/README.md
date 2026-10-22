@@ -8,7 +8,7 @@ Profiles group services so you can deploy subsets on demand. Activate with `darg
 
 ### analytics
 
-Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, traefik
+Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, swarm-scheduler-exporter, traefik
 
 ### default
 
@@ -155,6 +155,10 @@ You can access the event streaming platform's ui at [redpanda.app.localhost](htt
 ### sqitch
 
 You cannot access the database migrations directly.
+
+### swarm-scheduler-exporter *(production only)*
+
+The exporter that reports the swarm's state, its nodes and each service's tasks to the metrics monitoring.
 
 ### traefik
 

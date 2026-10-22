@@ -1,0 +1,28 @@
+services:
+  swarm-scheduler-exporter:
+    # The exporter that reports the swarm's state, its nodes and each service's tasks to the metrics monitoring.
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+      placement:
+        constraints:
+          # Only a manager's docker daemon serves the cluster-wide data the exporter reads.
+          - node.role == manager
+      resources:
+        limits:
+          memory: 128m
+        reservations:
+          memory: 64m
+      update_config:
+        order: start-first
+    group_add:
+      # The image runs unprivileged and needs the manager node's docker group to read the socket.
+      - "998"
+    image: ghcr.io/leinardi/swarm-scheduler-exporter:v1.3.2
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
