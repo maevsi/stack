@@ -1,3 +1,9 @@
+## [21.3.1](https://github.com/maevsi/stack/compare/21.3.0...21.3.1) (2026-10-22)
+
+### Performance Improvements
+
+* restore lost elasticsearch and redpanda memory limits ([#307](https://github.com/maevsi/stack/issues/307)) ([c77252e](https://github.com/maevsi/stack/commit/c77252ef86b9720e8d9b412eff74f61e3666d51e))
+
 ## [21.3.0](https://github.com/maevsi/stack/compare/21.2.8...21.3.0) (2026-10-22)
 
 ### Features
