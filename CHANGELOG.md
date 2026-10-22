@@ -1,3 +1,9 @@
+## [21.3.3](https://github.com/maevsi/stack/compare/21.3.2...21.3.3) (2026-10-22)
+
+### Bug Fixes
+
+* **postgres:** cap the replication slot's wal retention ([#316](https://github.com/maevsi/stack/issues/316)) ([3529b77](https://github.com/maevsi/stack/commit/3529b775c2491338706546f17f5f2527928ffeab))
+
 ## [21.3.2](https://github.com/maevsi/stack/compare/21.3.1...21.3.2) (2026-10-22)
 
 ### Bug Fixes
