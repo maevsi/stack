@@ -1,3 +1,9 @@
+## [21.4.0](https://github.com/maevsi/stack/compare/21.3.4...21.4.0) (2026-10-22)
+
+### Features
+
+* add the swarm scheduler exporter ([#313](https://github.com/maevsi/stack/issues/313)) ([bcac72a](https://github.com/maevsi/stack/commit/bcac72a04aea3a0ec667faae29c61dc9d18966b4))
+
 ## [21.3.4](https://github.com/maevsi/stack/compare/21.3.3...21.3.4) (2026-10-22)
 
 ### Bug Fixes
