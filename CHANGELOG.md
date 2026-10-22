@@ -1,3 +1,9 @@
+## [21.3.2](https://github.com/maevsi/stack/compare/21.3.1...21.3.2) (2026-10-22)
+
+### Bug Fixes
+
+* **redpanda:** make the cluster config one-shot work in production ([#315](https://github.com/maevsi/stack/issues/315)) ([a11ae4e](https://github.com/maevsi/stack/commit/a11ae4e312b062d096ea8382ef2c6947270f3130))
+
 ## [21.3.1](https://github.com/maevsi/stack/compare/21.3.0...21.3.1) (2026-10-22)
 
 ### Performance Improvements
