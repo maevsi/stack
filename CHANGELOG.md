@@ -1,3 +1,9 @@
+## [21.3.4](https://github.com/maevsi/stack/compare/21.3.3...21.3.4) (2026-10-22)
+
+### Bug Fixes
+
+* **debezium:** self-heal with a snapshot when the replication state is lost ([#317](https://github.com/maevsi/stack/issues/317)) ([42280d2](https://github.com/maevsi/stack/commit/42280d28589741d66170f72d403e9f0886fa5d97))
+
 ## [21.3.3](https://github.com/maevsi/stack/compare/21.3.2...21.3.3) (2026-10-22)
 
 ### Bug Fixes
