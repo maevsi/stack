@@ -1,3 +1,9 @@
+## [21.6.0](https://github.com/maevsi/stack/compare/21.5.0...21.6.0) (2026-10-24)
+
+### Features
+
+* **postgraphile:** set the schema and default role via environment ([#319](https://github.com/maevsi/stack/issues/319)) ([0a07a95](https://github.com/maevsi/stack/commit/0a07a9533ef14390d5b064af8becec9fdecb485d))
+
 ## [21.5.0](https://github.com/maevsi/stack/compare/21.4.0...21.5.0) (2026-10-22)
 
 ### Features
