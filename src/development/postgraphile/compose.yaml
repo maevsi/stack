@@ -41,6 +41,11 @@ services:
     # # Use the DEBUG environment variable for extended debugging.
     # environment:
     #   DEBUG: graphile-build:warn,graphile-build-pg:sql
+    environment:
+      # The PostgreSQL schema exposed by the GraphQL API.
+      POSTGRAPHILE_SCHEMA: vibetype
+      # The role for a request that resolves no role of its own.
+      POSTGRAPHILE_DEFAULT_ROLE: vibetype_anonymous
     image: vibetype/postgraphile:development
     secrets:
       - source: postgraphile-connection
