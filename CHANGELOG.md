@@ -1,3 +1,9 @@
+## [21.7.0](https://github.com/maevsi/stack/compare/21.6.0...21.7.0) (2026-10-24)
+
+### Features
+
+* **postgraphile:** migrate to 3.0.0-beta.3 ([#320](https://github.com/maevsi/stack/issues/320)) ([eb9b4a4](https://github.com/maevsi/stack/commit/eb9b4a4e35da509881a29b3b332176c1508b7b6b))
+
 ## [21.6.0](https://github.com/maevsi/stack/compare/21.5.0...21.6.0) (2026-10-24)
 
 ### Features
