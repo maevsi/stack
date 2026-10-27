@@ -1,3 +1,9 @@
+## [21.7.2](https://github.com/maevsi/stack/compare/21.7.1...21.7.2) (2026-10-27)
+
+### Bug Fixes
+
+* **traefik:** redirect http to https in production ([#322](https://github.com/maevsi/stack/issues/322)) ([a5418cd](https://github.com/maevsi/stack/commit/a5418cdd0987a7cbe915368fb3c2f560912bc2eb))
+
 ## [21.7.1](https://github.com/maevsi/stack/compare/21.7.0...21.7.1) (2026-10-27)
 
 ### Bug Fixes
