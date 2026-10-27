@@ -19,7 +19,7 @@ services:
   #     labels:
   #       - traefik.enable=true
   #       - traefik.http.routers.vibetype-beta.entryPoints=web
-  #       - traefik.http.routers.vibetype-beta.middlewares=vibetype-cors,vibetype-redirectregex
+  #       - traefik.http.routers.vibetype-beta.middlewares=redirectscheme,vibetype-redirectregex
   #       - traefik.http.routers.vibetype-beta.rule=Host(`beta.${STACK_DOMAIN}`)
   #       - traefik.http.routers.vibetype-beta-secure.entryPoints=web-secure
   #       - traefik.http.routers.vibetype-beta-secure.middlewares=vibetype-cors,vibetype-redirectregex
