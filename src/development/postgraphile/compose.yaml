@@ -28,7 +28,7 @@ services:
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowHeaders=authorization
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN},https://localhost:3000,https://app.localhost:3000
         - traefik.http.routers.postgraphile.entryPoints=web
-        - traefik.http.routers.postgraphile.middlewares=redirectscheme
+        - traefik.http.routers.postgraphile.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile-secure.entryPoints=web-secure
         - traefik.http.routers.postgraphile-secure.middlewares=postgraphile-cors

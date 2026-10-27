@@ -21,7 +21,7 @@ services:
         - dargstack.profiles=recommendation
         - traefik.enable=true # dargstack:dev-only
         - traefik.http.routers.reccoom.entryPoints=web
-        - traefik.http.routers.reccoom.middlewares=redirectscheme
+        - traefik.http.routers.reccoom.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.reccoom.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom-secure.entryPoints=web-secure
         - traefik.http.routers.reccoom-secure.rule=Host(`reccoom.${STACK_DOMAIN}`)

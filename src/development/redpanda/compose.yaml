@@ -50,7 +50,7 @@ services:
         - dargstack.profiles=event-streaming
         - traefik.enable=true
         - traefik.http.routers.redpanda.entryPoints=web
-        - traefik.http.routers.redpanda.middlewares=redirectscheme
+        - traefik.http.routers.redpanda.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.redpanda.rule=Host(`redpanda.${STACK_DOMAIN}`)
         - traefik.http.routers.redpanda-secure.entryPoints=web-secure
         - traefik.http.routers.redpanda-secure.rule=Host(`redpanda.${STACK_DOMAIN}`)

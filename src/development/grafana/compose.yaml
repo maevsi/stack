@@ -17,7 +17,7 @@ services:
         - dargstack.profiles=analytics
         - traefik.enable=true
         - traefik.http.routers.grafana.entryPoints=web
-        - traefik.http.routers.grafana.middlewares=redirectscheme
+        - traefik.http.routers.grafana.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.grafana.rule=Host(`grafana.${STACK_DOMAIN}`)
         - traefik.http.routers.grafana-secure.entryPoints=web-secure
         - traefik.http.routers.grafana-secure.rule=Host(`grafana.${STACK_DOMAIN}`)

@@ -11,7 +11,7 @@ services:
         - dargstack.profiles=default
         - traefik.enable=true
         - traefik.http.routers.portainer.entryPoints=web
-        - traefik.http.routers.portainer.middlewares=redirectscheme
+        - traefik.http.routers.portainer.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.portainer.rule=Host(`portainer.${STACK_DOMAIN}`)
         - traefik.http.routers.portainer-secure.entryPoints=web-secure
         - traefik.http.routers.portainer-secure.rule=Host(`portainer.${STACK_DOMAIN}`)

@@ -57,7 +57,7 @@ services:
         - dargstack.profiles=zammad
         - traefik.enable=true
         - traefik.http.routers.zammad.entryPoints=web
-        - traefik.http.routers.zammad.middlewares=redirectscheme
+        - traefik.http.routers.zammad.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
         - traefik.http.routers.zammad-secure.entryPoints=web-secure
         - traefik.http.routers.zammad-secure.rule=Host(`zammad.${STACK_DOMAIN}`)

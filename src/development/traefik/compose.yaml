@@ -17,9 +17,9 @@ services:
       labels:
         - dargstack.profiles=default,analytics,event-streaming,recommendation,upload,zammad
         - traefik.enable=true
-        - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https
+        - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https # dargstack:dev-only
         - traefik.http.routers.traefik.entryPoints=web
-        - traefik.http.routers.traefik.middlewares=redirectscheme
+        - traefik.http.routers.traefik.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.traefik.rule=Host(`traefik.${STACK_DOMAIN}`)
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.routers.traefik-secure.entryPoints=web-secure
