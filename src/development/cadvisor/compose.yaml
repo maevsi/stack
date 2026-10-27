@@ -6,7 +6,7 @@ services:
         - dargstack.profiles=analytics
         - traefik.enable=true
         - traefik.http.routers.cadvisor.entryPoints=web
-        - traefik.http.routers.cadvisor.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.cadvisor.middlewares=redirectscheme
         - traefik.http.routers.cadvisor.rule=Host(`cadvisor.${STACK_DOMAIN}`)
         - traefik.http.routers.cadvisor-secure.entryPoints=web-secure
         - traefik.http.routers.cadvisor-secure.rule=Host(`cadvisor.${STACK_DOMAIN}`)

@@ -3,7 +3,7 @@ services:
     deploy:
       labels:
         - (( append ))
-        - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype-redirectregex
+        - traefik.http.routers.vibetype.middlewares=redirectscheme,vibetype_cors,vibetype-redirectregex
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
       update_config:
         order: start-first

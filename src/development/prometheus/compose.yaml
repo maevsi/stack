@@ -6,7 +6,7 @@ services:
         - dargstack.profiles=analytics
         - traefik.enable=true
         - traefik.http.routers.prometheus.entryPoints=web
-        - traefik.http.routers.prometheus.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.prometheus.middlewares=redirectscheme
         - traefik.http.routers.prometheus.rule=Host(`prometheus.${STACK_DOMAIN}`)
         - traefik.http.routers.prometheus-secure.entryPoints=web-secure
         - traefik.http.routers.prometheus-secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
