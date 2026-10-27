@@ -1,3 +1,9 @@
+## [21.7.1](https://github.com/maevsi/stack/compare/21.7.0...21.7.1) (2026-10-27)
+
+### Bug Fixes
+
+* schedule release ([ceb020c](https://github.com/maevsi/stack/commit/ceb020c5f1c58c1992cce8ff43db424ba82c342c))
+
 ## [21.7.0](https://github.com/maevsi/stack/compare/21.6.0...21.7.0) (2026-10-24)
 
 ### Features
