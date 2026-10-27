@@ -3,7 +3,7 @@ services:
     # The exporter that reports the swarm's state, its nodes and each service's tasks to the metrics monitoring.
     cap_drop:
       - ALL
-    command: ["-label", "vibetype.one-shot"]
+    command: ["--label", "vibetype.one-shot"]
     deploy:
       labels:
         - dargstack.profiles=analytics
@@ -23,7 +23,7 @@ services:
       - DOCKER_HOST=tcp://docker-socket-proxy:2375
     healthcheck:
       # The image is distroless and has no shell, so the binary probes its own readiness endpoint.
-      test: ["CMD", "/usr/local/bin/swarm-scheduler-exporter", "-healthcheck"]
+      test: ["CMD", "/usr/local/bin/swarm-scheduler-exporter", "--healthcheck"]
       interval: 30s
       timeout: 5s
       start_period: 90s
