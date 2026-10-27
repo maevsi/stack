@@ -1,3 +1,9 @@
+## [21.7.3](https://github.com/maevsi/stack/compare/21.7.2...21.7.3) (2026-10-27)
+
+### Bug Fixes
+
+* **vibetype:** remove the stale cors middleware reference ([#323](https://github.com/maevsi/stack/issues/323)) ([e73a850](https://github.com/maevsi/stack/commit/e73a8507c983771aff184ad526f046a496e1cc37))
+
 ## [21.7.2](https://github.com/maevsi/stack/compare/21.7.1...21.7.2) (2026-10-27)
 
 ### Bug Fixes
