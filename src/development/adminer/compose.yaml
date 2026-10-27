@@ -17,7 +17,7 @@ services:
         - dargstack.profiles=default
         - traefik.enable=true
         - traefik.http.routers.adminer.entryPoints=web
-        - traefik.http.routers.adminer.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.adminer.middlewares=redirectscheme
         - traefik.http.routers.adminer.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer-secure.entryPoints=web-secure
         - traefik.http.routers.adminer-secure.rule=Host(`adminer.${STACK_DOMAIN}`)
