@@ -1,3 +1,6 @@
+configs:
+  redpanda-console-config-68cdad34:
+    file: ./configurations/config.yaml
 services:
   redpanda:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
@@ -45,6 +48,10 @@ services:
       - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:
     # You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
+    configs:
+      - source: redpanda-console-config-68cdad34
+        target: /srv/app/redpanda-config.yaml
+        mode: "0444"
     deploy:
       labels:
         - dargstack.profiles=event-streaming
@@ -65,8 +72,6 @@ services:
       retries: 3
       start_period: 15s
     image: redpandadata/console:v3.13.1
-    volumes:
-      - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
 volumes:
   redpanda-data:
     # The message queue's data.

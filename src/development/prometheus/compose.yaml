@@ -1,6 +1,13 @@
+configs:
+  prometheus-config-0fb62db9:
+    file: ./configurations/prometheus.yaml
 services:
   prometheus:
     # You can access the metrics monitoring at [prometheus.app.localhost](https://prometheus.app.localhost/).
+    configs:
+      - source: prometheus-config-0fb62db9
+        target: /etc/prometheus/prometheus.yml
+        mode: "0444"
     deploy:
       labels:
         - dargstack.profiles=analytics
@@ -20,7 +27,6 @@ services:
       start_period: 15s
     image: prom/prometheus:v3.15.1
     volumes:
-      - ./configurations/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
 volumes:
   prometheus-data:
