@@ -1,5 +1,22 @@
+configs:
+  jobber-a718c8e7: (( prune ))
+  jobber-prod-3d7c0dda:
+    file: ./configurations/.jobber
 services:
   jobber:
+    configs:
+      - source: jobber-prod-3d7c0dda
+        target: /home/jobberuser/.jobber
+        mode: "0444"
+      - source: jobber-sink-error-6f8366e3
+        target: /srv/sinks/sentry/error.sh
+        mode: "0555"
+      - source: jobber-sink-in-progress-54c52e4f
+        target: /srv/sinks/sentry/in-progress.sh
+        mode: "0555"
+      - source: jobber-sink-ok-f6e01508
+        target: /srv/sinks/sentry/ok.sh
+        mode: "0555"
     deploy:
       placement:
         constraints:

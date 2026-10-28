@@ -1,3 +1,12 @@
+configs:
+  jobber-a718c8e7:
+    file: ./configurations/.jobber
+  jobber-sink-error-6f8366e3:
+    file: ./configurations/sinks/sentry/error.sh
+  jobber-sink-in-progress-54c52e4f:
+    file: ./configurations/sinks/sentry/in-progress.sh
+  jobber-sink-ok-f6e01508:
+    file: ./configurations/sinks/sentry/ok.sh
 secrets:
   jobber-aliases:
     # The job scheduler's SMTP client mail alias.
@@ -17,6 +26,19 @@ secrets:
 services:
   jobber:
     # You cannot access the jobber via a web interface.
+    configs:
+      - source: jobber-a718c8e7
+        target: /home/jobberuser/.jobber
+        mode: "0444"
+      - source: jobber-sink-error-6f8366e3
+        target: /srv/sinks/sentry/error.sh
+        mode: "0555"
+      - source: jobber-sink-in-progress-54c52e4f
+        target: /srv/sinks/sentry/in-progress.sh
+        mode: "0555"
+      - source: jobber-sink-ok-f6e01508
+        target: /srv/sinks/sentry/ok.sh
+        mode: "0555"
     environment:
       AWS_SHARED_CREDENTIALS_FILE: /run/secrets/jobber-aws-credentials
     image: ghcr.io/dargmuesli/jobber-aws-msmtp:1.3.0
@@ -29,9 +51,6 @@ services:
         target: /home/jobberuser/.aws/config
       - source: jobber-msmtprc
         target: /etc/msmtprc
-    volumes:
-      - ./configurations/.jobber:/home/jobberuser/.jobber:ro
-      - ./configurations/sinks:/srv/sinks:ro
 x-dargstack:
   secrets:
     jobber-aliases:
