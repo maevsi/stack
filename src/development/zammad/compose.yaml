@@ -1,6 +1,10 @@
 x-shared:
   zammad-service:
     &zammad-service # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+    configs:
+      - source: zammad-docker-entrypoint-bf26d9ee
+        target: /opt/zammad/bin/docker-entrypoint
+        mode: "0555"
     deploy:
       labels:
         - dargstack.profiles=zammad
@@ -34,10 +38,6 @@ services:
     # You cannot access the helpdesk backup service via a web interface.
     <<: *zammad-service
     command: ["zammad-backup"]
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
     user: 0:0
     volumes:
       - zammad-backup-data:/var/tmp/zammad
@@ -46,10 +46,6 @@ services:
     # You cannot access the helpdesk initialization service via a web interface.
     <<: *zammad-service
     command: ["zammad-init"]
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
     deploy:
       labels:
         - dargstack.profiles=zammad
@@ -61,10 +57,6 @@ services:
     # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
     <<: *zammad-service
     command: ["zammad-nginx"]
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
     deploy:
       labels:
         - dargstack.profiles=zammad
@@ -86,10 +78,6 @@ services:
     # You cannot access the helpdesk application server directly.
     <<: *zammad-service
     command: ["zammad-railsserver"]
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
     healthcheck:
       test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://127.0.0.1:3000/"]
       interval: 30s
@@ -100,18 +88,10 @@ services:
     # You cannot access the helpdesk scheduler directly.
     <<: *zammad-service
     command: ["zammad-scheduler"]
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
   zammad-websocket:
     # You cannot access the helpdesk websocket server directly.
     <<: *zammad-service
     command: ["zammad-websocket"]
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
 volumes:
   zammad-backup-data:
     # The helpdesk backup's data.
