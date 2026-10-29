@@ -23,7 +23,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    image: cloudflare/cloudflared:2026.10.5
+    image: cloudflare/cloudflared:2026.10.6
     logging:
       driver: json-file
       options:
