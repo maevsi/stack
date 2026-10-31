@@ -3,7 +3,12 @@ services:
     deploy:
       labels:
         - (( append ))
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.average=10
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.burst=200
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.period=1s
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.sourcecriterion.requestheadername=Cf-Connecting-Ip # all requests arrive through the cloudflare tunnel, so the remote address is always the tunnel's
         - traefik.http.routers.vibetype.middlewares=redirectscheme,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-ratelimit,vibetype-cors,vibetype-redirectregex
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
       update_config:
         order: start-first

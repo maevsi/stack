@@ -41,7 +41,7 @@ services:
         - traefik.http.routers.vibetype.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.vibetype.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype-secure.entryPoints=web-secure
-        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex # dargstack:dev-only
         - traefik.http.routers.vibetype-secure.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
