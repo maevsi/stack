@@ -1,3 +1,9 @@
+## [21.8.0](https://github.com/maevsi/stack/compare/21.7.3...21.8.0) (2026-10-31)
+
+### Features
+
+* **vibetype:** add rate limit ([#328](https://github.com/maevsi/stack/issues/328)) ([ab1667a](https://github.com/maevsi/stack/commit/ab1667ad5c966d43cc66d883d205d6911d66c518))
+
 ## [21.7.3](https://github.com/maevsi/stack/compare/21.7.2...21.7.3) (2026-10-27)
 
 ### Bug Fixes
