@@ -1,3 +1,9 @@
+## [21.8.1](https://github.com/maevsi/stack/compare/21.8.0...21.8.1) (2026-11-05)
+
+### Bug Fixes
+
+* schedule release ([f5ba04d](https://github.com/maevsi/stack/commit/f5ba04d0e0d3b05408c7f5ae31a85e94a489f4b7))
+
 ## [21.8.0](https://github.com/maevsi/stack/compare/21.7.3...21.8.0) (2026-10-31)
 
 ### Features
