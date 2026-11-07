@@ -52,7 +52,7 @@ services:
       NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
       NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
       NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
-      NUXT_PUBLIC_VIBETYPE_UPLOAD_MAX_SIZE: ${TUSD_MAX_SIZE} # shared with tusd's `-max-size`, so the frontend rejects what tusd would
+      NUXT_PUBLIC_VIBETYPE_UPLOAD_SIZE_MAX: ${TUSD_MAX_SIZE} # shared with tusd's `-max-size`, so the frontend rejects what tusd would
       PGHOST: postgres
     image: vibetype/vibetype:development
     secrets:
