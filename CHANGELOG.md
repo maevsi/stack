@@ -1,3 +1,9 @@
+## [21.9.0](https://github.com/maevsi/stack/compare/21.8.1...21.9.0) (2026-11-07)
+
+### Features
+
+* **vibetype:** share the upload size limit with tusd ([#331](https://github.com/maevsi/stack/issues/331)) ([e3a61ef](https://github.com/maevsi/stack/commit/e3a61efd8d28bcd9bb7c063a1d384aa497ac4b1d))
+
 ## [21.8.1](https://github.com/maevsi/stack/compare/21.8.0...21.8.1) (2026-11-05)
 
 ### Bug Fixes
