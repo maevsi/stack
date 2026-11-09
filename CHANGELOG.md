@@ -1,3 +1,9 @@
+## [21.10.0](https://github.com/maevsi/stack/compare/21.9.1...21.10.0) (2026-11-09)
+
+### Features
+
+* **vibetype:** enable sentry ([#334](https://github.com/maevsi/stack/issues/334)) ([9fe9001](https://github.com/maevsi/stack/commit/9fe90013864fbc1113c6a1c033d4dec9cc78604f))
+
 ## [21.9.1](https://github.com/maevsi/stack/compare/21.9.0...21.9.1) (2026-11-09)
 
 ### Bug Fixes
