@@ -12,6 +12,8 @@ services:
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
       update_config:
         order: start-first
+    environment:
+      NUXT_PUBLIC_SENTRY_ENABLED: "true"
     image: ghcr.io/maevsi/vibetype:17.0.0-beta.1
     logging:
       driver: json-file
