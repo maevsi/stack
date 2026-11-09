@@ -32,3 +32,4 @@ Before making changes, read [CONTRIBUTING.md](CONTRIBUTING.md) for development m
 ## Documentation
 
 - [`artifacts/docs/README.md`](artifacts/docs/README.md): see an overview of all services, secrets, and volumes in the stack (auto-generated)
+- [`docs/sqitch-major-upgrade.md`](docs/sqitch-major-upgrade.md): upgrade the database to a new `sqitch` major
