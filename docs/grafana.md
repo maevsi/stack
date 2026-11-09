@@ -79,6 +79,21 @@ Add under **Alerting → Alert rules → New alert rule**, in the `Infrastructur
 - **Summary annotation**: "There are notifications which are not sent out, or at least not marked as acknowledged."
 - **Contact point**: `Discord`
 
+### Alert rule: change data capture stalled
+
+Add under **Alerting → Alert rules → New alert rule**, in the `Infrastructure` folder.
+
+This catches a missing, disconnected, or lagging Debezium replication slot well before Postgres invalidates it at `max_slot_wal_keep_size`.
+The notifications pending rule only fires once a notification is created, so it misses a stalled pipeline during quiet periods.
+
+- **Query (A)**, on the PostgreSQL datasource, code mode: `SELECT COUNT(*) FILTER (WHERE s.active AND s.wal_status IN ('reserved', 'extended') AND pg_wal_lsn_diff(pg_current_wal_lsn(), s.confirmed_flush_lsn) < 268435456) FROM (SELECT 1) AS x LEFT JOIN pg_replication_slots AS s ON s.slot_name = 'debezium'`
+- **Reduce (B)**: last of A
+- **Threshold (C)**: B is below 1, this is the alert condition
+- **Evaluation**: every `30s`, for `5m`, group `Critical`, repeat every 7 days
+- **No data / error state**: `Alerting` / `Error`
+- **Summary annotation**: "The change data capture's replication slot is missing, inactive, or more than 256 MB behind, so database changes are not streamed."
+- **Contact point**: `Discord`
+
 ## Dashboards
 
 Add under **Dashboards → New → Import**.
