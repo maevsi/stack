@@ -14,7 +14,7 @@ services:
         order: start-first
     environment:
       NUXT_PUBLIC_SENTRY_ENABLED: "true"
-    image: ghcr.io/maevsi/vibetype:17.0.0-beta.2
+    image: ghcr.io/maevsi/vibetype:17.1.0
     logging:
       driver: json-file
       options:
