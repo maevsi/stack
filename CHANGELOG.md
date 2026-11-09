@@ -1,3 +1,9 @@
+## [21.9.1](https://github.com/maevsi/stack/compare/21.9.0...21.9.1) (2026-11-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v16.8.0 ([05d10c4](https://github.com/maevsi/stack/commit/05d10c487b6c78472d74255d69227a418b2bc9e3))
+
 ## [21.9.0](https://github.com/maevsi/stack/compare/21.8.1...21.9.0) (2026-11-07)
 
 ### Features
