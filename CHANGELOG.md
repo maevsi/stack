@@ -1,3 +1,9 @@
+## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
+
+### Performance Improvements
+
+* **grafana:** save alert state periodically ([#338](https://github.com/maevsi/stack/issues/338)) ([ed2462d](https://github.com/maevsi/stack/commit/ed2462d7deca4fb12be4f1f5822e8c1929db43bb))
+
 ## [21.10.2](https://github.com/maevsi/stack/compare/21.10.1...21.10.2) (2026-11-09)
 
 ### Bug Fixes
