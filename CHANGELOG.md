@@ -1,3 +1,9 @@
+## [21.10.2](https://github.com/maevsi/stack/compare/21.10.1...21.10.2) (2026-11-09)
+
+### Bug Fixes
+
+* **debezium:** add heartbeat and report failed tasks as unhealthy ([#336](https://github.com/maevsi/stack/issues/336)) ([a7d8d09](https://github.com/maevsi/stack/commit/a7d8d09c5c07400b14257da20b9afb02563ade45))
+
 ## [21.10.1](https://github.com/maevsi/stack/compare/21.10.0...21.10.1) (2026-11-09)
 
 ### Bug Fixes
