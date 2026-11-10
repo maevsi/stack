@@ -1,38 +1,68 @@
+INSTALL ducklake;
+LOAD ducklake;
 INSTALL httpfs;
 LOAD httpfs;
+INSTALL postgres;
+LOAD postgres;
 
 CREATE SECRET s3_secret (TYPE r2, KEY_ID '__S3_ACCESS_KEY_ID__', SECRET '__S3_SECRET_ACCESS_KEY__', ACCOUNT_ID '__S3_ACCOUNT_ID__');
+-- The catalog credentials live in a secret because the server logs ATTACH statements verbatim.
+CREATE SECRET (TYPE postgres, HOST 'postgres', PORT 5432, DATABASE 'ducklake', USER '__POSTGRES_USERNAME__', PASSWORD '__POSTGRES_PASSWORD__');
+
+-- The event stream's lakehouse: catalog in postgres, parquet data on S3 (bucket "test").
+ATTACH 'ducklake:postgres:' AS lakehouse (DATA_PATH 'r2://test/lakehouse/');
+
+-- One row per outbox envelope from the topics `vibetype.outbox.event` and
+-- `vibetype.outbox.account` (only `account.deleted`), registered from
+-- redpanda-connect's landing files by `maintenance.sql`.
+CREATE TABLE IF NOT EXISTS lakehouse.envelope (
+  id UUID,
+  type VARCHAR,
+  aggregate_type VARCHAR,
+  aggregate_id UUID,
+  version INTEGER,
+  occurred_at TIMESTAMPTZ,
+  data JSON
+);
+-- Registering a landing file twice would duplicate its rows.
+CREATE TABLE IF NOT EXISTS lakehouse.ingested_file (path VARCHAR);
+
+-- Snapshots older than this can no longer be queried with time travel, and
+-- erased rows stay physically on S3 until then (plus `delete_older_than`).
+CALL lakehouse.set_option('expire_older_than', '7 days');
+CALL lakehouse.set_option('delete_older_than', '1 hour');
+-- Any delete rewrites its data file on the next checkpoint, so erased rows do not survive in old files.
+CALL lakehouse.set_option('rewrite_delete_threshold', 0);
 
 CREATE SCHEMA IF NOT EXISTS analytics;
 
--- The event stream's parquet lakehouse, written by redpanda-connect to S3
--- (bucket "test", prefix "events/"). The raw parquet columns are strings, so
--- ids and timestamps are cast to proper types (try_cast keeps bad values NULL).
 CREATE OR REPLACE VIEW analytics.events AS
 SELECT
-  try_cast(id AS UUID) AS id,
-  name,
-  slug,
-  try_cast(start AS TIMESTAMPTZ) AS start,
-  try_cast("end" AS TIMESTAMPTZ) AS "end",
-  visibility,
-  is_archived,
-  is_in_person,
-  is_remote,
-  language,
-  url,
-  try_cast(address_id AS UUID) AS address_id,
-  guest_count_maximum,
-  try_cast(created_at AS TIMESTAMPTZ) AS created_at,
-  try_cast(created_by AS UUID) AS created_by,
-  operation
-FROM read_parquet('r2://test/events/*.parquet');
+  aggregate_id AS id,
+  data->>'name' AS name,
+  data->>'slug' AS slug,
+  try_cast(data->>'start' AS TIMESTAMPTZ) AS start,
+  try_cast(data->>'end' AS TIMESTAMPTZ) AS "end",
+  data->>'visibility' AS visibility,
+  try_cast(data->>'is_archived' AS BOOLEAN) AS is_archived,
+  try_cast(data->>'is_in_person' AS BOOLEAN) AS is_in_person,
+  try_cast(data->>'is_remote' AS BOOLEAN) AS is_remote,
+  data->>'language' AS language,
+  data->>'url' AS url,
+  try_cast(data->>'address_id' AS UUID) AS address_id,
+  try_cast(data->>'guest_count_maximum' AS BIGINT) AS guest_count_maximum,
+  try_cast(data->>'created_at' AS TIMESTAMPTZ) AS created_at,
+  try_cast(data->>'created_by' AS UUID) AS created_by,
+  type AS operation
+FROM lakehouse.envelope
+WHERE aggregate_type = 'event';
 
 -- Example aggregate over the lakehouse.
 CREATE OR REPLACE VIEW analytics.events_daily AS
 SELECT
   try_cast(created_at AS DATE) AS day,
   count(*) AS events
-FROM read_parquet('r2://test/events/*.parquet')
+FROM analytics.events
+WHERE operation = 'event.created'
 GROUP BY 1
 ORDER BY 1;

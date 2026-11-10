@@ -4,7 +4,7 @@ secrets:
     file: ~~/artifacts/secrets/gizmosql-password.secret
 services:
   gizmosql:
-    # You can query the event stream's parquet lakehouse using `grafana`.
+    # You can query the event stream's lakehouse using `grafana`.
     command: /run/entrypoint.sh
     deploy:
       labels:
@@ -25,6 +25,10 @@ services:
     secrets:
       - source: gizmosql-password
         target: /run/environment-variables/GIZMOSQL_PASSWORD
+      - source: postgres-role-service-gizmosql-password
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres-role-service-gizmosql-username
+        target: /run/environment-variables/POSTGRES_USERNAME
       - source: s3-account-id
         target: /run/environment-variables/S3_ACCOUNT_ID
       - source: s3-aws-credentials-access-key-id
