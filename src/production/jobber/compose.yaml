@@ -8,7 +8,6 @@ services:
         order: stop-first
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
-      SENTRY_CRONS_OUTBOX_PURGE: ${SENTRY_CRONS_OUTBOX_PURGE}
     logging:
       driver: json-file
       options:
