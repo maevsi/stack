@@ -3,21 +3,33 @@ services:
     deploy:
       labels:
         - (( append ))
-        - traefik.http.routers.vibetype.middlewares=vibetype_cors,vibetype_redirectregex
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.average=10
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.burst=200
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.period=1s
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.sourcecriterion.requestheadername=Cf-Connecting-Ip # all requests arrive through the cloudflare tunnel, so the remote address is always the tunnel's
+        - traefik.http.routers.vibetype.middlewares=redirectscheme,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-ratelimit,vibetype-cors,vibetype-redirectregex
         - traefik.http.routers.vibetype-secure.tls.certresolver=default
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/vibetype:15.23.0
+    environment:
+      NUXT_PUBLIC_SENTRY_ENABLED: "true"
+    image: ghcr.io/maevsi/vibetype:16.8.0
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   # vibetype-beta:
   #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
   #   deploy:
   #     labels:
   #       - traefik.enable=true
   #       - traefik.http.routers.vibetype-beta.entryPoints=web
-  #       - traefik.http.routers.vibetype-beta.middlewares=vibetype_cors,vibetype_redirectregex
+  #       - traefik.http.routers.vibetype-beta.middlewares=redirectscheme,vibetype-redirectregex
   #       - traefik.http.routers.vibetype-beta.rule=Host(`beta.${STACK_DOMAIN}`)
   #       - traefik.http.routers.vibetype-beta-secure.entryPoints=web-secure
-  #       - traefik.http.routers.vibetype-beta-secure.middlewares=vibetype_cors,vibetype_redirectregex
+  #       - traefik.http.routers.vibetype-beta-secure.middlewares=vibetype-cors,vibetype-redirectregex
   #       - traefik.http.routers.vibetype-beta-secure.rule=Host(`beta.${STACK_DOMAIN}`)
   #       - traefik.http.services.vibetype-beta.loadbalancer.server.port=3000
   #       - traefik.http.routers.vibetype-beta-secure.tls.certresolver=default

@@ -6,3 +6,8 @@ services:
         - traefik.http.routers.cadvisor-secure.tls.certresolver=default
       update_config:
         order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

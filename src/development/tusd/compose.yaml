@@ -27,15 +27,15 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: tusproject/tusd:v2.10.0
+    image: tusproject/tusd:v2.10.1
     secrets:
       - source: tusd-aws
         target: /home/tusd/.aws/credentials
 x-dargstack:
   secrets:
     tusd-aws:
-      insecure_default: |
+      template: |
         [default]
-        aws_access_key_id = s3user
-        aws_secret_access_key = s3password
-      type: insecure_default
+        aws_access_key_id = {{secret:minio-root-user}}
+        aws_secret_access_key = {{secret:minio-root-password}}
+      type: template

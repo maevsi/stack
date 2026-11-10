@@ -8,6 +8,9 @@ secrets:
   vibetype-firebase-service-account-credentials:
     # The notification provider's service account credentials.
     file: ~~/artifacts/secrets/vibetype-firebase-service-account-credentials.secret
+  vibetype-nuxt-app-secret:
+    # The root secret of the Nuxt app, e.g. for signing Open Graph image URLs.
+    file: ~~/artifacts/secrets/vibetype-nuxt-app-secret.secret
   vibetype-openai-api-key:
     # The AI provider's API key for the frontend.
     file: ~~/artifacts/secrets/vibetype-openai-api-key.secret
@@ -38,7 +41,7 @@ services:
         - traefik.http.routers.vibetype.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.vibetype.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype-secure.entryPoints=web-secure
-        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex # dargstack:dev-only
         - traefik.http.routers.vibetype-secure.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
@@ -49,6 +52,7 @@ services:
       NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
       NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
       NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
+      NUXT_PUBLIC_VIBETYPE_UPLOAD_SIZE_MAX: ${TUSD_MAX_SIZE} # shared with tusd's `-max-size`, so the frontend rejects what tusd would
       PGHOST: postgres
     image: vibetype/vibetype:development
     secrets:
@@ -58,6 +62,8 @@ services:
         target: /home/node/.aws/credentials
       - source: vibetype-firebase-service-account-credentials
         target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
+      - source: vibetype-nuxt-app-secret
+        target: /run/environment-variables/NUXT_APP_SECRET
       - source: vibetype-openai-api-key
         target: /run/environment-variables/NUXT_OPENAI_API_KEY
       - source: vibetype-scripts-proxy-secret
@@ -75,7 +81,7 @@ services:
     configs:
       - source: postgraphile-jwt-public-key
         target: /run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY
-    volumes:
+    volumes: # dargstack:dev-only
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - ~~/artifacts/certificates/:/srv/certificates/ # dargstack:dev-only
       - ~~~/vibetype/:/srv/app/ # dargstack:dev-only
@@ -118,6 +124,9 @@ x-dargstack:
       type: third_party
     vibetype-firebase-service-account-credentials-private-key:
       type: third_party
+    vibetype-nuxt-app-secret:
+      special_characters: false # nitro parses environment overrides, so the value must stay a plain string
+      type: random_string
     vibetype-openai-api-key:
       type: third_party
     vibetype-scripts-proxy-secret:

@@ -3,9 +3,13 @@ services:
     deploy:
       labels:
         - (( append ))
-        - traefik.http.routers.postgraphile.middlewares=postgraphile-cors,redirectscheme
         - traefik.http.routers.postgraphile-secure.tls.certresolver=default
         - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/postgraphile:2.2.4
+    image: ghcr.io/maevsi/postgraphile:3.0.0-beta.3
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

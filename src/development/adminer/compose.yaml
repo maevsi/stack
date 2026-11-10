@@ -17,18 +17,20 @@ services:
         - dargstack.profiles=default
         - traefik.enable=true
         - traefik.http.routers.adminer.entryPoints=web
-        - traefik.http.routers.adminer.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.adminer.middlewares=redirectscheme
         - traefik.http.routers.adminer.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer-secure.entryPoints=web-secure
         - traefik.http.routers.adminer-secure.rule=Host(`adminer.${STACK_DOMAIN}`)
         - traefik.http.routers.adminer-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.adminer.loadbalancer.server.port=8080
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: adminer:6.0.1-standalone
+    image: adminer:6.3.0-standalone
     volumes:
       - ./configurations/adminer.css:/var/www/html/adminer.css:ro

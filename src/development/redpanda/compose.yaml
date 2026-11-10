@@ -3,24 +3,46 @@ services:
     # You can access the event streaming platform's ui as described under `redpanda-console`.
     command:
       - redpanda start
-      - --mode dev-container # dargstack:dev-only
-      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
       - --advertise-kafka-addr internal://redpanda:9092,external://localhost:19092
-      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
       - --advertise-pandaproxy-addr internal://redpanda:8082,external://localhost:18082
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --memory 512M
+      - --mode dev-container # dargstack:dev-only
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
+      - --reserve-memory 0M
       - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+      - --smp 1
     deploy:
       labels:
         - dargstack.profiles=event-streaming
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          memory: 512M
     healthcheck:
       test: ["CMD", "rpk", "cluster", "health", "--exit-when-healthy"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 30s
-    image: redpandadata/redpanda:v26.2.2
+    image: redpandadata/redpanda:v26.2.6
     volumes:
       - redpanda-data:/var/lib/redpanda/data
+  redpanda-cluster-config:
+    # The broker's one-shot task for adjusting its cluster configuration after startup.
+    command: /entrypoint.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+        - vibetype.one-shot=true
+      restart_policy:
+        condition: on-failure
+    entrypoint: sh
+    image: curlimages/curl:8.23.0
+    volumes:
+      - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:
     # You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
     deploy:
@@ -28,7 +50,7 @@ services:
         - dargstack.profiles=event-streaming
         - traefik.enable=true
         - traefik.http.routers.redpanda.entryPoints=web
-        - traefik.http.routers.redpanda.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.redpanda.middlewares=redirectscheme
         - traefik.http.routers.redpanda.rule=Host(`redpanda.${STACK_DOMAIN}`)
         - traefik.http.routers.redpanda-secure.entryPoints=web-secure
         - traefik.http.routers.redpanda-secure.rule=Host(`redpanda.${STACK_DOMAIN}`)
@@ -42,7 +64,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: redpandadata/console:v3.11.0
+    image: redpandadata/console:v3.14.0
     volumes:
       - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
 volumes:

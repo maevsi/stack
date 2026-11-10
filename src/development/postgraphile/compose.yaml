@@ -28,7 +28,7 @@ services:
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowHeaders=authorization
         - traefik.http.middlewares.postgraphile-cors.headers.accessControlAllowOriginList=https://${STACK_DOMAIN},https://localhost:3000,https://app.localhost:3000
         - traefik.http.routers.postgraphile.entryPoints=web
-        - traefik.http.routers.postgraphile.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.postgraphile.middlewares=redirectscheme
         - traefik.http.routers.postgraphile.rule=Host(`postgraphile.${STACK_DOMAIN}`)
         - traefik.http.routers.postgraphile-secure.entryPoints=web-secure
         - traefik.http.routers.postgraphile-secure.middlewares=postgraphile-cors
@@ -41,6 +41,11 @@ services:
     # # Use the DEBUG environment variable for extended debugging.
     # environment:
     #   DEBUG: graphile-build:warn,graphile-build-pg:sql
+    environment:
+      # The PostgreSQL schema exposed by the GraphQL API.
+      POSTGRAPHILE_SCHEMA: vibetype
+      # The role for a request that resolves no role of its own.
+      POSTGRAPHILE_DEFAULT_ROLE: vibetype_anonymous
     image: vibetype/postgraphile:development
     secrets:
       - source: postgraphile-connection
@@ -56,7 +61,7 @@ services:
     configs:
       - source: postgraphile-jwt-public-key
         target: /run/environment-variables/POSTGRAPHILE_JWT_PUBLIC_KEY
-    volumes:
+    volumes: # dargstack:dev-only
       - ~~~/postgraphile/:/srv/app/ # dargstack:dev-only
       - pnpm-data:/srv/.pnpm-store/ # dargstack:dev-only
       - postgraphile-data:/srv/app/node_modules # dargstack:dev-only

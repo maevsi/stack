@@ -1,3 +1,221 @@
+## [21.10.0](https://github.com/maevsi/stack/compare/21.9.1...21.10.0) (2026-11-09)
+
+### Features
+
+* **vibetype:** enable sentry ([#334](https://github.com/maevsi/stack/issues/334)) ([9fe9001](https://github.com/maevsi/stack/commit/9fe90013864fbc1113c6a1c033d4dec9cc78604f))
+
+## [21.9.1](https://github.com/maevsi/stack/compare/21.9.0...21.9.1) (2026-11-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v16.8.0 ([05d10c4](https://github.com/maevsi/stack/commit/05d10c487b6c78472d74255d69227a418b2bc9e3))
+
+## [21.9.0](https://github.com/maevsi/stack/compare/21.8.1...21.9.0) (2026-11-07)
+
+### Features
+
+* **vibetype:** share the upload size limit with tusd ([#331](https://github.com/maevsi/stack/issues/331)) ([e3a61ef](https://github.com/maevsi/stack/commit/e3a61efd8d28bcd9bb7c063a1d384aa497ac4b1d))
+
+## [21.8.1](https://github.com/maevsi/stack/compare/21.8.0...21.8.1) (2026-11-05)
+
+### Bug Fixes
+
+* schedule release ([f5ba04d](https://github.com/maevsi/stack/commit/f5ba04d0e0d3b05408c7f5ae31a85e94a489f4b7))
+
+## [21.8.0](https://github.com/maevsi/stack/compare/21.7.3...21.8.0) (2026-10-31)
+
+### Features
+
+* **vibetype:** add rate limit ([#328](https://github.com/maevsi/stack/issues/328)) ([ab1667a](https://github.com/maevsi/stack/commit/ab1667ad5c966d43cc66d883d205d6911d66c518))
+
+## [21.7.3](https://github.com/maevsi/stack/compare/21.7.2...21.7.3) (2026-10-27)
+
+### Bug Fixes
+
+* **vibetype:** remove the stale cors middleware reference ([#323](https://github.com/maevsi/stack/issues/323)) ([e73a850](https://github.com/maevsi/stack/commit/e73a8507c983771aff184ad526f046a496e1cc37))
+
+## [21.7.2](https://github.com/maevsi/stack/compare/21.7.1...21.7.2) (2026-10-27)
+
+### Bug Fixes
+
+* **traefik:** redirect http to https in production ([#322](https://github.com/maevsi/stack/issues/322)) ([a5418cd](https://github.com/maevsi/stack/commit/a5418cdd0987a7cbe915368fb3c2f560912bc2eb))
+
+## [21.7.1](https://github.com/maevsi/stack/compare/21.7.0...21.7.1) (2026-10-27)
+
+### Bug Fixes
+
+* schedule release ([ceb020c](https://github.com/maevsi/stack/commit/ceb020c5f1c58c1992cce8ff43db424ba82c342c))
+
+## [21.7.0](https://github.com/maevsi/stack/compare/21.6.0...21.7.0) (2026-10-24)
+
+### Features
+
+* **postgraphile:** migrate to 3.0.0-beta.3 ([#320](https://github.com/maevsi/stack/issues/320)) ([eb9b4a4](https://github.com/maevsi/stack/commit/eb9b4a4e35da509881a29b3b332176c1508b7b6b))
+
+## [21.6.0](https://github.com/maevsi/stack/compare/21.5.0...21.6.0) (2026-10-24)
+
+### Features
+
+* **postgraphile:** set the schema and default role via environment ([#319](https://github.com/maevsi/stack/issues/319)) ([0a07a95](https://github.com/maevsi/stack/commit/0a07a9533ef14390d5b064af8becec9fdecb485d))
+
+## [21.5.0](https://github.com/maevsi/stack/compare/21.4.0...21.5.0) (2026-10-22)
+
+### Features
+
+* **swarm-scheduler-exporter:** expose the one-shot service label ([#318](https://github.com/maevsi/stack/issues/318)) ([7a639b0](https://github.com/maevsi/stack/commit/7a639b0f6d86161d04fed5fe99bd2d3141fe9498))
+
+## [21.4.0](https://github.com/maevsi/stack/compare/21.3.4...21.4.0) (2026-10-22)
+
+### Features
+
+* add the swarm scheduler exporter ([#313](https://github.com/maevsi/stack/issues/313)) ([bcac72a](https://github.com/maevsi/stack/commit/bcac72a04aea3a0ec667faae29c61dc9d18966b4))
+
+## [21.3.4](https://github.com/maevsi/stack/compare/21.3.3...21.3.4) (2026-10-22)
+
+### Bug Fixes
+
+* **debezium:** self-heal with a snapshot when the replication state is lost ([#317](https://github.com/maevsi/stack/issues/317)) ([42280d2](https://github.com/maevsi/stack/commit/42280d28589741d66170f72d403e9f0886fa5d97))
+
+## [21.3.3](https://github.com/maevsi/stack/compare/21.3.2...21.3.3) (2026-10-22)
+
+### Bug Fixes
+
+* **postgres:** cap the replication slot's wal retention ([#316](https://github.com/maevsi/stack/issues/316)) ([3529b77](https://github.com/maevsi/stack/commit/3529b775c2491338706546f17f5f2527928ffeab))
+
+## [21.3.2](https://github.com/maevsi/stack/compare/21.3.1...21.3.2) (2026-10-22)
+
+### Bug Fixes
+
+* **redpanda:** make the cluster config one-shot work in production ([#315](https://github.com/maevsi/stack/issues/315)) ([a11ae4e](https://github.com/maevsi/stack/commit/a11ae4e312b062d096ea8382ef2c6947270f3130))
+
+## [21.3.1](https://github.com/maevsi/stack/compare/21.3.0...21.3.1) (2026-10-22)
+
+### Performance Improvements
+
+* restore lost elasticsearch and redpanda memory limits ([#307](https://github.com/maevsi/stack/issues/307)) ([c77252e](https://github.com/maevsi/stack/commit/c77252ef86b9720e8d9b412eff74f61e3666d51e))
+
+## [21.3.0](https://github.com/maevsi/stack/compare/21.2.8...21.3.0) (2026-10-22)
+
+### Features
+
+* **vibetype:** add the nuxt app secret ([#312](https://github.com/maevsi/stack/issues/312)) ([5621d79](https://github.com/maevsi/stack/commit/5621d79b304bcb41b69e1313927b39c4dc1081fe))
+
+## [21.2.8](https://github.com/maevsi/stack/compare/21.2.7...21.2.8) (2026-10-21)
+
+### Bug Fixes
+
+* **docker:** cap the container log size of every production service ([#310](https://github.com/maevsi/stack/issues/310)) ([c01ac6d](https://github.com/maevsi/stack/commit/c01ac6da89452666aba05aedb7c70c45eb943ef6))
+
+## [21.2.7](https://github.com/maevsi/stack/compare/21.2.6...21.2.7) (2026-10-21)
+
+### Bug Fixes
+
+* **debezium:** cap the connect service log rotation ([#308](https://github.com/maevsi/stack/issues/308)) ([e249197](https://github.com/maevsi/stack/commit/e249197e5447c05a128ea096a591ca42f8558224))
+
+## [21.2.6](https://github.com/maevsi/stack/compare/21.2.5...21.2.6) (2026-10-18)
+
+### Bug Fixes
+
+* schedule release ([8fb769d](https://github.com/maevsi/stack/commit/8fb769d195d5319320f65a1ecfe0b3e859f8cf29))
+
+## [21.2.5](https://github.com/maevsi/stack/compare/21.2.4...21.2.5) (2026-10-04)
+
+### Bug Fixes
+
+* schedule release ([f25c134](https://github.com/maevsi/stack/commit/f25c13482279610d5b412d8dbf1e7e4fa02f4139))
+
+## [21.2.4](https://github.com/maevsi/stack/compare/21.2.3...21.2.4) (2026-09-27)
+
+### Bug Fixes
+
+* schedule release ([61804ac](https://github.com/maevsi/stack/commit/61804ac22eac55f86358e09962fde527c8582b85))
+
+## [21.2.3](https://github.com/maevsi/stack/compare/21.2.2...21.2.3) (2026-09-20)
+
+### Bug Fixes
+
+* schedule release ([7309e40](https://github.com/maevsi/stack/commit/7309e4091b86ea3b3fd0e77b636e7050f6ba31fb))
+
+## [21.2.2](https://github.com/maevsi/stack/compare/21.2.1...21.2.2) (2026-09-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v15.23.2 ([0cf6695](https://github.com/maevsi/stack/commit/0cf6695bee7a9953d647c9dfccf153d1d33aff92))
+
+## [21.2.1](https://github.com/maevsi/stack/compare/21.2.0...21.2.1) (2026-09-08)
+
+### Bug Fixes
+
+* **elasticsearch:** make the service boot and report healthy ([#306](https://github.com/maevsi/stack/issues/306)) ([7a3cd4b](https://github.com/maevsi/stack/commit/7a3cd4ba1196b12e16fae875ba49e0e7d4905e9e))
+
+## [21.2.0](https://github.com/maevsi/stack/compare/21.1.0...21.2.0) (2026-09-07)
+
+### Features
+
+* **elasticsearch:** reenable ([#304](https://github.com/maevsi/stack/issues/304)) ([3894748](https://github.com/maevsi/stack/commit/38947483f643261734636ef172c2863263ea74af))
+
+## [21.1.0](https://github.com/maevsi/stack/compare/21.0.0...21.1.0) (2026-09-05)
+
+### Features
+
+* **cloudflared:** add readiness health check ([#302](https://github.com/maevsi/stack/issues/302)) ([7843bf2](https://github.com/maevsi/stack/commit/7843bf282aa021f4eba03459a43cf10c51837fe3))
+
+### Bug Fixes
+
+* **traefik:** correct labels ([9bb6da0](https://github.com/maevsi/stack/commit/9bb6da0c31c286a777f4b5d63458d16c2eb47afb))
+
+## [21.0.0](https://github.com/maevsi/stack/compare/20.5.2...21.0.0) (2026-09-04)
+
+### ⚠ BREAKING CHANGES
+
+* **swarm:** services holding a production volume or a `configurations/` bind mount now require a node labelled `vibetype.storage=true`; label the node before deploying, and deploy with `--force` so the overlay network is recreated at the new MTU.
+
+### Features
+
+* **swarm:** support multi-node deployment ([88acb7b](https://github.com/maevsi/stack/commit/88acb7b1d8519ccaa3ceffa51d4f9cb8782c0cbe))
+
+## [20.5.2](https://github.com/maevsi/stack/compare/20.5.1...20.5.2) (2026-09-03)
+
+### Bug Fixes
+
+* **minio:** secure secrets ([407e639](https://github.com/maevsi/stack/commit/407e6395ba7d819bfcddde60d547915413c75a3f))
+
+## [20.5.1](https://github.com/maevsi/stack/compare/20.5.0...20.5.1) (2026-09-03)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/sqitch to v12.3.1 ([c4b70d8](https://github.com/maevsi/stack/commit/c4b70d80411cb143d975ce7727109522190cbe0b))
+
+## [20.5.0](https://github.com/maevsi/stack/compare/20.4.0...20.5.0) (2026-09-03)
+
+### Features
+
+* **adminer:** preselect database name ([0b4b844](https://github.com/maevsi/stack/commit/0b4b8447b39829ab98b2018ebe20ec6860ef7ccb))
+
+## [20.4.0](https://github.com/maevsi/stack/compare/20.3.7...20.4.0) (2026-09-03)
+
+### Features
+
+* **grafana:** remove provisioning, document manual setup ([#300](https://github.com/maevsi/stack/issues/300)) ([7f5a7f4](https://github.com/maevsi/stack/commit/7f5a7f479df3eb011fd4b6110f3c024bae0106b9))
+
+## [20.3.7](https://github.com/maevsi/stack/compare/20.3.6...20.3.7) (2026-09-02)
+
+### Bug Fixes
+
+* **reccoom:** correct empty volume list ([f89e640](https://github.com/maevsi/stack/commit/f89e6407f69c8840493bfe3a5d24926443bc94ea))
+
+## [20.3.6](https://github.com/maevsi/stack/compare/20.3.5...20.3.6) (2026-09-02)
+
+### Bug Fixes
+
+* **vibetype:** correct empty volume list ([193e3f5](https://github.com/maevsi/stack/commit/193e3f5034bccf71f5bb0e5c7b4ee5b8efb88b81))
+
+## [20.3.5](https://github.com/maevsi/stack/compare/20.3.4...20.3.5) (2026-09-02)
+
+### Bug Fixes
+
+* **postgraphile:** correct empty volume list ([4cf4242](https://github.com/maevsi/stack/commit/4cf4242249aa0e11f3fee11a528189bc108c70f3))
+
 ## [20.3.4](https://github.com/maevsi/stack/compare/20.3.3...20.3.4) (2026-08-24)
 
 ### Bug Fixes

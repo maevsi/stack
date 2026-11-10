@@ -1,11 +1,19 @@
 services:
   jobber:
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
       SENTRY_CRONS_OUTBOX_PURGE: ${SENTRY_CRONS_OUTBOX_PURGE}
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     volumes:
       - (( append ))
       - postgres-backup-data:/backups/

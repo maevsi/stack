@@ -8,7 +8,7 @@ Profiles group services so you can deploy subsets on demand. Activate with `darg
 
 ### analytics
 
-Services: cadvisor, grafana, node-exporter, postgres, prometheus, sqitch, traefik
+Services: cadvisor, docker-socket-proxy, grafana, node-exporter, postgres, prometheus, sqitch, swarm-scheduler-exporter, traefik
 
 ### default
 
@@ -16,7 +16,7 @@ Services: adminer, cloudflared, portainer, portainer-agent, postgraphile, postgr
 
 ### event-streaming
 
-Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-console, sqitch, traefik
+Services: debezium, debezium-postgres-connector, postgres, redpanda, redpanda-cluster-config, redpanda-console, sqitch, traefik
 
 ### recommendation
 
@@ -65,9 +65,14 @@ You can see how changes in the database end up in the event stream using `redpan
 
 You can check the database connector's setup logs using `portainer`.
 
+### docker-socket-proxy *(production only)*
+
+The allowlisted proxy in front of the manager's docker socket, for the swarm scheduler exporter.
+
 ### elasticsearch
 
 You cannot access the search engine via a web interface.
+See `docs/elasticsearch.md` for how the helpdesk trusts this service's certificate and when that certificate has to be replaced.
 
 ### geoip
 
@@ -76,6 +81,7 @@ You cannot access the ip geolocator via a web interface.
 ### grafana
 
 You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
+See `docs/grafana.md` for how to configure datasources, alerting, and dashboards after first login.
 
 ### jobber
 
@@ -142,6 +148,10 @@ You cannot access the caching system via a web interface.
 
 You can access the event streaming platform's ui as described under `redpanda-console`.
 
+### redpanda-cluster-config
+
+The broker's one-shot task for adjusting its cluster configuration after startup.
+
 ### redpanda-console
 
 You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
@@ -149,6 +159,10 @@ You can access the event streaming platform's ui at [redpanda.app.localhost](htt
 ### sqitch
 
 You cannot access the database migrations directly.
+
+### swarm-scheduler-exporter *(production only)*
+
+The exporter that reports the swarm's state, its nodes and each service's tasks to the metrics monitoring.
 
 ### traefik
 

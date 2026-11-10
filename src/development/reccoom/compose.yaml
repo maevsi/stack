@@ -21,7 +21,7 @@ services:
         - dargstack.profiles=recommendation
         - traefik.enable=true # dargstack:dev-only
         - traefik.http.routers.reccoom.entryPoints=web
-        - traefik.http.routers.reccoom.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.reccoom.middlewares=redirectscheme
         - traefik.http.routers.reccoom.rule=Host(`reccoom.${STACK_DOMAIN}`)
         - traefik.http.routers.reccoom-secure.entryPoints=web-secure
         - traefik.http.routers.reccoom-secure.rule=Host(`reccoom.${STACK_DOMAIN}`)
@@ -61,7 +61,7 @@ services:
     configs:
       - source: postgraphile-jwt-public-key
         target: /run/configurations/jwtES256.key.pub
-    volumes:
+    volumes: # dargstack:dev-only
       - ~~~/reccoom/:/srv/app/ # dargstack:dev-only
       - reccoom-data:/home/python/.cache/ # dargstack:dev-only
   reccoom-consumer:
@@ -114,6 +114,7 @@ services:
         - dargstack.development.git.ssh=git@github.com:maevsi/reccoom.git
         - dargstack.development.git.https=https://github.com/maevsi/reccoom.git
         - dargstack.profiles=recommendation
+        - vibetype.one-shot=true
       resources:
         limits:
           memory: 350M
@@ -151,7 +152,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: pgvector/pgvector:0.8.6-pg18
+    image: pgvector/pgvector:0.8.7-pg18
     ports: # dargstack:dev-only
       - 5433:5432 # dargstack:dev-only
     secrets:

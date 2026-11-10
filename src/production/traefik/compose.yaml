@@ -16,11 +16,20 @@ services:
       labels:
         - (( append ))
         - traefik.http.routers.traefik-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - (( append ))
+          - node.labels.vibetype.storage == true
       update_config:
         order: start-first
     environment:
       CF_DNS_API_TOKEN_FILE: /run/secrets/traefik-cf-dns-api-token
       CF_ZONE_API_TOKEN_FILE: /run/secrets/traefik-cf-zone-api-token
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     secrets:
       - traefik-cf-dns-api-token
       - traefik-cf-zone-api-token
@@ -39,11 +48,19 @@ services:
       - --version=v2
       - --watch
     deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
     environment:
       STACK_DOMAIN: ${STACK_DOMAIN}
     image: ldez/traefik-certs-dumper:v2.11.4
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     volumes:
       - acme-data:/etc/traefik/acme/
 volumes:

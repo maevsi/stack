@@ -10,6 +10,7 @@ applyTo: '**'
 **For understanding the stack structure and deployment:**
 - [README.md](README.md): Project overview, quick start
 - [artifacts/docs/README.md](artifacts/docs/README.md): Auto-generated service, secret and volume reference (do not edit manually)
+- [docs/multi-node.md](docs/multi-node.md): Which services are pinned to the storage node and why, plus how a node joins the swarm
 
 **For contributing:**
 - [CONTRIBUTING.md](CONTRIBUTING.md): Development setup, dargstack guidelines, code style, git workflow
