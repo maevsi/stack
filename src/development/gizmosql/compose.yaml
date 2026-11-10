@@ -38,6 +38,19 @@ services:
     volumes:
       - ./configurations/entrypoint.sh:/run/entrypoint.sh:ro
       - ./configurations/init.sql.template:/run/init.sql.template:ro
+  gizmosql-maintenance:
+    # You cannot access the lakehouse maintenance directly.
+    command: /run/maintenance.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    entrypoint: sh
+    image: gizmodata/gizmosql:v1.35.1
+    secrets:
+      - gizmosql-password
+    volumes:
+      - ./configurations/maintenance.sh:/run/maintenance.sh:ro
+      - ./configurations/maintenance.sql:/run/maintenance.sql:ro
 x-dargstack:
   secrets:
     gizmosql-password:

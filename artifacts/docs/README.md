@@ -16,7 +16,7 @@ Services: adminer, cloudflared, portainer, portainer-agent, postgraphile, postgr
 
 ### event-streaming
 
-Services: debezium, debezium-postgres-connector, gizmosql, postgres, redpanda, redpanda-connect, redpanda-console, sqitch, traefik
+Services: debezium, debezium-postgres-connector, gizmosql, gizmosql-maintenance, postgres, redpanda, redpanda-connect, redpanda-console, sqitch, traefik
 
 ### recommendation
 
@@ -75,7 +75,11 @@ You cannot access the ip geolocator via a web interface.
 
 ### gizmosql
 
-You can query the event stream's parquet lakehouse using `grafana`.
+You can query the event stream's lakehouse using `grafana`.
+
+### gizmosql-maintenance
+
+You cannot access the lakehouse maintenance directly.
 
 ### grafana
 
