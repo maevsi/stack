@@ -67,18 +67,6 @@ Optionally customize the message template so alerts render with the annotations,
 {{ template "__alert_details" .Alerts.Resolved }}{{ end }}{{ end }}{{ template "default.message_custom" . }}
 ````
 
-### Alert rule: notifications pending
-
-Add under **Alerting → Alert rules → New alert rule**, in the `Infrastructure` folder.
-
-- **Query (A)**, on the PostgreSQL datasource, code mode: `SELECT COUNT(1) FROM vibetype_private.notification WHERE is_acknowledged IS NULL OR is_acknowledged IS FALSE`
-- **Reduce (B)**: last of A
-- **Threshold (C)**: B is above 0, this is the alert condition
-- **Evaluation**: every `10s`, for `1m`, group `Critical`, repeat every 7 days
-- **No data / error state**: `NoData` / `Error`
-- **Summary annotation**: "There are notifications which are not sent out, or at least not marked as acknowledged."
-- **Contact point**: `Discord`
-
 ## Dashboards
 
 Add under **Dashboards → New → Import**.
@@ -93,7 +81,8 @@ The following were provisioned from public community dashboards and can be reimp
 The `Redpanda Ops Dashboard`, `Grafana metrics`, and `Prometheus 2.0 Stats` dashboards were also provisioned from community sources, but without a recorded grafana.com ID.
 Search grafana.com's dashboard library by name, or recover the exact JSON that was previously provisioned from this repository's git history (`git log --diff-filter=D -- 'src/development/grafana/configurations/dashboards/**'`) and import it via **Upload dashboard JSON file**.
 
-Two dashboards were specific to this project rather than imported from the community, both querying the PostgreSQL datasource. Recreate their panels as needed:
+One dashboard was specific to this project rather than imported from the community, querying the PostgreSQL datasource.
+Recreate its panels as needed:
 
 **KPIs** (folder `Management`):
 
@@ -104,10 +93,4 @@ Two dashboards were specific to this project rather than imported from the commu
 | User count | Time series | `SELECT created_at as time, row_number() OVER (ORDER BY created_at) FROM vibetype_private.account` |
 | Accounts | Stat | `SELECT COUNT(*) FROM vibetype_private.account` |
 
-**Operations** (folder `Infrastructure`):
-
-| Panel | Type | Query |
-| --- | --- | --- |
-| Notifications pending | Stat | `SELECT COUNT(1) FROM vibetype_private.notification WHERE is_acknowledged IS FALSE` |
-
-The full JSON for both, including panel layout and styling, is likewise recoverable from git history at the same path as above.
+The full JSON, including panel layout and styling, is likewise recoverable from git history at the same path as above.
