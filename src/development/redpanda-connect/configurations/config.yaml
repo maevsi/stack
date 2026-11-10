@@ -1,16 +1,25 @@
 input:
   kafka_franz:
     seed_brokers: ["redpanda:9092"]
-    topics: ["vibetype.vibetype.event"]
+    topics: ["vibetype.outbox.account", "vibetype.outbox.event"]
     consumer_group: "rp_connect_s3_ingest"
 pipeline:
   processors:
-    # Tombstone messages (Debezium deletes) carry no payload and must be dropped.
-    - bloblang: |
-        root = if this.payload.after.or(this.after) == null { deleted() }
+    # Kafka Connect's JSON converter wraps the envelope as a JSON string in `payload`.
+    # The lakehouse keeps event envelopes and the erasure signal only.
     - mapping: |
-        root = this.payload.after.or(this.after)
-        root.operation = this.payload.op.or(this.op)
+        let envelope = this.payload.parse_json().catch(null)
+        root = if $envelope == null || !($envelope.type.has_prefix("event.") || $envelope.type == "account.deleted") { deleted() } else {
+          {
+            "id": $envelope.id,
+            "type": $envelope.type,
+            "aggregate_type": $envelope.aggregate_type,
+            "aggregate_id": $envelope.aggregate_id,
+            "version": $envelope.version,
+            "occurred_at": $envelope.occurred_at.ts_parse("2006-01-02T15:04:05.999999999Z07:00").catch(null),
+            "data": $envelope.data
+          }
+        }
 output:
   aws_s3:
     bucket: test
@@ -19,7 +28,8 @@ output:
     force_path_style_urls: true
     credentials:
       profile: default
-    path: 'events/${! timestamp_unix_nano() }-${! uuid_v4() }.parquet'
+    # The gizmosql maintenance registers these files in the lakehouse.
+    path: 'landing/${! timestamp_unix_nano() }-${! uuid_v4() }.parquet'
     batching:
       count: 10000
       period: 15s
@@ -27,51 +37,24 @@ output:
         - parquet_encode:
             schema:
               - name: id
+                type: UUID
+                optional: true
+              - name: type
                 type: UTF8
                 optional: true
-              - name: name
+              - name: aggregate_type
                 type: UTF8
                 optional: true
-              - name: slug
-                type: UTF8
+              - name: aggregate_id
+                type: UUID
                 optional: true
-              - name: start
-                type: UTF8
+              - name: version
+                type: INT32
                 optional: true
-              - name: end
-                type: UTF8
+              - name: occurred_at
+                type: TIMESTAMP
                 optional: true
-              - name: visibility
-                type: UTF8
-                optional: true
-              - name: is_archived
-                type: BOOLEAN
-                optional: true
-              - name: is_in_person
-                type: BOOLEAN
-                optional: true
-              - name: is_remote
-                type: BOOLEAN
-                optional: true
-              - name: language
-                type: UTF8
-                optional: true
-              - name: url
-                type: UTF8
-                optional: true
-              - name: address_id
-                type: UTF8
-                optional: true
-              - name: guest_count_maximum
-                type: INT64
-                optional: true
-              - name: created_at
-                type: UTF8
-                optional: true
-              - name: created_by
-                type: UTF8
-                optional: true
-              - name: operation
-                type: UTF8
+              - name: data
+                type: JSON
                 optional: true
             default_compression: zstd
