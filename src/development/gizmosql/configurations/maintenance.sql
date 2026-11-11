@@ -1,7 +1,7 @@
 -- DuckLake takes ownership of registered files, so later checkpoints rewrite and delete them in place.
 SET VARIABLE landing_files = (
   SELECT coalesce(list(file ORDER BY file), [])
-  FROM glob('r2://test/landing/*.parquet')
+  FROM landing_file()
   WHERE file NOT IN (SELECT path FROM lakehouse.ingested_file)
 );
 -- One transaction, so a crash never leaves a file registered but missing from the ledger.
@@ -20,4 +20,4 @@ WHERE aggregate_type = 'event'
 
 -- Only checkpoints delete landing files, and a deleted file never comes back.
 DELETE FROM lakehouse.ingested_file
-WHERE path NOT IN (SELECT file FROM glob('r2://test/landing/*.parquet'));
+WHERE path NOT IN (SELECT file FROM landing_file());

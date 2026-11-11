@@ -40,13 +40,15 @@ escape_sed_replacement() {
   printf '%s\n' "$1" | sed 's/[&\\]/\\&/g'
 }
 
+S3_BUCKET="$(escape_sed_replacement "${S3_BUCKET}")"
 S3_ACCOUNT_ID="$(escape_sed_replacement "${S3_ACCOUNT_ID}")"
 S3_ACCESS_KEY_ID="$(escape_sed_replacement "${S3_ACCESS_KEY_ID}")"
 S3_SECRET_ACCESS_KEY="$(escape_sed_replacement "${S3_SECRET_ACCESS_KEY}")"
 POSTGRES_USERNAME="$(escape_sed_replacement "${POSTGRES_USERNAME}")"
 POSTGRES_PASSWORD="$(escape_sed_replacement "${POSTGRES_PASSWORD}")"
 
-sed -e "s|__S3_ACCOUNT_ID__|${S3_ACCOUNT_ID}|g" \
+sed -e "s|__S3_BUCKET__|${S3_BUCKET}|g" \
+    -e "s|__S3_ACCOUNT_ID__|${S3_ACCOUNT_ID}|g" \
     -e "s|__S3_ACCESS_KEY_ID__|${S3_ACCESS_KEY_ID}|g" \
     -e "s|__S3_SECRET_ACCESS_KEY__|${S3_SECRET_ACCESS_KEY}|g" \
     -e "s|__POSTGRES_USERNAME__|${POSTGRES_USERNAME}|g" \

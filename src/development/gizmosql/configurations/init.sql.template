@@ -9,8 +9,11 @@ CREATE SECRET s3_secret (TYPE r2, KEY_ID '__S3_ACCESS_KEY_ID__', SECRET '__S3_SE
 -- The catalog credentials live in a secret because the server logs ATTACH statements verbatim.
 CREATE SECRET (TYPE postgres, HOST 'postgres', PORT 5432, DATABASE 'ducklake', USER '__POSTGRES_USERNAME__', PASSWORD '__POSTGRES_PASSWORD__');
 
--- The event stream's lakehouse: catalog in postgres, parquet data on S3 (bucket "test").
-ATTACH 'ducklake:postgres:' AS lakehouse (DATA_PATH 'r2://test/lakehouse/');
+-- The event stream's lakehouse: catalog in postgres, parquet data on S3 (bucket "__S3_BUCKET__").
+ATTACH 'ducklake:postgres:' AS lakehouse (DATA_PATH 'r2://__S3_BUCKET__/lakehouse/');
+
+-- Shared with `maintenance.sql`, which cannot be templated.
+CREATE OR REPLACE MACRO landing_file() AS TABLE SELECT file FROM glob('r2://__S3_BUCKET__/landing/*.parquet');
 
 -- One row per outbox envelope from the topics `vibetype.outbox.event` and
 -- `vibetype.outbox.account` (only `account.deleted`), registered from
