@@ -30,6 +30,7 @@ services:
       GF_DATABASE_USER__FILE: /run/secrets/postgres-role-service-grafana-username
       # Saves alert state every 5 minutes instead of after each evaluation, which otherwise dominates the database cluster's write-ahead log.
       GF_FEATURE_TOGGLES_ENABLE: alertingSaveStatePeriodic
+      GF_INSTALL_PLUGINS: gizmodata-gizmosql-datasource
       GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana-admin-email
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana-admin-password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana-admin-user
@@ -42,6 +43,7 @@ services:
       start_period: 30s
     image: grafana/grafana:13.3.1
     secrets:
+      - gizmosql-password
       - grafana-admin-email
       - grafana-admin-password
       - grafana-admin-user

@@ -1,0 +1,21 @@
+services:
+  gizmosql:
+    deploy:
+      update_config:
+        order: stop-first
+    environment:
+      PRINT_QUERIES: "0"
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  gizmosql-maintenance:
+    deploy:
+      update_config:
+        order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

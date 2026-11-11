@@ -1,0 +1,10 @@
+services:
+  redpanda-connect:
+    deploy:
+      update_config:
+        order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
