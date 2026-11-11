@@ -3,3 +3,7 @@ services:
     deploy:
       update_config:
         order: stop-first
+  gizmosql-maintenance:
+    deploy:
+      update_config:
+        order: stop-first

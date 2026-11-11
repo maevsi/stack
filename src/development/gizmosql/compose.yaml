@@ -4,7 +4,7 @@ secrets:
     file: ~~/artifacts/secrets/gizmosql-password.secret
 services:
   gizmosql:
-    # You can query the event stream's parquet lakehouse using `grafana`.
+    # You can query the event stream's lakehouse using `grafana`.
     command: /run/entrypoint.sh
     deploy:
       labels:
@@ -25,6 +25,10 @@ services:
     secrets:
       - source: gizmosql-password
         target: /run/environment-variables/GIZMOSQL_PASSWORD
+      - source: postgres-role-service-gizmosql-password
+        target: /run/environment-variables/POSTGRES_PASSWORD
+      - source: postgres-role-service-gizmosql-username
+        target: /run/environment-variables/POSTGRES_USERNAME
       - source: s3-account-id
         target: /run/environment-variables/S3_ACCOUNT_ID
       - source: s3-aws-credentials-access-key-id
@@ -34,6 +38,19 @@ services:
     volumes:
       - ./configurations/entrypoint.sh:/run/entrypoint.sh:ro
       - ./configurations/init.sql.template:/run/init.sql.template:ro
+  gizmosql-maintenance:
+    # You cannot access the lakehouse maintenance directly.
+    command: /run/maintenance.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    entrypoint: sh
+    image: gizmodata/gizmosql:v1.35.1
+    secrets:
+      - gizmosql-password
+    volumes:
+      - ./configurations/maintenance.sh:/run/maintenance.sh:ro
+      - ./configurations/maintenance.sql:/run/maintenance.sql:ro
 x-dargstack:
   secrets:
     gizmosql-password:
