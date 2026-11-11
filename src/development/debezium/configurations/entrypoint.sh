@@ -36,8 +36,23 @@ curl --fail --output /dev/null --silent --show-error \
     "heartbeat.interval.ms": "60000",
     "snapshot.mode": "when_needed",
     "plugin.name": "pgoutput",
-    "table.include.list": "vibetype.event,vibetype.upload,vibetype_private.notification",
-    "topic.prefix" : "vibetype"
+    "skipped.operations": "d,t",
+    "table.include.list": "vibetype_private.outbox",
+    "tombstones.on.delete": "false",
+    "topic.creation.default.cleanup.policy": "delete",
+    "topic.creation.default.partitions": "-1",
+    "topic.creation.default.replication.factor": "-1",
+    "topic.creation.default.retention.ms": "604800000",
+    "topic.prefix" : "vibetype",
+    "transforms": "outbox",
+    "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.route.by.field": "aggregate_type",
+    "transforms.outbox.route.topic.replacement": "vibetype.outbox.${routedByValue}",
+    "transforms.outbox.table.field.event.key": "aggregate_id",
+    "transforms.outbox.predicate": "isOutbox",
+    "predicates": "isOutbox",
+    "predicates.isOutbox.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
+    "predicates.isOutbox.pattern": "vibetype\\.vibetype_private\\.outbox"
 }'
 
 echo "PostgreSQL connector '$CONNECTOR_NAME' is up to date."
