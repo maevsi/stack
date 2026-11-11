@@ -24,7 +24,7 @@ output:
   aws_s3:
     bucket: test
     endpoint: ${S3_ENDPOINT_URL}
-    region: weur
+    region: auto
     force_path_style_urls: true
     credentials:
       profile: default
