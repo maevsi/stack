@@ -37,6 +37,7 @@ CALL lakehouse.set_option('delete_older_than', '1 hour');
 -- Any delete rewrites its data file on the next checkpoint, so erased rows do not survive in old files.
 CALL lakehouse.set_option('rewrite_delete_threshold', 0);
 
+-- The in-memory catalog holds `analytics`, recreated at startup, and its views resolve `lakehouse.*` at query time.
 CREATE SCHEMA IF NOT EXISTS analytics;
 
 CREATE OR REPLACE VIEW analytics.events AS
