@@ -33,11 +33,11 @@ load_environment_variables
 # END of maevsi entrypoint script customization
 
 # DuckDB in this image has no getenv() function, so the S3 and catalog values
-# are rendered into init.sql. sed treats `&` and `\` specially in replacements,
-# so escape them first (S3 keys are hex today, but this keeps arbitrary values
+# are rendered into init.sql. sed treats `&` and `\` specially in replacements and `|` ends
+# them, so escape those first (S3 keys are hex today, but this keeps arbitrary values
 # safe).
 escape_sed_replacement() {
-  printf '%s\n' "$1" | sed 's/[&\\]/\\&/g'
+  printf '%s\n' "$1" | sed 's/[&\\|]/\\&/g'
 }
 
 S3_BUCKET="$(escape_sed_replacement "${S3_BUCKET}")"
