@@ -11,7 +11,8 @@ services:
       OFFSET_STORAGE_TOPIC: connect_offsets
       STATUS_STORAGE_TOPIC: connect_statuses
     healthcheck:
-      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8083/connectors"]
+      # Also fails when a connector or task is in the failed state, which the REST API alone would report as healthy.
+      test: ["CMD-SHELL", "curl --fail --silent --show-error 'http://localhost:8083/connectors?expand=status' | grep --invert-match --quiet --fixed-strings '\"state\":\"FAILED\"'"]
       interval: 30s
       timeout: 10s
       retries: 3

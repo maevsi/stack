@@ -1,3 +1,31 @@
+## [22.0.0-beta.1](https://github.com/maevsi/stack/compare/21.10.3...22.0.0-beta.1) (2026-11-11)
+
+### ⚠ BREAKING CHANGES
+
+* **sqitch:** upgrade to v13 (#333)
+
+### Features
+
+* **sqitch:** upgrade to v13 ([#333](https://github.com/maevsi/stack/issues/333)) ([b323266](https://github.com/maevsi/stack/commit/b3232663630a5756b973587ff12415faec1aa261))
+
+## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
+
+### Performance Improvements
+
+* **grafana:** save alert state periodically ([#338](https://github.com/maevsi/stack/issues/338)) ([ed2462d](https://github.com/maevsi/stack/commit/ed2462d7deca4fb12be4f1f5822e8c1929db43bb))
+
+## [21.10.2](https://github.com/maevsi/stack/compare/21.10.1...21.10.2) (2026-11-09)
+
+### Bug Fixes
+
+* **debezium:** add heartbeat and report failed tasks as unhealthy ([#336](https://github.com/maevsi/stack/issues/336)) ([a7d8d09](https://github.com/maevsi/stack/commit/a7d8d09c5c07400b14257da20b9afb02563ade45))
+
+## [21.10.1](https://github.com/maevsi/stack/compare/21.10.0...21.10.1) (2026-11-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v16.13.0 ([7088575](https://github.com/maevsi/stack/commit/7088575a934d552e22c45c655c3abf6d06931a79))
+
 ## [21.10.0](https://github.com/maevsi/stack/compare/21.9.1...21.10.0) (2026-11-09)
 
 ### Features
