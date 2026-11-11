@@ -10,6 +10,7 @@ services:
         - dargstack.profiles=event-streaming
     environment:
       AWS_SHARED_CREDENTIALS_FILE: /run/secrets/s3-aws-credentials
+      S3_ENDPOINT_URL: ${S3_ENDPOINT_URL}
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:4195/ready"]
       interval: 30s
