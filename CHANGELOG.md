@@ -1,3 +1,13 @@
+## [22.0.0-beta.1](https://github.com/maevsi/stack/compare/21.10.3...22.0.0-beta.1) (2026-11-11)
+
+### ⚠ BREAKING CHANGES
+
+* **sqitch:** upgrade to v13 (#333)
+
+### Features
+
+* **sqitch:** upgrade to v13 ([#333](https://github.com/maevsi/stack/issues/333)) ([b323266](https://github.com/maevsi/stack/commit/b3232663630a5756b973587ff12415faec1aa261))
+
 ## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
 
 ### Performance Improvements
