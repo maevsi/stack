@@ -5,7 +5,7 @@ x-shared:
       labels:
         - dargstack.profiles=zammad
     environment: &zammad-environment
-      ELASTICSEARCH_ENABLED: "false"
+      ELASTICSEARCH_ENABLED: "true"
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_SCHEMA: https
       ELASTICSEARCH_USER: elastic
@@ -44,6 +44,7 @@ services:
     deploy:
       labels:
         - dargstack.profiles=zammad
+        - vibetype.one-shot=true
       restart_policy:
         condition: on-failure
     user: 0:0
@@ -56,7 +57,7 @@ services:
         - dargstack.profiles=zammad
         - traefik.enable=true
         - traefik.http.routers.zammad.entryPoints=web
-        - traefik.http.routers.zammad.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.zammad.middlewares=redirectscheme
         - traefik.http.routers.zammad.rule=Host(`zammad.${STACK_DOMAIN}`)
         - traefik.http.routers.zammad-secure.entryPoints=web-secure
         - traefik.http.routers.zammad-secure.rule=Host(`zammad.${STACK_DOMAIN}`)

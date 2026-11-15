@@ -6,6 +6,11 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   zammad-init:
     deploy:
       placement:
@@ -23,6 +28,11 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   zammad-railsserver:
     deploy:
       placement:
@@ -30,6 +40,11 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   zammad-scheduler:
     deploy:
       placement:
@@ -37,6 +52,11 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   zammad-websocket:
     deploy:
       placement:
@@ -44,3 +64,8 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

@@ -17,7 +17,7 @@ services:
         - dargstack.profiles=analytics
         - traefik.enable=true
         - traefik.http.routers.grafana.entryPoints=web
-        - traefik.http.routers.grafana.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.grafana.middlewares=redirectscheme
         - traefik.http.routers.grafana.rule=Host(`grafana.${STACK_DOMAIN}`)
         - traefik.http.routers.grafana-secure.entryPoints=web-secure
         - traefik.http.routers.grafana-secure.rule=Host(`grafana.${STACK_DOMAIN}`)
@@ -28,6 +28,8 @@ services:
       GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres-role-service-grafana-password
       GF_DATABASE_TYPE: postgres
       GF_DATABASE_USER__FILE: /run/secrets/postgres-role-service-grafana-username
+      # Saves alert state every 5 minutes instead of after each evaluation, which otherwise dominates the database cluster's write-ahead log.
+      GF_FEATURE_TOGGLES_ENABLE: alertingSaveStatePeriodic
       GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana-admin-email
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana-admin-password
       GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana-admin-user
@@ -38,7 +40,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    image: grafana/grafana:13.2.1
+    image: grafana/grafana:13.3.1
     secrets:
       - grafana-admin-email
       - grafana-admin-password

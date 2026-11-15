@@ -11,7 +11,7 @@ services:
         - dargstack.profiles=default
         - traefik.enable=true
         - traefik.http.routers.portainer.entryPoints=web
-        - traefik.http.routers.portainer.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.portainer.middlewares=redirectscheme
         - traefik.http.routers.portainer.rule=Host(`portainer.${STACK_DOMAIN}`)
         - traefik.http.routers.portainer-secure.entryPoints=web-secure
         - traefik.http.routers.portainer-secure.rule=Host(`portainer.${STACK_DOMAIN}`)
@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    image: portainer/portainer-ce:2.45.0-alpine
+    image: portainer/portainer-ce:2.45.3-alpine
     secrets:
       - portainer-admin-password
     volumes:
@@ -41,7 +41,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.45.0
+    image: portainer/agent:2.45.3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes

@@ -6,6 +6,11 @@ services:
           - node.labels.vibetype.storage == true
       update_config:
         order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   temporal-ui:
     deploy:
       labels:
@@ -16,6 +21,11 @@ services:
         - traefik.http.routers.temporal-secure.tls.certresolver=default
       update_config:
         order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
   temporal-worker:
     deploy:
       placement:
@@ -26,6 +36,11 @@ services:
     environment:
       SENTRY_CRONS: ${SENTRY_CRONS}
     image: ghcr.io/maevsi/temporal:0.1.0
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
     volumes:
       - postgres-backup-data:/backups/
 volumes:

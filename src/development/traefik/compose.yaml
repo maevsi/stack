@@ -36,13 +36,13 @@ services:
       labels:
         - dargstack.profiles=default,analytics,event-streaming,recommendation,upload,zammad
         - traefik.enable=true
-        - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https # dargstack:dev-only
+        - traefik.http.middlewares.redirectscheme.redirectscheme.scheme=https
         # These two uis have no login of their own, so the reverse proxy supplies one.
         # Both the middlewares and their credential files live here because it is the reverse proxy that has to read them, not the services they protect.
         - traefik.http.middlewares.redpanda-console-auth.basicauth.usersfile=/run/secrets/redpanda-console-auth
         - traefik.http.middlewares.temporal-ui-auth.basicauth.usersfile=/run/secrets/temporal-ui-auth
         - traefik.http.routers.traefik.entryPoints=web
-        - traefik.http.routers.traefik.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.traefik.middlewares=redirectscheme
         - traefik.http.routers.traefik.rule=Host(`traefik.${STACK_DOMAIN}`)
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.routers.traefik-secure.entryPoints=web-secure
@@ -60,7 +60,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: traefik:v3.7.12
+    image: traefik:v3.7.19
     ports: # dargstack:dev-only
       - mode: host # dargstack:dev-only
         protocol: tcp # dargstack:dev-only
