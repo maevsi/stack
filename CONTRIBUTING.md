@@ -29,9 +29,9 @@ There are two development modes:
 ### Automated Setup
 
 ```sh
-dargstack init
+dargstack clone https://github.com/maevsi/stack.git
 ```
-<!-- TODO: add https://github.com/maevsi/stack.git parameter -->
+
 ### Manual Setup
 
 If you prefer to step through each action yourself:

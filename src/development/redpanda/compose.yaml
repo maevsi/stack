@@ -30,7 +30,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-    image: redpandadata/redpanda:v26.2.6
+    image: redpandadata/redpanda:v26.2.7
     volumes:
       - redpanda-data:/var/lib/redpanda/data
   redpanda-cluster-config:
@@ -71,7 +71,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: redpandadata/console:v3.13.1
+    image: redpandadata/console:v3.14.0
 volumes:
   redpanda-data:
     # The message queue's data.

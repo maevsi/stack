@@ -1,3 +1,51 @@
+## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
+
+### Performance Improvements
+
+* **grafana:** save alert state periodically ([#338](https://github.com/maevsi/stack/issues/338)) ([ed2462d](https://github.com/maevsi/stack/commit/ed2462d7deca4fb12be4f1f5822e8c1929db43bb))
+
+## [21.10.2](https://github.com/maevsi/stack/compare/21.10.1...21.10.2) (2026-11-09)
+
+### Bug Fixes
+
+* **debezium:** add heartbeat and report failed tasks as unhealthy ([#336](https://github.com/maevsi/stack/issues/336)) ([a7d8d09](https://github.com/maevsi/stack/commit/a7d8d09c5c07400b14257da20b9afb02563ade45))
+
+## [21.10.1](https://github.com/maevsi/stack/compare/21.10.0...21.10.1) (2026-11-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v16.13.0 ([7088575](https://github.com/maevsi/stack/commit/7088575a934d552e22c45c655c3abf6d06931a79))
+
+## [21.10.0](https://github.com/maevsi/stack/compare/21.9.1...21.10.0) (2026-11-09)
+
+### Features
+
+* **vibetype:** enable sentry ([#334](https://github.com/maevsi/stack/issues/334)) ([9fe9001](https://github.com/maevsi/stack/commit/9fe90013864fbc1113c6a1c033d4dec9cc78604f))
+
+## [21.9.1](https://github.com/maevsi/stack/compare/21.9.0...21.9.1) (2026-11-09)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v16.8.0 ([05d10c4](https://github.com/maevsi/stack/commit/05d10c487b6c78472d74255d69227a418b2bc9e3))
+
+## [21.9.0](https://github.com/maevsi/stack/compare/21.8.1...21.9.0) (2026-11-07)
+
+### Features
+
+* **vibetype:** share the upload size limit with tusd ([#331](https://github.com/maevsi/stack/issues/331)) ([e3a61ef](https://github.com/maevsi/stack/commit/e3a61efd8d28bcd9bb7c063a1d384aa497ac4b1d))
+
+## [21.8.1](https://github.com/maevsi/stack/compare/21.8.0...21.8.1) (2026-11-05)
+
+### Bug Fixes
+
+* schedule release ([f5ba04d](https://github.com/maevsi/stack/commit/f5ba04d0e0d3b05408c7f5ae31a85e94a489f4b7))
+
+## [21.8.0](https://github.com/maevsi/stack/compare/21.7.3...21.8.0) (2026-10-31)
+
+### Features
+
+* **vibetype:** add rate limit ([#328](https://github.com/maevsi/stack/issues/328)) ([ab1667a](https://github.com/maevsi/stack/commit/ab1667ad5c966d43cc66d883d205d6911d66c518))
+
 ## [21.7.3](https://github.com/maevsi/stack/compare/21.7.2...21.7.3) (2026-10-27)
 
 ### Bug Fixes

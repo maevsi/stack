@@ -41,7 +41,7 @@ services:
         - traefik.http.routers.vibetype.middlewares=redirectscheme # dargstack:dev-only
         - traefik.http.routers.vibetype.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype-secure.entryPoints=web-secure
-        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-cors,vibetype-redirectregex # dargstack:dev-only
         - traefik.http.routers.vibetype-secure.rule=(Host(`${STACK_DOMAIN}`) || Host(`www.${STACK_DOMAIN}`)) && !PathPrefix(`/api/internal`)
         - traefik.http.routers.vibetype-secure.tls.options=mintls13@file # dargstack:dev-only
         - traefik.http.services.vibetype.loadbalancer.server.port=3000
@@ -52,6 +52,7 @@ services:
       NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
       NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
       NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
+      NUXT_PUBLIC_VIBETYPE_UPLOAD_SIZE_MAX: ${TUSD_MAX_SIZE} # shared with tusd's `-max-size`, so the frontend rejects what tusd would
       PGHOST: postgres
     image: vibetype/vibetype:development
     secrets:
