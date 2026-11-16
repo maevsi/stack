@@ -1,3 +1,9 @@
+## [21.10.4](https://github.com/maevsi/stack/compare/21.10.3...21.10.4) (2026-11-16)
+
+### Bug Fixes
+
+* **postgres-backup:** probe health quickly during startup ([#345](https://github.com/maevsi/stack/issues/345)) ([e22d10e](https://github.com/maevsi/stack/commit/e22d10efe44d5746d69294b5a4a72f7fe065922c))
+
 ## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
 
 ### Performance Improvements
