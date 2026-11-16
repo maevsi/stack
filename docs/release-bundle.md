@@ -27,15 +27,16 @@ Adding something that others may start to use is not breaking, as long as the se
 - `main` is brought into `beta` through pull requests titled `chore(beta): merge main`, merged with a merge commit so both branches keep sharing their history.
 - Breaking changes stay on `beta` until the bundle is released, so a service publishes one major for many breaking changes instead of one each.
 
-A service that is still on `0.x`, currently `reccoom`, has no `beta` branch and marks nothing with `!`.
-Its minor releases are its breaking releases.
-Renovate raises them in the stack as separate pull requests and does not merge them on its own, so such a release is merged where the versions it requires are pinned.
+A service that is still on `0.x`, currently `reccoom`, follows the same rules with one difference: it never uses `!`, in commits or pull request titles.
+Its next minor release is the breaking one, and a `!` would make the release automation publish `1.0.0`.
+So a breaking pull request there is a `feat` without `!` that targets `beta`, and the release pull request is titled `ci(release): v0.<minor>`.
+Renovate raises a minor of a `0.x` service in the stack as a separate pull request and does not merge it on its own, so it is treated like a major below.
 
 ## How versions reach the stack
 
 - The stack pins each service in `src/production/<service>/compose.yaml`.
 - Renovate merges patch and minor releases of services from `1.0` on into `main` on its own, which is safe exactly because of the rule above: such a release works against what is already deployed.
-- A new major of a service enters through a pull request against the stack's `beta` branch, titled `feat(<service>)!: upgrade to v<major>`, and is listed in the stack's own `ci(release)!: v<major>` pull request.
+- A new major of a service, or a new minor of a service on `0.x`, enters through a pull request against the stack's `beta` branch, titled `feat(<service>)!: upgrade to v<major>`, and is listed in the stack's own `ci(release)!: v<major>` pull request.
 - The pull request Renovate opens for that major against `main` must not be merged before the bundle is released.
 
 ## Releasing a bundle
