@@ -1,3 +1,9 @@
+## [22.0.0-beta.2](https://github.com/maevsi/stack/compare/22.0.0-beta.1...22.0.0-beta.2) (2026-11-16)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v13.2.12 ([#343](https://github.com/maevsi/stack/issues/343)) ([3144d3b](https://github.com/maevsi/stack/commit/3144d3b7fe6e187d917f51b28af709c54fbce14e))
+
 ## [22.0.0-beta.1](https://github.com/maevsi/stack/compare/21.10.3...22.0.0-beta.1) (2026-11-11)
 
 ### ⚠ BREAKING CHANGES
