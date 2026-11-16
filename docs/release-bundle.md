@@ -39,6 +39,16 @@ Renovate raises a minor of a `0.x` service in the stack as a separate pull reque
 - A new major of a service, or a new minor of a service on `0.x`, enters through a pull request against the stack's `beta` branch, titled `feat(<service>)!: upgrade to v<major>`, and is listed in the stack's own `ci(release)!: v<major>` pull request.
 - The pull request Renovate opens for that major against `main` must not be merged before the bundle is released.
 
+## Version markers in services
+
+Some services name the images of other services in a `# <DEPENDENCIES>` block at the top of their `Dockerfile`.
+Nothing is built from these lines.
+They exist so that Renovate tells the service about new releases of the others.
+
+- Patch and minor updates of a marker are merged on their own.
+- A pull request for a new major of a marker, or a new minor of a `0.x` one, is the prompt to check whether the service works with it.
+  It is retargeted to `beta` and merged there, together with the changes that need the new version, so `main` keeps naming the major that production runs.
+
 ## Releasing a bundle
 
 1. In each service that takes part, bring `main` into `beta` and merge its release pull request with a merge commit, in the order in which the services depend on each other: `sqitch`, `postgraphile`, then `vibetype` and `reccoom`.
