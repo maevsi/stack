@@ -1,5 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": ["/\\.github/workflows/.*\\.ya?ml$/"],
+      "matchStrings": [
+        "#\\s+renovate:\\s+datasource=github-releases\\s+depName=(?<depName>\\S+)\\s+\\w+:\\s+(?<currentValue>\\S+)"
+      ]
+    }
+  ],
   "extends": ["github>dargmuesli/renovate-config"],
   "ignorePaths": ["src/production/minio/compose.yaml"]
 }
