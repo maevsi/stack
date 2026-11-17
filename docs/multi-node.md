@@ -17,11 +17,11 @@ On any other node that path does not exist, and Docker silently creates an empty
 
 ## Which services are pinned
 
-Services holding a production volume: `debezium`, `elasticsearch`, `grafana`, `jobber`, `portainer`, `postgres`, `postgres-backup`, `prometheus`, `reccoom-postgres`, `redis`, `redpanda`, `traefik`, `traefik-certs-dumper` and all six `zammad` services.
+Services holding a production volume: `debezium`, `elasticsearch`, `grafana`, `portainer`, `postgres`, `postgres-backup`, `prometheus`, `reccoom-postgres`, `redis`, `redpanda`, `temporal-worker`, `traefik`, `traefik-certs-dumper` and all six `zammad` services.
 
-Services holding only a `configurations/` bind mount: `adminer`, `debezium-postgres-connector`, `redpanda-console`.
+Services holding only a `configurations/` bind mount: `adminer`, `debezium-postgres-connector`, `redpanda-console`, `temporal`.
 
-Some of these also share a volume and therefore have to land on the same node as each other, which the shared label already guarantees: `postgres` with `postgres-backup` with `jobber`, `traefik` with `traefik-certs-dumper`, and the six `zammad` services with one another.
+Some of these also share a volume and therefore have to land on the same node as each other, which the shared label already guarantees: `postgres` with `postgres-backup` with `temporal-worker`, `traefik` with `traefik-certs-dumper`, and the six `zammad` services with one another.
 
 ## Adding a service
 
