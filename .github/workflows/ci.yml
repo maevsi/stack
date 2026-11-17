@@ -11,6 +11,11 @@ on:
       - main
       - renovate/**
 
+# Release branches queue instead of being cancelled, so a release never stops halfway.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ !contains(fromJSON('["refs/heads/alpha", "refs/heads/beta", "refs/heads/main"]'), github.ref) }}
+
 jobs:
   ci-optimization:
     name: CI optimization
@@ -21,7 +26,8 @@ jobs:
     needs: ci-optimization
     if: needs.ci-optimization.outputs.continue == 'true'
     name: Update generated docs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
     permissions:
       contents: write
     steps:
@@ -29,14 +35,25 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
       - name: Install dargstack
+        env:
+          # renovate: datasource=github-releases depName=dargstack/dargstack
+          DARGSTACK_VERSION: v4.23.0
         run: |
           ARCHIVE="dargstack_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/').tar.gz"
-          curl -sfL -o "$ARCHIVE" "https://github.com/dargstack/dargstack/releases/latest/download/$ARCHIVE"
-          curl -sfL https://github.com/dargstack/dargstack/releases/latest/download/checksums.txt | sha256sum -c - --ignore-missing
+          curl -sfL -o "$ARCHIVE" "https://github.com/dargstack/dargstack/releases/download/$DARGSTACK_VERSION/$ARCHIVE"
+          curl -sfL "https://github.com/dargstack/dargstack/releases/download/$DARGSTACK_VERSION/checksums.txt" | sha256sum -c - --ignore-missing
           tar xzf "$ARCHIVE" && rm "$ARCHIVE"
           mv dargstack /usr/local/bin/
       - name: Regenerate docs
         run: dargstack document
+      - name: Check that the generated docs are committed
+        if: github.event_name == 'pull_request'
+        run: |
+          if [ -n "$(git status --porcelain -- artifacts/docs/)" ]; then
+            git diff -- artifacts/docs/
+            echo "::error::The generated docs are out of date, run \`dargstack document\` and commit the result."
+            exit 1
+          fi
       - name: Commit and push updated docs
         if: github.event_name == 'push'
         run: |
