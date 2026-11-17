@@ -1,0 +1,58 @@
+name: Image scan
+
+permissions: {}
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # Every day at 04:00 AM UTC on the default branch
+  workflow_dispatch:
+
+env:
+  # renovate: datasource=docker depName=aquasec/trivy
+  TRIVY_VERSION: "0.76.2"
+
+jobs:
+  image-scan:
+    name: Image scan
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+      packages: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Scan the production images
+        env:
+          TRIVY_PASSWORD: ${{ github.token }}
+          TRIVY_USERNAME: ${{ github.actor }}
+        run: bash .github/image-scan.sh "$RUNNER_TEMP/report.md"
+
+      # One issue stays open while findings remain and is edited in place, which notifies nobody, so a comment announces new vulnerabilities and an unchanged daily scan stays silent.
+      - name: Report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: Vulnerable images in the production stack
+        run: |
+          report="$RUNNER_TEMP/report.md"
+          vulnerabilities() { sed -n 's/^<!-- vulnerabilities: \(.*\) -->$/\1/p' | tr ' ' '\n' | sort -u; }
+          number="$(gh issue list --state open --search "\"$TITLE\" in:title" --json number,title --jq 'map(select(.title == env.TITLE)) | first | .number // empty')"
+          if [ -s "$report" ]; then
+            echo "Latest scan: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> "$report"
+            cat "$report" >> "$GITHUB_STEP_SUMMARY"
+            if [ -n "$number" ]; then
+              added="$(comm -13 <(gh issue view "$number" --json body --jq .body | vulnerabilities) <(vulnerabilities < "$report") | wc -l)"
+              gh issue edit "$number" --body-file "$report"
+              if [ "$added" -gt 0 ]; then
+                gh issue comment "$number" --body "The latest scan found $added new vulnerabilities, see the table above."
+              fi
+            else
+              gh issue create --title "$TITLE" --body-file "$report"
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "The latest scan found no fixable HIGH or CRITICAL vulnerabilities."
+          fi
