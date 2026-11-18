@@ -78,7 +78,7 @@ x-dargstack:
     darwin:
       services:
         postgres:
-          image: imresamu/postgis:18-3.6-alpine
+          image: imresamu/postgis:18-3.6-alpine@sha256:f1f6a9fcccf493fa958e54cca5ad9be964ca7f6f4d2cd9cf24194bfd21ef862d
   secrets:
     postgres-db:
       type: wordlist_word
