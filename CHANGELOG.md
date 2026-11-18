@@ -14,6 +14,43 @@
 
 * **sqitch:** upgrade to v13 ([#333](https://github.com/maevsi/stack/issues/333)) ([b323266](https://github.com/maevsi/stack/commit/b3232663630a5756b973587ff12415faec1aa261))
 
+## [21.10.9](https://github.com/maevsi/stack/compare/21.10.8...21.10.9) (2026-11-18)
+
+### Bug Fixes
+
+* **docker-socket-proxy:** follow the lts image ([#354](https://github.com/maevsi/stack/issues/354)) ([7c812ec](https://github.com/maevsi/stack/commit/7c812ecb3d09a1155e5bfd740b5a6a6854be183a))
+
+## [21.10.8](https://github.com/maevsi/stack/compare/21.10.7...21.10.8) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([c3d1578](https://github.com/maevsi/stack/commit/c3d157823bb4fae050b923c9f5cbe8fc250e1d6f))
+* **deps:** update ghcr.io/zammad/zammad docker tag to v7.2.3-0011 ([f2cc809](https://github.com/maevsi/stack/commit/f2cc80917680e34f5f6ff15494841fc8d19cc56e))
+
+## [21.10.7](https://github.com/maevsi/stack/compare/21.10.6...21.10.7) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([e615561](https://github.com/maevsi/stack/commit/e61556157903adfc7f798b6a02bb184f1b032854))
+
+## [21.10.6](https://github.com/maevsi/stack/compare/21.10.5...21.10.6) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([afe5924](https://github.com/maevsi/stack/commit/afe5924902fddd8751372c4347348abc40711a89))
+
+## [21.10.5](https://github.com/maevsi/stack/compare/21.10.4...21.10.5) (2026-11-18)
+
+### Bug Fixes
+
+* **vibetype:** correct openai api key variable name ([#351](https://github.com/maevsi/stack/issues/351)) ([c5d1d72](https://github.com/maevsi/stack/commit/c5d1d72f9c01aeee0648d42fb95fbdfe86da1eba))
+
+## [21.10.4](https://github.com/maevsi/stack/compare/21.10.3...21.10.4) (2026-11-16)
+
+### Bug Fixes
+
+* **postgres-backup:** probe health quickly during startup ([#345](https://github.com/maevsi/stack/issues/345)) ([e22d10e](https://github.com/maevsi/stack/commit/e22d10efe44d5746d69294b5a4a72f7fe065922c))
+
 ## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
 
 ### Performance Improvements

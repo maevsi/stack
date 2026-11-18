@@ -17,7 +17,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 90s
-    image: quay.io/debezium/connect:3.8
+    image: quay.io/debezium/connect:3.8@sha256:c2418c026f03621d46b8b29339d2243a52b5221742baa627773fc5727ee37a1f
     volumes:
       - debezium-kafka-configuration:/kafka/config
       - debezium-kafka-data:/kafka/data
@@ -33,7 +33,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    image: curlimages/curl:8.23.0
+    image: curlimages/curl:8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
     secrets:
       - postgres-db
       - postgres-password
