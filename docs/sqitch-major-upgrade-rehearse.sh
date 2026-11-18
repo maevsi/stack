@@ -19,7 +19,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-for service in grafana postgraphile reccoom vibetype zammad; do
+for service in gizmosql grafana postgraphile reccoom vibetype zammad; do
   printf '%s' "rehearse_$service" > "$SECRETS/postgres-role-service-$service-username"
   printf '%s' "rehearse_$service" > "$SECRETS/postgres-role-service-$service-password"
 done
@@ -46,7 +46,17 @@ EOF
 docker network create "$NAME" > /dev/null
 docker run -d --name "$NAME" --network "$NAME" -e POSTGRES_DB=vibetype -e POSTGRES_PASSWORD=postgres postgis/postgis:18-3.6-alpine > /dev/null
 # the image's init phase runs a temporary server on the socket only, so tcp answers once the real one is up
-until docker exec "$NAME" pg_isready -q -h 127.0.0.1 -U postgres -d vibetype 2> /dev/null; do sleep 1; done
+# A failing `docker exec` looks like a server that is not up yet, so give up after two minutes and show its error.
+WAITED=0
+until docker exec "$NAME" pg_isready -q -h 127.0.0.1 -U postgres -d vibetype 2> /dev/null; do
+  WAITED=$((WAITED + 1))
+  if [ "$WAITED" -ge 120 ]; then
+    echo "The database did not answer within 120 seconds:" >&2
+    docker exec "$NAME" pg_isready -h 127.0.0.1 -U postgres -d vibetype >&2 || true
+    exit 1
+  fi
+  sleep 1
+done
 
 echo "Deploying $OLD..."
 sqitch "$OLD" > /dev/null
