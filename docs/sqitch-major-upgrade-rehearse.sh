@@ -88,7 +88,11 @@ echo "Deploying $NEW..."
 sqitch "$NEW" > /dev/null
 
 echo "Copying the data..."
-psql < "$THIS/sqitch-major-upgrade.sql" 2>&1 | sed -n 's/^.*NOTICE:  //p' | grep -v ': 0 rows$'
+if ! COPIED=$(psql < "$THIS/sqitch-major-upgrade.sql" 2>&1); then
+  printf '%s\n' "$COPIED" | grep -v 'NOTICE:' >&2
+  exit 1
+fi
+printf '%s\n' "$COPIED" | sed -n 's/^.*NOTICE:  //p' | grep -v ': 0 rows$' || true
 
 # tables the new major added are expected to differ, they did not exist before
 AFTER=$(count)
