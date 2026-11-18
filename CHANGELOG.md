@@ -1,3 +1,10 @@
+## [21.10.8](https://github.com/maevsi/stack/compare/21.10.7...21.10.8) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([c3d1578](https://github.com/maevsi/stack/commit/c3d157823bb4fae050b923c9f5cbe8fc250e1d6f))
+* **deps:** update ghcr.io/zammad/zammad docker tag to v7.2.3-0011 ([f2cc809](https://github.com/maevsi/stack/commit/f2cc80917680e34f5f6ff15494841fc8d19cc56e))
+
 ## [21.10.7](https://github.com/maevsi/stack/compare/21.10.6...21.10.7) (2026-11-18)
 
 ### Bug Fixes
