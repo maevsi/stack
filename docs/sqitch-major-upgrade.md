@@ -89,6 +89,10 @@ psql_vibetype() {
    A row that violates a constraint the major introduced aborts the copy and names the table and value.
    Fix that row in the `_old` schema, then run the script again.
 
+   Contacts with neither a linked account nor an email address violate the `contact_identity_check` of `sqitch` 13.
+   The script gives them their creator's email address with a `+vibetype` tag, like `name+vibetype@example.com`, so invitations to them reach the creator.
+   It writes that address into the `_old` schema too, where it stays after a rollback.
+
 6. Deploy the full release, which scales the stopped services back up against the new schema:
 
    ```sh
