@@ -1,3 +1,9 @@
+## [21.10.7](https://github.com/maevsi/stack/compare/21.10.6...21.10.7) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([e615561](https://github.com/maevsi/stack/commit/e61556157903adfc7f798b6a02bb184f1b032854))
+
 ## [21.10.6](https://github.com/maevsi/stack/compare/21.10.5...21.10.6) (2026-11-18)
 
 ### Bug Fixes
