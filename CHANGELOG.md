@@ -1,3 +1,13 @@
+## [22.0.0-beta.4](https://github.com/maevsi/stack/compare/22.0.0-beta.3...22.0.0-beta.4) (2026-11-18)
+
+### ⚠ BREAKING CHANGES
+
+* **reccoom:** upgrade to v0.24 (#357)
+
+### Features
+
+* **reccoom:** upgrade to v0.24 ([#357](https://github.com/maevsi/stack/issues/357)) ([768a44e](https://github.com/maevsi/stack/commit/768a44e10cfa0044f64ee1758c1b03eaa73dbda1))
+
 ## [22.0.0-beta.3](https://github.com/maevsi/stack/compare/22.0.0-beta.2...22.0.0-beta.3) (2026-11-18)
 
 ### Bug Fixes
