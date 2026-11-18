@@ -1,3 +1,9 @@
+## [21.10.6](https://github.com/maevsi/stack/compare/21.10.5...21.10.6) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([afe5924](https://github.com/maevsi/stack/commit/afe5924902fddd8751372c4347348abc40711a89))
+
 ## [21.10.5](https://github.com/maevsi/stack/compare/21.10.4...21.10.5) (2026-11-18)
 
 ### Bug Fixes
