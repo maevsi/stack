@@ -15,7 +15,7 @@ x-zammad-service:
     POSTGRESQL_HOST: postgres
     POSTGRESQL_OPTIONS: ?pool=50
     REDIS_URL: redis://redis:6379
-  image: ghcr.io/zammad/zammad:7.1.1-0035@sha256:8607535560b7408d40a6bc1a0835cebbe58082060f7085f38e014875b9270a29
+  image: ghcr.io/zammad/zammad:7.2.3-0011@sha256:e34e8adcb9d84dff448edebef54d5b97069db6c6438aa9a98348189123137e72
   secrets:
     - source: elasticsearch-password
       target: /run/environment-variables/ELASTICSEARCH_PASS
