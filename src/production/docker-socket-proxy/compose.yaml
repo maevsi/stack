@@ -26,7 +26,7 @@ services:
         order: start-first
     env_file:
       - ./configurations/allowlist.env
-    image: ghcr.io/tecnativa/docker-socket-proxy:v0.5.0@sha256:1f5038b54f06c3e18422902cf00ba21803d1c97805aae032e5e6673d532d3459
+    image: ghcr.io/tecnativa/docker-socket-proxy:lts@sha256:be1ac64f33bd82043beb504822a17ba6b71668ea1ad7cf51a9a01d27bb7ab047
     logging:
       driver: json-file
       options:
