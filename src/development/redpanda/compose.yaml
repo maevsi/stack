@@ -27,7 +27,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-    image: redpandadata/redpanda:v26.2.7
+    image: redpandadata/redpanda:v26.2.7@sha256:43545ee03966431f5451e0b3c1e651b39fbe3eb383360220311021f50133b649
     volumes:
       - redpanda-data:/var/lib/redpanda/data
   redpanda-cluster-config:
@@ -40,7 +40,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    image: curlimages/curl:8.23.0
+    image: curlimages/curl:8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
     volumes:
       - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:
@@ -64,7 +64,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: redpandadata/console:v3.14.0
+    image: redpandadata/console:v3.14.0@sha256:5deb20e3ec84781d137231a23ebc3520e012e8e83d59bee25355f7fba1010a12
     volumes:
       - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
 volumes:

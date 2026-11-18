@@ -37,7 +37,7 @@ services:
         - traefik.http.services.s3.loadbalancer.server.port=9000
         - traefik.http.services.s3.loadbalancer.passhostheader=true
     entrypoint: /patched-entrypoint.sh
-    image: minio/minio
+    image: minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
     secrets:
       - minio-root-password
       - minio-root-user

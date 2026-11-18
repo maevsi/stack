@@ -32,7 +32,7 @@ services:
       # The image probes only every 5m, and swarm does not count the task as running before its first passing probe.
       start_interval: 5s
       start_period: 1m
-    image: prodrigestivill/postgres-backup-local:18-alpine
+    image: prodrigestivill/postgres-backup-local:18-alpine@sha256:5519b121b9f3058dc6f116927f8131a6f67951542dbf2cdacfd193f42daaa7a3
     logging:
       driver: json-file
       options:
