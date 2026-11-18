@@ -1,3 +1,9 @@
+## [21.10.9](https://github.com/maevsi/stack/compare/21.10.8...21.10.9) (2026-11-18)
+
+### Bug Fixes
+
+* **docker-socket-proxy:** follow the lts image ([#354](https://github.com/maevsi/stack/issues/354)) ([7c812ec](https://github.com/maevsi/stack/commit/7c812ecb3d09a1155e5bfd740b5a6a6854be183a))
+
 ## [21.10.8](https://github.com/maevsi/stack/compare/21.10.7...21.10.8) (2026-11-18)
 
 ### Bug Fixes
