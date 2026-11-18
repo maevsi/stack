@@ -7,4 +7,4 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: ghcr.io/observabilitystack/geoip-api:2026-02@sha256:1f09173ea263d744996bff97d48bd9ff93c267148089e3faf267ff32797263a8
+    image: ghcr.io/observabilitystack/geoip-api:2026-46@sha256:37e73786f3d2b0f4b383ef7bff727ca38622702bf6aa3549d0d5ca28fb767a14
