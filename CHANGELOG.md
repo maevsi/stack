@@ -1,3 +1,9 @@
+## [22.0.0-beta.5](https://github.com/maevsi/stack/compare/22.0.0-beta.4...22.0.0-beta.5) (2026-11-18)
+
+### Bug Fixes
+
+* **sqitch:** provide the gizmosql role secrets ([#359](https://github.com/maevsi/stack/issues/359)) ([20a6cc7](https://github.com/maevsi/stack/commit/20a6cc77509d5588198422d05bf448e611bde4f5))
+
 ## [22.0.0-beta.4](https://github.com/maevsi/stack/compare/22.0.0-beta.3...22.0.0-beta.4) (2026-11-18)
 
 ### ⚠ BREAKING CHANGES
