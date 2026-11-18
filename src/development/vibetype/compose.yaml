@@ -65,7 +65,7 @@ services:
       - source: vibetype-nuxt-app-secret
         target: /run/environment-variables/NUXT_APP_SECRET
       - source: vibetype-openai-api-key
-        target: /run/environment-variables/NUXT_OPENAI_API_KEY
+        target: /run/environment-variables/NUXT_VIBETYPE_OPENAI_API_KEY
       - source: vibetype-scripts-proxy-secret
         target: /run/environment-variables/NUXT_SCRIPTS_PROXY_SECRET
       - source: vibetype-turnstile-key
