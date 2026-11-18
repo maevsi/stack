@@ -1,3 +1,9 @@
+## [21.10.5](https://github.com/maevsi/stack/compare/21.10.4...21.10.5) (2026-11-18)
+
+### Bug Fixes
+
+* **vibetype:** correct openai api key variable name ([#351](https://github.com/maevsi/stack/issues/351)) ([c5d1d72](https://github.com/maevsi/stack/commit/c5d1d72f9c01aeee0648d42fb95fbdfe86da1eba))
+
 ## [21.10.4](https://github.com/maevsi/stack/compare/21.10.3...21.10.4) (2026-11-16)
 
 ### Bug Fixes
