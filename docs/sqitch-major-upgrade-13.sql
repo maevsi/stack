@@ -1,4 +1,5 @@
--- Copies the data of a schema generation renamed to `<schema>_old` into the schemas a fresh `sqitch deploy` of the next major created.
+-- Copies the data of the sqitch 12 schemas, renamed to `<schema>_old`, into the schemas a fresh `sqitch deploy` of sqitch 13 created.
+-- For the next major, copy this file to `sqitch-major-upgrade-<major>.sql` and replace the parts marked as specific to sqitch 13; the rest is generic.
 -- Only columns that exist in both generations are copied, so columns dropped by the major are left behind instead of failing the whole restore.
 -- Constraints (check, not null, unique) stay enforced; triggers and foreign key checks are skipped, so tables can be filled in any order.
 -- Run as the database superuser with `psql -v ON_ERROR_STOP=1`; everything happens in one transaction and is undone on any error.
@@ -7,7 +8,7 @@ BEGIN;
 
 SET LOCAL session_replication_role = replica;
 
--- sqitch 13 requires an account or an email address for every contact (`contact_identity_check`).
+-- Specific to sqitch 13: it requires an account or an email address for every contact (`contact_identity_check`).
 -- Contacts with neither get their creator's address with a `+vibetype` tag, so invitations to them reach the creator.
 UPDATE vibetype_old.contact AS contact
 SET email_address = regexp_replace(account.email_address, '@', '+vibetype@')
@@ -113,7 +114,7 @@ BEGIN
 END
 $$;
 
--- Derived data is written by triggers, which the copy skipped.
+-- Specific to sqitch 13: derived data is written by triggers, which the copy skipped.
 -- Firing only that trigger leaves the metadata, audit and notification triggers out of it.
 ALTER TABLE vibetype.event ENABLE ALWAYS TRIGGER search_vector;
 UPDATE vibetype.event SET name = name;
