@@ -1,3 +1,9 @@
+## [22.0.1](https://github.com/maevsi/stack/compare/22.0.0...22.0.1) (2026-11-19)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/zammad/zammad docker tag to v7.2.3-0016 ([#365](https://github.com/maevsi/stack/issues/365)) ([187d670](https://github.com/maevsi/stack/commit/187d67031a044faf6c610747ab1aeb03de6ef649))
+
 ## [22.0.0](https://github.com/maevsi/stack/compare/21.10.9...22.0.0) (2026-11-19)
 
 ### ⚠ BREAKING CHANGES
