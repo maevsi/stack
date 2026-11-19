@@ -29,7 +29,7 @@ This shorthand runs `psql` inside the database container as its superuser:
 
 ```sh
 psql_vibetype() {
-  docker exec -i "$(docker ps -q -f name=vibetype_postgres.1)" \
+  sudo docker exec -i "$(sudo docker ps -q -f name=vibetype_postgres.1)" \
     sh -c 'psql -v ON_ERROR_STOP=1 -U "$(cat /run/secrets/postgres-user)" -d "$(cat /run/secrets/postgres-db)"' "$@"
 }
 ```
@@ -39,7 +39,7 @@ psql_vibetype() {
 1. Stop every service that reads or writes the database, so nothing changes while the data moves:
 
    ```sh
-   docker service scale vibetype_vibetype=0 vibetype_postgraphile=0 vibetype_reccoom=0 vibetype_reccoom-consumer=0 vibetype_grafana=0 vibetype_debezium=0
+   sudo docker service scale vibetype_vibetype=0 vibetype_postgraphile=0 vibetype_reccoom=0 vibetype_reccoom-consumer=0 vibetype_grafana=0 vibetype_debezium=0
    ```
 
    Skip the services of profiles that are not deployed.
@@ -47,7 +47,7 @@ psql_vibetype() {
 2. Take a full backup and keep it outside the container until the upgrade is verified:
 
    ```sh
-   docker exec "$(docker ps -q -f name=vibetype_postgres.1)" \
+   sudo docker exec "$(sudo docker ps -q -f name=vibetype_postgres.1)" \
      sh -c 'pg_dump -Fc -U "$(cat /run/secrets/postgres-user)" "$(cat /run/secrets/postgres-db)"' > vibetype-before-upgrade.dump
    ```
 
@@ -73,7 +73,7 @@ psql_vibetype() {
 
    ```sh
    dargstack deploy -e production --major --services sqitch
-   docker service logs --follow vibetype_sqitch
+   sudo docker service logs --follow vibetype_sqitch
    ```
 
    Wait until it logs its last change as `ok`.
@@ -100,7 +100,7 @@ psql_vibetype() {
    dargstack deploy -e production --major
    ```
 
-   `postgraphile` builds its GraphQL schema once at startup, so it has to start after step 5; when it was not stopped, restart it with `docker service update --force vibetype_postgraphile`.
+   `postgraphile` builds its GraphQL schema once at startup, so it has to start after step 5; when it was not stopped, restart it with `sudo docker service update --force vibetype_postgraphile`.
 
 7. Once the application works, drop the old generation:
 
