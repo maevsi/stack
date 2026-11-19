@@ -88,7 +88,7 @@ echo "Deploying $NEW..."
 sqitch "$NEW" > /dev/null
 
 echo "Copying the data..."
-if ! COPIED=$(psql < "$THIS/sqitch-major-upgrade.sql" 2>&1); then
+if ! COPIED=$(psql < "$THIS/sqitch-major-upgrade-${NEW%%.*}.sql" 2>&1); then
   printf '%s\n' "$COPIED" | grep -v 'NOTICE:' >&2
   exit 1
 fi

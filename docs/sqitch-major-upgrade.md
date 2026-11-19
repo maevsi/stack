@@ -5,7 +5,8 @@ Its plan no longer matches the change history recorded in a database deployed by
 The database therefore goes through a dump, upgrade and restore cycle, and the stack release that pins the new `sqitch` major is a major release itself.
 
 The procedure below keeps the data in the same database instead of round-tripping it through a file.
-The old schemas are renamed out of the way, the new major deploys fresh schemas next to them, and [`sqitch-major-upgrade.sql`](sqitch-major-upgrade.sql) copies the data across.
+The old schemas are renamed out of the way, the new major deploys fresh schemas next to them, and `sqitch-major-upgrade-<major>.sql` copies the data across, currently [`sqitch-major-upgrade-13.sql`](sqitch-major-upgrade-13.sql).
+Its copy is generic, while the parts marked as specific to a major fix data the new rules reject and rebuild derived data, so the next major starts from a copy of the file with those parts replaced.
 The copy takes only the columns both generations share, so a column the major dropped, or one that was applied by hand and never made it into a release, is reported and left behind instead of failing the restore.
 
 ## Before you start
@@ -81,7 +82,7 @@ psql_vibetype() {
 5. Copy the data:
 
    ```sh
-   psql_vibetype < docs/sqitch-major-upgrade.sql
+   psql_vibetype < docs/sqitch-major-upgrade-13.sql
    ```
 
    It prints one line per table with the number of rows copied and the columns left behind, and lists tables the major removed.
@@ -128,4 +129,4 @@ After step 7, restore the dump from step 2 with `pg_restore --clean`.
 
 The copy runs with triggers disabled, so metadata timestamps, audit logs and notifications are not touched.
 Data that triggers derive, like the event search vectors, is rebuilt at the end of the script by firing only the trigger that writes it.
-A major that adds another such table has to extend that part of the script.
+Each major's script names the triggers to fire for its own schema.
