@@ -32,6 +32,15 @@ Its next minor release is the breaking one, and a `!` would make the release aut
 So a breaking pull request there is a `feat` without `!` that targets `beta`, and the release pull request is titled `ci(release): v0.<minor>`.
 Renovate raises a minor of a `0.x` service in the stack as a separate pull request and does not merge it on its own, so it is treated like a major below.
 
+## Rules that existing data has to meet
+
+A `sqitch` change that adds a constraint, a `NOT NULL` or any other rule that existing rows may break also fixes those rows in the same migration, before the rule is added.
+Production data then meets every rule by the time the release is deployed, and nothing has to be repaired by hand during the upgrade.
+
+A `sqitch` major that consolidates its migrations, as described in [the upgrade procedure](sqitch-major-upgrade.md), deploys fresh schemas and never sees the old data, so its migrations cannot fix rows.
+Such a data fix therefore ships as a migration in the last release of the previous major.
+Before that major is released, run [the rehearsal](sqitch-major-upgrade.md#before-you-start) on a recent production dump, and turn every row it rejects into such a migration.
+
 ## How versions reach the stack
 
 - The stack pins each service in `src/production/<service>/compose.yaml`.
