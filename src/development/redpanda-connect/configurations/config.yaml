@@ -1,0 +1,60 @@
+input:
+  redpanda:
+    seed_brokers: ["redpanda:9092"]
+    topics: ["vibetype.outbox.account", "vibetype.outbox.event"]
+    consumer_group: "rp_connect_s3_ingest"
+pipeline:
+  processors:
+    # Kafka Connect's JSON converter wraps the envelope as a JSON string in `payload`.
+    # The lakehouse keeps event envelopes and the erasure signal only.
+    - mapping: |
+        let envelope = this.payload.parse_json().catch(null)
+        root = if $envelope == null || !($envelope.type.has_prefix("event.") || $envelope.type == "account.deleted") { deleted() } else {
+          {
+            "id": $envelope.id,
+            "type": $envelope.type,
+            "aggregate_type": $envelope.aggregate_type,
+            "aggregate_id": $envelope.aggregate_id,
+            "version": $envelope.version,
+            "occurred_at": $envelope.occurred_at.ts_parse("2006-01-02T15:04:05.999999999Z07:00").catch(null),
+            "data": $envelope.data
+          }
+        }
+output:
+  aws_s3:
+    bucket: ${S3_BUCKET}
+    endpoint: ${S3_ENDPOINT_URL}
+    region: auto
+    force_path_style_urls: true
+    credentials:
+      profile: default
+    # The gizmosql maintenance registers these files in the lakehouse.
+    path: 'landing/${! timestamp_unix_nano() }-${! uuid_v4() }.parquet'
+    batching:
+      count: 10000
+      period: 15s
+      processors:
+        - parquet_encode:
+            schema:
+              - name: id
+                type: UUID
+                optional: true
+              - name: type
+                type: UTF8
+                optional: true
+              - name: aggregate_type
+                type: UTF8
+                optional: true
+              - name: aggregate_id
+                type: UUID
+                optional: true
+              - name: version
+                type: INT32
+                optional: true
+              - name: occurred_at
+                type: TIMESTAMP
+                optional: true
+              - name: data
+                type: JSON
+                optional: true
+            default_compression: zstd
