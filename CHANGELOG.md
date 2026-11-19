@@ -1,3 +1,21 @@
+## [22.0.0](https://github.com/maevsi/stack/compare/21.10.9...22.0.0) (2026-11-19)
+
+### ⚠ BREAKING CHANGES
+
+* **reccoom:** upgrade to v0.24 (#357)
+* **sqitch:** upgrade to v13 (#333)
+
+### Features
+
+* **reccoom:** upgrade to v0.24 ([#357](https://github.com/maevsi/stack/issues/357)) ([768a44e](https://github.com/maevsi/stack/commit/768a44e10cfa0044f64ee1758c1b03eaa73dbda1))
+* **sqitch:** upgrade to v13 ([#333](https://github.com/maevsi/stack/issues/333)) ([b323266](https://github.com/maevsi/stack/commit/b3232663630a5756b973587ff12415faec1aa261))
+
+### Bug Fixes
+
+* **deps:** pin the latest releases of the bundled majors ([#356](https://github.com/maevsi/stack/issues/356)) ([806ee50](https://github.com/maevsi/stack/commit/806ee50efe05d318a79ffce31910686574023d4d))
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v13.2.12 ([#343](https://github.com/maevsi/stack/issues/343)) ([3144d3b](https://github.com/maevsi/stack/commit/3144d3b7fe6e187d917f51b28af709c54fbce14e))
+* **sqitch:** provide the gizmosql role secrets ([#359](https://github.com/maevsi/stack/issues/359)) ([20a6cc7](https://github.com/maevsi/stack/commit/20a6cc77509d5588198422d05bf448e611bde4f5))
+
 ## [22.0.0-beta.5](https://github.com/maevsi/stack/compare/22.0.0-beta.4...22.0.0-beta.5) (2026-11-18)
 
 ### Bug Fixes
