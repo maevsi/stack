@@ -5,6 +5,12 @@ secrets:
   postgres-password:
     # The database's password.
     file: ~~/artifacts/secrets/postgres-password.secret
+  postgres-role-service-gizmosql-password:
+    # The password of the lakehouse query server's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-gizmosql-password.secret
+  postgres-role-service-gizmosql-username:
+    # The username of the lakehouse query server's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-gizmosql-username.secret
   postgres-role-service-grafana-password:
     # The password of the observation dashboard's database role.
     file: ~~/artifacts/secrets/postgres-role-service-grafana-password.secret
@@ -85,6 +91,11 @@ x-dargstack:
     postgres-password:
       special_characters: false
       type: random_string
+    postgres-role-service-gizmosql-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-gizmosql-username:
+      type: wordlist_word
     postgres-role-service-grafana-password:
       special_characters: false
       type: random_string
