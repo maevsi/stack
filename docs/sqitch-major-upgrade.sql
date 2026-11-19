@@ -7,6 +7,13 @@ BEGIN;
 
 SET LOCAL session_replication_role = replica;
 
+-- sqitch 13 requires an account or an email address for every contact (`contact_identity_check`).
+-- Contacts with neither get their creator's address with a `+vibetype` tag, so invitations to them reach the creator.
+UPDATE vibetype_old.contact AS contact
+SET email_address = regexp_replace(account.email_address, '@', '+vibetype@')
+FROM vibetype_private_old.account AS account
+WHERE account.id = contact.created_by AND contact.account_id IS NULL AND contact.email_address IS NULL;
+
 DO $$
 DECLARE
   _table RECORD;
@@ -31,8 +38,10 @@ BEGIN
     SELECT
       string_agg(format('%I', a_new.attname), ', ' ORDER BY a_new.attnum),
       -- a differing type is mostly an enum or composite of the old schema generation, which converts through its text form
+      -- composites go through json instead, so attributes the major added become null rather than failing the cast
       string_agg(
         CASE WHEN a_new.atttypid = a_old.atttypid THEN format('%I', a_new.attname)
+        WHEN (SELECT typtype FROM pg_type WHERE oid = a_new.atttypid) = 'c' THEN format('json_populate_record(NULL::%s, to_json(%I))', format_type(a_new.atttypid, a_new.atttypmod), a_new.attname)
         ELSE format('%I::TEXT::%s', a_new.attname, format_type(a_new.atttypid, a_new.atttypmod)) END,
         ', ' ORDER BY a_new.attnum
       ),
