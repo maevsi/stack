@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    image: portainer/portainer-ce:2.45.3-alpine@sha256:3d2e116d0aab38f13ee2b893e4fd931e69a09574eee0b597711a68d76754cce1
+    image: portainer/portainer-ce:2.45.4-alpine@sha256:15f6680e9c3260154684343566df3c168956e352a8cca8a50bcd81ce31df0143
     secrets:
       - portainer-admin-password
     volumes:
@@ -41,7 +41,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-    image: portainer/agent:2.45.3@sha256:6e6d2d5d8967da5b4d45eab32b7268af170395395d753d3f34ecb4d6ca5bd388
+    image: portainer/agent:2.45.4@sha256:481254e877ca278b8d6e4ffd37e352ee221fbf712dfb4635edf93c6378ae8c35
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
