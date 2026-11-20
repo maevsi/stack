@@ -61,7 +61,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: postgis/postgis:18-3.7-alpine@sha256:e1a18d273904ee86646d6d1379f318f74864a017b5aad710ed14a692212651cb
+    image: ghcr.io/maevsi/postgres:1.0.0@sha256:bc38cf3f0650cd3c438cb2f8a8c3dacfa4ca4caf712883b96f9f2380462f333a
     ports: # dargstack:dev-only
       - 5432:5432 # dargstack:dev-only
     secrets:
@@ -80,11 +80,6 @@ volumes:
     # The database's data.
     {}
 x-dargstack:
-  platform:
-    darwin:
-      services:
-        postgres:
-          image: imresamu/postgis:18-3.6-alpine@sha256:f1f6a9fcccf493fa958e54cca5ad9be964ca7f6f4d2cd9cf24194bfd21ef862d
   secrets:
     postgres-db:
       type: wordlist_word
