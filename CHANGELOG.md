@@ -1,3 +1,13 @@
+## [23.0.0-beta.1](https://github.com/maevsi/stack/compare/22.0.2...23.0.0-beta.1) (2026-11-20)
+
+### ⚠ BREAKING CHANGES
+
+* **postgres:** use the vibetype image for both databases (#366)
+
+### Features
+
+* **postgres:** use the vibetype image for both databases ([#366](https://github.com/maevsi/stack/issues/366)) ([2864f48](https://github.com/maevsi/stack/commit/2864f489686aff178d7a8c8888365e15e1f57a64))
+
 ## [22.0.2](https://github.com/maevsi/stack/compare/22.0.1...22.0.2) (2026-11-20)
 
 ### Bug Fixes
