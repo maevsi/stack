@@ -1,3 +1,9 @@
+## [22.0.3](https://github.com/maevsi/stack/compare/22.0.2...22.0.3) (2026-11-21)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([6adc6d0](https://github.com/maevsi/stack/commit/6adc6d0f9384da5539e32ce659e698adf6571654))
+
 ## [22.0.2](https://github.com/maevsi/stack/compare/22.0.1...22.0.2) (2026-11-20)
 
 ### Bug Fixes
