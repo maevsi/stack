@@ -1,3 +1,9 @@
+## [22.0.5](https://github.com/maevsi/stack/compare/22.0.4...22.0.5) (2026-11-22)
+
+### Bug Fixes
+
+* **compose:** forward stop signals to setup jobs ([#368](https://github.com/maevsi/stack/issues/368)) ([215cb15](https://github.com/maevsi/stack/commit/215cb15920b6aa5aeffb92b07e323b79733ad1ed))
+
 ## [22.0.4](https://github.com/maevsi/stack/compare/22.0.3...22.0.4) (2026-11-22)
 
 ### Bug Fixes
