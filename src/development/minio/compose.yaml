@@ -14,7 +14,7 @@ services:
       labels:
         - dargstack.profiles=upload
         - traefik.enable=true
-        # Minio Console
+        # Silo console
         - traefik.http.routers.minio.entryPoints=web
         - traefik.http.routers.minio.middlewares=redirectscheme
         - traefik.http.routers.minio.rule=Host(`minio.${STACK_DOMAIN}`)
@@ -25,7 +25,7 @@ services:
         - traefik.http.routers.minio-secure.service=minio
         - traefik.http.services.minio.loadbalancer.server.port=9001
         - traefik.http.services.minio.loadbalancer.passhostheader=true
-        # Minio itself
+        # Silo S3 API
         - traefik.http.routers.s3.entryPoints=web
         - traefik.http.routers.s3.middlewares=redirectscheme
         - traefik.http.routers.s3.rule=Host(`s3.${STACK_DOMAIN}`)
@@ -37,7 +37,7 @@ services:
         - traefik.http.services.s3.loadbalancer.server.port=9000
         - traefik.http.services.s3.loadbalancer.passhostheader=true
     entrypoint: /patched-entrypoint.sh
-    image: minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
+    image: pgsty/silo:RELEASE.2026-11-12T00-00-00Z@sha256:c20d112390b9a9ce8c11b8af95ad35bcaa62f4759663c09c936cd8d2b511f329
     secrets:
       - minio-root-password
       - minio-root-user
