@@ -1,3 +1,9 @@
+## [22.1.0](https://github.com/maevsi/stack/compare/22.0.5...22.1.0) (2026-11-22)
+
+### Features
+
+* **postgraphile:** pass the openai api key ([#369](https://github.com/maevsi/stack/issues/369)) ([adae197](https://github.com/maevsi/stack/commit/adae1976ef481c202cc64c92086a4623ad893d44))
+
 ## [22.0.5](https://github.com/maevsi/stack/compare/22.0.4...22.0.5) (2026-11-22)
 
 ### Bug Fixes
