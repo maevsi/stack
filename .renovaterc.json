@@ -21,5 +21,12 @@
     }
   ],
   "extends": ["github>dargmuesli/renovate-config"],
-  "ignorePaths": ["src/production/minio/compose.yaml"]
+  "ignorePaths": ["src/production/minio/compose.yaml"],
+  "packageRules": [
+    {
+      "description": "debezium rebuilds its tags nightly and quay deletes the old manifest, so a pinned digest stops resolving within a day",
+      "matchPackageNames": ["quay.io/debezium/connect"],
+      "pinDigests": false
+    }
+  ]
 }
