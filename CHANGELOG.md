@@ -1,3 +1,9 @@
+## [22.0.4](https://github.com/maevsi/stack/compare/22.0.3...22.0.4) (2026-11-22)
+
+### Bug Fixes
+
+* **images:** replace digests that no longer resolve ([#367](https://github.com/maevsi/stack/issues/367)) ([9e4b3bd](https://github.com/maevsi/stack/commit/9e4b3bd85a66bff065ead542ee2859ab486495bd))
+
 ## [22.0.3](https://github.com/maevsi/stack/compare/22.0.2...22.0.3) (2026-11-21)
 
 ### Bug Fixes
