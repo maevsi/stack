@@ -1,0 +1,77 @@
+services:
+  zammad-backup:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  zammad-init:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+  zammad-nginx:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.zammad-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  zammad-railsserver:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  zammad-scheduler:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  zammad-websocket:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

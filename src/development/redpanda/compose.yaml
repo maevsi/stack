@@ -1,0 +1,73 @@
+services:
+  redpanda:
+    # You can access the event streaming platform's ui as described under `redpanda-console`.
+    command:
+      - redpanda start
+      - --advertise-kafka-addr internal://redpanda:9092,external://localhost:19092
+      - --advertise-pandaproxy-addr internal://redpanda:8082,external://localhost:18082
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --memory 512M
+      - --mode dev-container # dargstack:dev-only
+      - --pandaproxy-addr internal://0.0.0.0:8082,external://0.0.0.0:18082
+      - --reserve-memory 0M
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+      - --smp 1
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "rpk", "cluster", "health", "--exit-when-healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    image: redpandadata/redpanda:v26.3.1@sha256:260532f70fd840bf2159106bd4ef900f199c1f5ca2a23cb362642320513b90f5
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+  redpanda-cluster-config:
+    # The broker's one-shot task for adjusting its cluster configuration after startup.
+    command: /entrypoint.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+        - vibetype.one-shot=true
+      restart_policy:
+        condition: on-failure
+    entrypoint: sh
+    image: curlimages/curl:8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
+    volumes:
+      - ./configurations/cluster-config.sh:/entrypoint.sh:ro
+  redpanda-console:
+    # You can access the event streaming platform's ui at [redpanda.app.localhost](https://redpanda.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+        - traefik.enable=true
+        - traefik.http.routers.redpanda.entryPoints=web
+        - traefik.http.routers.redpanda.middlewares=redirectscheme
+        - traefik.http.routers.redpanda.rule=Host(`redpanda.${STACK_DOMAIN}`)
+        - traefik.http.routers.redpanda-secure.entryPoints=web-secure
+        - traefik.http.routers.redpanda-secure.rule=Host(`redpanda.${STACK_DOMAIN}`)
+        - traefik.http.routers.redpanda-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.redpanda.loadbalancer.server.port=8080
+    environment:
+      CONFIG_FILEPATH: /srv/app/redpanda-config.yaml
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/admin/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    image: redpandadata/console:v3.15.0@sha256:aa055a971965606f89c00cc2367e38c95f93f0cb3a4ff96701cbb117af8e23f8
+    volumes:
+      - ./configurations/config.yaml:/srv/app/redpanda-config.yaml:ro
+volumes:
+  redpanda-data:
+    # The message queue's data.
+    {}

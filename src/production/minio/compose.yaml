@@ -1,0 +1,4 @@
+services:
+  minio: (( prune ))
+volumes:
+  minio-data: (( prune ))

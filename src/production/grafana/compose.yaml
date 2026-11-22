@@ -1,0 +1,17 @@
+services:
+  grafana:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.grafana-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == manager
+      update_config:
+        order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

@@ -1,0 +1,19 @@
+services:
+  jobber:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+    environment:
+      SENTRY_CRONS: ${SENTRY_CRONS}
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+    volumes:
+      - (( append ))
+      - postgres-backup-data:/backups/

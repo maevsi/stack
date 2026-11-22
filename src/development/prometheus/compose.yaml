@@ -1,0 +1,28 @@
+services:
+  prometheus:
+    # You can access the metrics monitoring at [prometheus.app.localhost](https://prometheus.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+        - traefik.enable=true
+        - traefik.http.routers.prometheus.entryPoints=web
+        - traefik.http.routers.prometheus.middlewares=redirectscheme
+        - traefik.http.routers.prometheus.rule=Host(`prometheus.${STACK_DOMAIN}`)
+        - traefik.http.routers.prometheus-secure.entryPoints=web-secure
+        - traefik.http.routers.prometheus-secure.rule=Host(`prometheus.${STACK_DOMAIN}`)
+        - traefik.http.routers.prometheus-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.prometheus.loadbalancer.server.port=9090
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9090/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    image: prom/prometheus:v3.16.0@sha256:e04987641b57704f408e31f6373ba4138ecf27cb4a165d24aabb6c38fddd0f06
+    volumes:
+      - ./configurations/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+volumes:
+  prometheus-data:
+    # The metrics monitoring's data.
+    {}

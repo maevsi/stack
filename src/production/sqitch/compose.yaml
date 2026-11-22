@@ -1,0 +1,10 @@
+services:
+  sqitch:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+    image: ghcr.io/maevsi/sqitch:13.8.0@sha256:842e92ad515f1fcd927eaa66a34502587a45464893d90daaad0c4ebfa348cff2
+    volumes: (( prune ))

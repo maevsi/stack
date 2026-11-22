@@ -1,0 +1,18 @@
+services:
+  postgraphile:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.postgraphile-secure.tls.certresolver=default
+        - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    image: ghcr.io/maevsi/postgraphile:3.4.0@sha256:49de5f5e55b363f2f74cd1bdee29e34ce1eb58c7dd2fd665c29d14c07fbbac5c
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

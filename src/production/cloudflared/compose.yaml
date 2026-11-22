@@ -1,0 +1,36 @@
+secrets:
+  cloudflared-tunnel-token:
+    # The secure tunnel's connector token.
+    external: true
+services:
+  cloudflared:
+    # You can configure the secure tunnel at [dash.cloudflare.com](https://dash.cloudflare.com/).
+    command: tunnel run
+    deploy:
+      labels:
+        - dargstack.profiles=default
+      placement:
+        constraints:
+          - node.labels.role == manager
+      update_config:
+        order: start-first
+    environment:
+      # The metrics server binds to the loopback interface because nothing outside the container reads it.
+      TUNNEL_METRICS: 127.0.0.1:20241
+      TUNNEL_TOKEN_FILE: /run/secrets/cloudflared-tunnel-token
+    healthcheck:
+      # The image ships no shell and no HTTP client, so `cloudflared` probes itself.
+      # It reads the metrics address from `TUNNEL_METRICS`, calls that server's readiness endpoint and exits non-zero while no connection to Cloudflare's edge is registered.
+      test: ["CMD", "cloudflared", "tunnel", "ready"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    image: cloudflare/cloudflared:2026.11.1@sha256:e613aadbc2d9511785d2e67a86b0c8ac18dd63a3f9af0d06faf04cbfdcb35f2d
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+    secrets:
+      - cloudflared-tunnel-token

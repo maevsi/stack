@@ -1,0 +1,37 @@
+services:
+  redpanda:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  redpanda-cluster-config:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+      update_config:
+        order: stop-first
+  redpanda-console:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.routers.redpanda-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

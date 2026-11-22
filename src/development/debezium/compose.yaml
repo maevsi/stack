@@ -1,0 +1,52 @@
+services:
+  debezium:
+    # You can see how changes in the database end up in the event stream using `redpanda-console`.
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+    environment:
+      BOOTSTRAP_SERVERS: redpanda:9092
+      CONFIG_STORAGE_TOPIC: connect_configs
+      GROUP_ID: 1
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+    healthcheck:
+      # Also fails when a connector or task is in the failed state, which the REST API alone would report as healthy.
+      test: ["CMD-SHELL", "curl --fail --silent --show-error 'http://localhost:8083/connectors?expand=status' | grep --invert-match --quiet --fixed-strings '\"state\":\"FAILED\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+    image: quay.io/debezium/connect:3.7.1
+    volumes:
+      - debezium-kafka-configuration:/kafka/config
+      - debezium-kafka-data:/kafka/data
+      - debezium-kafka-logs:/kafka/logs
+      - ./configurations/log4j.properties:/kafka/config/log4j.properties:ro
+  debezium-postgres-connector:
+    # You can check the database connector's setup logs using `portainer`.
+    command: /entrypoint.sh
+    deploy:
+      labels:
+        - dargstack.profiles=event-streaming
+        - vibetype.one-shot=true
+      restart_policy:
+        condition: on-failure
+    entrypoint: sh
+    image: curlimages/curl:8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
+    secrets:
+      - postgres-db
+      - postgres-password
+      - postgres-user
+    volumes:
+      - ./configurations/entrypoint.sh:/entrypoint.sh:ro
+volumes:
+  debezium-kafka-configuration:
+    # The change data capture's configuration.
+    {}
+  debezium-kafka-data:
+    # The change data capture's data.
+    {}
+  debezium-kafka-logs:
+    # The change data capture's logs.
+    {}

@@ -1,0 +1,71 @@
+secrets:
+  elasticsearch-keystore-password:
+    # The search engine's password for the keystore.
+    file: ~~/artifacts/secrets/elasticsearch-keystore-password.secret
+  elasticsearch-password:
+    # The search engine's password for the default user.
+    file: ~~/artifacts/secrets/elasticsearch-password.secret
+services:
+  elasticsearch:
+    # You cannot access the search engine via a web interface.
+    # See `docs/elasticsearch.md` for how the helpdesk trusts this service's certificate and when that certificate has to be replaced.
+    deploy:
+      labels:
+        - dargstack.profiles=zammad
+      resources:
+        limits:
+          memory: 1536m
+        reservations:
+          memory: 512m
+    environment:
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      ELASTIC_PASSWORD_FILE: /run/secrets/elasticsearch-password
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      # The helpdesk sends bulk requests that exceed the 100mb default while it rebuilds its search index.
+      http.max_content_length: 400mb
+      KEYSTORE_PASSWORD_FILE: /run/secrets/elasticsearch-keystore-password
+      xpack.ml.enabled: "false"
+    healthcheck:
+      test: ["CMD-SHELL", "NETRC=$$(mktemp) && printf 'machine localhost\\nlogin elastic\\npassword %s\\n' \"$$(cat /run/secrets/elasticsearch-password)\" > \"$$NETRC\" && curl -fsS --netrc-file \"$$NETRC\" --cacert /usr/share/elasticsearch/config/certs/http_ca.crt 'https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' && rm -f \"$$NETRC\" || { rm -f \"$$NETRC\"; exit 1; }"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    # The automatic security configuration puts the container's host name into the certificate it generates, which is what lets the helpdesk verify the connection.
+    # Setting it here rather than through `network.publish_host` also keeps the boot out of the swarm's service discovery, which publishes the equally named service record only once the health check above passes.
+    # The search engine can never pass that check while it is still waiting for the very name it needs to finish booting.
+    hostname: elasticsearch
+    image: elasticsearch:9.5.5@sha256:6f11b295d5099c18b8774d280a82725d1184d0d5cb08373b12785ce7cd7a9bfb
+    secrets:
+      - source: elasticsearch-keystore-password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+      - source: elasticsearch-password
+        uid: "1000"
+        gid: "1000"
+        mode: 0o400
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-configuration:/usr/share/elasticsearch/config
+      - elasticsearch-data:/usr/share/elasticsearch/data
+volumes:
+  elasticsearch-configuration:
+    # The search engine's configuration.
+    {}
+  elasticsearch-data:
+    # The search engine's data.
+    {}
+x-dargstack:
+  secrets:
+    elasticsearch-keystore-password:
+      type: random_string
+    elasticsearch-password:
+      type: random_string

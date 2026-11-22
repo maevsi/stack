@@ -1,0 +1,65 @@
+secrets:
+  grafana-admin-email:
+    # The observation dashboard's admin email.
+    file: ~~/artifacts/secrets/grafana-admin-email.secret
+  grafana-admin-password:
+    # The observation dashboard's admin password.
+    file: ~~/artifacts/secrets/grafana-admin-password.secret
+  grafana-admin-user:
+    # The observation dashboard's admin user.
+    file: ~~/artifacts/secrets/grafana-admin-user.secret
+services:
+  grafana:
+    # You can access the observation dashboard at [grafana.app.localhost](https://grafana.app.localhost/).
+    # See `docs/grafana.md` for how to configure datasources, alerting, and dashboards after first login.
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+        - traefik.enable=true
+        - traefik.http.routers.grafana.entryPoints=web
+        - traefik.http.routers.grafana.middlewares=redirectscheme
+        - traefik.http.routers.grafana.rule=Host(`grafana.${STACK_DOMAIN}`)
+        - traefik.http.routers.grafana-secure.entryPoints=web-secure
+        - traefik.http.routers.grafana-secure.rule=Host(`grafana.${STACK_DOMAIN}`)
+        - traefik.http.routers.grafana-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.grafana.loadbalancer.server.port=3000
+    environment:
+      GF_DATABASE_HOST: postgres:5432
+      GF_DATABASE_PASSWORD__FILE: /run/secrets/postgres-role-service-grafana-password
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_USER__FILE: /run/secrets/postgres-role-service-grafana-username
+      # Saves alert state every 5 minutes instead of after each evaluation, which otherwise dominates the database cluster's write-ahead log.
+      GF_FEATURE_TOGGLES_ENABLE: alertingSaveStatePeriodic
+      GF_SECURITY_ADMIN_EMAIL__FILE: /run/secrets/grafana-admin-email
+      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana-admin-password
+      GF_SECURITY_ADMIN_USER__FILE: /run/secrets/grafana-admin-user
+      GF_SERVER_ROOT_URL: https://grafana.${STACK_DOMAIN}/
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    image: grafana/grafana:13.3.1@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf
+    secrets:
+      - grafana-admin-email
+      - grafana-admin-password
+      - grafana-admin-user
+      - postgres-db
+      - postgres-role-service-grafana-password
+      - postgres-role-service-grafana-username
+    volumes:
+      - grafana-data:/var/lib/grafana
+volumes:
+  grafana-data:
+    # The observation dashboard's data.
+    {}
+x-dargstack:
+  secrets:
+    grafana-admin-email:
+      insecure_default: admin@localhost
+      type: insecure_default
+    grafana-admin-password:
+      type: random_string
+    grafana-admin-user:
+      type: wordlist_word

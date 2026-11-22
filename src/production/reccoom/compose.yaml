@@ -1,0 +1,48 @@
+services:
+  reccoom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    environment:
+      SENTRY_TRACES_SAMPLE_RATE: "0.1"
+    image: ghcr.io/maevsi/reccoom:0.24.0@sha256:a46fd7b20bd7a0ecaf7042d03ad2578847561666a001da0bedc380efa961375c
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  reccoom-consumer:
+    deploy:
+      update_config:
+        order: start-first
+    environment:
+      SENTRY_TRACES_SAMPLE_RATE: "0.1"
+    image: ghcr.io/maevsi/reccoom:0.24.0@sha256:a46fd7b20bd7a0ecaf7042d03ad2578847561666a001da0bedc380efa961375c
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  reccoom-migration:
+    deploy:
+      update_config:
+        order: start-first
+    environment:
+      SENTRY_TRACES_SAMPLE_RATE: "0.1"
+    image: ghcr.io/maevsi/reccoom:0.24.0@sha256:a46fd7b20bd7a0ecaf7042d03ad2578847561666a001da0bedc380efa961375c
+  reccoom-postgres:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.vibetype.storage == true
+          - node.labels.role == worker
+      update_config:
+        order: stop-first
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m

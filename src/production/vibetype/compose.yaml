@@ -1,0 +1,69 @@
+services:
+  vibetype:
+    deploy:
+      labels:
+        - (( append ))
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.average=10
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.burst=200
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.period=1s
+        - traefik.http.middlewares.vibetype-ratelimit.ratelimit.sourcecriterion.requestheadername=Cf-Connecting-Ip # all requests arrive through the cloudflare tunnel, so the remote address is always the tunnel's
+        - traefik.http.routers.vibetype.middlewares=redirectscheme,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.middlewares=vibetype-ratelimit,vibetype-cors,vibetype-redirectregex
+        - traefik.http.routers.vibetype-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
+      update_config:
+        order: start-first
+    environment:
+      NUXT_PUBLIC_SENTRY_ENABLED: "true"
+    image: ghcr.io/maevsi/vibetype:17.35.0@sha256:b3d8724db58416e56ed0ec82bccdc8fa221a5b3a77884c3e8e9480be5595da6c
+    logging:
+      driver: json-file
+      options:
+        max-file: "3"
+        max-size: 20m
+  # vibetype-beta:
+  #   # You can access the main project frontend's beta version at [beta.app.localhost](https://beta.app.localhost/).
+  #   deploy:
+  #     labels:
+  #       - traefik.enable=true
+  #       - traefik.http.routers.vibetype-beta.entryPoints=web
+  #       - traefik.http.routers.vibetype-beta.middlewares=redirectscheme,vibetype-redirectregex
+  #       - traefik.http.routers.vibetype-beta.rule=Host(`beta.${STACK_DOMAIN}`)
+  #       - traefik.http.routers.vibetype-beta-secure.entryPoints=web-secure
+  #       - traefik.http.routers.vibetype-beta-secure.middlewares=vibetype-cors,vibetype-redirectregex
+  #       - traefik.http.routers.vibetype-beta-secure.rule=Host(`beta.${STACK_DOMAIN}`)
+  #       - traefik.http.services.vibetype-beta.loadbalancer.server.port=3000
+  #       - traefik.http.routers.vibetype-beta-secure.tls.certresolver=default
+  #   environment:
+  #     AWS_REGION: ${VIBETYPE_AWS_REGION}
+  #     NUXT_PUBLIC_GTAG_ID: ${VIBETYPE_NUXT_PUBLIC_GTAG_ID}
+  #     NUXT_PUBLIC_I18N_BASE_URL: https://${STACK_DOMAIN}
+  #     NUXT_PUBLIC_SITE_URL: https://${STACK_DOMAIN}
+  #     NUXT_PUBLIC_TURNSTILE_SITE_KEY: ${VIBETYPE_NUXT_PUBLIC_TURNSTILE_SITE_KEY}
+  #     NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H: ${VIBETYPE_NUXT_PUBLIC_VIBETYPE_EMAIL_LIMIT24H}
+  #     NUXT_PUBLIC_VIO_ENVIRONMENT: beta
+  #     PGHOST: postgres
+  #   image: ghcr.io/maevsi/vibetype:11.0.2
+  #   secrets:
+  #     - source: vibetype-api-notification-secret
+  #       target: /run/environment-variables/NUXT_API_NOTIFICATION_SECRET
+  #     - source: vibetype-aws-credentials
+  #       target: /home/node/.aws/credentials # TODO: switch to user `node`
+  #     - source: vibetype-firebase-service-account-credentials
+  #       target: /run/environment-variables/FIREBASE_SERVICE_ACCOUNT_CREDENTIALS
+  #     - source: vibetype-openai-api-key
+  #       target: /run/environment-variables/NUXT_OPENAI_API_KEY
+  #     - source: vibetype-turnstile-key
+  #       target: /run/environment-variables/NUXT_TURNSTILE_SECRET_KEY
+  #     - source: postgres-db
+  #       target: /run/environment-variables/PGDATABASE
+  #     - source: postgres-role-service-vibetype-password
+  #       target: /run/environment-variables/PGPASSWORD
+  #     - source: postgres-role-service-vibetype-username
+  #       target: /run/environment-variables/PGUSER
+  #   volumes:
+  #     - ./configurations/postgraphile/jwtES256.key.pub:/run/environment-variables/NUXT_PUBLIC_VIO_AUTH_JWT_PUBLIC_KEY:ro
+volumes:
+  vibetype-data: (( prune ))

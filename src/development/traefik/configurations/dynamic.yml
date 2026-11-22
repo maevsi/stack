@@ -1,0 +1,7 @@
+tls:
+  certificates:
+    - certFile: /etc/traefik/acme/localhost.pem
+      keyFile: /etc/traefik/acme/localhost-key.pem
+  options:
+    mintls13:
+      minVersion: VersionTLS13
