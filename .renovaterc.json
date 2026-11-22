@@ -1,5 +1,38 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": ["/\\.github/workflows/.*\\.ya?ml$/"],
+      "matchStrings": [
+        "#\\s+renovate:\\s+datasource=github-releases\\s+depName=(?<depName>\\S+)\\s+\\w+:\\s+(?<currentValue>\\S+)"
+      ]
+    },
+    {
+      "autoReplaceStringTemplate": "image: {{{depName}}}:{{{newValue}}}{{#if newDigest}}@{{{newDigest}}}{{/if}}",
+      "customType": "regex",
+      "datasourceTemplate": "docker",
+      "description": "the docker-compose manager skips images nested below an extension key, like a dargstack platform override",
+      "managerFilePatterns": ["/^src/development/postgres/compose\\.yaml$/"],
+      "matchStrings": [
+        "image:\\s+(?<depName>imresamu/postgis):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ]
+    }
+  ],
   "extends": ["github>dargmuesli/renovate-config"],
-  "ignorePaths": ["src/production/minio/compose.yaml"]
+  "ignorePaths": ["src/production/minio/compose.yaml"],
+  "packageRules": [
+    {
+      "description": "debezium rebuilds its tags nightly and quay deletes the old manifest, so a pinned digest stops resolving within a day",
+      "matchPackageNames": ["quay.io/debezium/connect"],
+      "pinDigests": false
+    },
+    {
+      "description": "docker versioning cannot compare a timestamp tag",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["pgsty/silo"],
+      "versioning": "regex:^RELEASE\\.(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})T\\d{2}-\\d{2}-\\d{2}Z$"
+    }
+  ]
 }

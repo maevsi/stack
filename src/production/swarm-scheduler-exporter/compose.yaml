@@ -28,7 +28,7 @@ services:
       timeout: 5s
       start_period: 90s
       retries: 3
-    image: ghcr.io/leinardi/swarm-scheduler-exporter:v3.1.0
+    image: ghcr.io/leinardi/swarm-scheduler-exporter:v3.1.0@sha256:9ef395c7a79edba0532323a55b2a653dc92a73f1e009321944800ec6e89b1163
     logging:
       driver: json-file
       options:

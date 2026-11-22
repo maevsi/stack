@@ -1,35 +1,34 @@
-x-shared:
-  zammad-service:
-    &zammad-service # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
-    configs:
-      - source: zammad-docker-entrypoint-bf26d9ee
-        target: /opt/zammad/bin/docker-entrypoint
-        mode: "0555"
-    deploy:
-      labels:
-        - dargstack.profiles=zammad
-    environment: &zammad-environment
-      ELASTICSEARCH_ENABLED: "true"
-      ELASTICSEARCH_HOST: elasticsearch
-      ELASTICSEARCH_SCHEMA: https
-      ELASTICSEARCH_USER: elastic
-      MEMCACHE_SERVERS: memcached:11211
-      NGINX_SERVER_SCHEME: https
-      POSTGRESQL_DB: zammad
-      POSTGRESQL_DB_CREATE: "false"
-      POSTGRESQL_HOST: postgres
-      POSTGRESQL_OPTIONS: ?pool=50
-      REDIS_URL: redis://redis:6379
-    image: ghcr.io/zammad/zammad:7.1.1-0035
-    secrets:
-      - source: elasticsearch-password
-        target: /run/environment-variables/ELASTICSEARCH_PASS
-      - source: postgres-role-service-zammad-username
-        target: /run/environment-variables/POSTGRESQL_USER
-      - source: postgres-role-service-zammad-password
-        target: /run/environment-variables/POSTGRESQL_PASS
-    volumes:
-      - zammad-data:/opt/zammad/storage
+x-zammad-service:
+  &zammad-service # You can access the helpdesk at [zammad.app.localhost](https://zammad.app.localhost/).
+  configs:
+    - source: zammad-docker-entrypoint-bf26d9ee
+      target: /opt/zammad/bin/docker-entrypoint
+      mode: "0555"
+  deploy:
+    labels:
+      - dargstack.profiles=zammad
+  environment: &zammad-environment
+    ELASTICSEARCH_ENABLED: "true"
+    ELASTICSEARCH_HOST: elasticsearch
+    ELASTICSEARCH_SCHEMA: https
+    ELASTICSEARCH_USER: elastic
+    MEMCACHE_SERVERS: memcached:11211
+    NGINX_SERVER_SCHEME: https
+    POSTGRESQL_DB: zammad
+    POSTGRESQL_DB_CREATE: "false"
+    POSTGRESQL_HOST: postgres
+    POSTGRESQL_OPTIONS: ?pool=50
+    REDIS_URL: redis://redis:6379
+  image: ghcr.io/zammad/zammad:7.2.3-0017@sha256:5ca0884d5a2ac659210140232b4f4d9da6081ad91410c9edae871b1e86684136
+  secrets:
+    - source: elasticsearch-password
+      target: /run/environment-variables/ELASTICSEARCH_PASS
+    - source: postgres-role-service-zammad-username
+      target: /run/environment-variables/POSTGRESQL_USER
+    - source: postgres-role-service-zammad-password
+      target: /run/environment-variables/POSTGRESQL_PASS
+  volumes:
+    - zammad-data:/opt/zammad/storage
 configs:
   zammad-docker-entrypoint-bf26d9ee:
     file: ./configurations/docker-entrypoint.sh

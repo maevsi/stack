@@ -30,7 +30,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-    image: redpandadata/redpanda:v26.2.7
+    image: redpandadata/redpanda:v26.3.1@sha256:260532f70fd840bf2159106bd4ef900f199c1f5ca2a23cb362642320513b90f5
     volumes:
       - redpanda-data:/var/lib/redpanda/data
   redpanda-cluster-config:
@@ -43,7 +43,7 @@ services:
       restart_policy:
         condition: on-failure
     entrypoint: sh
-    image: curlimages/curl:8.23.0
+    image: curlimages/curl:8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
     volumes:
       - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:
@@ -71,7 +71,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    image: redpandadata/console:v3.14.0
+    image: redpandadata/console:v3.15.0@sha256:aa055a971965606f89c00cc2367e38c95f93f0cb3a4ff96701cbb117af8e23f8
 volumes:
   redpanda-data:
     # The message queue's data.

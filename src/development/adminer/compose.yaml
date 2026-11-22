@@ -38,4 +38,4 @@ services:
       - source: adminer-css-4407513d
         target: /var/www/html/adminer.css
         mode: "0444"
-    image: adminer:6.3.0-standalone
+    image: adminer:6.3.0-standalone@sha256:037125c2bc4836b4917d4fd08a16f817eac2848778c4e9aab87a8340aef08dfd
