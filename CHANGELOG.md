@@ -1,3 +1,127 @@
+## [22.0.4](https://github.com/maevsi/stack/compare/22.0.3...22.0.4) (2026-11-22)
+
+### Bug Fixes
+
+* **images:** replace digests that no longer resolve ([#367](https://github.com/maevsi/stack/issues/367)) ([9e4b3bd](https://github.com/maevsi/stack/commit/9e4b3bd85a66bff065ead542ee2859ab486495bd))
+
+## [22.0.3](https://github.com/maevsi/stack/compare/22.0.2...22.0.3) (2026-11-21)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([6adc6d0](https://github.com/maevsi/stack/commit/6adc6d0f9384da5539e32ce659e698adf6571654))
+
+## [22.0.2](https://github.com/maevsi/stack/compare/22.0.1...22.0.2) (2026-11-20)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([4f281b1](https://github.com/maevsi/stack/commit/4f281b17f844d1e1766761e2ad766cb3ea05a627))
+
+## [22.0.1](https://github.com/maevsi/stack/compare/22.0.0...22.0.1) (2026-11-19)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/zammad/zammad docker tag to v7.2.3-0016 ([#365](https://github.com/maevsi/stack/issues/365)) ([187d670](https://github.com/maevsi/stack/commit/187d67031a044faf6c610747ab1aeb03de6ef649))
+
+## [22.0.0](https://github.com/maevsi/stack/compare/21.10.9...22.0.0) (2026-11-19)
+
+### ⚠ BREAKING CHANGES
+
+* **reccoom:** upgrade to v0.24 (#357)
+* **sqitch:** upgrade to v13 (#333)
+
+### Features
+
+* **reccoom:** upgrade to v0.24 ([#357](https://github.com/maevsi/stack/issues/357)) ([768a44e](https://github.com/maevsi/stack/commit/768a44e10cfa0044f64ee1758c1b03eaa73dbda1))
+* **sqitch:** upgrade to v13 ([#333](https://github.com/maevsi/stack/issues/333)) ([b323266](https://github.com/maevsi/stack/commit/b3232663630a5756b973587ff12415faec1aa261))
+
+### Bug Fixes
+
+* **deps:** pin the latest releases of the bundled majors ([#356](https://github.com/maevsi/stack/issues/356)) ([806ee50](https://github.com/maevsi/stack/commit/806ee50efe05d318a79ffce31910686574023d4d))
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v13.2.12 ([#343](https://github.com/maevsi/stack/issues/343)) ([3144d3b](https://github.com/maevsi/stack/commit/3144d3b7fe6e187d917f51b28af709c54fbce14e))
+* **sqitch:** provide the gizmosql role secrets ([#359](https://github.com/maevsi/stack/issues/359)) ([20a6cc7](https://github.com/maevsi/stack/commit/20a6cc77509d5588198422d05bf448e611bde4f5))
+
+## [22.0.0-beta.5](https://github.com/maevsi/stack/compare/22.0.0-beta.4...22.0.0-beta.5) (2026-11-18)
+
+### Bug Fixes
+
+* **sqitch:** provide the gizmosql role secrets ([#359](https://github.com/maevsi/stack/issues/359)) ([20a6cc7](https://github.com/maevsi/stack/commit/20a6cc77509d5588198422d05bf448e611bde4f5))
+
+## [22.0.0-beta.4](https://github.com/maevsi/stack/compare/22.0.0-beta.3...22.0.0-beta.4) (2026-11-18)
+
+### ⚠ BREAKING CHANGES
+
+* **reccoom:** upgrade to v0.24 (#357)
+
+### Features
+
+* **reccoom:** upgrade to v0.24 ([#357](https://github.com/maevsi/stack/issues/357)) ([768a44e](https://github.com/maevsi/stack/commit/768a44e10cfa0044f64ee1758c1b03eaa73dbda1))
+
+## [22.0.0-beta.3](https://github.com/maevsi/stack/compare/22.0.0-beta.2...22.0.0-beta.3) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([c3d1578](https://github.com/maevsi/stack/commit/c3d157823bb4fae050b923c9f5cbe8fc250e1d6f))
+* **deps:** pin dependencies ([afe5924](https://github.com/maevsi/stack/commit/afe5924902fddd8751372c4347348abc40711a89))
+* **deps:** pin the latest releases of the bundled majors ([#356](https://github.com/maevsi/stack/issues/356)) ([806ee50](https://github.com/maevsi/stack/commit/806ee50efe05d318a79ffce31910686574023d4d))
+* **deps:** update all non-major dependencies ([e615561](https://github.com/maevsi/stack/commit/e61556157903adfc7f798b6a02bb184f1b032854))
+* **deps:** update ghcr.io/zammad/zammad docker tag to v7.2.3-0011 ([f2cc809](https://github.com/maevsi/stack/commit/f2cc80917680e34f5f6ff15494841fc8d19cc56e))
+* **docker-socket-proxy:** follow the lts image ([#354](https://github.com/maevsi/stack/issues/354)) ([7c812ec](https://github.com/maevsi/stack/commit/7c812ecb3d09a1155e5bfd740b5a6a6854be183a))
+* **postgres-backup:** probe health quickly during startup ([#345](https://github.com/maevsi/stack/issues/345)) ([e22d10e](https://github.com/maevsi/stack/commit/e22d10efe44d5746d69294b5a4a72f7fe065922c))
+* **vibetype:** correct openai api key variable name ([#351](https://github.com/maevsi/stack/issues/351)) ([c5d1d72](https://github.com/maevsi/stack/commit/c5d1d72f9c01aeee0648d42fb95fbdfe86da1eba))
+
+## [22.0.0-beta.2](https://github.com/maevsi/stack/compare/22.0.0-beta.1...22.0.0-beta.2) (2026-11-16)
+
+### Bug Fixes
+
+* **deps:** update ghcr.io/maevsi/sqitch docker tag to v13.2.12 ([#343](https://github.com/maevsi/stack/issues/343)) ([3144d3b](https://github.com/maevsi/stack/commit/3144d3b7fe6e187d917f51b28af709c54fbce14e))
+
+## [22.0.0-beta.1](https://github.com/maevsi/stack/compare/21.10.3...22.0.0-beta.1) (2026-11-11)
+
+### ⚠ BREAKING CHANGES
+
+* **sqitch:** upgrade to v13 (#333)
+
+### Features
+
+* **sqitch:** upgrade to v13 ([#333](https://github.com/maevsi/stack/issues/333)) ([b323266](https://github.com/maevsi/stack/commit/b3232663630a5756b973587ff12415faec1aa261))
+
+## [21.10.9](https://github.com/maevsi/stack/compare/21.10.8...21.10.9) (2026-11-18)
+
+### Bug Fixes
+
+* **docker-socket-proxy:** follow the lts image ([#354](https://github.com/maevsi/stack/issues/354)) ([7c812ec](https://github.com/maevsi/stack/commit/7c812ecb3d09a1155e5bfd740b5a6a6854be183a))
+
+## [21.10.8](https://github.com/maevsi/stack/compare/21.10.7...21.10.8) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([c3d1578](https://github.com/maevsi/stack/commit/c3d157823bb4fae050b923c9f5cbe8fc250e1d6f))
+* **deps:** update ghcr.io/zammad/zammad docker tag to v7.2.3-0011 ([f2cc809](https://github.com/maevsi/stack/commit/f2cc80917680e34f5f6ff15494841fc8d19cc56e))
+
+## [21.10.7](https://github.com/maevsi/stack/compare/21.10.6...21.10.7) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([e615561](https://github.com/maevsi/stack/commit/e61556157903adfc7f798b6a02bb184f1b032854))
+
+## [21.10.6](https://github.com/maevsi/stack/compare/21.10.5...21.10.6) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([afe5924](https://github.com/maevsi/stack/commit/afe5924902fddd8751372c4347348abc40711a89))
+
+## [21.10.5](https://github.com/maevsi/stack/compare/21.10.4...21.10.5) (2026-11-18)
+
+### Bug Fixes
+
+* **vibetype:** correct openai api key variable name ([#351](https://github.com/maevsi/stack/issues/351)) ([c5d1d72](https://github.com/maevsi/stack/commit/c5d1d72f9c01aeee0648d42fb95fbdfe86da1eba))
+
+## [21.10.4](https://github.com/maevsi/stack/compare/21.10.3...21.10.4) (2026-11-16)
+
+### Bug Fixes
+
+* **postgres-backup:** probe health quickly during startup ([#345](https://github.com/maevsi/stack/issues/345)) ([e22d10e](https://github.com/maevsi/stack/commit/e22d10efe44d5746d69294b5a4a72f7fe065922c))
+
 ## [21.10.3](https://github.com/maevsi/stack/compare/21.10.2...21.10.3) (2026-11-09)
 
 ### Performance Improvements

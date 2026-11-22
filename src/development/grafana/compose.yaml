@@ -40,7 +40,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    image: grafana/grafana:13.3.1
+    image: grafana/grafana:13.3.1@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf
     secrets:
       - grafana-admin-email
       - grafana-admin-password

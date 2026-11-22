@@ -17,6 +17,7 @@ applyTo: '**'
 
 **Cross-service contracts** (policies two or more services must implement identically, with no code shared between them):
 - [docs/password-strength.md](docs/password-strength.md): Password strength requirements enforced by `vibetype` and `postgraphile`
+- [docs/release-bundle.md](docs/release-bundle.md): What counts as a breaking change across services, how such changes wait on `beta` branches and how their majors are released together
 
 ## Code Style
 
@@ -38,6 +39,7 @@ applyTo: '**'
   2. simplified dependency name, e.g. `dargstack`, `docker`
   3. area, e.g. `secrets`, `volumes`, `certificates`
 - Commit bodies are only to be filled in when necessary, e.g. to mention a resolved issue link
+- A new major of a service is pinned through a pull request against `beta`, never `main`; see [docs/release-bundle.md](docs/release-bundle.md)
 
 ## Docker / dargstack
 

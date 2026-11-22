@@ -5,6 +5,12 @@ secrets:
   postgres-password:
     # The database's password.
     file: ~~/artifacts/secrets/postgres-password.secret
+  postgres-role-service-gizmosql-password:
+    # The password of the lakehouse query server's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-gizmosql-password.secret
+  postgres-role-service-gizmosql-username:
+    # The username of the lakehouse query server's database role.
+    file: ~~/artifacts/secrets/postgres-role-service-gizmosql-username.secret
   postgres-role-service-grafana-password:
     # The password of the observation dashboard's database role.
     file: ~~/artifacts/secrets/postgres-role-service-grafana-password.secret
@@ -69,7 +75,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: postgis/postgis:18-3.6-alpine
+    image: postgis/postgis:18-3.7-alpine@sha256:e1a18d273904ee86646d6d1379f318f74864a017b5aad710ed14a692212651cb
     ports: # dargstack:dev-only
       - 5432:5432 # dargstack:dev-only
     secrets:
@@ -92,13 +98,18 @@ x-dargstack:
     darwin:
       services:
         postgres:
-          image: imresamu/postgis:18-3.6-alpine
+          image: imresamu/postgis:18-3.6-alpine@sha256:f1f6a9fcccf493fa958e54cca5ad9be964ca7f6f4d2cd9cf24194bfd21ef862d
   secrets:
     postgres-db:
       type: wordlist_word
     postgres-password:
       special_characters: false
       type: random_string
+    postgres-role-service-gizmosql-password:
+      special_characters: false
+      type: random_string
+    postgres-role-service-gizmosql-username:
+      type: wordlist_word
     postgres-role-service-grafana-password:
       special_characters: false
       type: random_string
