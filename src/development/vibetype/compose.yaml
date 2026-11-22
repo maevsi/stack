@@ -12,7 +12,7 @@ secrets:
     # The root secret of the Nuxt app, e.g. for signing Open Graph image URLs.
     file: ~~/artifacts/secrets/vibetype-nuxt-app-secret.secret
   vibetype-openai-api-key:
-    # The AI provider's API key for the frontend.
+    # The AI provider's API key for the frontend and the GraphQL API's text moderation.
     file: ~~/artifacts/secrets/vibetype-openai-api-key.secret
   vibetype-scripts-proxy-secret:
     # The scripts proxy's secret.
