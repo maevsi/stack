@@ -58,6 +58,9 @@ until docker exec "$NAME" pg_isready -q -h 127.0.0.1 -U postgres -d vibetype 2> 
   sleep 1
 done
 
+# Majors before 14 expect PostGIS, which the `postgis/postgis` image created on initialization, so an empty database needs it before the old deploy.
+psql -c 'CREATE EXTENSION IF NOT EXISTS postgis'
+
 echo "Deploying $OLD..."
 sqitch "$OLD" > /dev/null
 
