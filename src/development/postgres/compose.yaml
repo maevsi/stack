@@ -61,7 +61,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: postgis/postgis:18-3.7-alpine@sha256:60530081d372b88f6b41e32b56e3e0b53dbd9d323f7f9835c5f80f74eb069ff3
+    image: postgis/postgis:19-3.7-alpine@sha256:540ea89bbcb215b1b90210fb9a0b7cdbece28b7071ae328bae17e97b0c578fb2
     ports: # dargstack:dev-only
       - 5432:5432 # dargstack:dev-only
     secrets:
