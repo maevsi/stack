@@ -1,3 +1,6 @@
+configs:
+  debezium-connector-entrypoint-f050e98d:
+    file: ./configurations/entrypoint.sh
 services:
   debezium:
     # You can see how changes in the database end up in the event stream using `redpanda-console`.
@@ -26,6 +29,10 @@ services:
   debezium-postgres-connector:
     # You can check the database connector's setup logs using `portainer`.
     command: /entrypoint.sh
+    configs:
+      - source: debezium-connector-entrypoint-f050e98d
+        target: /entrypoint.sh
+        mode: "0444"
     deploy:
       labels:
         - dargstack.profiles=event-streaming
@@ -39,8 +46,6 @@ services:
       - postgres-db
       - postgres-password
       - postgres-user
-    volumes:
-      - ./configurations/entrypoint.sh:/entrypoint.sh:ro
 volumes:
   debezium-kafka-configuration:
     # The change data capture's configuration.
