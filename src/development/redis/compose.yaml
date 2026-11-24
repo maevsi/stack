@@ -10,7 +10,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    image: redis:8.10.3-alpine@sha256:7958cfbb9d152f87dadfbc89f1b0b15938f0b81ff8982feb327476f4911935c3
+    image: redis:8.12.0-alpine@sha256:ff55e25203f915f2fe9cc1428e6da969fec257dd6e6feb71a34fd0cf3a86b289
     volumes:
       - redis-data:/data
 volumes:
