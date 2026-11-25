@@ -28,7 +28,7 @@ Services: minio, traefik, tusd, vibetype
 
 ### zammad
 
-Services: elasticsearch, memcached, postgres, redis, sqitch, traefik, zammad-backup, zammad-init, zammad-nginx, zammad-railsserver, zammad-scheduler, zammad-websocket
+Services: elasticsearch, memcached, postgres, redis, sqitch, traefik, zammad-init, zammad-nginx, zammad-railsserver, zammad-scheduler, zammad-websocket
 
 ## Services
 
@@ -179,10 +179,6 @@ You can access the upload service at [tusd.app.localhost](https://tusd.app.local
 ### vibetype
 
 You can access the main project's frontend at [app.localhost](https://app.localhost/).
-
-### zammad-backup
-
-You cannot access the helpdesk backup service via a web interface.
 
 ### zammad-init
 
