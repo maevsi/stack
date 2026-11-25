@@ -9,6 +9,9 @@ services:
     deploy:
       labels:
         - dargstack.profiles=default
+      placement:
+        constraints:
+          - node.labels.role == manager
       update_config:
         order: start-first
     environment:

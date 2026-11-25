@@ -7,6 +7,7 @@ services:
       placement:
         constraints:
           - node.labels.vibetype.storage == true
+          - node.labels.role == manager
       update_config:
         order: stop-first
     logging:

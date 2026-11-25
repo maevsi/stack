@@ -5,6 +5,9 @@ services:
         - (( append ))
         - traefik.http.routers.postgraphile-secure.tls.certresolver=default
         - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
       update_config:
         order: start-first
     image: ghcr.io/maevsi/postgraphile:3.5.1@sha256:2c9a295bbff7157f4512beda242b29c210e843f530b7c30c07669aef87c5a620

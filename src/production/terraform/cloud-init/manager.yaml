@@ -1,0 +1,34 @@
+#cloud-config
+
+packages:
+  - curl
+  - git
+  - jq
+
+runcmd:
+  # Install sops (with checksum verification)
+  - curl -fsSLo /tmp/sops "https://github.com/getsops/sops/releases/download/v3.9.4/sops-v3.9.4.linux.amd64"
+  - echo "5488e32bc471de7982ad895dd054bbab3ab91c417a118426134551e9626e4e85  /tmp/sops" | sha256sum -c
+  - install -m 755 /tmp/sops /usr/local/bin/sops
+
+  # Install yq (with checksum verification)
+  - curl -fsSLo /tmp/yq "https://github.com/mikefarah/yq/releases/download/v4.45.4/yq_linux_amd64"
+  - echo "b96de04645707e14a12f52c37e6266832e03c29e95b9b139cddcae7314466e69  /tmp/yq" | sha256sum -c
+  - install -m 755 /tmp/yq /usr/local/bin/yq
+
+  # Initialize Docker Swarm on private network
+  - docker swarm init --advertise-addr ${private_ip}
+
+  # Save join token for the worker
+  - docker swarm join-token worker -q > /root/swarm-worker-token.txt
+
+  # Label this node
+  - docker node update --label-add role=manager $(hostname)
+
+  # Install dargstack (with checksum verification)
+  - curl -fsSLo /tmp/dargstack "https://raw.githubusercontent.com/dargstack/dargstack/refs/tags/3.0.0/src/dargstack"
+  - echo "311aaed8a9fb0f82167ed329564f55677baf9b9c65342da1e36463120395b0a1  /tmp/dargstack" | sha256sum -c
+  - install -m 755 /tmp/dargstack /usr/local/bin/dargstack
+
+  # Clone the stack repository
+  - git clone ${stack_repo_url} /opt/vibetype

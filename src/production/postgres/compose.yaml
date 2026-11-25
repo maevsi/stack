@@ -8,6 +8,7 @@ services:
       placement:
         constraints:
           - node.labels.vibetype.storage == true
+          - node.labels.role == worker
       update_config:
         order: stop-first
     logging:
@@ -21,6 +22,7 @@ services:
       placement:
         constraints:
           - node.labels.vibetype.storage == true
+          - node.labels.role == worker
       update_config:
         order: stop-first
     environment:

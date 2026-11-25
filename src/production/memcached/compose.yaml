@@ -1,6 +1,9 @@
 services:
   memcached:
     deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
       update_config:
         order: start-first
     logging:

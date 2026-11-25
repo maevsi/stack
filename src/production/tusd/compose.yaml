@@ -5,6 +5,9 @@ services:
         - (( append ))
         - traefik.http.routers.tusd.middlewares=redirectscheme,tusd-cors
         - traefik.http.routers.tusd-secure.tls.certresolver=default
+      placement:
+        constraints:
+          - node.labels.role == worker
       update_config:
         order: start-first
     logging:

@@ -1,0 +1,217 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: Infrastructure
+      folder: Infrastructure
+      interval: 1m
+      rules:
+        - uid: alert-cpu-high
+          title: High CPU usage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+                intervalMs: 15000
+                maxDataPoints: 43200
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                expression: A
+                reducer: mean
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 85
+                        type: gt
+                expression: B
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            summary: CPU usage is above 85% for more than 5 minutes on {{ $labels.instance }}.
+          labels:
+            severity: warning
+          isPaused: false
+          notification_settings:
+            receiver: 'Discord'
+        - uid: alert-memory-high
+          title: High memory usage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100
+                intervalMs: 15000
+                maxDataPoints: 43200
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                expression: A
+                reducer: mean
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 90
+                        type: gt
+                expression: B
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            summary: Memory usage is above 90% for more than 5 minutes on {{ $labels.instance }}.
+          labels:
+            severity: warning
+          isPaused: false
+          notification_settings:
+            receiver: 'Discord'
+        - uid: alert-disk-low
+          title: Low disk space
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: (1 - node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"}) * 100
+                intervalMs: 15000
+                maxDataPoints: 43200
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                expression: A
+                reducer: max
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 85
+                        type: gt
+                expression: B
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            summary: Disk usage is above 85% on {{ $labels.instance }} ({{ $labels.mountpoint }}).
+          labels:
+            severity: warning
+          isPaused: false
+          notification_settings:
+            receiver: 'Discord'
+        - uid: alert-container-restart
+          title: Container restart loop
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 3600
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: changes(container_start_time_seconds{name=~".+"}[1h])
+                intervalMs: 15000
+                maxDataPoints: 43200
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                expression: A
+                reducer: max
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 5
+                        type: gt
+                expression: B
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 0s
+          annotations:
+            summary: Container {{ $labels.name }} has restarted more than 5 times in the last hour.
+          labels:
+            severity: critical
+          isPaused: false
+          notification_settings:
+            receiver: 'Discord'
+        - uid: alert-service-down
+          title: Service down
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: prometheus
+              model:
+                expr: up == 0
+                intervalMs: 15000
+                maxDataPoints: 43200
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                expression: A
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                expression: B
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 2m
+          annotations:
+            summary: Prometheus target {{ $labels.instance }} (job {{ $labels.job }}) is down.
+          labels:
+            severity: critical
+          isPaused: false
+          notification_settings:
+            receiver: 'Discord'

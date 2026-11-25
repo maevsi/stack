@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: (secrets\.enc\.yaml|terraform\.tfvars\.enc\.yaml)$
+    # Replace with the age public key from `age-keygen` output (e.g. age1abc...)
+    age: "<your-age-public-key>"

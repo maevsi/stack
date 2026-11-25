@@ -1,6 +1,9 @@
 services:
   reccoom:
     deploy:
+      placement:
+        constraints:
+          - node.labels.role == worker
       update_config:
         order: start-first
     environment:
@@ -35,6 +38,7 @@ services:
       placement:
         constraints:
           - node.labels.vibetype.storage == true
+          - node.labels.role == worker
       update_config:
         order: stop-first
     logging:

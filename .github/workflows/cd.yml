@@ -1,0 +1,56 @@
+name: CD
+
+permissions: {}
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check for major version upgrade
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
+          MAJOR="${VERSION%%.*}"
+
+          if [ -z "${{ vars.DEPLOYED_MAJOR_VERSION }}" ]; then
+            echo "::error::DEPLOYED_MAJOR_VERSION repository variable is not set."
+            exit 1
+          fi
+
+          if [ "$MAJOR" != "${{ vars.DEPLOYED_MAJOR_VERSION }}" ]; then
+            echo "::error::Major version upgrade detected (${{ vars.DEPLOYED_MAJOR_VERSION }} -> $MAJOR). Manual deployment required."
+            exit 1
+          fi
+
+      - name: Deploy to manager
+        env:
+          DEPLOY_TAG: ${{ github.event.release.tag_name }}
+          MANAGER_IPV6: ${{ secrets.MANAGER_IPV6 }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # TOFU: For stronger assurance, store the manager's host key fingerprint
+          # as a GitHub secret and write it to known_hosts instead of scanning.
+          ssh-keyscan -H "$MANAGER_IPV6" >> ~/.ssh/known_hosts 2>/dev/null
+
+          ssh -i ~/.ssh/deploy_key "root@$MANAGER_IPV6" bash -s -- "$(printf '%q' "$DEPLOY_TAG")" << 'DEPLOY'
+            set -euo pipefail
+            DEPLOY_TAG="$1"
+            cd /opt/vibetype
+            git fetch origin --tags
+            git checkout -- . && git checkout "$DEPLOY_TAG"
+            bash src/production/terraform/scripts/create-secrets.sh
+            bash src/production/terraform/scripts/generate-env.sh
+            dargstack deploy -p "$DEPLOY_TAG" --offline
+          DEPLOY
+
+          rm -f ~/.ssh/deploy_key
