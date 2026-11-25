@@ -23,9 +23,15 @@ x-zammad-service:
       target: /run/environment-variables/POSTGRESQL_USER
     - source: postgres-role-service-zammad-password
       target: /run/environment-variables/POSTGRESQL_PASS
+    - source: zammad-storage
+      target: /opt/zammad/config/zammad/storage.yml
   volumes:
     - zammad-data:/opt/zammad/storage
     - ./configurations/docker-entrypoint.sh:/opt/zammad/bin/docker-entrypoint:ro
+secrets:
+  zammad-storage:
+    # The helpdesk's attachment storage configuration.
+    file: ~~/artifacts/secrets/zammad-storage.secret
 services:
   zammad-backup:
     # You cannot access the helpdesk backup service via a web interface.
@@ -93,3 +99,17 @@ volumes:
   zammad-data:
     # The helpdesk's data.
     {}
+x-dargstack:
+  secrets:
+    zammad-storage:
+      template: |
+        s3:
+          access_key_id: '{{secret:minio-root-user}}'
+          bucket: 'vibetype-zammad'
+          endpoint: 'http://minio:9000'
+          force_path_style: true
+          region: 'eu-central-1'
+          request_checksum_calculation: 'when_required'
+          response_checksum_validation: 'when_required'
+          secret_access_key: '{{secret:minio-root-password}}'
+      type: template
