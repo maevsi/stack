@@ -34,6 +34,14 @@ scrape_configs:
           - redpanda:9644
     metrics_path: /public_metrics
 
+  - job_name: "temporal"
+    static_configs:
+      - targets: ["temporal:8000"]
+
+  - job_name: "temporal-worker"
+    static_configs:
+      - targets: ["temporal-worker:9090"]
+
   - job_name: "swarm-scheduler-exporter"
     static_configs:
       - targets: ["swarm-scheduler-exporter:8888"]

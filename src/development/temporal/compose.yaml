@@ -1,0 +1,105 @@
+secrets:
+  jobber-aws-bucket:
+    # The name of the S3 bucket the workflow worker syncs database backups to.
+    # This secret keeps the name jobber gave it because dargstack generated its value and that value is the name of the bucket that already holds production's backups.
+    # Renaming it would generate a new word and point the backups at a bucket that does not exist.
+    file: ~~/artifacts/secrets/jobber-aws-bucket.secret
+  temporal-worker-s3-access-key-id:
+    # The access key id the workflow worker uses to reach the backup bucket.
+    file: ~~/artifacts/secrets/temporal-worker-s3-access-key-id.secret
+  temporal-worker-s3-secret-access-key:
+    # The secret access key the workflow worker uses to reach the backup bucket.
+    file: ~~/artifacts/secrets/temporal-worker-s3-secret-access-key.secret
+services:
+  temporal:
+    # You cannot access the workflow orchestrator directly, use `temporal-ui`.
+    command: ["/entrypoint.sh"]
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+    entrypoint: sh
+    environment:
+      DB: postgres12
+      DB_PORT: "5432"
+      POSTGRES_SEEDS: postgres
+      PROMETHEUS_ENDPOINT: 0.0.0.0:8000
+      # `sqitch` owns the two databases, so the role does not need `CREATEDB`.
+      SKIP_DB_CREATE: "true"
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 7233 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    image: temporalio/auto-setup:1.29.1
+    secrets:
+      - postgres-role-service-temporal-password
+      - postgres-role-service-temporal-username
+    volumes:
+      - ./configurations/entrypoint.sh:/entrypoint.sh:ro
+  temporal-ui:
+    # You can access the workflow orchestrator's ui at [temporal.app.localhost](https://temporal.app.localhost/).
+    deploy:
+      labels:
+        - dargstack.profiles=analytics
+        - traefik.enable=true
+        - traefik.http.routers.temporal.entryPoints=web
+        - traefik.http.routers.temporal.middlewares=redirectscheme # dargstack:dev-only
+        - traefik.http.routers.temporal.rule=Host(`temporal.${STACK_DOMAIN}`)
+        - traefik.http.routers.temporal-secure.entryPoints=web-secure
+        - traefik.http.routers.temporal-secure.rule=Host(`temporal.${STACK_DOMAIN}`)
+        - traefik.http.routers.temporal-secure.tls.options=mintls13@file # dargstack:dev-only
+        - traefik.http.services.temporal.loadbalancer.server.port=8080
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CORS_ORIGINS: https://temporal.${STACK_DOMAIN}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    image: temporalio/ui:2.40.1
+  temporal-worker:
+    # You cannot access the workflow worker directly, use `temporal-ui`.
+    deploy:
+      labels:
+        - dargstack.development.git.ssh=git@github.com:maevsi/temporal.git
+        - dargstack.development.git.https=https://github.com/maevsi/temporal.git
+        - dargstack.profiles=analytics
+    environment:
+      S3_ENDPOINT: ${TEMPORAL_WORKER_S3_ENDPOINT}
+      S3_REGION: ${TEMPORAL_WORKER_S3_REGION}
+      S3_USE_PATH_STYLE: ${TEMPORAL_WORKER_S3_USE_PATH_STYLE}
+      TEMPORAL_HOST_PORT: temporal:7233
+    image: vibetype/temporal:development
+    secrets:
+      - source: jobber-aws-bucket
+        target: /run/environment-variables/S3_BUCKET
+      - source: temporal-worker-s3-access-key-id
+        target: /run/environment-variables/S3_ACCESS_KEY_ID
+      - source: temporal-worker-s3-secret-access-key
+        target: /run/environment-variables/S3_SECRET_ACCESS_KEY
+    volumes: # dargstack:dev-only
+      - ~~~/temporal/:/srv/app/ # dargstack:dev-only
+      - temporal-worker-data:/home/go/go/pkg/mod # dargstack:dev-only
+      - temporal-worker-backup-data:/backups/ # dargstack:dev-only
+volumes:
+  temporal-worker-backup-data:
+    # The workflow worker's backup source directory.
+    # Production mounts the database backup's data here instead.
+    # Development keeps an empty volume so the backup workflow is a no-op rather than a recurring failure.
+    {}
+  temporal-worker-data:
+    # The workflow worker's Go module cache.
+    {}
+x-dargstack:
+  secrets:
+    jobber-aws-bucket:
+      type: wordlist_word
+    temporal-worker-s3-access-key-id:
+      template: "{{secret:minio-root-user}}"
+      type: template
+    temporal-worker-s3-secret-access-key:
+      template: "{{secret:minio-root-password}}"
+      type: template
