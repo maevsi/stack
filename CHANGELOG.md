@@ -1,3 +1,9 @@
+## [22.2.0](https://github.com/maevsi/stack/compare/22.1.4...22.2.0) (2026-11-25)
+
+### Features
+
+* **zammad:** remove backup service ([#375](https://github.com/maevsi/stack/issues/375)) ([dd1ad0e](https://github.com/maevsi/stack/commit/dd1ad0ed2dacb337fc372567831d56ca49ec3aec))
+
 ## [22.1.4](https://github.com/maevsi/stack/compare/22.1.3...22.1.4) (2026-11-25)
 
 ### Bug Fixes
