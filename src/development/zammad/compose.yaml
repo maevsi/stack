@@ -90,6 +90,7 @@ volumes:
   zammad-backup-data:
     # The helpdesk backup's data.
     {}
+  # Keep this volume even while attachments are stored in the database, which is the default: if the storage backend is switched to the filesystem without it, attachments are written into the container and lost on its next restart.
   zammad-data:
     # The helpdesk's data.
     {}
