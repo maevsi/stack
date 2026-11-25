@@ -1,3 +1,9 @@
+## [22.1.2](https://github.com/maevsi/stack/compare/22.1.1...22.1.2) (2026-11-25)
+
+### Bug Fixes
+
+* **deps:** update maevsi images ([8847fbe](https://github.com/maevsi/stack/commit/8847fbecf593d480ba91ab27cbeaf1a694684a3e))
+
 ## [22.1.1](https://github.com/maevsi/stack/compare/22.1.0...22.1.1) (2026-11-24)
 
 ### Bug Fixes
