@@ -7,7 +7,7 @@ services:
         - traefik.http.routers.postgraphile-secure-ruru.tls.certresolver=default
       update_config:
         order: start-first
-    image: ghcr.io/maevsi/postgraphile:3.5.1@sha256:2c9a295bbff7157f4512beda242b29c210e843f530b7c30c07669aef87c5a620
+    image: ghcr.io/maevsi/postgraphile:3.5.2@sha256:e5349084048432498e64d090924fe517f0116b3e6b7a8ec0f31cf6a3c97444f8
     logging:
       driver: json-file
       options:
