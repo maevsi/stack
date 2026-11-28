@@ -3,5 +3,5 @@ services:
     deploy:
       update_config:
         order: stop-first
-    image: ghcr.io/maevsi/sqitch:13.14.2@sha256:f705c7ef54f4f19cfc2a477aa55d706d9a1c6b0235de8886718380f8162cb841
+    image: ghcr.io/maevsi/sqitch:13.14.3@sha256:f8671d20dcb90f1bac07fa708375ea852f218e3225cb3212e259435f0b2ccc1e
     volumes: (( prune ))
