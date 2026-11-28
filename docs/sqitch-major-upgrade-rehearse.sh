@@ -44,7 +44,7 @@ EOF
 }
 
 docker network create "$NAME" > /dev/null
-docker run -d --name "$NAME" --network "$NAME" -e POSTGRES_DB=vibetype -e POSTGRES_PASSWORD=postgres postgis/postgis:18-3.6-alpine > /dev/null
+docker run -d --name "$NAME" --network "$NAME" -e POSTGRES_DB=vibetype -e POSTGRES_PASSWORD=postgres ghcr.io/maevsi/postgres:1.0.0 > /dev/null
 # the image's init phase runs a temporary server on the socket only, so tcp answers once the real one is up
 # A failing `docker exec` looks like a server that is not up yet, so give up after two minutes and show its error.
 WAITED=0

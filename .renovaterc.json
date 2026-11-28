@@ -8,16 +8,6 @@
       "matchStrings": [
         "#\\s+renovate:\\s+datasource=github-releases\\s+depName=(?<depName>\\S+)\\s+\\w+:\\s+(?<currentValue>\\S+)"
       ]
-    },
-    {
-      "autoReplaceStringTemplate": "image: {{{depName}}}:{{{newValue}}}{{#if newDigest}}@{{{newDigest}}}{{/if}}",
-      "customType": "regex",
-      "datasourceTemplate": "docker",
-      "description": "the docker-compose manager skips images nested below an extension key, like a dargstack platform override",
-      "managerFilePatterns": ["/^src/development/postgres/compose\\.yaml$/"],
-      "matchStrings": [
-        "image:\\s+(?<depName>imresamu/postgis):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
-      ]
     }
   ],
   "extends": ["github>dargmuesli/renovate-config"],

@@ -152,7 +152,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: pgvector/pgvector:0.8.7-pg18@sha256:38681dc6eaf55308e2a4c6de392d131652dcfac70e1263e35cd9b5ea3fe39782
+    image: ghcr.io/maevsi/postgres:1.0.0@sha256:bc38cf3f0650cd3c438cb2f8a8c3dacfa4ca4caf712883b96f9f2380462f333a
     ports: # dargstack:dev-only
       - 5433:5432 # dargstack:dev-only
     secrets:

@@ -1,92 +1,35 @@
-## [22.2.6](https://github.com/maevsi/stack/compare/22.2.5...22.2.6) (2026-11-28)
-
-### Bug Fixes
-
-* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.66.0 ([c33a49c](https://github.com/maevsi/stack/commit/c33a49c5ceb8cc8efba417002acf95e5b84b950e))
-
-## [22.2.5](https://github.com/maevsi/stack/compare/22.2.4...22.2.5) (2026-11-27)
-
-### Bug Fixes
-
-* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.64.0 ([ce770ef](https://github.com/maevsi/stack/commit/ce770ef5bdfd2340d18a86ae5eb5c5ae1ae2a186))
-
-## [22.2.4](https://github.com/maevsi/stack/compare/22.2.3...22.2.4) (2026-11-27)
-
-### Bug Fixes
-
-* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.62.0 ([4daa248](https://github.com/maevsi/stack/commit/4daa248717eab33c12e6bd8daf9b2b5904281576))
-
-## [22.2.3](https://github.com/maevsi/stack/compare/22.2.2...22.2.3) (2026-11-27)
-
-### Bug Fixes
-
-* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.61.5 ([7d7836e](https://github.com/maevsi/stack/commit/7d7836e9e49c3f400f46c950f67c3919c49ed0ec))
-
-## [22.2.2](https://github.com/maevsi/stack/compare/22.2.1...22.2.2) (2026-11-26)
-
-### Bug Fixes
-
-* **deps:** update maevsi images ([4f55931](https://github.com/maevsi/stack/commit/4f5593154589def22244103cd2e1087f2878f050))
-
-## [22.2.1](https://github.com/maevsi/stack/compare/22.2.0...22.2.1) (2026-11-25)
-
-### Bug Fixes
-
-* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.61.2 ([fc7d8b5](https://github.com/maevsi/stack/commit/fc7d8b5f9b60f209be5fc10de004f032ffa43361))
-
-## [22.2.0](https://github.com/maevsi/stack/compare/22.1.4...22.2.0) (2026-11-25)
-
-### Features
-
-* **zammad:** remove backup service ([#375](https://github.com/maevsi/stack/issues/375)) ([dd1ad0e](https://github.com/maevsi/stack/commit/dd1ad0ed2dacb337fc372567831d56ca49ec3aec))
-
-## [22.1.4](https://github.com/maevsi/stack/compare/22.1.3...22.1.4) (2026-11-25)
-
-### Bug Fixes
-
-* **deps:** update maevsi images ([1166ab2](https://github.com/maevsi/stack/commit/1166ab2363d1f1268eb1077a20b1d8d3f787f9cb))
-
-## [22.1.3](https://github.com/maevsi/stack/compare/22.1.2...22.1.3) (2026-11-25)
-
-### Bug Fixes
-
-* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.60.0 ([fc3b8b6](https://github.com/maevsi/stack/commit/fc3b8b6e6c62c1cdc753adff2e9f4bc2384b0c72))
-
-## [22.1.2](https://github.com/maevsi/stack/compare/22.1.1...22.1.2) (2026-11-25)
-
-### Bug Fixes
-
-* **deps:** update maevsi images ([8847fbe](https://github.com/maevsi/stack/commit/8847fbecf593d480ba91ab27cbeaf1a694684a3e))
-
-## [22.1.1](https://github.com/maevsi/stack/compare/22.1.0...22.1.1) (2026-11-24)
-
-### Bug Fixes
-
-* **deps:** update all non-major dependencies ([24c2d19](https://github.com/maevsi/stack/commit/24c2d19cd8fd5734db9038e7383b23633a77c073))
-
-## [22.1.0](https://github.com/maevsi/stack/compare/22.0.5...22.1.0) (2026-11-22)
+## [23.0.0-beta.2](https://github.com/maevsi/stack/compare/23.0.0-beta.1...23.0.0-beta.2) (2026-11-28)
 
 ### Features
 
 * **postgraphile:** pass the openai api key ([#369](https://github.com/maevsi/stack/issues/369)) ([adae197](https://github.com/maevsi/stack/commit/adae1976ef481c202cc64c92086a4623ad893d44))
-
-## [22.0.5](https://github.com/maevsi/stack/compare/22.0.4...22.0.5) (2026-11-22)
+* **zammad:** remove backup service ([#375](https://github.com/maevsi/stack/issues/375)) ([dd1ad0e](https://github.com/maevsi/stack/commit/dd1ad0ed2dacb337fc372567831d56ca49ec3aec))
 
 ### Bug Fixes
 
 * **compose:** forward stop signals to setup jobs ([#368](https://github.com/maevsi/stack/issues/368)) ([215cb15](https://github.com/maevsi/stack/commit/215cb15920b6aa5aeffb92b07e323b79733ad1ed))
-
-## [22.0.4](https://github.com/maevsi/stack/compare/22.0.3...22.0.4) (2026-11-22)
-
-### Bug Fixes
-
+* **deps:** update all non-major dependencies ([24c2d19](https://github.com/maevsi/stack/commit/24c2d19cd8fd5734db9038e7383b23633a77c073))
+* **deps:** update all non-major dependencies ([6adc6d0](https://github.com/maevsi/stack/commit/6adc6d0f9384da5539e32ce659e698adf6571654))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.60.0 ([fc3b8b6](https://github.com/maevsi/stack/commit/fc3b8b6e6c62c1cdc753adff2e9f4bc2384b0c72))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.61.2 ([fc7d8b5](https://github.com/maevsi/stack/commit/fc7d8b5f9b60f209be5fc10de004f032ffa43361))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.61.5 ([7d7836e](https://github.com/maevsi/stack/commit/7d7836e9e49c3f400f46c950f67c3919c49ed0ec))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.62.0 ([4daa248](https://github.com/maevsi/stack/commit/4daa248717eab33c12e6bd8daf9b2b5904281576))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.64.0 ([ce770ef](https://github.com/maevsi/stack/commit/ce770ef5bdfd2340d18a86ae5eb5c5ae1ae2a186))
+* **deps:** update ghcr.io/maevsi/vibetype docker tag to v17.66.0 ([c33a49c](https://github.com/maevsi/stack/commit/c33a49c5ceb8cc8efba417002acf95e5b84b950e))
+* **deps:** update maevsi images ([4f55931](https://github.com/maevsi/stack/commit/4f5593154589def22244103cd2e1087f2878f050))
+* **deps:** update maevsi images ([1166ab2](https://github.com/maevsi/stack/commit/1166ab2363d1f1268eb1077a20b1d8d3f787f9cb))
+* **deps:** update maevsi images ([8847fbe](https://github.com/maevsi/stack/commit/8847fbecf593d480ba91ab27cbeaf1a694684a3e))
 * **images:** replace digests that no longer resolve ([#367](https://github.com/maevsi/stack/issues/367)) ([9e4b3bd](https://github.com/maevsi/stack/commit/9e4b3bd85a66bff065ead542ee2859ab486495bd))
 
-## [22.0.3](https://github.com/maevsi/stack/compare/22.0.2...22.0.3) (2026-11-21)
+## [23.0.0-beta.1](https://github.com/maevsi/stack/compare/22.0.2...23.0.0-beta.1) (2026-11-20)
 
-### Bug Fixes
+### ⚠ BREAKING CHANGES
 
-* **deps:** update all non-major dependencies ([6adc6d0](https://github.com/maevsi/stack/commit/6adc6d0f9384da5539e32ce659e698adf6571654))
+* **postgres:** use the vibetype image for both databases (#366)
+
+### Features
+
+* **postgres:** use the vibetype image for both databases ([#366](https://github.com/maevsi/stack/issues/366)) ([2864f48](https://github.com/maevsi/stack/commit/2864f489686aff178d7a8c8888365e15e1f57a64))
 
 ## [22.0.2](https://github.com/maevsi/stack/compare/22.0.1...22.0.2) (2026-11-20)
 
