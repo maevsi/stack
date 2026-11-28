@@ -37,7 +37,7 @@ jobs:
       - name: Install dargstack
         env:
           # renovate: datasource=github-releases depName=dargstack/dargstack
-          DARGSTACK_VERSION: v4.23.0
+          DARGSTACK_VERSION: v4.24.0
         run: |
           ARCHIVE="dargstack_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/').tar.gz"
           curl -sfL -o "$ARCHIVE" "https://github.com/dargstack/dargstack/releases/download/$DARGSTACK_VERSION/$ARCHIVE"

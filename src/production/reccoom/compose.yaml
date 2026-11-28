@@ -5,7 +5,7 @@ services:
         order: start-first
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.24.0@sha256:a46fd7b20bd7a0ecaf7042d03ad2578847561666a001da0bedc380efa961375c
+    image: ghcr.io/maevsi/reccoom:0.24.2@sha256:e646d3b54d6a031b75cc08cfac2395380fc6941cdd6aca43669f7b9985f469ff
     logging:
       driver: json-file
       options:
@@ -17,7 +17,7 @@ services:
         order: start-first
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.24.0@sha256:a46fd7b20bd7a0ecaf7042d03ad2578847561666a001da0bedc380efa961375c
+    image: ghcr.io/maevsi/reccoom:0.24.2@sha256:e646d3b54d6a031b75cc08cfac2395380fc6941cdd6aca43669f7b9985f469ff
     logging:
       driver: json-file
       options:
@@ -29,7 +29,7 @@ services:
         order: start-first
     environment:
       SENTRY_TRACES_SAMPLE_RATE: "0.1"
-    image: ghcr.io/maevsi/reccoom:0.24.0@sha256:a46fd7b20bd7a0ecaf7042d03ad2578847561666a001da0bedc380efa961375c
+    image: ghcr.io/maevsi/reccoom:0.24.2@sha256:e646d3b54d6a031b75cc08cfac2395380fc6941cdd6aca43669f7b9985f469ff
   reccoom-postgres:
     deploy:
       placement:

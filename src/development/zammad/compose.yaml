@@ -15,7 +15,7 @@ x-zammad-service:
     POSTGRESQL_HOST: postgres
     POSTGRESQL_OPTIONS: ?pool=50
     REDIS_URL: redis://redis:6379
-  image: ghcr.io/zammad/zammad:7.2.3-0016@sha256:967c336ee4e0daaea46da9cf5642f616fd4e5db2d0b6d698d83a3cd0fba0d545
+  image: ghcr.io/zammad/zammad:7.2.3-0019@sha256:139d30075aa976b3c8650519218e3e915609f7c1238b4a49729af689547a4f84
   secrets:
     - source: elasticsearch-password
       target: /run/environment-variables/ELASTICSEARCH_PASS
@@ -27,15 +27,6 @@ x-zammad-service:
     - zammad-data:/opt/zammad/storage
     - ./configurations/docker-entrypoint.sh:/opt/zammad/bin/docker-entrypoint:ro
 services:
-  zammad-backup:
-    # You cannot access the helpdesk backup service via a web interface.
-    <<: *zammad-service
-    command: ["zammad-backup"]
-    user: 0:0
-    volumes:
-      - zammad-backup-data:/var/tmp/zammad
-      - zammad-data:/opt/zammad/storage:ro
-      - ./configurations/docker-entrypoint.sh:/opt/zammad/bin/docker-entrypoint:ro
   zammad-init:
     # You cannot access the helpdesk initialization service via a web interface.
     <<: *zammad-service
@@ -87,9 +78,7 @@ services:
     <<: *zammad-service
     command: ["zammad-websocket"]
 volumes:
-  zammad-backup-data:
-    # The helpdesk backup's data.
-    {}
+  # Keep this volume even while attachments are stored in the database, which is the default: if the storage backend is switched to the filesystem without it, attachments are written into the container and lost on its next restart.
   zammad-data:
     # The helpdesk's data.
     {}

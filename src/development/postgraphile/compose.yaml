@@ -56,6 +56,8 @@ services:
         target: /run/environment-variables/POSTGRAPHILE_OWNER_CONNECTION
       - source: postgraphile-sentry-dsn
         target: /run/environment-variables/SENTRY_DSN
+      - source: vibetype-openai-api-key
+        target: /run/environment-variables/OPENAI_API_KEY
       - source: vibetype-turnstile-key
         target: /run/environment-variables/TURNSTILE_SECRET_KEY
     configs:

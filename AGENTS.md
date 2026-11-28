@@ -24,21 +24,17 @@ applyTo: '**'
 - Do not use abbreviations in naming, except where omitting them would look unnatural
 - Use natural language in any non-code text instead of referring to code directly, e.g. "the database's password" instead of "the `postgres_password`", except when a code reference is needed
 - Use backticks in any non-code text to refer to code, e.g. "`postgres`" instead of "postgres"
-- In markdown prose, start each sentence on its own line (semantic line breaks); renders the same, but keeps diffs scoped to the sentence that changed
 - Sort YAML keys lexicographically except where order is semantically significant
 - Code formatting is done by the editor via `.editorconfig`
 
 ## Git
 
-- Work on branches other than the default branch
-  - Use this branch naming pattern: `<type>/<scope>/<description>`
-- Git commit titles must follow the Conventional Commits specification and be lowercase only
-  - The commit scope should not be repeated in the commit description, e.g. `feat(postgres): add role` instead of `feat(postgres): add postgres role`
+- Git commit titles are lowercase only
+- The commit scope should not be repeated in the commit description, e.g. `feat(postgres): add role` instead of `feat(postgres): add postgres role`
 - Git commit scopes must be chosen as follows (ordered by priority):
   1. service name, e.g. `postgres`, `traefik`, `vibetype`
   2. simplified dependency name, e.g. `dargstack`, `docker`
   3. area, e.g. `secrets`, `volumes`, `certificates`
-- Commit bodies are only to be filled in when necessary, e.g. to mention a resolved issue link
 - A new major of a service is pinned through a pull request against `beta`, never `main`; see [docs/release-bundle.md](docs/release-bundle.md)
 
 ## Docker / dargstack
