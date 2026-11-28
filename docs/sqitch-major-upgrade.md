@@ -12,6 +12,7 @@ The copy takes only the columns both generations share, so a column the major dr
 ## Before you start
 
 The new stack release has to be tagged and pin the new `sqitch`, `postgraphile` and `vibetype` versions together, as the GraphQL API changes with the schema.
+Production has to run the last release of the previous `sqitch` major first, as it fixes the rows that the new major's rules reject, like usernames that differ only in case before `sqitch` 14.
 Never deploy that release the usual way before following this procedure: its `sqitch` fails on the old database, and the new `vibetype` then runs against the old schema.
 Plan for downtime: the application is unavailable from the first step until the last.
 
@@ -93,6 +94,8 @@ psql_vibetype() {
    `sqitch` 14 drops the `unlisted` event visibility, so the script stores events created as unlisted since `sqitch` 13.10.2 as private, which behaves the same.
    It writes that change into the `_old` schema too, where it stays after a rollback.
    It also sets the new `published_at` of every existing event to the event's creation time, as all of them were visible from then on.
+   A contact's email address becomes the only entry of its new list of email addresses, so the copy reports `email_address` as left behind while its value moved.
+   The guest counts of events are computed again from the copied guests, as `sqitch` 14 counts seats and adds the count of accepted guests.
 
 6. Deploy the full release, which scales the stopped services back up against the new schema:
 

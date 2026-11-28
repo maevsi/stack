@@ -12,6 +12,11 @@ SET LOCAL session_replication_role = replica;
 -- sqitch 13.10.2 converted the stored rows, but events created as unlisted since then would fail the enum cast of the copy.
 UPDATE vibetype_old.event SET visibility = 'private' WHERE visibility = 'unlisted';
 
+-- Specific to sqitch 14: a contact's single `email_address` becomes the list `email_addresses`.
+-- A temporary column of the new name lets the generic copy take it over, and is dropped again below, so a rollback finds the old schema unchanged.
+ALTER TABLE vibetype_old.contact ADD COLUMN email_addresses TEXT[];
+UPDATE vibetype_old.contact SET email_addresses = ARRAY[email_address] WHERE email_address IS NOT NULL;
+
 DO $$
 DECLARE
   _table RECORD;
@@ -110,6 +115,19 @@ BEGIN
   END LOOP;
 END
 $$;
+
+ALTER TABLE vibetype_old.contact DROP COLUMN email_addresses;
+
+-- Specific to sqitch 14: the guest counts of events count seats, each guest plus their approved companions, and `guest_count_accepted` is new.
+-- Its triggers were skipped by the copy, so both counters are computed from the copied guests.
+UPDATE vibetype.event e
+SET (guest_count, guest_count_accepted) = (
+  SELECT
+    COALESCE(SUM(1 + g.companion_count), 0),
+    COALESCE(SUM(1 + g.companion_count) FILTER (WHERE COALESCE(g.feedback_override, g.feedback) = 'accepted'), 0)
+  FROM vibetype.guest g
+  WHERE g.event_id = e.id
+);
 
 -- Specific to sqitch 14: `published_at` is new, so the copy filled it with the time of the upgrade.
 -- Every existing event was visible from its creation on, so that is when it counts as published.
