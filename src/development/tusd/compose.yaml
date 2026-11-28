@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    image: tusproject/tusd:v2.10.2@sha256:7acbe6a865f9c48169b63f73e5ce34b33d436c1f68ad0f3722848cb6f6b9ea8d
+    image: tusproject/tusd:v2.10.3@sha256:96c48f09e37eb61d9d9afb538e172aadd77c9feb0a29f11c43c521b7dc332286
     secrets:
       - source: tusd-aws
         target: /home/tusd/.aws/credentials

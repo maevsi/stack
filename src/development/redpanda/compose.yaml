@@ -27,7 +27,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-    image: redpandadata/redpanda:v26.2.7@sha256:43545ee03966431f5451e0b3c1e651b39fbe3eb383360220311021f50133b649
+    image: redpandadata/redpanda:v26.3.1@sha256:260532f70fd840bf2159106bd4ef900f199c1f5ca2a23cb362642320513b90f5
     volumes:
       - redpanda-data:/var/lib/redpanda/data
   redpanda-cluster-config:
@@ -41,6 +41,7 @@ services:
         condition: on-failure
     entrypoint: sh
     image: curlimages/curl:8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
+    init: true # forwards stop signals, as the waiting `sh` on PID 1 ignores them
     volumes:
       - ./configurations/cluster-config.sh:/entrypoint.sh:ro
   redpanda-console:

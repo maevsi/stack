@@ -11,5 +11,24 @@
     }
   ],
   "extends": ["github>dargmuesli/renovate-config"],
-  "ignorePaths": ["src/production/minio/compose.yaml"]
+  "ignorePaths": ["src/production/minio/compose.yaml"],
+  "packageRules": [
+    {
+      "description": "debezium rebuilds its tags nightly and quay deletes the old manifest, so a pinned digest stops resolving within a day",
+      "matchPackageNames": ["quay.io/debezium/connect"],
+      "pinDigests": false
+    },
+    {
+      "description": "docker versioning cannot compare a timestamp tag",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["pgsty/silo"],
+      "versioning": "regex:^RELEASE\\.(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})T\\d{2}-\\d{2}-\\d{2}Z$"
+    },
+    {
+      "description": "the stack's own application images ship features users wait for, so they update when released instead of on the weekly schedule, in a group of their own as a group shares one schedule",
+      "groupName": "maevsi images",
+      "matchPackageNames": ["ghcr.io/maevsi/**"],
+      "schedule": ["at any time"]
+    }
+  ]
 }
