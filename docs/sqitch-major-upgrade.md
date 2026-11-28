@@ -5,13 +5,14 @@ Its plan no longer matches the change history recorded in a database deployed by
 The database therefore goes through a dump, upgrade and restore cycle, and the stack release that pins the new `sqitch` major is a major release itself.
 
 The procedure below keeps the data in the same database instead of round-tripping it through a file.
-The old schemas are renamed out of the way, the new major deploys fresh schemas next to them, and `sqitch-major-upgrade-<major>.sql` copies the data across, currently [`sqitch-major-upgrade-13.sql`](sqitch-major-upgrade-13.sql).
+The old schemas are renamed out of the way, the new major deploys fresh schemas next to them, and `sqitch-major-upgrade-<major>.sql` copies the data across, currently [`sqitch-major-upgrade-14.sql`](sqitch-major-upgrade-14.sql).
 Its copy is generic, while the parts marked as specific to a major fix data the new rules reject and rebuild derived data, so the next major starts from a copy of the file with those parts replaced.
 The copy takes only the columns both generations share, so a column the major dropped, or one that was applied by hand and never made it into a release, is reported and left behind instead of failing the restore.
 
 ## Before you start
 
 The new stack release has to be tagged and pin the new `sqitch`, `postgraphile` and `vibetype` versions together, as the GraphQL API changes with the schema.
+Production has to run the last release of the previous `sqitch` major first, as it fixes the rows that the new major's rules reject, like usernames that differ only in case before `sqitch` 14.
 Never deploy that release the usual way before following this procedure: its `sqitch` fails on the old database, and the new `vibetype` then runs against the old schema.
 Plan for downtime: the application is unavailable from the first step until the last.
 
@@ -82,7 +83,7 @@ psql_vibetype() {
 5. Copy the data:
 
    ```sh
-   psql_vibetype < docs/sqitch-major-upgrade-13.sql
+   psql_vibetype < docs/sqitch-major-upgrade-14.sql
    ```
 
    It prints one line per table with the number of rows copied and the columns left behind, and lists tables the major removed.
@@ -90,9 +91,11 @@ psql_vibetype() {
    A row that violates a constraint the major introduced aborts the copy and names the table and value.
    Fix that row in the `_old` schema, then run the script again.
 
-   Contacts with neither a linked account nor an email address violate the `contact_identity_check` of `sqitch` 13.
-   The script gives them their creator's email address with a `+vibetype` tag, like `name+vibetype@example.com`, so invitations to them reach the creator.
-   It writes that address into the `_old` schema too, where it stays after a rollback.
+   `sqitch` 14 drops the `unlisted` event visibility, so the script stores events created as unlisted since `sqitch` 13.10.2 as private, which behaves the same.
+   It writes that change into the `_old` schema too, where it stays after a rollback.
+   It also sets the new `published_at` of every existing event to the event's creation time, as all of them were visible from then on.
+   A contact's email address becomes the only entry of its new list of email addresses, so the copy reports `email_address` as left behind while its value moved.
+   The guest counts of events are computed again from the copied guests, as `sqitch` 14 counts seats and adds the count of accepted guests.
 
 6. Deploy the full release, which scales the stopped services back up against the new schema:
 
